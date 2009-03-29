@@ -1,31 +1,37 @@
-expectError "ID inexistente" modificarUsuario id=4 novoLogin="leandro" novoNome="Leandro Jose" novaSenha="senhaDeLeandro"
+idLeandro=getId login="leandro"
 
-expectError "Login invalido" modificarUsuario id=1 novoLogin="" novoNome="Leandro Jose" novaSenha="senhaDeLeandro"
+idDanilo=getId login="danilo"
 
-expectError "Senha invalida" modificarUsuario id=1 novoLogin="leandro" novoNome="Leandro Jose" novaSenha=""
+idRodrigo=getId login="rodrigo"
 
-expectError "Login jah existente" modificarUsuario id=1 novoLogin="danilo" novoNome="Leandro Jose" novaSenha="senhaDeLeandro"
+expectError "ID inexistente" modificarUsuario id=-10 novoLogin="leandro" novoNome="Leandro Jose" novaSenha="senhaDeLeandro"
 
-modificarUsuario id=1 novoLogin="leandro2" novoNome="Leandro Jose" novaSenha="senhaLeandro2"
+expectError "Login invalido" modificarUsuario id=${idLeandro} novoLogin="" novoNome="Leandro Jose" novaSenha="senhaDeLeandro"
 
-modificarUsuario id=2 novoLogin="danilo2" novoNome="Danilo" novaSenha="senhaDanilo2"
+expectError "Senha invalida" modificarUsuario id=${idLeandro} novoLogin="leandro" novoNome="Leandro Jose" novaSenha=""
 
-modificarUsuario id=3 novoLogin="rodrigo2" novoNome="" novaSenha="senhaRodrigo2"
+expectError "Login jah existente" modificarUsuario id=${idLeandro} novoLogin="danilo" novoNome="Leandro Jose" novaSenha="senhaDeLeandro"
 
-expect "leandro2" getUsuarioLogin id=1
+modificarUsuario id=${idLeandro} novoLogin="leandro2" novoNome="Leandro Jose" novaSenha="senhaLeandro2"
 
-expect "Leandro Jose" getUsuarioNome id=1
+modificarUsuario id=${idDanilo} novoLogin="danilo2" novoNome="Danilo" novaSenha="senhaDanilo2"
 
-expect "senhaLeandro2" getUsuarioSenha id=1
+modificarUsuario id=${idRodrigo} novoLogin="rodrigo2" novoNome="" novaSenha="senhaRodrigo2"
 
-expect "danilo2" getUsuarioLogin id=2
+expect "leandro2" getUsuarioLogin id=${idLeandro}
 
-expect "Danilo" getUsuarioNome id=2
+expect "Leandro Jose" getUsuarioNome id=${idLeandro}
 
-expect "senhaDanilo2" getUsuarioSenha id=2
+expect "senhaLeandro2" getUsuarioSenha id=${idLeandro}
 
-expect "rodrigo2" getUsuarioLogin id=3
+expect "danilo2" getUsuarioLogin id=${idDanilo}
 
-expect "" getUsuarioNome id=3
+expect "Danilo" getUsuarioNome id=${idDanilo}
 
-expect "senhaRodrigo2" getUsuarioSenha id=3
+expect "senhaDanilo2" getUsuarioSenha id=${idDanilo}
+
+expect "rodrigo2" getUsuarioLogin id=${idRodrigo}
+
+expect "" getUsuarioNome id=${idRodrigo}
+
+expect "senhaRodrigo2" getUsuarioSenha id=${idRodrigo}

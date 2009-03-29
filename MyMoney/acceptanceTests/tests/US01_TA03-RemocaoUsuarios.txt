@@ -1,11 +1,17 @@
-expectError "ID inexistente" removerUsuario id=4
+idLeandro=getId login="leandro"
+
+idDanilo=getId login="danilo"
+
+idRodrigo=getId login="rodrigo"
 
 expectError "ID inexistente" removerUsuario id=0
 
-removerUsuario id=1
+expectError "ID inexistente" removerUsuario id=-4
 
-expectError "ID inexistente" removerUsuario id=1
+removerUsuario id=${idLeandro}
 
-removerUsuario id=2
+expectError "ID inexistente" removerUsuario id=${idLeandro}
 
-removerUsuario id=3
+removerUsuario id=${idDanilo}
+
+removerUsuario id=${idRodrigo}
