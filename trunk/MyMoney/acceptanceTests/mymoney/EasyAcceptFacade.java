@@ -10,7 +10,7 @@ public interface EasyAcceptFacade {
 	public void limparBancoDeDados()
 		throws BancoDeDadosException;
 	
-	public void adicionarUsuario(String login, String nome, String senha) 
+	public int adicionarUsuario(String login, String nome, String senha) 
 		throws CampoInvalidoException, CampoExistenteException, BancoDeDadosException;
 
 	public void modificarUsuario(int id, String novoLogin, String novoNome, String novaSenha) 
