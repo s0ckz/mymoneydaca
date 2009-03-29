@@ -1,0 +1,25 @@
+limparBancoDeDados
+
+idUser=adicionarUsuario login="caba_rico" nome="artur" senha="123"
+idConta=adicionarConta descricao="BB" idDono=${idUser}
+
+file=echo "/home/user/file.csv"
+expectedFile=echo "/home/user/expectedFile.csv"
+
+idTran1=addTransacao idConta=${idConta} tipo="RECEITA descricao="bolsa" valor=500.0 data="20/03/2009")
+
+idTran2=addTransacao idConta=${idConta} tipo="DESPESA" descricao="academia" valor=50.0 data="31/03/2009 10:13:00"
+
+exportarTransacoes idConta=${idConta} idTransacoes=${idTran1},${idTran2} fileCSV=${file}
+
+equalFiles file1=${expectedFile} file2=${file}
+
+idConta2=adicionarConta descricao="outra conta" idDono=${idUser}
+
+importarTransacoes idConta=${idConta2} fileCSV=${file}
+
+expect 2 getNumeroTransacoes idConta=${idConta2}
+
+expect 450.0 getContaSaldo idConta=${idConta2}
+
+limparBancoDeDados
