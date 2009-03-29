@@ -64,7 +64,7 @@ expect "DESPESA" getTransacaoTipo id=${idTransacaoRodrigo1}
 
 expect "" getTransacaoDescricao id=${idTransacaoRodrigo1}
 
-expect -120.0 getTransacaoValor id=${idTransacaoRodrigo1}
+expect -60.0 getTransacaoValor id=${idTransacaoRodrigo1}
 
 expect "01/01/2001 11:13:00" getTransacaoData id=${idTransacaoRodrigo1}
 
@@ -98,3 +98,8 @@ removerTransacao id=${idTransacaoRodrigo1}
 removerTransacao id=${idTransacaoLeandro1}
 
 removerTransacao id=${idTransacaoLeandro2}
+
+
+expect "[]" getTransacoes idConta=${idContaRodrigo}
+
+expect "[]" getTransacoes idConta=${idContaLeandro}
