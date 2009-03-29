@@ -1,0 +1,11 @@
+expectError "ID inexistente" removerUsuario id=4
+
+expectError "ID inexistente" removerUsuario id=0
+
+removerUsuario id=1
+
+expectError "ID inexistente" removerUsuario id=1
+
+removerUsuario id=2
+
+removerUsuario id=3

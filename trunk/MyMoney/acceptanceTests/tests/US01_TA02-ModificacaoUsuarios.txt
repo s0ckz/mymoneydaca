@@ -1,0 +1,31 @@
+expectError "ID inexistente" modificarUsuario id=4 novoLogin="leandro" novoNome="Leandro Jose" novaSenha="senhaDeLeandro"
+
+expectError "Login invalido" modificarUsuario id=1 novoLogin="" novoNome="Leandro Jose" novaSenha="senhaDeLeandro"
+
+expectError "Senha invalida" modificarUsuario id=1 novoLogin="leandro" novoNome="Leandro Jose" novaSenha=""
+
+expectError "Login jah existente" modificarUsuario id=1 novoLogin="danilo" novoNome="Leandro Jose" novaSenha="senhaDeLeandro"
+
+modificarUsuario id=1 novoLogin="leandro2" novoNome="Leandro Jose" novaSenha="senhaLeandro2"
+
+modificarUsuario id=2 novoLogin="danilo2" novoNome="Danilo" novaSenha="senhaDanilo2"
+
+modificarUsuario id=3 novoLogin="rodrigo2" novoNome="" novaSenha="senhaRodrigo2"
+
+expect "leandro2" getUsuarioLogin id=1
+
+expect "Leandro Jose" getUsuarioNome id=1
+
+expect "senhaLeandro2" getUsuarioSenha id=1
+
+expect "danilo2" getUsuarioLogin id=2
+
+expect "Danilo" getUsuarioNome id=2
+
+expect "senhaDanilo2" getUsuarioSenha id=2
+
+expect "rodrigo2" getUsuarioLogin id=3
+
+expect "" getUsuarioNome id=3
+
+expect "senhaRodrigo2" getUsuarioSenha id=3
