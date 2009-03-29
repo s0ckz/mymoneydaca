@@ -1,0 +1,41 @@
+limparBancoDeDados
+
+idLeandro=adicionarUsuario login="leandro" nome="Leandro" senha="senhaLeandro"
+
+idRodrigo=adicionarUsuario login="rodrigo" nome="Rodrigo" senha="senhaRodrigo"
+
+idContaLeandro=adicionarConta idDono=${idLeandro} descricao="Conta de Leandro"
+
+idContaRodrigo=adicionarConta idDono=${idRodrigo} descricao="Conta de Rodrigo"
+
+idTransacaoLeandro1=addTransacaoFutura idConta=${idContaLeandro} tipo="DESPESA" descricao="" valor=60.0 dataVencimento="01/01/2011 11:13:00"
+
+expect "DESPESA" getTransacaoTipo id=${idTransacaoLeandro1}
+
+expect "" getTransacaoDescricao id=${idTransacaoLeandro1}
+
+expect -60.0 getTransacaoValor id=${idTransacaoLeandro1}
+
+expect "01/01/2001 11:13:00" getTransacaoData id=${idTransacaoLeandro1}
+
+expect 0.0 getContaSaldo idConta=${idContaLeandro}
+
+expect false isTransacaoConcluida id=${idTransacaoLeandro1}
+
+concluirTransacaoFutura id=${idTransacaoLeandro1} dataConclusao="01/01/2009 11:12:00" novoValor=40.0
+
+expect "DESPESA" getTransacaoTipo id=${idTransacaoLeandro1}
+
+expect "" getTransacaoDescricao id=${idTransacaoLeandro1}
+
+expect -60.0 getTransacaoValor id=${idTransacaoLeandro1}
+
+expect "01/01/2001 11:13:00" getTransacaoData id=${idTransacaoLeandro1}
+
+expect -40.0 getTransacaoValorConclusao id=${idTransacaoLeandro1}
+
+expect "01/01/2009 11:12:00" getTransacaoDataConclusao id=${idTransacaoLeandro1}
+
+expect -40.0 getContaSaldo idConta=${idContaLeandro}
+
+expect true isTransacaoConcluida id=${idTransacaoLeandro1}

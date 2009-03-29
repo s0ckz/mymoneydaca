@@ -5,6 +5,7 @@ import mymoney.exceptions.CampoExistenteException;
 import mymoney.exceptions.CampoInexistenteException;
 import mymoney.exceptions.CampoInvalidoException;
 import mymoney.exceptions.TransacaoInvalidaException;
+import mymoney.exceptions.TransacaoJahConcluidaException;
 import mymoney.exceptions.TransacaoNaoConcluidaException;
 
 public interface EasyAcceptFacade {
@@ -73,13 +74,6 @@ public interface EasyAcceptFacade {
     public void modificarTransacao(int id, String novoTipo, String novaDescricao, double novoValor, 
     		String novaData) 
     	throws CampoInexistenteException, CampoInvalidoException, BancoDeDadosException;
-    
-    public void concluirTransacao(int id, String dataConclusao, double novoValor)
-		throws TransacaoInvalidaException, CampoInexistenteException, CampoInvalidoException, BancoDeDadosException;
-    
-    public void modificarConclusaoTransacao(int id, String novaDataConclusao, double novoValor)
-		throws 	TransacaoInvalidaException, TransacaoNaoConcluidaException, 
-				CampoInexistenteException, CampoInvalidoException, BancoDeDadosException;
 	
 	public void removerTransacao(int id) 
 		throws CampoInexistenteException, BancoDeDadosException;
@@ -90,16 +84,7 @@ public interface EasyAcceptFacade {
 	public String getTransacaoDescricao(int id)
 		throws CampoInexistenteException, BancoDeDadosException;
 	
-	public boolean isTransacaoFutura(int id)
-	throws CampoInexistenteException, BancoDeDadosException;
-	
-	public boolean isTransacaoConcluida(int id)
-	throws CampoInexistenteException, BancoDeDadosException;
-	
 	public double getTransacaoValor(int id)
-		throws CampoInexistenteException, BancoDeDadosException;
-	
-	public double getTransacaoValorConclusao(int id)
 		throws CampoInexistenteException, BancoDeDadosException;
 	
 	public String getTransacaoData(int id)
@@ -110,6 +95,28 @@ public interface EasyAcceptFacade {
 	
 	public int[] getTransacoesEntre(int idConta, String dataInicio, String dataFim)
 		throws CampoInexistenteException, CampoInvalidoException, BancoDeDadosException;
+
+	// TRANSACOES FUTURAS = CONTAS A PAGAR / RECEBER
+    
+    public void modificarConclusaoTransacao(int id, String novaDataConclusao, double novoValor)
+		throws 	TransacaoInvalidaException, TransacaoNaoConcluidaException, 
+				CampoInexistenteException, CampoInvalidoException, BancoDeDadosException;
+    
+    public void concluirTransacaoFutura(int id, String dataConclusao, double novoValor)
+		throws 	TransacaoInvalidaException, TransacaoJahConcluidaException, CampoInexistenteException, 
+				CampoInvalidoException, BancoDeDadosException;
+	
+	public boolean isTransacaoFutura(int id)
+		throws CampoInexistenteException, BancoDeDadosException;
+	
+	public boolean isTransacaoConcluida(int id)
+		throws CampoInexistenteException, BancoDeDadosException;
+	
+	public double getTransacaoValorConclusao(int id)
+		throws CampoInexistenteException, BancoDeDadosException;
+	
+	public double getTransacaoDataConclusao(int id)
+		throws CampoInexistenteException, BancoDeDadosException;
 	
     // US-05
 
