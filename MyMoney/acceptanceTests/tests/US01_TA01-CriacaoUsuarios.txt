@@ -1,0 +1,35 @@
+limparBancoDeDados
+
+expectError "ID deve ser maior ou igual a 1" adicionarUsuario id=0 login="leandro" nome="Leandro" senha="senha"
+
+expectError "Login invalido" adicionarUsuario id=1 login="" nome="Leandro" senha="senha"
+
+expectError "Senha invalida" adicionarUsuario id=1 login="login" nome="Leandro" senha=""
+
+adicionarUsuario id=1 login="leandro" nome="Leandro" senha="senhaLeandro"
+
+expectError "ID jah existente" adicionarUsuario id=1 login="leandro" nome="Leandro" senha="senha"
+
+expectError "Login jah existente" adicionarUsuario id=2 login="leandro" nome="Leandro" senha="senha"
+
+adicionarUsuario id=2 login="danilo" nome="" senha="senhaDanilo"
+
+adicionarUsuario id=3 login="rodrigo" nome="Rodrigo" senha="senhaRodrigo"
+
+expect "leandro" getUsuarioLogin id=1
+
+expect "Leandro" getUsuarioNome id=1
+
+expect "senhaLeandro" getUsuarioSenha id=1
+
+expect "danilo" getUsuarioLogin id=2
+
+expect "" getUsuarioNome id=2
+
+expect "senhaDanilo" getUsuarioSenha id=2
+
+expect "rodrigo" getUsuarioLogin id=3
+
+expect "Rodrigo" getUsuarioNome id=3
+
+expect "senhaRodrigo" getUsuarioSenha id=3
