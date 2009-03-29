@@ -1,35 +1,31 @@
 limparBancoDeDados
 
-expectError "ID deve ser maior ou igual a 1" adicionarUsuario id=0 login="leandro" nome="Leandro" senha="senha"
+expectError "Login invalido" adicionarUsuario login="" nome="Leandro" senha="senha"
 
-expectError "Login invalido" adicionarUsuario id=1 login="" nome="Leandro" senha="senha"
+expectError "Senha invalida" adicionarUsuario login="login" nome="Leandro" senha=""
 
-expectError "Senha invalida" adicionarUsuario id=1 login="login" nome="Leandro" senha=""
+idLeandro=adicionarUsuario login="leandro" nome="Leandro" senha="senhaLeandro"
 
-adicionarUsuario id=1 login="leandro" nome="Leandro" senha="senhaLeandro"
+expectError "Login jah existente" adicionarUsuario login="leandro" nome="Leandro" senha="senha"
 
-expectError "ID jah existente" adicionarUsuario id=1 login="leandro" nome="Leandro" senha="senha"
+idDanilo=adicionarUsuario login="danilo" nome="" senha="senhaDanilo"
 
-expectError "Login jah existente" adicionarUsuario id=2 login="leandro" nome="Leandro" senha="senha"
+idRodrigo=adicionarUsuario login="rodrigo" nome="Rodrigo" senha="senhaRodrigo"
 
-adicionarUsuario id=2 login="danilo" nome="" senha="senhaDanilo"
+expect "leandro" getUsuarioLogin id=${idLeandro}
 
-adicionarUsuario id=3 login="rodrigo" nome="Rodrigo" senha="senhaRodrigo"
+expect "Leandro" getUsuarioNome id=${idLeandro}
 
-expect "leandro" getUsuarioLogin id=1
+expect "senhaLeandro" getUsuarioSenha id=${idLeandro}
 
-expect "Leandro" getUsuarioNome id=1
+expect "danilo" getUsuarioLogin id=${idDanilo}
 
-expect "senhaLeandro" getUsuarioSenha id=1
+expect "" getUsuarioNome id=${idDanilo}
 
-expect "danilo" getUsuarioLogin id=2
+expect "senhaDanilo" getUsuarioSenha id=${idDanilo}
 
-expect "" getUsuarioNome id=2
+expect "rodrigo" getUsuarioLogin id=${idRodrigo}
 
-expect "senhaDanilo" getUsuarioSenha id=2
+expect "Rodrigo" getUsuarioNome id=${idRodrigo}
 
-expect "rodrigo" getUsuarioLogin id=3
-
-expect "Rodrigo" getUsuarioNome id=3
-
-expect "senhaRodrigo" getUsuarioSenha id=3
+expect "senhaRodrigo" getUsuarioSenha id=${idRodrigo}
