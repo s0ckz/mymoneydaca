@@ -1,12 +1,17 @@
 package mymoney;
 
+import java.util.Date;
+
 import mymoney.exceptions.BancoDeDadosException;
 import mymoney.exceptions.CampoExistenteException;
 import mymoney.exceptions.CampoInexistenteException;
 import mymoney.exceptions.CampoInvalidoException;
+import mymoney.exceptions.MyMoneyException;
 import mymoney.exceptions.TransacaoInvalidaException;
 import mymoney.exceptions.TransacaoJahConcluidaException;
 import mymoney.exceptions.TransacaoNaoConcluidaException;
+import mymoney.xpto.Relatorio;
+import mymoney.xpto.Transacao;
 
 public interface EasyAcceptFacade {
 	
@@ -125,5 +130,30 @@ public interface EasyAcceptFacade {
 
     public void exportarTransacoes(int idConta, int[] transacoes, String arquivoCSV) 
     	throws CampoInexistenteException, CampoInvalidoException, BancoDeDadosException;
-	
+
+    //US-06 
+    
+    public int gerarRelatorioGeral(int idConta , String dataInicio, String dataFim) throws MyMoneyException , IllegalArgumentException;
+    
+    public int gerarRelatorioReceitas(int idConta , String dataInicio, String dataFim) throws MyMoneyException , IllegalArgumentException;
+    
+    public int gerarRelatorioDespesas(int idConta , String dataInicio, String dataFim)throws MyMoneyException, IllegalArgumentException;
+ 
+    public int gerarRelatorioTodasAsContas(String dataInicio, String dataFim) throws MyMoneyException, IllegalArgumentException;
+    
+    public Relatorio getRelatorio(int idRelatorio);
+    
+    public boolean removerRelatorio(int idRelatorio);
+    
+    
+    //US-07
+    public int geraNotificacaoReceitas(int idConta , String dataInicio , String dataFim )throws MyMoneyException;
+    
+    public int geraNotificacaoDespesas(int idConta, String dataInicio , String dataFim) throws MyMoneyException;
+        
+    public int geraNotificacoesTodasContasUsuario(int idUsuario , String dataInicio , String dataFim) throws MyMoneyException;
+    
+    
+    
+    
 }
