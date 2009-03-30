@@ -1,0 +1,18 @@
+limparBancoDeDados
+
+expectError "Conta Inexistente" geraNotificacaoReceitas idConta="00" dataInicio="14-08-2008" dataFim="21-09-2008"
+
+expectError "Usuario Inexistente" geraNotificacoesTodasContasUsuario idUsuario="00" dataInicio="14-08-2008" dataFim="21-09-2008"
+
+
+idRodrigo=adicionarUsuario login="rodrigo" nome="Rodrigo" senha="senhaRodrigo"
+idContaRodrigo=adicionarConta descricao="BB" idDono=${idRodrigo}
+
+expectError "Data Ilegal" geraNotificacaoReceitas idConta=${idContaRodrigo} dataInicio="13-02-2009" dataFim="13-01-2004"
+
+expectError "Data Ilegal" geraNotificacaoTodasContasUsuario idUsuario=${idRodrigo} dataInicio="21-02-2009" dataFim="21-03-2009"
+
+limparBancoDeDados
+
+
+

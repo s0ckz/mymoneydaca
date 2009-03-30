@@ -1,0 +1,26 @@
+limparBancoDeDados
+
+expectError "Conta Inexistente" gerarRelatorioGeral idConta="00" dataInicio="14-04-2009" dataFim="16-04-2009"
+
+idRodrigo=adicionarUsuario login="rodrigo" nome="Rodrigo" senha="senhaRodrigo"
+
+idContaRodrigo=adicionarConta descricao="BB" idDono=${idRodrigo}
+
+expectError "Data Ilegal" gerarRelatorioGeral idConta=${idContaRodrigo} dataInicio="13-02-2009" dataFim="13-01-2004"
+
+expectError "Data Ilegal" gerarRelatorioReceitas idConta=${idContaRodrigo} dataInicio="13-02-2009" dataFim="13-01-2004"
+
+expectError "Data Ilegal" gerarRelatorioDespesas  idConta=${idContaRodrigo} dataInicio="13-02-2009" dataFim="13-01-2004"
+
+expectError "Data Ilegal" gerarRelatorioTodasAsContas dataInicio="13-02-2009" dataFim="13-01-2004"
+
+expectError "Conta Inexistente" gerarRelatorioReceitas idConta="00" dataInicio="14-04-2009" dataFim="16-04-2009"
+
+expectError "Conta Inexistente" gerarRelatorioDespesas idConta="00" dataInicio="14-04-2009" dataFim="16-04-2009"
+
+limparBancoDeDados
+
+expectError "Relatorio Inexistente" removerRelatorio id="000"
+
+limparBancoDeDados
+
