@@ -57,7 +57,8 @@ public interface EasyAcceptFacade {
     public double getContaSaldo(int idConta)
 		throws CampoInexistenteException, BancoDeDadosException;
 
-    public int[] getContas(int idUsuario) 
+    // FORMATO DE SAIDA: [1, 2, 3, ...]
+    public String getContas(int idUsuario) 
     	throws CampoInexistenteException, BancoDeDadosException;
 	
 	public int getContaNumeroTransacoes(int idConta)
@@ -89,11 +90,13 @@ public interface EasyAcceptFacade {
 	
 	public String getTransacaoData(int id)
 		throws CampoInexistenteException, BancoDeDadosException;
-	
-	public int[] getTransacoes(int idConta)
+
+    // FORMATO DE SAIDA: [1, 2, 3, ...]
+	public String getTransacoes(int idConta)
 		throws CampoInexistenteException, BancoDeDadosException;
-	
-	public int[] getTransacoesEntre(int idConta, String dataInicio, String dataFim)
+
+    // FORMATO DE SAIDA: [1, 2, 3, ...]
+	public String getTransacoesEntre(int idConta, String dataInicio, String dataFim)
 		throws CampoInexistenteException, CampoInvalidoException, BancoDeDadosException;
 
 	// TRANSACOES FUTURAS = CONTAS A PAGAR / RECEBER
@@ -120,36 +123,51 @@ public interface EasyAcceptFacade {
 	
     // US-05
 
-    public int[] importarTransacoes(int idConta, String arquivoCSV) 
+    // FORMATO DE SAIDA: [1, 2, 3, ...]
+    public String importarTransacoes(int idConta, String arquivoCSV) 
     	throws CampoInexistenteException, CampoInvalidoException, BancoDeDadosException;
 
-    public void exportarTransacoes(int idConta, int[] transacoes, String arquivoCSV) 
+    // FORMATO DE ENTRADA PARA O PARAMETRO TRANSACOES: [1, 2, 3, ...]
+    public void exportarTransacoes(int idConta, String transacoes, String arquivoCSV) 
     	throws CampoInexistenteException, CampoInvalidoException, BancoDeDadosException;
 
     //US-06 
     
+    public int gerarRelatorioReceitas(int idConta , String dataInicio, String dataFim) 
+    	throws CampoInvalidoException, BancoDeDadosException ;
     
-    public int gerarRelatorioReceitas(int idConta , String dataInicio, String dataFim) throws CampoInvalidoException, BancoDeDadosException ;
+    public int gerarRelatorioDespesas(int idConta , String dataInicio, String dataFim)
+    	throws CampoInvalidoException, BancoDeDadosException;
+
+    // FORMATO DE SAIDA: [1, 2, 3, ...]
+    public int gerarRelatorioTodasAsContas(String idUsuario , String dataInicio, String dataFim)
+    	throws CampoInvalidoException, BancoDeDadosException;
+
+    // FORMATO DE SAIDA: [1, 2, 3, ...]
+    public String getRelatorioGeral(int idConta , String dataInicio, String dataFim)
+    	throws CampoInvalidoException, BancoDeDadosException;
+
+    // FORMATO DE SAIDA: [1, 2, 3, ...]
+    public String getRelatorioDespesas(int idConta , String dataInicio, String dataFim)	
+    throws CampoInexistenteException , BancoDeDadosException;
+
+    // FORMATO DE SAIDA: [1, 2, 3, ...]
+    public String getRelatorioReceitas(int idConta , String dataInicio, String dataFim)	
+    throws CampoInexistenteException , BancoDeDadosException;
     
-    public int gerarRelatorioDespesas(int idConta , String dataInicio, String dataFim)throws CampoInvalidoException, BancoDeDadosException;
- 
-    public int gerarRelatorioTodasAsContas(String idUsuario , String dataInicio, String dataFim) throws CampoInvalidoException, BancoDeDadosException;
-    
-    public int[] getRelatorioGeral(int idConta , String dataInicio, String dataFim) throws CampoInvalidoException, BancoDeDadosException;
-    
-    public int[] getRelatorioDespesas(int idConta , String dataInicio, String dataFim) throws CampoInexistenteException , BancoDeDadosException;
-    
-    public int[] getRelatorioReceitas(int idConta , String dataInicio, String dataFim) throws CampoInexistenteException , BancoDeDadosException;
-    
-    public int removerRelatorio(int idConta , int idRelatorio) throws CampoInexistenteException , BancoDeDadosException;
+    public int removerRelatorio(int idConta , int idRelatorio)	
+    throws CampoInexistenteException , BancoDeDadosException;
     
     
     //US-07
-    public int geraNotificacaoReceitas(int idConta , String dataInicio , String dataFim )throws CampoInvalidoException;
+    public int geraNotificacaoReceitas(int idConta , String dataInicio , String dataFim )
+    	throws CampoInvalidoException;
     
-    public int geraNotificacaoDespesas(int idConta, String dataInicio , String dataFim) throws CampoInvalidoException;
+    public int geraNotificacaoDespesas(int idConta, String dataInicio , String dataFim)
+    	throws CampoInvalidoException;
         
-    public int geraNotificacoesTodasContasUsuario(int idUsuario , String dataInicio , String dataFim) throws CampoInvalidoException;
+    public int geraNotificacoesTodasContasUsuario(int idUsuario , String dataInicio , String dataFim)
+    	throws CampoInvalidoException;
     
     
     

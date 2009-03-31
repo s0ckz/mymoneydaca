@@ -10,7 +10,7 @@ idTran1=addTransacao idConta=${idConta} tipo="RECEITA descricao="bolsa" valor=50
 
 idTran2=addTransacao idConta=${idConta} tipo="DESPESA" descricao="academia" valor=50.0 data="31/03/2009 10:13:00"
 
-exportarTransacoes idConta=${idConta} idTransacoes=${idTran1},${idTran2} fileCSV=${file}
+exportarTransacoes idConta=${idConta} idTransacoes="[${idTran1}, ${idTran2}]" fileCSV=${file}
 
 equalFiles file1=${expectedFile} file2=${file}
 
