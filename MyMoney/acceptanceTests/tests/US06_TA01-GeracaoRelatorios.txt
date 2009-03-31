@@ -1,22 +1,22 @@
 limparBancoDeDados
 
-expectError "Conta Inexistente" gerarRelatorioGeral idConta=00 dataInicio="14/04/2009 10:10:00" dataFim="16/04/2009 11:12:00"
+expectError "Conta inexistente" gerarRelatorioTransacoes idConta=00 dataInicio="14/04/2009 10:10:00" dataFim="16/04/2009 11:12:00"
 
 idRodrigo=adicionarUsuario login="rodrigo" nome="Rodrigo" senha="senhaRodrigo"
 
-idContaRodrigo=adicionarConta descricao="BB" idDono=${idRodrigo}
+idContaRodrigo=adicionarConta idDono=${idRodrigo} descricao="BB"
 
-expectError "Data Invalida" gerarRelatorioGeral idConta=${idContaRodrigo} dataInicio="13/02/2009 12:00:00" dataFim="13/01/2004 12:00:00"
+expectError "Data invalida" gerarRelatorioTransacoes idConta=${idContaRodrigo} dataInicio="13/02/2009 12:00:00" dataFim="13/01/2004 12:00:00"
 
-expectError "Data Invalida" gerarRelatorioReceitas idConta=${idContaRodrigo} dataInicio="13/02/2009 12:00:00" dataFim="13/01/2004 12:00:00"
+expectError "Data invalida" gerarRelatorioReceitas idConta=${idContaRodrigo} dataInicio="13/02/2009 12:00:00" dataFim="13/01/2004 12:00:00"
 
-expectError "Data Invalida" gerarRelatorioDespesas  idConta=${idContaRodrigo} dataInicio="13/02/2009 12:00:00" dataFim="13/01/2004 12:00:00"
+expectError "Data invalida" gerarRelatorioDespesas idConta=${idContaRodrigo} dataInicio="13/02/2009 12:00:00" dataFim="13/01/2004 12:00:00"
 
-expectError "Data Invalida" gerarRelatorioTodasAsContas dataInicio="13/02/2009 12:00:00" dataFim="13/01/2004 12:00:00"
+expectError "Data invalida" gerarRelatorioTodasAsContas idConta=${idContaRodrigo} dataInicio="13/02/2009 12:00:00" dataFim="13/01/2004 12:00:00"
 
-expectError "Conta Inexistente" gerarRelatorioReceitas idConta=00 dataInicio="14/04/2009 12:00:00" dataFim="16/04/2009 12:00:00"
+expectError "Conta inexistente" gerarRelatorioReceitas idConta=00 dataInicio="14/04/2009 12:00:00" dataFim="16/04/2009 12:00:00"
 
-expectError "Conta Inexistente" gerarRelatorioDespesas idConta=00 dataInicio="14/04/2009 12:00:00" dataFim="16/04/2009 12:00:00"
+expectError "Conta inexistente" gerarRelatorioDespesas idConta=00 dataInicio="14/04/2009 12:00:00" dataFim="16/04/2009 12:00:00"
 
 limparBancoDeDados
 
@@ -26,33 +26,30 @@ idContaRodrigo=adicionarConta idDono=${idRodrigo} descricao="Conta de Rodrigo"
 
 idTransacaoRodrigo1=addTransacao idConta=${idContaRodrigo} tipo="DESPESA" descricao="" valor=60.0 data="01/01/2008 11:13:00"
 
-idRelatorioDespesaRodrigo=gerarRelatorioDespesas idConta=${idContaRodrigo} dataInicio="01/01/2001 11:00:00" dataFim="02/01/2001 11:00:00"
+idRelatorioDespesaRodrigo=gerarRelatorioDespesas idConta=${idContaRodrigo} dataInicio="01/01/2001 11:00:00" dataFim="02/01/2009 11:00:00"
 
-expect "[${idRelatorioDespesaRodrigo}]" getRelatorioDespesas idConta=${idContaRodrigo} dataInicio="01/01/2001 11:00:00" dataFim="02/01/2001 11:00:00"
+expect [${idTransacaoRodrigo1}] getRelatorioDespesas id=${idRelatorioDespesaRodrigo} dataInicio="01/01/2001 11:00:00" dataFim="02/01/2009 11:00:00"
 
 idTransacaoRodrigo2=addTransacao idConta=${idContaRodrigo} tipo="RECEITA" descricao="" valor=100.0 data="02/01/2008 12:00:00"
 
-idRelatorioReceitaRodrigo=gerarRelatorioReceitas idConta=${idContaRodrigo} dataInicio="02/01/2008 12:00:00" dataFim="03/01/2008 12:00:00"
+idRelatorioReceitaRodrigo=gerarRelatorioReceitas idConta=${idContaRodrigo} dataInicio="02/01/2008 12:00:00" dataFim="03/01/2009 12:00:00"
 
-expect "[${idRelatorioReceitaRodrigo}]" getRelatorioReceitas idConta=${idContaRodrigo} dataInicio="02/01/2008 11:00:00" dataFim="02/01/2008 13:00:00"
+expect [${idTransacaoRodrigo2}] getRelatorioReceitas id=${idRelatorioReceitaRodrigo} dataInicio="02/01/2008 11:00:00" dataFim="02/01/2009 13:00:00"
 
-expect "[${idRelatorioDespesaRodrigo} , ${idRelatorioReceitaRodrigo} ]" getRelatorioGeral idConta=${idContaRodrigo} dataInicio="01/01/2008 00:00:00" dataFim="02/01/2008 14:00:00"
+idRelatorioTransacoesRodrigo=gerarRelatorioTransacoes idConta=${idContaRodrigo} dataInicio="02/01/2000 12:00:00" dataFim="03/01/2009 12:00:00"
 
-expectError "Relatorio Inexistente" removerRelatorio idConta=${idContaRodrigo} idRelatorio="000"
+expected=echo [${idTransacaoRodrigo1}, ${idTransacaoRodrigo2}]
+expect ${expected} getRelatorioTransacoes id=${idRelatorioTransacoesRodrigo} dataInicio="01/01/2008 00:00:00" dataFim="02/01/2009 14:00:00"
 
-expectError "Conta Invalica" removerRelatorio idConta=000 idRelatorio=${idRelatorioReceitaRodrigo}
+expectError "Relatorio inexistente" removerRelatorio idRelatorio="000"
 
-idRelatorioRemovido1=removerRelatorio idConta=${idContaRodrigo} idRelatorio=${idRelatorioDespesaRodrigo}
+removerRelatorio idRelatorio=${idRelatorioDespesaRodrigo}
 
-expect "[]"  getRelatorioDespesas idConta=${idContaRodrigo} idRelatorio=${idRelatorioDespesaRodrigo}
+expectError "Relatorio inexistente" removerRelatorio idRelatorio=${idRelatorioDespesaRodrigo}
 
-idRelatorioRemovido2=removerRelatorio idConta=${idContaRodrigo} idRelatorio=${idRelatorioReceitaRodrigo}
+removerRelatorio idRelatorio=${idRelatorioTransacoesRodrigo}
 
-expect "[]"  getRelatorioReceita idConta=${idContaRodrigo} idRelatorio=${idRelatorioReceitaRodrigo}
-
-expect "[]"  getRelatorioGeral idConta=${idContaRodrigo} idConta=${idContaRodrigo} dataInicio="01/01/2008 00:00:00" dataFim="02/01/2008 14:00:00"
-
-
+removerRelatorio idRelatorio=${idRelatorioReceitaRodrigo}
 
 limparBancoDeDados
 
