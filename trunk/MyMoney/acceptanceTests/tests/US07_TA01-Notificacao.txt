@@ -43,10 +43,10 @@ alterarDataSistema data="22/02/2005 13:00:00"
 
 expect "" getNotificacoesTodasContasUsuario idUsuario=idRodrigo dataInicio="22/01/2005 11:00:00" dataFim="22/02/2005 13:00:00"
 
-idTransacaoRodrigo1=addTransacao idConta=${idContaRodrigo} tipo="RECEITA" descricao="Salario" valor=1000.0 dataVencimento="22/02/2005 14:00:00"
+idTransacaoRodrigo1=addTransacaoFutura idConta=${idContaRodrigo} tipo="RECEITA" descricao="Salario" valor=1000.0 dataVencimento="23/02/2005 14:00:00"
 descricaoTransacaoRodrigo=getTransacaoDescricao(idTransacaoRodrigo1)
-alterarDataSistema novaData="22/02/2005 14:01:00"
-expect "Notificacao: " + ${descricaoTransacaoRodrigo1} getNotificacoesReceitas idUsuario=${idRodrigo} idConta=${idContaRodrigo} dataInicio="20/02/2005 11:00:00" dataFim="22/02/2005 14:01:00"
+alterarDataSistema novaData="23/02/2005 14:00:00"
+expect "Notificacao: " + ${descricaoTransacaoRodrigo1} getNotificacoesReceitas idUsuario=${idRodrigo} idConta=${idContaRodrigo} dataInicio="22/02/2005 11:00:00" dataFim="23/02/2005 14:01:00"
 
 
 idTransacaoRodrigo2=addTransacaoFutura idConta=${idContaRodrigo} tipo="DESPESA" descricao="água, luz e telefone" valor=1000.0 dataVencimento="23/03/2009 14:00:00"
