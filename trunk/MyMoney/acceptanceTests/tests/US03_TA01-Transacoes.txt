@@ -32,12 +32,12 @@ expect -60.0 getTransacaoValor id=${idTransacaoLeandro1}
 
 expect "01/01/2001 11:13:00" getTransacaoData id=${idTransacaoLeandro1}
 
-
-expect "[${idTransacaoLeandro1}]" getTransacoes idConta=${idContaLeandro}
+expected=echo [${idTransacaoLeandro1}]
+expect ${expected} getTransacoes idConta=${idContaLeandro}
 
 expect "[]" getTransacoesEntre idConta=${idContaLeandro} dataInicio="01/01/2000 00:00:00" dataFim="01/01/2001 11:12:59"
 
-expect "[${idTransacaoLeandro1}]" getTransacoesEntre idConta=${idContaLeandro} dataInicio="01/01/2000 00:00:00" dataFim="01/01/2001 11:14:00"
+expect ${expected} getTransacoesEntre idConta=${idContaLeandro} dataInicio="01/01/2000 00:00:00" dataFim="01/01/2001 11:14:00"
 
 
 idTransacaoLeandro2=addTransacao idConta=${idContaLeandro} tipo="DESPESA" descricao="" valor=120.0 data="01/01/2001 11:13:30"
@@ -50,10 +50,10 @@ expect -120.0 getTransacaoValor id=${idTransacaoLeandro2}
 
 expect "01/01/2001 11:13:30" getTransacaoData id=${idTransacaoLeandro2}
 
+expected=echo [${idTransacaoLeandro1}, ${idTransacaoLeandro2}]
+expect ${expected} getTransacoesEntre idConta=${idContaLeandro} dataInicio="01/01/2000 00:00:00" dataFim="01/01/2001 11:14:00"
 
-expect "[${idTransacaoLeandro1}, ${idTransacaoLeandro2}]" getTransacoesEntre idConta=${idContaLeandro} dataInicio="01/01/2000 00:00:00" dataFim="01/01/2001 11:14:00"
-
-expect "[${idTransacaoLeandro1}, ${idTransacaoLeandro2}]" getTransacoes idConta=${idContaLeandro}
+expect ${expected} getTransacoes idConta=${idContaLeandro}
 
 
 expect "[]" getTransacoes idConta=${idContaRodrigo}
@@ -69,9 +69,11 @@ expect -60.0 getTransacaoValor id=${idTransacaoRodrigo1}
 expect "01/01/2001 11:13:00" getTransacaoData id=${idTransacaoRodrigo1}
 
 
-expect "[${idTransacaoRodrigo1}]" getTransacoes idConta=${idContaRodrigo}
+expected=echo [${idTransacaoRodrigo1}]
+expect ${expected} getTransacoes idConta=${idContaRodrigo}
 
-expect "[${idTransacaoLeandro1}, ${idTransacaoLeandro2}]" getTransacoes idConta=${idContaLeandro}
+expected=echo [${idTransacaoLeandro1}, ${idTransacaoLeandro2}]
+expect ${expected} getTransacoes idConta=${idContaLeandro}
 
 expectError "ID da transacao invalido" modificarTransacao id=-100 novoTipo="RECEITA" novaDescricao="teste" novoValor=100.0 novaData="01/01/1999 00:00:00"
 
@@ -89,7 +91,8 @@ expect 100.0 getTransacaoValor id=${idTransacaoRodrigo1}
 
 expect "01/01/1999 00:00:00" getTransacaoData id=${idTransacaoRodrigo1}
 
-expect "[${idTransacaoRodrigo1}]" getTransacoes idConta=${idContaRodrigo}
+expected=echo [${idTransacaoRodrigo1}]
+expect ${expected} getTransacoes idConta=${idContaRodrigo}
 
 expectError "ID da transacao inexistente" removerTransacao id=-100
 
