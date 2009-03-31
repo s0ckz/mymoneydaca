@@ -133,6 +133,9 @@ public interface EasyAcceptFacade {
 
     //US-06 
     
+    public int gerarRelatorioTransacoes(int idConta , String dataInicio, String dataFim)
+    	throws CampoInvalidoException, BancoDeDadosException;
+    
     public int gerarRelatorioReceitas(int idConta , String dataInicio, String dataFim) 
     	throws CampoInvalidoException, BancoDeDadosException ;
     
@@ -144,19 +147,19 @@ public interface EasyAcceptFacade {
     	throws CampoInvalidoException, BancoDeDadosException;
 
     // FORMATO DE SAIDA: [1, 2, 3, ...]
-    public String getRelatorioGeral(int idConta , String dataInicio, String dataFim)
+    public String getRelatorioTransacoes(int id, String dataInicio, String dataFim)
     	throws CampoInvalidoException, BancoDeDadosException;
 
     // FORMATO DE SAIDA: [1, 2, 3, ...]
-    public String getRelatorioDespesas(int idConta , String dataInicio, String dataFim)	
-    throws CampoInexistenteException , BancoDeDadosException;
+    public String getRelatorioDespesas(int id, String dataInicio, String dataFim)	
+    	throws CampoInexistenteException , BancoDeDadosException;
 
     // FORMATO DE SAIDA: [1, 2, 3, ...]
-    public String getRelatorioReceitas(int idConta , String dataInicio, String dataFim)	
+    public String getRelatorioReceitas(int id, String dataInicio, String dataFim)	
     throws CampoInexistenteException , BancoDeDadosException;
     
-    public int removerRelatorio(int idConta , int idRelatorio)	
-    throws CampoInexistenteException , BancoDeDadosException;
+    public int removerRelatorio(int idRelatorio)	
+    	throws CampoInexistenteException , BancoDeDadosException;
     
     
     //US-07
