@@ -1,0 +1,35 @@
+MyMoney - User Stories
+
+US-01: Criação/Atualização/Remoção/Consulta de um Usuario
+	- Permitir criação/atualização/remoção/consulta de um usuário no sistema. Um usuário deve possuir 
+um nome, um login e uma senha. Ao cadastrar um novo usuário no sistema, este atribui um id a 
+tal usuário. 
+
+US-02: Criação/Atualização/Remoção de uma Conta
+	- Permitir criação/atualização/remoção/consulta de uma conta no sistema. Uma conta contém transações
+de entrada ou saída de dinheiro. Cada conta deve possuir um único dono (usuário do sistema), mas um dado 
+usuário pode ter várias contas. Contas de um mesmo usuário devem possuir descrições distintas.
+
+US-03: Controle de Transações
+	- Transações são realizadas por um usuário do sistema, elas podem ser do tipo DESPESA ou RECEITA. Além disso, 
+um usuário pode consultar informações de suas transações, como valor, data e descrição.  
+
+US-04: Controle de Transações Futuras
+	- Um usuário pode agendar lembretes de despesas/receitas futuras. Assim, quando chegar na data combinada, o
+sistema deve notificar o usuário sobre tal transações, para que ela seja concluída.
+
+US-05: Importar/Exportar dados para formato CSV
+	- O sistema deve permitir importação/exportação de transações no formato CSV. Ao importar um arquivo CSV para
+uma conta, todas as transações contidas no arquivo são adicionadas à tal conta.
+
+US-06: Gerar relatórios
+	- Permitir geração de relatórios sobre uma dada conta de acordo com um intervalo de datas. Podem ser gerados 
+relatórios sobre todas as transações, sobre as receitas ou sobre as despesas.
+
+US-07: Notificações de transações futuras
+	- O usuário deve ser notificado sobre uma transação futura que ele agendou. Assim, na data estipulada, tal 
+usuário será notificado para que a transação seja, de fato, concluída. 
+
+US-08: Fazer interface Web
+	- Uma interface Web que permita acesso ao sistema de vários usuários simultaneamente. Tal interface deve prover 
+todas as funcionalidades das user stories 01 à 07. 
