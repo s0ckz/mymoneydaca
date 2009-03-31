@@ -12,7 +12,47 @@ expectError "Data Ilegal" geraNotificacaoReceitas idConta=${idContaRodrigo} data
 
 expectError "Data Ilegal" geraNotificacaoTodasContasUsuario idUsuario=${idRodrigo} dataInicio="21-02-2009" dataFim="21-03-2009"
 
+
+limparBancoDeDados
+
+idLeandro=adicionarUsuario login="leandro" nome="Leandro" senha="senhaLeandro"
+idContaLeandro=adicionarConta idDono=${idLeandro} descricao="Conta de Leandro"
+alterarDataSistema data="20/01/2001 11:00:00"
+
+expect "" getNotificacoesTodasContasUsuario idUsuario=idLeandro dataInicio="19/01/2001 11:00:00" dataFim="20/01/2001 11:00:00"
+
+idTransacaoLeandro1=addTransacaoFutura idConta=${idContaLeandro} tipo="DESPESA" descricao="Debito automatico" valor=60.0 dataVencimento="22/02/2011 11:13:00"
+descricaoTransacaoLeandro=getTransacaoDescricao(idTransacaoLeandro1)
+alterarDataSistema novaData="22/02/2011 11:13:00"
+expect "Notificacao: " + ${descricaoTransacaoLeandro1} getNotificacoesDespesas idUsuario=${idLeandro} idConta=${idContaLeandro} dataInicio="20/01/2001 11:00:00" dataFim="22/02/2001 12:00:00"
+
+
+idTransacaoLeandro2=addTransacaoFutura idConta=${idContaLeandro} tipo="RECEITA" descricao="Salario" valor=6000.0 dataVencimento="29/03/2009 12:00:00"
+descricaoTransacaoLeandro=getTransacaoDescricao(idTransacaoLeandro1)
+alterarDataSistema novaData="29/03/2009 12:00:00"
+expect "Notificacao: " + ${descricaoTransacaoLeandro2} getNotificacoesReceitas idUsuario=${idLeandro} idConta=${idContaLeandro} dataInicio="20/01/2009 11:00:00" dataFim="29/03/2009 12:00:00"
+
+
 limparBancoDeDados
 
 
 
+idRodrigo=adicionarUsuario login="rodrigo" nome="Rodrigo" senha="senhaRodrigo"
+idContaRodrigo=adicionarConta idDono=${idRodrigo} descricao="Conta de Rodrigo"
+alterarDataSistema data="22/02/2005 13:00:00"
+
+expect "" getNotificacoesTodasContasUsuario idUsuario=idRodrigo dataInicio="22/01/2005 11:00:00" dataFim="22/02/2005 13:00:00"
+
+idTransacaoRodrigo1=addTransacao idConta=${idContaRodrigo} tipo="RECEITA" descricao="Salario" valor=1000.0 dataVencimento="22/02/2005 14:00:00"
+descricaoTransacaoRodrigo=getTransacaoDescricao(idTransacaoRodrigo1)
+alterarDataSistema novaData="22/02/2005 14:01:00"
+expect "Notificacao: " + ${descricaoTransacaoRodrigo1} getNotificacoesReceitas idUsuario=${idRodrigo} idConta=${idContaRodrigo} dataInicio="20/02/2005 11:00:00" dataFim="22/02/2005 14:01:00"
+
+
+idTransacaoRodrigo2=addTransacaoFutura idConta=${idContaRodrigo} tipo="DESPESA" descricao="água, luz e telefone" valor=1000.0 dataVencimento="23/03/2009 14:00:00"
+descricaoTransacaoRodrigo=getTransacaoDescricao(idTransacaoRodrigo2)
+alterarDataSistema novaData="23/03/2009 14:00:00"
+expect "Notificacao: " + ${descricaoTransacaoRodrigo2} getNotificacoesDespesas idUsuario=${idRodrigo} idConta=${idContaRodrigo} dataInicio="20/03/2009 11:00:00" dataFim="23/03/2009 14:01:00"
+
+
+limparBancoDeDados
