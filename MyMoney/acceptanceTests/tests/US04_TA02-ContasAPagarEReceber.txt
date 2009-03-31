@@ -1,0 +1,29 @@
+# US-04: Controle de Transações Futuras
+
+limparBancoDeDados
+
+idLeandro=adicionarUsuario login="leandro" nome="Leandro" senha="senhaLeandro"
+
+idContaLeandro=adicionarConta idDono=${idLeandro} descricao="Conta de Leandro"
+
+idContaInexistente=echo 1234
+
+expectError "ID da conta inexistente" addTransacaoFutura idConta=${idContaInexistente} tipo="DESPESA" descricao="" valor=60.0 dataVencimento="01/01/2011 11:13:00"
+
+expectError "tipo invalido" addTransacaoFutura idConta=${idContaLeandro} tipo="" descricao="" valor=60.0 dataVencimento="01/01/2011 11:13:00"
+
+expectError "tipo invalido" addTransacaoFutura idConta=${idContaLeandro} tipo="TIPO INVALIDO" descricao="" valor=60.0 dataVencimento="01/01/2011 11:13:00"
+
+expectError "valor invalido" addTransacaoFutura idConta=${idContaLeandro} tipo="DESPESA" descricao="" valor=-60.0 dataVencimento="01/01/2011 11:13:00"
+
+expectError "data invalida" addTransacaoFutura idConta=${idContaLeandro} tipo="DESPESA" descricao="" valor=60.0 dataVencimento=""
+
+idTransacaoInexistente=echo 5678
+expectError "ID da transacao inexistente" removerTransacao id=${idTransacaoInexistente}
+expectError "ID da transacao inexistente" modificarTransacao id=${idTransacaoInexistente}
+expectError "ID da transacao inexistente" getTransacaoTipo id=${idTransacaoInexistente}
+expectError "ID da transacao inexistente" getTransacaoDescricao id=${idTransacaoInexistente}
+expectError "ID da transacao inexistente" getTransacaoValor id=${idTransacaoInexistente}
+expectError "ID da transacao inexistente" getTransacaoData id=${idTransacaoInexistente}
+
+limparBancoDeDados
