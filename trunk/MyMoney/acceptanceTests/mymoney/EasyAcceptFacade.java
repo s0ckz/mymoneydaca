@@ -143,7 +143,7 @@ public interface EasyAcceptFacade {
     	throws CampoInvalidoException, BancoDeDadosException;
 
     // FORMATO DE SAIDA: [1, 2, 3, ...]
-    public int gerarRelatorioTodasAsContas(String idUsuario , String dataInicio, String dataFim)
+    public int gerarRelatorioTodasAsContas(int idUsuario , String dataInicio, String dataFim)
     	throws CampoInvalidoException, BancoDeDadosException;
 
     // FORMATO DE SAIDA: [1, 2, 3, ...]
