@@ -133,25 +133,28 @@ public interface EasyAcceptFacade {
 
     //US-06 
     
-    public int gerarRelatorioGeral(int idConta , String dataInicio, String dataFim) throws MyMoneyException , IllegalArgumentException;
     
-    public int gerarRelatorioReceitas(int idConta , String dataInicio, String dataFim) throws MyMoneyException , IllegalArgumentException;
+    public int gerarRelatorioReceitas(int idConta , String dataInicio, String dataFim) throws CampoInvalidoException ;
     
-    public int gerarRelatorioDespesas(int idConta , String dataInicio, String dataFim)throws MyMoneyException, IllegalArgumentException;
+    public int gerarRelatorioDespesas(int idConta , String dataInicio, String dataFim)throws CampoInvalidoException;
  
-    public int gerarRelatorioTodasAsContas(String dataInicio, String dataFim) throws MyMoneyException, IllegalArgumentException;
+    public int gerarRelatorioTodasAsContas(String idUsuario , String dataInicio, String dataFim) throws CampoInvalidoException;
     
-    public Relatorio getRelatorio(int idRelatorio);
+    public int[] getRelatorioGeral(int idConta , String dataInicio, String dataFim) throws CampoInvalidoException;
     
-    public boolean removerRelatorio(int idRelatorio);
+    public int[] getRelatorioDespesas(int idConta , String dataInicio, String dataFim) throws CampoInexistenteException , BancoDeDadosException;
+    
+    public int[] getRelatorioReceitas(int idConta , String dataInicio, String dataFim) throws CampoInexistenteException , BancoDeDadosException;
+    
+    public int removerRelatorio(int idConta , int idRelatorio) throws CampoInexistenteException , BancoDeDadosException;
     
     
     //US-07
-    public int geraNotificacaoReceitas(int idConta , String dataInicio , String dataFim )throws MyMoneyException;
+    public int geraNotificacaoReceitas(int idConta , String dataInicio , String dataFim )throws CampoInvalidoException;
     
-    public int geraNotificacaoDespesas(int idConta, String dataInicio , String dataFim) throws MyMoneyException;
+    public int geraNotificacaoDespesas(int idConta, String dataInicio , String dataFim) throws CampoInvalidoException;
         
-    public int geraNotificacoesTodasContasUsuario(int idUsuario , String dataInicio , String dataFim) throws MyMoneyException;
+    public int geraNotificacoesTodasContasUsuario(int idUsuario , String dataInicio , String dataFim) throws CampoInvalidoException;
     
     
     
