@@ -1,17 +1,12 @@
 package mymoney;
 
-import java.util.Date;
-
 import mymoney.exceptions.BancoDeDadosException;
 import mymoney.exceptions.CampoExistenteException;
 import mymoney.exceptions.CampoInexistenteException;
 import mymoney.exceptions.CampoInvalidoException;
-import mymoney.exceptions.MyMoneyException;
 import mymoney.exceptions.TransacaoInvalidaException;
 import mymoney.exceptions.TransacaoJahConcluidaException;
 import mymoney.exceptions.TransacaoNaoConcluidaException;
-import mymoney.xpto.Relatorio;
-import mymoney.xpto.Transacao;
 
 public interface EasyAcceptFacade {
 	
@@ -134,13 +129,13 @@ public interface EasyAcceptFacade {
     //US-06 
     
     
-    public int gerarRelatorioReceitas(int idConta , String dataInicio, String dataFim) throws CampoInvalidoException ;
+    public int gerarRelatorioReceitas(int idConta , String dataInicio, String dataFim) throws CampoInvalidoException, BancoDeDadosException ;
     
-    public int gerarRelatorioDespesas(int idConta , String dataInicio, String dataFim)throws CampoInvalidoException;
+    public int gerarRelatorioDespesas(int idConta , String dataInicio, String dataFim)throws CampoInvalidoException, BancoDeDadosException;
  
-    public int gerarRelatorioTodasAsContas(String idUsuario , String dataInicio, String dataFim) throws CampoInvalidoException;
+    public int gerarRelatorioTodasAsContas(String idUsuario , String dataInicio, String dataFim) throws CampoInvalidoException, BancoDeDadosException;
     
-    public int[] getRelatorioGeral(int idConta , String dataInicio, String dataFim) throws CampoInvalidoException;
+    public int[] getRelatorioGeral(int idConta , String dataInicio, String dataFim) throws CampoInvalidoException, BancoDeDadosException;
     
     public int[] getRelatorioDespesas(int idConta , String dataInicio, String dataFim) throws CampoInexistenteException , BancoDeDadosException;
     
