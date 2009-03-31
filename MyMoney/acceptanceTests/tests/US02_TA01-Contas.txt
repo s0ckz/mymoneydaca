@@ -1,19 +1,19 @@
 limparBancoDeDados
 
 contaInexistente=echo 5678
-expectError "id da conta inexistente" modificarConta idConta=${contaInexistente}
-expectError "id da conta inexistente" removerConta idConta=${contaInexistente}
-expectError "id da conta inexistente" getContaDono idConta=${contaInexistente}
-expectError "id da conta inexistente" getContaDescricao idConta=${contaInexistente}
-expectError "id da conta inexistente" getContas idConta=${contaInexistente}
+expectError "ID da conta inexistente" modificarConta idConta=${contaInexistente} novaDescricao=""
+expectError "ID da conta inexistente" removerConta idConta=${contaInexistente}
+expectError "ID da conta inexistente" getContaDono idConta=${contaInexistente}
+expectError "ID da conta inexistente" getContaDescricao idConta=${contaInexistente}
+expectError "ID da conta inexistente" getContas idConta=${contaInexistente}
 
-novaDescricao="BB"
+novaDescricao=echo "BB"
 donoInexistente=echo 1234
-expectError "id do dono inexistente" adicionarConta descricao="BB" idDono=${donoInexistente}
+expectError "ID do dono inexistente" adicionarConta idDono=${donoInexistente} descricao="BB"
 
 idUser=adicionarUsuario login="caba_rico" nome="artur" senha="123"
-idConta=adicionarConta descricao="BB" idDono=${idUser}
-expectError "descricao jah existente" adicionarConta descricao="BB" idDono=${idUser}
+idConta=adicionarConta idDono=${idUser} descricao="BB"
+expectError "Descricao jah existente" adicionarConta idDono=${idUser} descricao="BB" 
 
 expect "BB" getContaDescricao idConta=${idConta}
 expect ${idUser} getContaDono idConta=${idConta}
@@ -21,16 +21,19 @@ expect ${idUser} getContaDono idConta=${idConta}
 modificarConta idConta=${idConta} novaDescricao="CEF"
 expect "CEF" getContaDescricao idConta=${idConta}
 
-expect "[${idConta}]" getContas idUsuario=${idUser}
+expected=echo [${idConta}]
+expect ${expected} getContas idUsuario=${idUser}
 
-idConta2=adicionarConta descricao="BB" idDono=${idUser}
-expect "[${idConta}, ${idConta2}]" getContas idUsuario=${idUser}
+idConta2=adicionarConta idDono=${idUser} descricao="BB"
+
+expected=echo [${idConta}, ${idConta2}]
+expect ${expected} getContas idUsuario=${idUser}
 
 removerConta idConta=${idConta2}
 removerConta idConta=${idConta}
 
-expectError "id da conta inexistente" getContaDescricao idConta=${idConta}
-expectError "id da conta inexistente" getContaDescricao idConta=${idConta2}
+expectError "ID da conta inexistente" getContaDescricao idConta=${idConta}
+expectError "ID da conta inexistente" getContaDescricao idConta=${idConta2}
 
 expect "[]" getContas idUsuario=${idUser}
 
