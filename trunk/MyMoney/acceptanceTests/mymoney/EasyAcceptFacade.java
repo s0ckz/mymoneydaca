@@ -172,6 +172,10 @@ public interface EasyAcceptFacade {
     public int getNotificacoesTodasContasUsuario(int idUsuario , String dataInicio , String dataFim)
     	throws CampoInvalidoException;
     
+    public void altarerDataSistema(String novaData)throws CampoInvalidoException;
+    	
+    
+    
     
     
     
