@@ -48,7 +48,7 @@ public class EasyAcceptFacadeImpl implements EasyAcceptFacade {
 			TransacaoJahConcluidaException, CampoInexistenteException,
 			CampoInvalidoException, BancoDeDadosException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -56,30 +56,11 @@ public class EasyAcceptFacadeImpl implements EasyAcceptFacade {
 			String arquivoCSV) throws CampoInexistenteException,
 			CampoInvalidoException, BancoDeDadosException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	@Override
-	public int geraNotificacaoDespesas(int idConta, String dataInicio,
-			String dataFim) throws CampoInvalidoException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int geraNotificacaoReceitas(int idConta, String dataInicio,
-			String dataFim) throws CampoInvalidoException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int geraNotificacoesTodasContasUsuario(int idUsuario,
-			String dataInicio, String dataFim) throws CampoInvalidoException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
+	
+	
 	@Override
 	public int gerarRelatorioDespesas(int idConta, String dataInicio,
 			String dataFim) throws CampoInvalidoException,
@@ -279,7 +260,7 @@ public class EasyAcceptFacadeImpl implements EasyAcceptFacade {
 	@Override
 	public void limparBancoDeDados() throws BancoDeDadosException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -288,7 +269,7 @@ public class EasyAcceptFacadeImpl implements EasyAcceptFacade {
 			TransacaoNaoConcluidaException, CampoInexistenteException,
 			CampoInvalidoException, BancoDeDadosException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -296,7 +277,7 @@ public class EasyAcceptFacadeImpl implements EasyAcceptFacade {
 			throws CampoInexistenteException, CampoExistenteException,
 			BancoDeDadosException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -305,7 +286,7 @@ public class EasyAcceptFacadeImpl implements EasyAcceptFacade {
 			throws CampoInexistenteException, CampoInvalidoException,
 			BancoDeDadosException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -314,14 +295,14 @@ public class EasyAcceptFacadeImpl implements EasyAcceptFacade {
 			CampoInexistenteException, CampoExistenteException,
 			BancoDeDadosException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void removerConta(int idConta) throws CampoInexistenteException,
 			BancoDeDadosException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -335,14 +316,35 @@ public class EasyAcceptFacadeImpl implements EasyAcceptFacade {
 	public void removerTransacao(int id) throws CampoInexistenteException,
 			BancoDeDadosException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void removerUsuario(int id) throws CampoInexistenteException,
 			BancoDeDadosException {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public int getNotificacaoDespesas(int idConta, String dataInicio,
+			String dataFim) throws CampoInvalidoException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getNotificacaoReceitas(int idConta, String dataInicio,
+			String dataFim) throws CampoInvalidoException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getNotificacoesTodasContasUsuario(int idUsuario,
+			String dataInicio, String dataFim) throws CampoInvalidoException {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
