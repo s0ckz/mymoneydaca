@@ -1,26 +1,58 @@
 limparBancoDeDados
 
-expectError "Conta Inexistente" gerarRelatorioGeral idConta="00" dataInicio="14-04-2009" dataFim="16-04-2009"
+expectError "Conta Inexistente" gerarRelatorioGeral idConta=00 dataInicio="14/04/2009 10:10:00" dataFim="16/04/2009 11:12:00"
 
 idRodrigo=adicionarUsuario login="rodrigo" nome="Rodrigo" senha="senhaRodrigo"
 
 idContaRodrigo=adicionarConta descricao="BB" idDono=${idRodrigo}
 
-expectError "Data Ilegal" gerarRelatorioGeral idConta=${idContaRodrigo} dataInicio="13-02-2009" dataFim="13-01-2004"
+expectError "Data Invalida" gerarRelatorioGeral idConta=${idContaRodrigo} dataInicio="13/02/2009 12:00:00" dataFim="13/01/2004 12:00:00"
 
-expectError "Data Ilegal" gerarRelatorioReceitas idConta=${idContaRodrigo} dataInicio="13-02-2009" dataFim="13-01-2004"
+expectError "Data Invalida" gerarRelatorioReceitas idConta=${idContaRodrigo} dataInicio="13/02/2009 12:00:00" dataFim="13/01/2004 12:00:00"
 
-expectError "Data Ilegal" gerarRelatorioDespesas  idConta=${idContaRodrigo} dataInicio="13-02-2009" dataFim="13-01-2004"
+expectError "Data Invalida" gerarRelatorioDespesas  idConta=${idContaRodrigo} dataInicio="13/02/2009 12:00:00" dataFim="13/01/2004 12:00:00"
 
-expectError "Data Ilegal" gerarRelatorioTodasAsContas dataInicio="13-02-2009" dataFim="13-01-2004"
+expectError "Data Invalida" gerarRelatorioTodasAsContas dataInicio="13/02/2009 12:00:00" dataFim="13/01/2004 12:00:00"
 
-expectError "Conta Inexistente" gerarRelatorioReceitas idConta="00" dataInicio="14-04-2009" dataFim="16-04-2009"
+expectError "Conta Inexistente" gerarRelatorioReceitas idConta=00 dataInicio="14/04/2009 12:00:00" dataFim="16/04/2009 12:00:00"
 
-expectError "Conta Inexistente" gerarRelatorioDespesas idConta="00" dataInicio="14-04-2009" dataFim="16-04-2009"
+expectError "Conta Inexistente" gerarRelatorioDespesas idConta=00 dataInicio="14/04/2009 12:00:00" dataFim="16/04/2009 12:00:00"
 
 limparBancoDeDados
 
-expectError "Relatorio Inexistente" removerRelatorio id="000"
+idRodrigo=adicionarUsuario login="rodrigo" nome="Rodrigo" senha="senhaRodrigo"
+
+idContaRodrigo=adicionarConta idDono=${idRodrigo} descricao="Conta de Rodrigo"
+
+idTransacaoRodrigo1=addTransacao idConta=${idContaRodrigo} tipo="DESPESA" descricao="" valor=60.0 data="01/01/2008 11:13:00"
+
+idRelatorioDespesaRodrigo=gerarRelatorioDespesas idConta=${idContaRodrigo} dataInicio="01/01/2001 11:00:00" dataFim="02/01/2001 11:00:00"
+
+expect "[${idRelatorioDespesaRodrigo}]" getRelatorioDespesas idConta=${idContaRodrigo} dataInicio="01/01/2001 11:00:00" dataFim="02/01/2001 11:00:00"
+
+idTransacaoRodrigo2=addTransacao idConta=${idContaRodrigo} tipo="RECEITA" descricao="" valor=100.0 data="02/01/2008 12:00:00"
+
+idRelatorioReceitaRodrigo=gerarRelatorioReceitas idConta=${idContaRodrigo} dataInicio="02/01/2008 12:00:00" dataFim="03/01/2008 12:00:00"
+
+expect "[${idRelatorioReceitaRodrigo}]" getRelatorioReceitas idConta=${idContaRodrigo} dataInicio="02/01/2008 11:00:00" dataFim="02/01/2008 13:00:00"
+
+expect "[${idRelatorioDespesaRodrigo} , ${idRelatorioReceitaRodrigo} ]" getRelatorioGeral idConta=${idContaRodrigo} dataInicio="01/01/2008 00:00:00" dataFim="02/01/2008 14:00:00"
+
+expectError "Relatorio Inexistente" removerRelatorio idConta=${idContaRodrigo} idRelatorio="000"
+
+expectError "Conta Invalica" removerRelatorio idConta=000 idRelatorio=${idRelatorioReceitaRodrigo}
+
+idRelatorioRemovido1=removerRelatorio idConta=${idContaRodrigo} idRelatorio=${idRelatorioDespesaRodrigo}
+
+expect "[]"  getRelatorioDespesas idConta=${idContaRodrigo} idRelatorio=${idRelatorioDespesaRodrigo}
+
+idRelatorioRemovido2=removerRelatorio idConta=${idContaRodrigo} idRelatorio=${idRelatorioReceitaRodrigo}
+
+expect "[]"  getRelatorioReceita idConta=${idContaRodrigo} idRelatorio=${idRelatorioReceitaRodrigo}
+
+expect "[]"  getRelatorioGeral idConta=${idContaRodrigo} idConta=${idContaRodrigo} dataInicio="01/01/2008 00:00:00" dataFim="02/01/2008 14:00:00"
+
+
 
 limparBancoDeDados
 
