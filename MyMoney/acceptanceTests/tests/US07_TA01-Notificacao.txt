@@ -2,21 +2,6 @@
 
 limparBancoDeDados
 
-expectError "Conta inexistente" getNotificacaoReceitas idConta=00 dataInicio="14/08/2008" dataFim="21/09/2008"
-
-expectError "Usuario inexistente" getNotificacoesPorUsuario idUsuario=00 dataInicio="14/08/2008" dataFim="21/09/2008"
-
-
-idRodrigo=adicionarUsuario login="rodrigo" nome="Rodrigo" senha="senhaRodrigo"
-idContaRodrigo=adicionarConta idDono=${idRodrigo} descricao="BB"
-
-expectError "Data invalida" getNotificacaoReceitas idConta=${idContaRodrigo} dataInicio="13/02/2009" dataFim="13/01/2004"
-
-expectError "Data invalida" getNotificacoesPorUsuario idUsuario=${idRodrigo} dataInicio="21/02/2009" dataFim="21/03/2009"
-
-
-limparBancoDeDados
-
 idLeandro=adicionarUsuario login="leandro" nome="Leandro" senha="senhaLeandro"
 idContaLeandro=adicionarConta idDono=${idLeandro} descricao="Conta de Leandro"
 alterarDataSistema data="20/01/2001 11:00:00"
@@ -54,6 +39,5 @@ expect "[Salario - R$ 1000,00]" getNotificacaoReceitas idConta=${idContaRodrigo}
 idTransacaoRodrigo2=addTransacaoFutura idConta=${idContaRodrigo} tipo="DESPESA" descricao="Agua, luz e telefone" valor=1000.0 dataVencimento="23/03/2009 14:00:00"
 alterarDataSistema novaData="23/03/2009 14:00:00"
 expect "[Agua, luz e telefone - R$ 1000,00]" getNotificacaoReceitas idConta=${idContaRodrigo} dataInicio="20/03/2009 11:00:00" dataFim="23/03/2009 14:01:00"
-
 
 limparBancoDeDados

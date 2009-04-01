@@ -25,6 +25,7 @@ public class EasyAcceptRunner {
 		files.add("acceptanceTests/tests/US06_TA01-GeracaoRelatorios.txt");
 		files.add("acceptanceTests/tests/US06_TA02-GeracaoRelatoriosErro.txt");
 		files.add("acceptanceTests/tests/US07_TA01-Notificacao.txt");
+		files.add("acceptanceTests/tests/US07_TA02-NotificacaoErro.txt");
 		EasyAcceptFacade eaFacade = new EasyAcceptFacade(
 				new EasyAcceptFacadeImpl(), files);
 		eaFacade.executeTests();
