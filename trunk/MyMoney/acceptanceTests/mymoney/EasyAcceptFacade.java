@@ -161,22 +161,16 @@ public interface EasyAcceptFacade {
     public int removerRelatorio(int idRelatorio)	
     	throws CampoInexistenteException , BancoDeDadosException;
     
-    
     //US-07
-    public int getNotificacaoReceitas(int idConta , String dataInicio , String dataFim )
+    public String getNotificacaoReceitas(int idConta, String dataInicio, String dataFim )
     	throws CampoInvalidoException;
     
-    public int getNotificacaoDespesas(int idConta, String dataInicio , String dataFim)
+    public String getNotificacaoDespesas(int idConta, String dataInicio, String dataFim)
     	throws CampoInvalidoException;
         
-    public int getNotificacoesTodasContasUsuario(int idUsuario , String dataInicio , String dataFim)
+    public String getNotificacoesPorUsuario(int idUsuario, String dataInicio, String dataFim)
     	throws CampoInvalidoException;
     
-    public void altarerDataSistema(String novaData)throws CampoInvalidoException;
-    	
-    
-    
-    
-    
+    public void alterarDataSistema(String novaData)throws CampoInvalidoException;
     
 }
