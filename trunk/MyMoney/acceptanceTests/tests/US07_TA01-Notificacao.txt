@@ -1,3 +1,5 @@
+# US-07: Notificações de transações futuras
+
 limparBancoDeDados
 
 expectError "Conta inexistente" getNotificacaoReceitas idConta=00 dataInicio="14/08/2008" dataFim="21/09/2008"

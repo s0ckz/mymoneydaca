@@ -1,0 +1,25 @@
+# US-05: Importar/Exportar dados para formato CSV
+
+limparBancoDeDados
+
+idContaInexistente=echo 1234
+file=echo "acceptanceTests/files/file.csv"
+expectError "ID da conta inexistente" importarTransacoes idConta=${idContaInexistente} fileCSV=${file}
+
+idUser=adicionarUsuario login="caba_rico" nome="artur" senha="123"
+idConta=adicionarConta idDono=${idUser}  descricao="BB"
+
+expectError "arquivo CSV invalido" importarTransacoes idConta=${idContaInexistente} fileCSV=""
+
+idTran1=addTransacao idConta=${idConta} tipo="RECEITA" descricao="bolsa" valor=500.0 data="20/03/2009"
+
+idTran2=addTransacao idConta=${idConta} tipo="DESPESA" descricao="academia" valor=50.0 data="31/03/2009 10:13:00"
+
+expectError "ID da conta inexistente" exportarTransacoes idConta=${idContaInexistente} idTransacoes="[${idTran1}, ${idTran2}]" fileCSV=${file}
+
+idTransacaoInexistente=echo 1234
+expectError "ID da transacao inexistente" exportarTransacoes idConta=${idConta} idTransacoes="[${idTransacaoInexistente}]" fileCSV=${file}
+
+expectError "arquivo CSV invalido" exportarTransacoes idConta=${idConta} idTransacoes="[${idTran1}, ${idTran2}]" fileCSV=""
+
+limparBancoDeDados

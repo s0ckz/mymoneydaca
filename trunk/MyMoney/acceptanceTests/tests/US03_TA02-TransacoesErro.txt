@@ -1,0 +1,38 @@
+# US-03: Controle de Transações
+
+limparBancoDeDados
+
+idLeandro=adicionarUsuario login="leandro" nome="Leandro" senha="senhaLeandro"
+
+idRodrigo=adicionarUsuario login="rodrigo" nome="Rodrigo" senha="senhaRodrigo"
+
+idContaLeandro=adicionarConta idDono=${idLeandro} descricao="Conta de Leandro"
+
+idContaRodrigo=adicionarConta idDono=${idRodrigo} descricao="Conta de Rodrigo"
+
+
+expectError "ID da conta inexistente" addTransacao idConta=-100 tipo="DESPESA" descricao="" valor=100.0 data="01/01/2001 11:13:00"
+
+expectError "Data em branco" addTransacao idConta=${idContaLeandro} tipo="DESPESA" descricao="" valor=100.0 data=""
+
+expectError "Data invalida" addTransacao idConta=${idContaLeandro} tipo="DESPESA" descricao="" valor=100.0 data="01/01Z2001 11:13:00"
+
+expectError "Valor invalido" addTransacao idConta=${idContaLeandro} tipo="DESPESA" descricao="" valor=0.0 data="01/01/2001 11:13:00"
+
+expectError "Valor invalido" addTransacao idConta=${idContaLeandro} tipo="DESPESA" descricao="" valor=-10.0 data="01/01/2001 11:13:00"
+
+idTransacaoLeandro1=addTransacao idConta=${idContaLeandro} tipo="DESPESA" descricao="" valor=60.0 data="01/01/2001 11:13:00"
+
+idTransacaoLeandro2=addTransacao idConta=${idContaLeandro} tipo="DESPESA" descricao="" valor=120.0 data="01/01/2001 11:13:30"
+
+idTransacaoRodrigo1=addTransacao idConta=${idContaRodrigo} tipo="DESPESA" descricao="" valor=60.0 data="01/01/2001 11:13:00"
+
+expectError "ID da transacao invalido" modificarTransacao id=-100 novoTipo="RECEITA" novaDescricao="teste" novoValor=100.0 novaData="01/01/1999 00:00:00"
+
+expectError "Valor invalido" modificarTransacao id=${idTransacaoRodrigo1} novoTipo="RECEITA" novaDescricao="teste" novoValor=-100.0 novaData="01/01/1999 00:00:00"
+
+expectError "Data invalida" modificarTransacao id=${idTransacaoRodrigo1} novoTipo="RECEITA" novaDescricao="teste" novoValor=100.0 novaData="ZZZ"
+
+expectError "ID da transacao inexistente" removerTransacao id=-100
+
+limparBancoDeDados

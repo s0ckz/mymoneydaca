@@ -1,16 +1,10 @@
+# US-01: Criação/Atualização/Remoção/Consulta de um Usuario
+
 idLeandro=getId login="leandro"
 
 idDanilo=getId login="danilo"
 
 idRodrigo=getId login="rodrigo"
-
-expectError "ID inexistente" modificarUsuario id=-10 novoLogin="leandro" novoNome="Leandro Jose" novaSenha="senhaDeLeandro"
-
-expectError "Login invalido" modificarUsuario id=${idLeandro} novoLogin="" novoNome="Leandro Jose" novaSenha="senhaDeLeandro"
-
-expectError "Senha invalida" modificarUsuario id=${idLeandro} novoLogin="leandro" novoNome="Leandro Jose" novaSenha=""
-
-expectError "Login jah existente" modificarUsuario id=${idLeandro} novoLogin="danilo" novoNome="Leandro Jose" novaSenha="senhaDeLeandro"
 
 modificarUsuario id=${idLeandro} novoLogin="leandro2" novoNome="Leandro Jose" novaSenha="senhaLeandro2"
 
