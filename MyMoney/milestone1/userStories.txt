@@ -16,7 +16,7 @@ um usuário pode consultar informações de suas transações, como valor, data e des
 
 US-04: Controle de Transações Futuras
 	- Um usuário pode agendar lembretes de despesas/receitas futuras. Assim, quando chegar na data combinada, o
-sistema deve notificar o usuário sobre tal transações, para que ela seja concluída.
+sistema deve notificar o usuário sobre tal transação, para que ela seja concluída.
 
 US-05: Importar/Exportar dados para formato CSV
 	- O sistema deve permitir importação/exportação de transações no formato CSV. Ao importar um arquivo CSV para

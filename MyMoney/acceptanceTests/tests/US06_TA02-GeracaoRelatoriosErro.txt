@@ -1,0 +1,40 @@
+# US-06: Gerar relatórios
+
+limparBancoDeDados
+
+expectError "Conta inexistente" gerarRelatorioTransacoes idConta=00 dataInicio="14/04/2009 10:10:00" dataFim="16/04/2009 11:12:00"
+
+idRodrigo=adicionarUsuario login="rodrigo" nome="Rodrigo" senha="senhaRodrigo"
+
+idContaRodrigo=adicionarConta idDono=${idRodrigo} descricao="BB"
+
+expectError "Data invalida" gerarRelatorioTransacoes idConta=${idContaRodrigo} dataInicio="13/02/2009 12:00:00" dataFim="13/01/2004 12:00:00"
+
+expectError "Data invalida" gerarRelatorioReceitas idConta=${idContaRodrigo} dataInicio="13/02/2009 12:00:00" dataFim="13/01/2004 12:00:00"
+
+expectError "Data invalida" gerarRelatorioDespesas idConta=${idContaRodrigo} dataInicio="13/02/2009 12:00:00" dataFim="13/01/2004 12:00:00"
+
+expectError "Data invalida" gerarRelatorioTodasAsContas idConta=${idContaRodrigo} dataInicio="13/02/2009 12:00:00" dataFim="13/01/2004 12:00:00"
+
+expectError "Conta inexistente" gerarRelatorioReceitas idConta=00 dataInicio="14/04/2009 12:00:00" dataFim="16/04/2009 12:00:00"
+
+expectError "Conta inexistente" gerarRelatorioDespesas idConta=00 dataInicio="14/04/2009 12:00:00" dataFim="16/04/2009 12:00:00"
+
+limparBancoDeDados
+
+idRodrigo=adicionarUsuario login="rodrigo" nome="Rodrigo" senha="senhaRodrigo"
+
+idContaRodrigo=adicionarConta idDono=${idRodrigo} descricao="Conta de Rodrigo"
+
+idTransacaoRodrigo1=addTransacao idConta=${idContaRodrigo} tipo="DESPESA" descricao="" valor=60.0 data="01/01/2008 11:13:00"
+
+idRelatorioDespesaRodrigo=gerarRelatorioDespesas idConta=${idContaRodrigo} dataInicio="01/01/2001 11:00:00" dataFim="02/01/2009 11:00:00"
+
+expectError "Relatorio inexistente" removerRelatorio idRelatorio="000"
+
+removerRelatorio idRelatorio=${idRelatorioDespesaRodrigo}
+
+expectError "Relatorio inexistente" removerRelatorio idRelatorio=${idRelatorioDespesaRodrigo}
+
+limparBancoDeDados
+

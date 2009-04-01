@@ -1,3 +1,5 @@
+# US-03: Controle de Transações
+
 limparBancoDeDados
 
 idLeandro=adicionarUsuario login="leandro" nome="Leandro" senha="senhaLeandro"
@@ -8,19 +10,7 @@ idContaLeandro=adicionarConta idDono=${idLeandro} descricao="Conta de Leandro"
 
 idContaRodrigo=adicionarConta idDono=${idRodrigo} descricao="Conta de Rodrigo"
 
-
-expectError "ID da conta inexistente" addTransacao idConta=-100 tipo="DESPESA" descricao="" valor=100.0 data="01/01/2001 11:13:00"
-
-expectError "Data em branco" addTransacao idConta=${idContaLeandro} tipo="DESPESA" descricao="" valor=100.0 data=""
-
-expectError "Data invalida" addTransacao idConta=${idContaLeandro} tipo="DESPESA" descricao="" valor=100.0 data="01/01Z2001 11:13:00"
-
-expectError "Valor invalido" addTransacao idConta=${idContaLeandro} tipo="DESPESA" descricao="" valor=0.0 data="01/01/2001 11:13:00"
-
-expectError "Valor invalido" addTransacao idConta=${idContaLeandro} tipo="DESPESA" descricao="" valor=-10.0 data="01/01/2001 11:13:00"
-
 expect "[]" getTransacoes idConta=${idContaLeandro}
-
 
 idTransacaoLeandro1=addTransacao idConta=${idContaLeandro} tipo="DESPESA" descricao="" valor=60.0 data="01/01/2001 11:13:00"
 
@@ -75,12 +65,6 @@ expect ${expected} getTransacoes idConta=${idContaRodrigo}
 expected=echo [${idTransacaoLeandro1}, ${idTransacaoLeandro2}]
 expect ${expected} getTransacoes idConta=${idContaLeandro}
 
-expectError "ID da transacao invalido" modificarTransacao id=-100 novoTipo="RECEITA" novaDescricao="teste" novoValor=100.0 novaData="01/01/1999 00:00:00"
-
-expectError "Valor invalido" modificarTransacao id=${idTransacaoRodrigo1} novoTipo="RECEITA" novaDescricao="teste" novoValor=-100.0 novaData="01/01/1999 00:00:00"
-
-expectError "Data invalida" modificarTransacao id=${idTransacaoRodrigo1} novoTipo="RECEITA" novaDescricao="teste" novoValor=100.0 novaData="ZZZ"
-
 modificarTransacao id=${idTransacaoRodrigo1} novoTipo="RECEITA" novaDescricao="teste" novoValor=100.0 novaData="01/01/1999 00:00:00"
 
 expect "RECEITA" getTransacaoTipo id=${idTransacaoRodrigo1}
@@ -94,15 +78,14 @@ expect "01/01/1999 00:00:00" getTransacaoData id=${idTransacaoRodrigo1}
 expected=echo [${idTransacaoRodrigo1}]
 expect ${expected} getTransacoes idConta=${idContaRodrigo}
 
-expectError "ID da transacao inexistente" removerTransacao id=-100
-
 removerTransacao id=${idTransacaoRodrigo1}
 
 removerTransacao id=${idTransacaoLeandro1}
 
 removerTransacao id=${idTransacaoLeandro2}
 
-
 expect "[]" getTransacoes idConta=${idContaRodrigo}
 
 expect "[]" getTransacoes idConta=${idContaLeandro}
+
+limparBancoDeDados

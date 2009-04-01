@@ -1,3 +1,5 @@
+# US-05: Importar/Exportar dados para formato CSV
+
 limparBancoDeDados
 
 idUser=adicionarUsuario login="caba_rico" nome="artur" senha="123"

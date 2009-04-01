@@ -1,0 +1,28 @@
+# US-02: Criação/Atualização/Remoção de uma Conta
+
+limparBancoDeDados
+
+contaInexistente=echo 5678
+expectError "ID da conta inexistente" modificarConta idConta=${contaInexistente} novaDescricao=""
+expectError "ID da conta inexistente" removerConta idConta=${contaInexistente}
+expectError "ID da conta inexistente" getContaDono idConta=${contaInexistente}
+expectError "ID da conta inexistente" getContaDescricao idConta=${contaInexistente}
+expectError "ID da conta inexistente" getContas idConta=${contaInexistente}
+
+novaDescricao=echo "BB"
+donoInexistente=echo 1234
+expectError "ID do dono inexistente" adicionarConta idDono=${donoInexistente} descricao="BB"
+
+idUser=adicionarUsuario login="caba_rico" nome="artur" senha="123"
+idConta=adicionarConta idDono=${idUser} descricao="BB"
+expectError "Descricao jah existente" adicionarConta idDono=${idUser} descricao="BB" 
+
+idConta2=adicionarConta idDono=${idUser} descricao="BB"
+
+removerConta idConta=${idConta2}
+removerConta idConta=${idConta}
+
+expectError "ID da conta inexistente" getContaDescricao idConta=${idConta}
+expectError "ID da conta inexistente" getContaDescricao idConta=${idConta2}
+
+limparBancoDeDados

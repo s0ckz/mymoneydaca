@@ -1,0 +1,9 @@
+# US-01: Criação/Atualização/Remoção/Consulta de um Usuario
+
+limparBancoDeDados
+
+expectError "Login invalido" adicionarUsuario login="" nome="Leandro" senha="senha"
+
+expectError "Senha invalida" adicionarUsuario login="login" nome="Leandro" senha=""
+
+expectError "Login jah existente" adicionarUsuario login="leandro" nome="Leandro" senha="senha"
