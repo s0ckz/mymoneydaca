@@ -1,0 +1,20 @@
+#User Story 9
+#Fornecer extrato bancario
+
+#Chamada a facade
+#public void submitBankOperations(String login, String fileContent)
+
+usuario = echo "jose"
+senha = echo "teste"
+extratoTxt = getFileContent filePath="extrato.txt"
+extratoCsv = getFileContent filePath="extrato.csv"
+
+#Cenario 1 - O usuario efetua cadastro, se autentica e em seguida submete um extrato bancario em .txt com 2 operações
+register login=${usuario}, password=${senha}, name="Jose da Silva", gender="M", eMail="jsilva@something.com"
+doLogin login=${usuario}, password=${senha}
+expect true isLogged login=${usuario}
+submitBankOperations login=${usuario}, fileContent=${extratoTxt}
+expect 2 getNumberOfOperations login=${usuario}
+removeUser login=${usuario}
+
+quit

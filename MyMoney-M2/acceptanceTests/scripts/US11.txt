@@ -1,0 +1,41 @@
+# User Story 11
+#
+# Do logoff
+# doLogoff(String login, String password)
+#
+# Scenario 1
+# Checking whether the user's registry is persisted
+
+
+# Clean the environment
+cleanAll
+
+# User info definition
+login=echo "renato"
+name=echo "Renato"
+password=echo "12345"
+gender=echo "M"
+email=echo "renato@renato.com"
+
+# Registering user
+register ${login} ${password} ${name} ${gender} ${email}
+
+# Logging in with user
+doLogin ${login} ${password}
+
+# Logging off with user
+doLogoff ${login} ${password}
+
+# Logging in with user
+doLogin ${login} ${password}
+
+# Checking whether the user's registry is persisted
+expect true isLogged ${login}
+expect 0 numberOfCommitments ${login}
+expect 0 getNumberOfOperations ${login}
+expect ${name} getUserName ${login}
+expect ${email} getUserEmail ${login}
+expect ${gender} getUserGender ${login}
+
+# Logging off with user
+doLogoff ${login} ${password}
