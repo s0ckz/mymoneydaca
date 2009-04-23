@@ -1,0 +1,40 @@
+# User Story 4.1
+#
+# Register operation into account
+# long addOperationIntoDefaultAccount(String login, String operationType, String type, String amount)
+#
+# Scenario 1
+# Registering operation into the default account
+
+
+# Clean the environment
+cleanAll
+
+# User info definition
+login=echo "renato"
+name=echo "Renato"
+password=echo "12345"
+gender=echo "M"
+email=echo "renato@renato.com"
+
+# Operation definition
+type=echo "credit"
+way=echo "cash"
+amount=echo "10"
+
+# Registering user
+register ${login} ${password} ${name} ${gender} ${email}
+
+# Logging in with user
+doLogin ${login} ${password}
+
+# Registering operation into the default account
+opId=addOperationIntoDefaultAccount ${login} ${type} ${way} ${amount}
+
+# Checking whether the operation was registered well
+expect ${type} getOperationType ${opId}
+expect ${way} getOperationWay ${opId}
+expect ${amount} getOperationAmount ${opId}
+
+# Logging off with user
+doLogoff ${login} ${password}

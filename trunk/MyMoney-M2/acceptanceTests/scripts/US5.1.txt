@@ -1,0 +1,30 @@
+# User Story 5.1
+#
+# Check the overall amount
+# double getDefAccOverallValue()
+#
+# Scenario 1
+# Checking the overall amount of the default account
+
+
+# Clean the environment
+cleanAll
+
+# User info definition
+login=echo "renato"
+name=echo "Renato"
+password=echo "12345"
+gender=echo "M"
+email=echo "renato@renato.com"
+
+# Registering user
+register ${login} ${password} ${name} ${gender} ${email}
+
+# Logging in with user
+doLogin ${login} ${password}
+
+# Checking whether the overall amount of the default account is ZERO
+expect 0.0 getDefAccOverallAmount
+
+# Logging off with user
+doLogoff ${login} ${password}

@@ -1,0 +1,43 @@
+# User Story 4.6
+#
+# Register operation into account
+# long addOperation(String login, long idAccount, String operationType, String type, String amount)
+#
+# Scenario 6
+# Registering operation into account with zero amount
+
+
+# Clean the environment
+cleanAll
+
+# User info definition
+login=echo "renato"
+name=echo "Renato"
+password=echo "12345"
+gender=echo "M"
+email=echo "renato@renato.com"
+
+# Account info definition
+label=echo "Banco do Brasil"
+account=echo "1234"
+agency=echo "5678"
+
+# Operation definition
+type=echo "credit"
+way=echo "cash"
+amount=echo "0"
+
+# Registering user
+register ${login} ${password} ${name} ${gender} ${email}
+
+# Logging in with user
+doLogin ${login} ${password}
+
+# Registering account
+accId=createAccount ${login} ${label} ${agency} ${account}
+
+# Registering operation into the account
+expectError "Business validation: negative amount" addOperation ${login} ${accId} ${type} ${way} ${amount}
+
+# Logging off with user
+doLogoff ${login} ${password}
