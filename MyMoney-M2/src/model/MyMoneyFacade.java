@@ -1,6 +1,15 @@
 package model;
 
+import model.user.IUserManager;
+import model.user.UserManager;
+
 public class MyMoneyFacade {
+	
+	private IUserManager userManager;
+	
+	public MyMoneyFacade() {
+		userManager = new UserManager();
+	}
 
 	// Utils
 	
@@ -18,21 +27,23 @@ public class MyMoneyFacade {
 
 	public void register(String login, String password, String name,
 			String gender, String eMail) {
+		userManager.register(login, password, name, gender, eMail);
 	}
 	
 	public String getUserName(String login) {
-		return null;
+		return userManager.getUserName(login);
 	}
 	
 	public String getUserGender(String login) {
-		return null;
+		return userManager.getUserGender(login);
 	}
 	
 	public String getUserEmail(String login) {
-		return null;
+		return userManager.getUserEmail(login);
 	}
 	
 	public void removeUser(String login) {
+		userManager.removeUser(login);
 	}
 
 	// US-02
