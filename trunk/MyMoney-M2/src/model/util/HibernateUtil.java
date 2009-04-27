@@ -44,13 +44,10 @@ public class HibernateUtil {
 	@SuppressWarnings("unchecked")
 	public static Object load(Class clazz, Serializable id) {
 		Session session = getSession();
-		Transaction tx = session.beginTransaction();
 		try {
 			Object gotten = session.load(clazz, id);
-			tx.commit();
 			return gotten;
 		} catch (HibernateException e) {
-			if (tx != null) tx.rollback();
 			throw e;
 		} finally {
 			session.close();	
