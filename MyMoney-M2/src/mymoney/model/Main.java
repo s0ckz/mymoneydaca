@@ -1,4 +1,6 @@
-package model;
+package mymoney.model;
+
+import mymoney.MyMoneyFacade;
 
 
 
