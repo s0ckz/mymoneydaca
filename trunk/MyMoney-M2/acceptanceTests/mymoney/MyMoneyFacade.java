@@ -5,6 +5,7 @@ import mymoney.model.MyMoneyImpl;
 import mymoney.model.exceptions.InvalidArgumentException;
 import mymoney.model.exceptions.InvalidEmailException;
 import mymoney.model.exceptions.MissingArgumentException;
+import mymoney.model.util.HibernateUtil;
 
 public class MyMoneyFacade {
 	
@@ -20,6 +21,7 @@ public class MyMoneyFacade {
 	}
 	
 	public void cleanAll() {
+		HibernateUtil.cleanAll();
 	}
 	
 	public String getFileContent(String filePath) {
