@@ -1,14 +1,14 @@
-package model;
+package mymoney;
 
-import model.user.IUserManager;
-import model.user.UserManager;
+import mymoney.model.MyMoney;
+import mymoney.model.MyMoneyImpl;
 
 public class MyMoneyFacade {
 	
-	private IUserManager userManager;
+	private MyMoney myMoney;
 	
 	public MyMoneyFacade() {
-		userManager = new UserManager();
+		myMoney = new MyMoneyImpl();
 	}
 
 	// Utils
@@ -27,23 +27,23 @@ public class MyMoneyFacade {
 
 	public void register(String login, String password, String name,
 			String gender, String eMail) {
-		userManager.register(login, password, name, gender, eMail);
+		myMoney.registerUser(login, password, name, gender, eMail);
 	}
 	
 	public String getUserName(String login) {
-		return userManager.getUserName(login);
+		return myMoney.getUserName(login);
 	}
 	
 	public String getUserGender(String login) {
-		return userManager.getUserGender(login);
+		return myMoney.getUserGender(login);
 	}
 	
 	public String getUserEmail(String login) {
-		return userManager.getUserEmail(login);
+		return myMoney.getUserEmail(login);
 	}
 	
 	public void removeUser(String login) {
-		userManager.removeUser(login);
+		myMoney.removeUser(login);
 	}
 
 	// US-02

@@ -1,6 +1,6 @@
-package model.user;
+package mymoney.model.user;
 
-public interface IUserManager {
+public interface UserManager {
 
 	public void register(String login, String password, String name,
 			String gender, String eMail);

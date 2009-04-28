@@ -1,4 +1,4 @@
-package model.util;
+package mymoney.model.util;
 
 import java.io.Serializable;
 
@@ -23,7 +23,7 @@ public class HibernateUtil {
 	}
 
 	public static Session getSession() throws HibernateException {
-		return sessionFactory.openSession();
+		return sessionFactory.getCurrentSession();
 	}
 	
 	public static Serializable save(Object obj) {
@@ -36,8 +36,6 @@ public class HibernateUtil {
 		} catch (HibernateException e) {
 			if (tx != null) tx.rollback();
 			throw e;
-		} finally {
-			session.close();	
 		}
 	}
 	
@@ -46,14 +44,12 @@ public class HibernateUtil {
 		Session session = getSession();
 		Transaction tx = session.beginTransaction();
 		try {
-			Object gotten = session.load(clazz, id);
+			Object gotten = session.get(clazz, id);
 			tx.commit();
 			return gotten;
 		} catch (HibernateException e) {
 			if (tx != null) tx.rollback();
 			throw e;
-		} finally {
-			session.close();	
 		}
 	}
 	
@@ -66,8 +62,6 @@ public class HibernateUtil {
 		} catch (HibernateException e) {
 			if (tx != null) tx.rollback();
 			throw e;
-		} finally {
-			session.close();	
 		}
 	}
 	
@@ -80,11 +74,10 @@ public class HibernateUtil {
 //		Transaction tx = session.beginTransaction();
 //		try {
 //			// job
+//			tx.commit();
 //		} catch (HibernateException e) {
 //			if (tx != null) tx.rollback();
 //			throw e;
-//		} finally {
-//			session.close();	
 //		}
 //	}
 }

@@ -1,4 +1,4 @@
-package model.user;
+package mymoney.model.user;
 
 import java.io.Serializable;
 

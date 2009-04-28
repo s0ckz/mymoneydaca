@@ -3,6 +3,9 @@
 	<hibernate-configuration>
 
 		<session-factory>
+			
+			<!-- Enable Hibernate's automatic session context management -->
+        	<property name="current_session_context_class">thread</property>
 
 			<property name="hibernate.dialect">org.hibernate.dialect.MySQLMyISAMDialect</property>
 
@@ -14,9 +17,10 @@
 
 			<property name="hibernate.connection.password">admin</property>
 			
-			<mapping package="model.user"/>
+			<mapping package="mymoney.model.user"/>
 			
-			<mapping class="model.user.User"/>
+			<mapping class="mymoney.model.user.User"/>
+			
 
 		</session-factory>
 

@@ -1,8 +1,8 @@
-package model.user;
+package mymoney.model.user;
 
-import model.util.HibernateUtil;
+import mymoney.model.util.HibernateUtil;
 
-public class UserManager implements IUserManager {
+public class UserManagerImpl implements UserManager {
 	
 	public void register(String login, String password, String name,
 			String gender, String eMail) {
@@ -21,7 +21,7 @@ public class UserManager implements IUserManager {
 	}
 	
 	public String getUserEmail(String login) {
-		User user = (User) HibernateUtil.load(model.user.User.class, login);
+		User user = (User) HibernateUtil.load(mymoney.model.user.User.class, login);
 		return user.getEmail();
 	}
 	
