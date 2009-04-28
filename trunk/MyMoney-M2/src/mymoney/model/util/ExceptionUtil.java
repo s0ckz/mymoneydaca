@@ -27,7 +27,7 @@ public class ExceptionUtil {
 	public static void checkMissingArguments(String... args) throws MissingArgumentException {
 		assert args.length % 2 == 0;
 		for (int i = 0; i < args.length; i+=2) {
-			if (args[i+1] == null || args[i+1].equals(EMAIL_REGEX)) {
+			if (args[i+1] == null || args[i+1].isEmpty()) {
 				throw new MissingArgumentException(args[i]);
 			}
 		}
@@ -42,7 +42,7 @@ public class ExceptionUtil {
 	public static void checkInvalidArguments(String... args) throws InvalidArgumentException {
 		assert args.length % 2 == 0;
 		for (int i = 0; i < args.length; i+=2) {
-			if (args[i+1] != null && args[i+1].matches(VALID_FIELD_REGEX)) {
+			if (args[i+1] != null && !args[i+1].matches(VALID_FIELD_REGEX)) {
 				throw new InvalidArgumentException(args[i]);
 			}
 		}
@@ -53,5 +53,4 @@ public class ExceptionUtil {
 			throw new InvalidEmailException();
 		}
 	}
-
 }
