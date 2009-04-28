@@ -17,10 +17,9 @@
 
 			<property name="hibernate.connection.password">admin</property>
 			
-			<mapping package="mymoney.model.user"/>
-			
 			<mapping class="mymoney.model.user.User"/>
 			
+			<mapping class="mymoney.model.account.Operation"/>
 
 		</session-factory>
 
