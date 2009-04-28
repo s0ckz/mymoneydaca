@@ -17,7 +17,6 @@ public class Operation implements Serializable {
 	private static final long serialVersionUID = -907936723747353376L;
 
 	private long id;
-
 	private Account account;
 	
 	private String type;
@@ -31,6 +30,7 @@ public class Operation implements Serializable {
 	}
 	
 	public Operation(Account account, String type, String way, double amount) {
+		this.account = account;
 		this.type = type;
 		this.way = way;
 		this.amount = amount;
@@ -74,8 +74,9 @@ public class Operation implements Serializable {
 		this.amount = amount;
 	}
 
+
 	@ManyToOne
-    @JoinColumn(name="account_fk", insertable=false, updatable=false)
+    @JoinColumn(name="account_fk")
 	public Account getAccount() {
 		return account;
 	}
@@ -85,7 +86,7 @@ public class Operation implements Serializable {
 	}
 	
 	public String toString() {
-		return "id: " + getId() + ", accId: " + getAccount() + ", " + getType() + ", way: " + getWay() + ", amount: " + getAmount();
+		return "id: " + getId() + ", account: " + getAccount() + ", " + getType() + ", way: " + getWay() + ", amount: " + getAmount();
 	}
 	
 }
