@@ -32,8 +32,4 @@ public class AccountManagerImpl implements AccountManager {
 
 	}
 	
-	public static void main(String[] args) {
-		new AccountManagerImpl().createAccount("login", "label", "agency", "acc");
-	}
-
 }

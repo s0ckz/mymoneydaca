@@ -1,6 +1,5 @@
 package mymoney.model.account;
 
-import mymoney.model.user.User;
 
 public interface AccountManager {
 	
