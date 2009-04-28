@@ -25,5 +25,6 @@
 	<classpathentry kind="lib" path="lib/hibernate/xercesSamples.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate/xml-apis.jar"/>
 	<classpathentry kind="lib" path="lib/mysql/mysql-connector-java-5.1.7-bin.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
