@@ -2,6 +2,9 @@ package mymoney;
 
 import mymoney.model.MyMoney;
 import mymoney.model.MyMoneyImpl;
+import mymoney.model.exceptions.InvalidArgumentException;
+import mymoney.model.exceptions.InvalidEmailException;
+import mymoney.model.exceptions.MissingArgumentException;
 
 public class MyMoneyFacade {
 	
@@ -26,7 +29,7 @@ public class MyMoneyFacade {
 	// US-01
 
 	public void register(String login, String password, String name,
-			String gender, String eMail) {
+			String gender, String eMail) throws MissingArgumentException, InvalidArgumentException, InvalidEmailException {
 		myMoney.registerUser(login, password, name, gender, eMail);
 	}
 	

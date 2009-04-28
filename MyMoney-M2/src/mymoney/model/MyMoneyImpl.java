@@ -1,5 +1,8 @@
 package mymoney.model;
 
+import mymoney.model.exceptions.InvalidArgumentException;
+import mymoney.model.exceptions.InvalidEmailException;
+import mymoney.model.exceptions.MissingArgumentException;
 import mymoney.model.user.UserManager;
 import mymoney.model.user.UserManagerImpl;
 
@@ -24,7 +27,7 @@ public class MyMoneyImpl implements MyMoney {
 	}
 
 	public void registerUser(String login, String password, String name,
-			String gender, String mail) {
+			String gender, String mail) throws MissingArgumentException, InvalidArgumentException, InvalidEmailException {
 		userManager.register(login, password, name, gender, mail);
 	}
 

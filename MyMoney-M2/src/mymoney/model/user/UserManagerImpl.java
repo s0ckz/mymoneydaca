@@ -1,11 +1,18 @@
 package mymoney.model.user;
 
+import mymoney.model.exceptions.InvalidArgumentException;
+import mymoney.model.exceptions.InvalidEmailException;
+import mymoney.model.exceptions.MissingArgumentException;
+import mymoney.model.util.ExceptionUtil;
 import mymoney.model.util.HibernateUtil;
 
 public class UserManagerImpl implements UserManager {
 	
 	public void register(String login, String password, String name,
-			String gender, String eMail) {
+			String gender, String eMail) throws MissingArgumentException, InvalidArgumentException, InvalidEmailException {
+		ExceptionUtil.checkMissingArguments("login", login, "password", password, "name", name);
+		ExceptionUtil.checkInvalidArguments("login", login, "password", password, "name", name);
+		ExceptionUtil.checkEmail(eMail);
 		User user = new User(login, name, gender, eMail);
 		HibernateUtil.save(user);
 	}

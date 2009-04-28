@@ -65,10 +65,6 @@ public class HibernateUtil {
 		}
 	}
 	
-	/*
-	 * User template method aqui
-	 * 
-	 */
 //	private void doTransaction() {
 //		Session session = getSession();
 //		Transaction tx = session.beginTransaction();
