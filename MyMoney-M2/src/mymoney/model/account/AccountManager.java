@@ -1,5 +1,7 @@
 package mymoney.model.account;
 
+import mymoney.model.user.User;
+
 public interface AccountManager {
 	
 	long createAccount(String login, String label, String agency,

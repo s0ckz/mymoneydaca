@@ -4,8 +4,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="Operations")
@@ -14,8 +18,8 @@ public class Operation implements Serializable {
 	private static final long serialVersionUID = -907936723747353376L;
 
 	private long id;
-	
-	private long accId;
+
+	private Account account;
 	
 	private String type;
 	
@@ -27,14 +31,14 @@ public class Operation implements Serializable {
 		
 	}
 	
-	public Operation(long accId, String type, String way, double amount) {
-		this.accId = accId;
+	public Operation(Account account, String type, String way, double amount) {
 		this.type = type;
 		this.way = way;
 		this.amount = amount;
 	}
 
 	@Id
+	@GeneratedValue
 	@Column(name = "id")
 	public long getId() {
 		return id;
@@ -42,15 +46,6 @@ public class Operation implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	@Column(name = "accId")
-	public long getAccId() {
-		return accId;
-	}
-
-	public void setAccId(long accId) {
-		this.accId = accId;
 	}
 
 	@Column(name = "type")
@@ -79,9 +74,19 @@ public class Operation implements Serializable {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+
+	@ManyToOne
+    @JoinColumn(name="account_fk", insertable=false, updatable=false)
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
 	
 	public String toString() {
-		return "id: " + getId() + ", accId: " + getAccId() + ", " + getType() + ", way: " + getWay() + ", amount: " + getAmount();
+		return "id: " + getId() + ", accId: " + getAccount() + ", " + getType() + ", way: " + getWay() + ", amount: " + getAmount();
 	}
 	
 }
