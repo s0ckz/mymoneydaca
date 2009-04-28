@@ -7,7 +7,7 @@ import mymoney.model.exceptions.MissingArgumentException;
 public class ExceptionUtil {
 	
 	private static final String DOT = "\\.";
-	private static final String HIFEN = "-";
+	private static final String HIFEN = "\\-";
 	private static final String UNDERLINE = "_";
 	private static final String ALPHA_NUMERIC_CHAR = "\\w";
 	private static final String VALID_FIELD_REGEX = "[" + ALPHA_NUMERIC_CHAR + UNDERLINE + HIFEN + DOT + "]{4,}";
