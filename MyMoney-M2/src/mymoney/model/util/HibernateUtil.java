@@ -57,13 +57,24 @@ public class HibernateUtil {
 		}
 	}
 	
+	public static void update(Object obj) {
+		Session session = getSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			session.update(obj);
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null) tx.rollback();
+			throw e;
+		}
+	}
+	
 	@SuppressWarnings("unchecked")
 	public static Object load(Class clazz, Serializable id) {
 		Session session = getSession();
 		Transaction tx = session.beginTransaction();
 		try {
 			Object gotten = session.get(clazz, id);
-			tx.commit();
 			return gotten;
 		} catch (HibernateException e) {
 			if (tx != null) tx.rollback();
