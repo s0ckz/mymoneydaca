@@ -23,13 +23,14 @@ public class HibernateUtil {
 			AnnotationConfiguration cfg = new AnnotationConfiguration();
 			sessionFactory = cfg.configure().buildSessionFactory();
 			// soh deve criar os exportadores/atualizadores de esquema
-			// após chamar cfg.configure(), senão nao cria os mapeamentos, etc!
+			// apos chamar cfg.configure(), senao nao cria os mapeamentos, etc!
 			schemaExport = new SchemaExport(cfg);
 			schemaUpdate = new SchemaUpdate(cfg);
 			
 			schemaUpdate.execute(false, true);
 		} catch (Throwable ex) {
 			// Log exception!
+			ex.printStackTrace();
 			throw new ExceptionInInitializerError(ex);
 		}
 	}

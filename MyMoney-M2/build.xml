@@ -1,0 +1,48 @@
+<project name="MyMoney">
+
+	<property file="build.properties"/>
+	
+	<path id="classpath">
+		<fileset dir="${lib.dir}" includes="**/*.jar" />
+	</path>
+
+    <target name="clean">
+        <delete dir="${classes.dir}"/>
+		<delete dir="${build.dir}" />		
+		<delete dir="${jar.dir}" />		
+    </target>
+
+	<target name="init" depends="clean">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${jar.dir}" />
+		<mkdir dir="${classes.dir}" />
+	</target>
+
+	<target name="compile" depends="init">
+		<javac debug="true" srcdir="${src.dir}" destdir="${classes.dir}"
+			classpathref="classpath" />
+	</target>
+	
+	<target name="compileTestsSource" depends="init">
+		<javac debug="true" srcdir="${src.tests.dir}" destdir="${classes.dir}"
+			classpathref="classpath" />
+	</target>
+    
+    <target name="jar" depends="compile" >
+		<jar destfile="${jar.dir}/${jar.name}">
+			<fileset dir="${classes.dir}"/>
+			<fileset dir="${src.dir}"/>
+		</jar>
+	</target>   
+	
+	<target name="test-US01" depends="compile,compileTestsSource">
+		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
+			classpathref="classpath" fork="true" dir="${tests.scripts.dir}">
+			<jvmarg value="-ea"/>
+			<arg value="${mymoney.facade}"/>
+			<arg value="US1.txt"/>
+		</java>
+	</target>
+
+		
+</project>
