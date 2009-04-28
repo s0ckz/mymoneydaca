@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -66,7 +67,7 @@ public class Account implements Serializable {
 		return account;
 	}
 
-	@OneToMany(mappedBy="account")
+	@OneToMany(mappedBy="account", fetch=FetchType.EAGER)
 	public Set<Operation> getOperations() {
 		return operations;
 	}

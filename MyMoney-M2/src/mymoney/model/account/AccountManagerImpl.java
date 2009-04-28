@@ -45,6 +45,7 @@ public class AccountManagerImpl implements AccountManager {
 		long opId = acc.addOperation("teste", accId, "blah", "bleh", 200);
 		
 		System.out.println(HibernateUtil.load(Operation.class, opId));
+		System.out.println(((Account) HibernateUtil.load(Account.class, accId)).getOperations());
 	}
 	
 }
