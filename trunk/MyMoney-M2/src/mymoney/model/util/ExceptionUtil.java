@@ -28,7 +28,7 @@ public class ExceptionUtil {
 		assert args.length % 2 == 0;
 		for (int i = 0; i < args.length; i+=2) {
 			if (args[i+1] == null || args[i+1].isEmpty()) {
-				throw new MissingArgumentException(args[i]);
+				throw new MissingArgumentException();
 			}
 		}
 	}
@@ -39,11 +39,11 @@ public class ExceptionUtil {
 	 *  
 	 * @throws InvalidArgumentException If any argument is not valid. 
 	 */
-	public static void checkInvalidArguments(String... args) throws InvalidArgumentException {
+	public static void checkInvalidRequiredArguments(String... args) throws InvalidArgumentException {
 		assert args.length % 2 == 0;
 		for (int i = 0; i < args.length; i+=2) {
 			if (args[i+1] != null && !args[i+1].matches(VALID_FIELD_REGEX)) {
-				throw new InvalidArgumentException(args[i]);
+				throw new InvalidArgumentException();
 			}
 		}
 	}

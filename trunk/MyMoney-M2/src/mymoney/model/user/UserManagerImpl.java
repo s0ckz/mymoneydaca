@@ -11,7 +11,7 @@ public class UserManagerImpl implements UserManager {
 	public void register(String login, String password, String name,
 			String gender, String eMail) throws MissingArgumentException, InvalidArgumentException, InvalidEmailException {
 		ExceptionUtil.checkMissingArguments("login", login, "password", password, "name", name);
-		ExceptionUtil.checkInvalidArguments("login", login, "password", password, "name", name);
+		ExceptionUtil.checkInvalidRequiredArguments("login", login, "password", password);
 		ExceptionUtil.checkEmail(eMail);
 		User user = new User(login, name, gender, eMail);
 		HibernateUtil.save(user);

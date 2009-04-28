@@ -37,17 +37,17 @@ public class ExceptionUtilTest extends TestCase {
 		
 		
 		try {
-			ExceptionUtil.checkInvalidArguments("smallArg", smallArg);
-			ExceptionUtil.checkInvalidArguments("invalidChars", invalidChars);
+			ExceptionUtil.checkInvalidRequiredArguments("smallArg", smallArg);
+			ExceptionUtil.checkInvalidRequiredArguments("invalidChars", invalidChars);
 			for (String invalidArg : invalidArgs) {
-				ExceptionUtil.checkInvalidArguments("invalidArg", invalidArg);	
+				ExceptionUtil.checkInvalidRequiredArguments("invalidArg", invalidArg);	
 			}
-			ExceptionUtil.checkInvalidArguments("smallArg", smallArg, "invalidChars", invalidChars);
-			ExceptionUtil.checkInvalidArguments("smallArg", smallArg, "invalidChars", invalidChars, "validArg", validArg);
+			ExceptionUtil.checkInvalidRequiredArguments("smallArg", smallArg, "invalidChars", invalidChars);
+			ExceptionUtil.checkInvalidRequiredArguments("smallArg", smallArg, "invalidChars", invalidChars, "validArg", validArg);
 		} catch (InvalidArgumentException e) {}
 		
 		
-		ExceptionUtil.checkInvalidArguments("validArg", validArg);
+		ExceptionUtil.checkInvalidRequiredArguments("validArg", validArg);
 		
 	}
 	
