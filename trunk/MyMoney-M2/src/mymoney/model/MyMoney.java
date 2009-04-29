@@ -11,6 +11,8 @@ import mymoney.model.exceptions.MissingArgumentException;
 import mymoney.model.exceptions.PasswordMismatchException;
 import mymoney.model.exceptions.PermissionDeniedException;
 import mymoney.model.exceptions.UnknownOperationException;
+import mymoney.model.exceptions.UserAlreadyLoggedException;
+import mymoney.model.exceptions.UserNotLoggedException;
 
 public interface MyMoney {
 
@@ -25,7 +27,7 @@ public interface MyMoney {
 
 	String getUserName(String login);
 
-	void doLogin(String login, String password) throws PasswordMismatchException, InvalidArgumentException, LoginUnregisteredException;
+	void doLogin(String login, String password) throws PasswordMismatchException, InvalidArgumentException, LoginUnregisteredException, UserAlreadyLoggedException;
 
 	long createAccount(String login, String label, String agency, String account) throws MissingArgumentException, DuplicatedAccountException;
 
@@ -51,5 +53,7 @@ public interface MyMoney {
 	void removeOperation(String login, long opId) throws PermissionDeniedException, UnknownOperationException;
 
 	void removeAccount(String login, long accId) throws PermissionDeniedException, AccountNotFoundException;
+
+	void doLogoff(String login, String password) throws InvalidArgumentException, LoginUnregisteredException, PasswordMismatchException, UserNotLoggedException;
 	
 }
