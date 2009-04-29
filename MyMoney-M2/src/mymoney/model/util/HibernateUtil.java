@@ -158,7 +158,6 @@ public class HibernateUtil {
 		try {
 			session.delete(obj);
 			tx.commit();
-			session.close();
 		} catch (HibernateException e) {
 			if (tx != null) tx.rollback();
 			throw e;

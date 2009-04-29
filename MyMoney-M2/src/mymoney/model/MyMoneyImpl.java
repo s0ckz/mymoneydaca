@@ -4,6 +4,7 @@ import mymoney.model.account.AccountManager;
 import mymoney.model.account.AccountManagerImpl;
 import mymoney.model.auth.AuthManager;
 import mymoney.model.auth.AuthManagerImpl;
+import mymoney.model.exceptions.AccountNotFoundException;
 import mymoney.model.exceptions.BusinessException;
 import mymoney.model.exceptions.DuplicatedAccountException;
 import mymoney.model.exceptions.DuplicatedLoginException;
@@ -79,25 +80,29 @@ public class MyMoneyImpl implements MyMoney {
 	}
 
 	public long addOperationIntoDefaultAccount(String login, String type,
-			String way, double amount) throws BusinessException, PermissionDeniedException {
+			String way, double amount) throws BusinessException, PermissionDeniedException, AccountNotFoundException {
 		return accountManager.addOperationIntoDefaultAccount(login, type, way, amount);
 	}
 
 	public long addOperation(String login, long accId, String type, String way,
-			double amount) throws BusinessException, PermissionDeniedException {
+			double amount) throws BusinessException, PermissionDeniedException, AccountNotFoundException {
 		return accountManager.addOperation(login, accId, type, way, amount);
 	}
 
-	public double getDefAccOverallAmount(String login) throws PermissionDeniedException {
+	public double getDefAccOverallAmount(String login) throws PermissionDeniedException, AccountNotFoundException {
 		return accountManager.getDefAccOverallAmount(login);
 	}
 
-	public double getAccOverallAmount(String login, long accId) throws PermissionDeniedException {
+	public double getAccOverallAmount(String login, long accId) throws PermissionDeniedException, AccountNotFoundException {
 		return accountManager.getAccOverallAmount(login, accId);
 	}
 
 	public void removeOperation(String login, long opId) throws PermissionDeniedException, UnknownOperationException {
 		accountManager.removeOperation(login, opId);
+	}
+
+	public void removeAccount(String login, long accId) throws PermissionDeniedException, AccountNotFoundException {
+		accountManager.removeAccount(login, accId);
 	}
 
 }

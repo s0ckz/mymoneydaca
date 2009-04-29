@@ -2,6 +2,7 @@ package mymoney;
 
 import mymoney.model.MyMoney;
 import mymoney.model.MyMoneyImpl;
+import mymoney.model.exceptions.AccountNotFoundException;
 import mymoney.model.exceptions.BusinessException;
 import mymoney.model.exceptions.DuplicatedAccountException;
 import mymoney.model.exceptions.DuplicatedLoginException;
@@ -78,11 +79,11 @@ public class MyMoneyFacade {
 	// US-04
 
 	public long addOperationIntoDefaultAccount(String login, String type,
-			String way, double amount) throws BusinessException, PermissionDeniedException {
+			String way, double amount) throws BusinessException, PermissionDeniedException, AccountNotFoundException {
 		return myMoney.addOperationIntoDefaultAccount(login, type, way, amount);
 	}
 	
-	public long addOperation(String login, long accId, String type, String way, double amount) throws BusinessException, PermissionDeniedException {
+	public long addOperation(String login, long accId, String type, String way, double amount) throws BusinessException, PermissionDeniedException, AccountNotFoundException {
 		return myMoney.addOperation(login, accId, type, way, amount);
 	}
 
@@ -104,11 +105,11 @@ public class MyMoneyFacade {
 	
 	// US-05
 	
-	public double getDefAccOverallAmount(String login) throws PermissionDeniedException {
+	public double getDefAccOverallAmount(String login) throws PermissionDeniedException, AccountNotFoundException {
 		return myMoney.getDefAccOverallAmount(login);
 	}
 	
-	public double getAccOverallAmount(String login, long accId) throws PermissionDeniedException {
+	public double getAccOverallAmount(String login, long accId) throws PermissionDeniedException, AccountNotFoundException {
 		return  myMoney.getAccOverallAmount(login, accId);
 	}
 	
@@ -120,7 +121,8 @@ public class MyMoneyFacade {
 	
 	// US-07
 	
-	public void removeAccount(String login, long id) {
+	public void removeAccount(String login, long id) throws PermissionDeniedException, AccountNotFoundException {
+		myMoney.removeAccount(login, id);
 	}
 	
 	// US-08
