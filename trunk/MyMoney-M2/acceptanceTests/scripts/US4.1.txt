@@ -20,7 +20,7 @@ email=echo "renato@renato.com"
 # Operation definition
 type=echo "credit"
 way=echo "cash"
-amount=echo "10"
+amount=echo "10.0"
 
 # Registering user
 register ${login} ${password} ${name} ${gender} ${email}

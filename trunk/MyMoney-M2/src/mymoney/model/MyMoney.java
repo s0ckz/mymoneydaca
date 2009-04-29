@@ -26,5 +26,18 @@ public interface MyMoney {
 	long createAccount(String login, String label, String agency, String account) throws MissingArgumentException, DuplicatedAccountException;
 
 	boolean isLogged(String login) throws LoginUnregisteredException;
+
+	String getOperationType(long opId);
+
+	String getoperationWay(long opId);
+
+	double getOperationAmount(long opId);
+
+	long getNumberOfOperations(String login);
+
+	long addOperationIntoDefaultAccount(String login, String type, String way,
+			double amount);
+
+	long addOperation(String login, long accId, String type, String way, double amount);
 	
 }

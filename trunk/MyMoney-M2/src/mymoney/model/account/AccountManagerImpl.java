@@ -14,6 +14,8 @@ import org.hibernate.criterion.SimpleExpression;
 
 public class AccountManagerImpl implements AccountManager {
 
+	private static final String DEFAULT_ACCOUNT = "default";
+
 	public long addOperation(String login, long accId, String type, String way,
 			double amount) {
 		Account account = getAccount(accId);
@@ -24,7 +26,8 @@ public class AccountManagerImpl implements AccountManager {
 
 	public long addOperationIntoDefaultAccount(String login, String type,
 			String way, double amount) {
-		return 0;
+		long defaultAccount = getDefaultAccount(login).getId();
+		return addOperation(login, defaultAccount, type, way, amount);
 	}
 
 	public long createAccount(String login, String label, String agency,
@@ -38,11 +41,31 @@ public class AccountManagerImpl implements AccountManager {
 	}
 
 	public String getOperationType(long opId) {
-		return null;
+		Operation operation = (Operation) HibernateUtil.load(Operation.class, opId);
+		if (operation == null)
+			return "";
+		return operation.getType();
 	}
 
 	public String getOperationWay(long opId) {
-		return null;
+		Operation operation = (Operation) HibernateUtil.load(Operation.class, opId);
+		if (operation == null)
+			return "";
+		return operation.getWay();
+	}
+
+	public long getNumberOfOperations(String login) {
+//		Operation operation = (Operation) HibernateUtil.load(Operation.class, opId);
+//		if (operation == null)
+//			return 0;
+		return 0;
+	}
+
+	public double getOperationAmount(long opId) {
+		Operation operation = (Operation) HibernateUtil.load(Operation.class, opId);
+		if (operation == null)
+			return 0.0;
+		return operation.getAmount();
 	}
 
 	public void removeAccount(String login, long id) {
@@ -64,6 +87,19 @@ public class AccountManagerImpl implements AccountManager {
 			return null;
 		else
 			return list.get(0);
+	}
+
+	private Account getDefaultAccount(String login) {
+		Account account = getAccount(login, DEFAULT_ACCOUNT, DEFAULT_ACCOUNT, DEFAULT_ACCOUNT);
+		if (account == null) {
+			try {
+				createAccount(login, DEFAULT_ACCOUNT, DEFAULT_ACCOUNT, DEFAULT_ACCOUNT);
+			} catch (MissingArgumentException e) {
+			} catch (DuplicatedAccountException e) {
+			}
+			return getAccount(login, DEFAULT_ACCOUNT, DEFAULT_ACCOUNT, DEFAULT_ACCOUNT);
+		}
+		return account;
 	}
 
 	private Account getAccount(long accId) {

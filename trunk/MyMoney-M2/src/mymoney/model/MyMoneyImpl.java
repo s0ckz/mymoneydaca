@@ -59,4 +59,30 @@ public class MyMoneyImpl implements MyMoney {
 		return authManager.isLogged(login);
 	}
 
+	public String getOperationType(long opId) {
+		return accountManager.getOperationType(opId);
+	}
+
+	public String getoperationWay(long opId) {
+		return accountManager.getOperationWay(opId);
+	}
+
+	public long getNumberOfOperations(String login) {
+		return accountManager.getNumberOfOperations(login);
+	}
+
+	public double getOperationAmount(long opId) {
+		return accountManager.getOperationAmount(opId);
+	}
+
+	public long addOperationIntoDefaultAccount(String login, String type,
+			String way, double amount) {
+		return accountManager.addOperationIntoDefaultAccount(login, type, way, amount);
+	}
+
+	public long addOperation(String login, long accId, String type, String way,
+			double amount) {
+		return accountManager.addOperation(login, accId, type, way, amount);
+	}
+
 }
