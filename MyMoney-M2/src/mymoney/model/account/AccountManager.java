@@ -1,5 +1,6 @@
 package mymoney.model.account;
 
+import mymoney.model.exceptions.BusinessException;
 import mymoney.model.exceptions.DuplicatedAccountException;
 import mymoney.model.exceptions.MissingArgumentException;
 
@@ -12,9 +13,9 @@ public interface AccountManager {
 	void removeAccount(String login, long id);
 	
 	long addOperationIntoDefaultAccount(String login, String type,
-			String way, double amount);
+			String way, double amount) throws BusinessException;
 	
-	long addOperation(String login, long accId, String type, String way, double amount);
+	long addOperation(String login, long accId, String type, String way, double amount) throws BusinessException;
 	
 	String getOperationType(long opId);
 	

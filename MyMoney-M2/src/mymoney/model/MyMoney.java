@@ -1,5 +1,6 @@
 package mymoney.model;
 
+import mymoney.model.exceptions.BusinessException;
 import mymoney.model.exceptions.DuplicatedAccountException;
 import mymoney.model.exceptions.DuplicatedLoginException;
 import mymoney.model.exceptions.InvalidArgumentException;
@@ -36,8 +37,8 @@ public interface MyMoney {
 	long getNumberOfOperations(String login);
 
 	long addOperationIntoDefaultAccount(String login, String type, String way,
-			double amount);
+			double amount) throws BusinessException;
 
-	long addOperation(String login, long accId, String type, String way, double amount);
+	long addOperation(String login, long accId, String type, String way, double amount) throws BusinessException;
 	
 }

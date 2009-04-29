@@ -4,6 +4,7 @@ import mymoney.model.account.AccountManager;
 import mymoney.model.account.AccountManagerImpl;
 import mymoney.model.auth.AuthManager;
 import mymoney.model.auth.AuthManagerImpl;
+import mymoney.model.exceptions.BusinessException;
 import mymoney.model.exceptions.DuplicatedAccountException;
 import mymoney.model.exceptions.DuplicatedLoginException;
 import mymoney.model.exceptions.InvalidArgumentException;
@@ -76,12 +77,12 @@ public class MyMoneyImpl implements MyMoney {
 	}
 
 	public long addOperationIntoDefaultAccount(String login, String type,
-			String way, double amount) {
+			String way, double amount) throws BusinessException {
 		return accountManager.addOperationIntoDefaultAccount(login, type, way, amount);
 	}
 
 	public long addOperation(String login, long accId, String type, String way,
-			double amount) {
+			double amount) throws BusinessException {
 		return accountManager.addOperation(login, accId, type, way, amount);
 	}
 

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import mymoney.model.exceptions.BusinessException;
 import mymoney.model.exceptions.DuplicatedAccountException;
 import mymoney.model.exceptions.MissingArgumentException;
 import mymoney.model.util.ExceptionUtil;
@@ -17,7 +18,9 @@ public class AccountManagerImpl implements AccountManager {
 	private static final String DEFAULT_ACCOUNT = "default";
 
 	public long addOperation(String login, long accId, String type, String way,
-			double amount) {
+			double amount) throws BusinessException {
+		if (amount < 0.0)
+			throw new BusinessException("negative amount");
 		Account account = getAccount(accId);
 		if (account == null) /*LANCAR EXCECAO*/;
 		Operation operation = new Operation(account, type, way, amount);
@@ -25,7 +28,7 @@ public class AccountManagerImpl implements AccountManager {
 	}
 
 	public long addOperationIntoDefaultAccount(String login, String type,
-			String way, double amount) {
+			String way, double amount) throws BusinessException {
 		long defaultAccount = getDefaultAccount(login).getId();
 		return addOperation(login, defaultAccount, type, way, amount);
 	}
@@ -106,7 +109,7 @@ public class AccountManagerImpl implements AccountManager {
 		return (Account) HibernateUtil.load(Account.class, accId);
 	}
 	
-	public static void main(String[] args) throws MissingArgumentException, DuplicatedAccountException {
+	public static void main(String[] args) throws MissingArgumentException, DuplicatedAccountException, BusinessException {
 		AccountManager acc = new AccountManagerImpl();
 		long accId = acc.createAccount("teste", "a", "b", "c");
 		long opId = acc.addOperation("teste", accId, "blah", "bleh", 200);
