@@ -15,6 +15,8 @@ import mymoney.model.exceptions.MissingArgumentException;
 import mymoney.model.exceptions.PasswordMismatchException;
 import mymoney.model.exceptions.PermissionDeniedException;
 import mymoney.model.exceptions.UnknownOperationException;
+import mymoney.model.exceptions.UserAlreadyLoggedException;
+import mymoney.model.exceptions.UserNotLoggedException;
 import mymoney.model.user.UserManager;
 import mymoney.model.user.UserManagerImpl;
 
@@ -50,7 +52,7 @@ public class MyMoneyImpl implements MyMoney {
 		userManager.removeUser(login);
 	}
 
-	public void doLogin(String login, String password) throws PasswordMismatchException, InvalidArgumentException, LoginUnregisteredException {
+	public void doLogin(String login, String password) throws PasswordMismatchException, InvalidArgumentException, LoginUnregisteredException, UserAlreadyLoggedException {
 		authManager.doLogin(login, password);
 	}
 
@@ -103,6 +105,11 @@ public class MyMoneyImpl implements MyMoney {
 
 	public void removeAccount(String login, long accId) throws PermissionDeniedException, AccountNotFoundException {
 		accountManager.removeAccount(login, accId);
+	}
+
+	@Override
+	public void doLogoff(String login, String password) throws InvalidArgumentException, LoginUnregisteredException, PasswordMismatchException, UserNotLoggedException {
+		authManager.doLogoff(login, password);
 	}
 
 }

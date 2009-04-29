@@ -13,6 +13,8 @@ import mymoney.model.exceptions.MissingArgumentException;
 import mymoney.model.exceptions.PasswordMismatchException;
 import mymoney.model.exceptions.PermissionDeniedException;
 import mymoney.model.exceptions.UnknownOperationException;
+import mymoney.model.exceptions.UserAlreadyLoggedException;
+import mymoney.model.exceptions.UserNotLoggedException;
 import mymoney.model.util.HibernateUtil;
 
 public class MyMoneyFacade {
@@ -61,7 +63,7 @@ public class MyMoneyFacade {
 
 	// US-02
 
-	public void doLogin(String login, String password) throws PasswordMismatchException, InvalidArgumentException, LoginUnregisteredException {
+	public void doLogin(String login, String password) throws PasswordMismatchException, InvalidArgumentException, LoginUnregisteredException, UserAlreadyLoggedException {
 		myMoney.doLogin(login, password);
 	}
 	
@@ -186,7 +188,8 @@ public class MyMoneyFacade {
 	
 	// US-11
 	
-	public void doLogoff(String login, String password) {
+	public void doLogoff(String login, String password) throws InvalidArgumentException, LoginUnregisteredException, PasswordMismatchException, UserNotLoggedException {
+		myMoney.doLogoff(login, password);
 	}
 
 }
