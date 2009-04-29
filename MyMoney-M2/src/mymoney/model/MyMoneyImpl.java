@@ -13,6 +13,7 @@ import mymoney.model.exceptions.LoginUnregisteredException;
 import mymoney.model.exceptions.MissingArgumentException;
 import mymoney.model.exceptions.PasswordMismatchException;
 import mymoney.model.exceptions.PermissionDeniedException;
+import mymoney.model.exceptions.UnknownOperationException;
 import mymoney.model.user.UserManager;
 import mymoney.model.user.UserManagerImpl;
 
@@ -93,6 +94,10 @@ public class MyMoneyImpl implements MyMoney {
 
 	public double getAccOverallAmount(String login, long accId) throws PermissionDeniedException {
 		return accountManager.getAccOverallAmount(login, accId);
+	}
+
+	public void removeOperation(String login, long opId) throws PermissionDeniedException, UnknownOperationException {
+		accountManager.removeOperation(login, opId);
 	}
 
 }

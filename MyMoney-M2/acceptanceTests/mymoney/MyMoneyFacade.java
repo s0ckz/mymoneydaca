@@ -11,6 +11,7 @@ import mymoney.model.exceptions.LoginUnregisteredException;
 import mymoney.model.exceptions.MissingArgumentException;
 import mymoney.model.exceptions.PasswordMismatchException;
 import mymoney.model.exceptions.PermissionDeniedException;
+import mymoney.model.exceptions.UnknownOperationException;
 import mymoney.model.util.HibernateUtil;
 
 public class MyMoneyFacade {
@@ -113,7 +114,8 @@ public class MyMoneyFacade {
 	
 	// US-06
 	
-	public void removeOperation(String login, long idOperation) {
+	public void removeOperation(String login, long idOperation) throws PermissionDeniedException, UnknownOperationException {
+		myMoney.removeOperation(login, idOperation);
 	}
 	
 	// US-07
