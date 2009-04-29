@@ -5,7 +5,9 @@ import mymoney.model.MyMoneyImpl;
 import mymoney.model.exceptions.DuplicatedLoginException;
 import mymoney.model.exceptions.InvalidArgumentException;
 import mymoney.model.exceptions.InvalidEmailException;
+import mymoney.model.exceptions.LoginUnregisteredException;
 import mymoney.model.exceptions.MissingArgumentException;
+import mymoney.model.exceptions.PasswordMismatchException;
 import mymoney.model.util.HibernateUtil;
 
 public class MyMoneyFacade {
@@ -54,7 +56,7 @@ public class MyMoneyFacade {
 
 	// US-02
 
-	public void doLogin(String login, String password) {
+	public void doLogin(String login, String password) throws PasswordMismatchException, InvalidArgumentException, LoginUnregisteredException {
 		myMoney.doLogin(login, password);
 	}
 	
