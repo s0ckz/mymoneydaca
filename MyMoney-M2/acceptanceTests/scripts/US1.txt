@@ -21,7 +21,7 @@ expectError "Invalid Argument" register login="diego" password="123" name="Diego
 expectError "Invalid Argument" register login="diego" password="123 45" name="Diego Rodrigues" gender="M" eMail="diegotabira@gmail.com"
 
 # Cen�rio 6 - Um usu�rio com e-mail faz o registro no sistema com sucesso
-stackTrace register login="diego" password="12345" name="Diego Rodrigues" gender="M" eMail="diegotabira@gmail.com"
+register login="diego" password="12345" name="Diego Rodrigues" gender="M" eMail="diegotabira@gmail.com"
 
 # Cen�rio 7 - Um usu�rio sem e-mail faz o registro no sistema com sucesso
 register login="fulano" password="54321" name="Fulano de Tal" gender="M" eMail=""

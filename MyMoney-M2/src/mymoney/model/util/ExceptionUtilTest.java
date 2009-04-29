@@ -53,6 +53,7 @@ public class ExceptionUtilTest extends TestCase {
 	
 	@Test
 	public void testInvalidEmail() throws InvalidEmailException {
+		String emptyEmail = "";
 		String validEmail = "leandro@lrl.com";
 		String noPrefix = "@domain.com";
 		String noDomain = "user@.com";
@@ -67,6 +68,7 @@ public class ExceptionUtilTest extends TestCase {
 			ExceptionUtil.checkEmail(noDot);
 		} catch (InvalidEmailException e) {}
 		ExceptionUtil.checkEmail(validEmail);
+		ExceptionUtil.checkEmail(emptyEmail);
 	}
 
 }

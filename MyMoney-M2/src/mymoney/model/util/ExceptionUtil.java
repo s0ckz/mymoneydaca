@@ -49,7 +49,7 @@ public class ExceptionUtil {
 	}
 
 	public static void checkEmail(String email) throws InvalidEmailException {
-		if (email != null && !email.matches(EMAIL_REGEX)) {
+		if (email != null && !email.isEmpty() && !email.matches(EMAIL_REGEX)) {
 			throw new InvalidEmailException();
 		}
 	}

@@ -2,6 +2,7 @@ package mymoney;
 
 import mymoney.model.MyMoney;
 import mymoney.model.MyMoneyImpl;
+import mymoney.model.exceptions.DuplicatedLoginException;
 import mymoney.model.exceptions.InvalidArgumentException;
 import mymoney.model.exceptions.InvalidEmailException;
 import mymoney.model.exceptions.MissingArgumentException;
@@ -31,7 +32,7 @@ public class MyMoneyFacade {
 	// US-01
 
 	public void register(String login, String password, String name,
-			String gender, String eMail) throws MissingArgumentException, InvalidArgumentException, InvalidEmailException {
+			String gender, String eMail) throws MissingArgumentException, InvalidArgumentException, InvalidEmailException, DuplicatedLoginException {
 		myMoney.registerUser(login, password, name, gender, eMail);
 	}
 	
@@ -54,6 +55,7 @@ public class MyMoneyFacade {
 	// US-02
 
 	public void doLogin(String login, String password) {
+		myMoney.doLogin(login, password);
 	}
 	
 	public boolean isLogged(String login) {

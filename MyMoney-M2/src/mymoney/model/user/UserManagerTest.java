@@ -1,6 +1,7 @@
 package mymoney.model.user;
 
 import junit.framework.Assert;
+import mymoney.model.exceptions.DuplicatedLoginException;
 import mymoney.model.exceptions.InvalidArgumentException;
 import mymoney.model.exceptions.InvalidEmailException;
 import mymoney.model.exceptions.MissingArgumentException;
@@ -28,7 +29,7 @@ public class UserManagerTest {
 	}
 	
 	@Test
-	public void testCreate() throws MissingArgumentException, InvalidArgumentException, InvalidEmailException {
+	public void testCreate() throws MissingArgumentException, InvalidArgumentException, InvalidEmailException, DuplicatedLoginException {
 		manager.register(LOGIN, PASSWORD,NAME, GENDER, EMAIL);
 		Assert.assertEquals(NAME, manager.getUserEmail(LOGIN));
 		Assert.assertEquals(EMAIL, manager.getUserEmail(LOGIN));
