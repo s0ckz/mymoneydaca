@@ -1,5 +1,6 @@
 package mymoney.model.user;
 
+import mymoney.model.exceptions.DuplicatedLoginException;
 import mymoney.model.exceptions.InvalidArgumentException;
 import mymoney.model.exceptions.InvalidEmailException;
 import mymoney.model.exceptions.MissingArgumentException;
@@ -7,7 +8,7 @@ import mymoney.model.exceptions.MissingArgumentException;
 public interface UserManager {
 
 	public void register(String login, String password, String name,
-			String gender, String eMail) throws MissingArgumentException, InvalidArgumentException, InvalidEmailException;
+			String gender, String eMail) throws MissingArgumentException, InvalidArgumentException, InvalidEmailException, DuplicatedLoginException;
 
 	public String getUserName(String login);
 

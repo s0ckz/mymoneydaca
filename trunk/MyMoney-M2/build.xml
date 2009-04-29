@@ -49,5 +49,14 @@
 		</java>
 	</target>
 
+	<target name="test-US02" depends="jar,compileTestsSource">
+		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
+			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
+			<jvmarg value="-ea"/>
+			<arg value="${mymoney.facade}"/>
+			<arg value="US2.txt"/>
+		</java>
+	</target>
+
 		
 </project>
