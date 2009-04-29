@@ -2,6 +2,7 @@ package mymoney;
 
 import mymoney.model.MyMoney;
 import mymoney.model.MyMoneyImpl;
+import mymoney.model.exceptions.BusinessException;
 import mymoney.model.exceptions.DuplicatedAccountException;
 import mymoney.model.exceptions.DuplicatedLoginException;
 import mymoney.model.exceptions.InvalidArgumentException;
@@ -75,11 +76,11 @@ public class MyMoneyFacade {
 	// US-04
 
 	public long addOperationIntoDefaultAccount(String login, String type,
-			String way, double amount) {
+			String way, double amount) throws BusinessException {
 		return myMoney.addOperationIntoDefaultAccount(login, type, way, amount);
 	}
 	
-	public long addOperation(String login, long accId, String type, String way, double amount) {
+	public long addOperation(String login, long accId, String type, String way, double amount) throws BusinessException {
 		return myMoney.addOperation(login, accId, type, way, amount);
 	}
 
