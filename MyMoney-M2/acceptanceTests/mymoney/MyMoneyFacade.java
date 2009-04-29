@@ -76,27 +76,27 @@ public class MyMoneyFacade {
 
 	public long addOperationIntoDefaultAccount(String login, String type,
 			String way, double amount) {
-		return 0;
+		return myMoney.addOperationIntoDefaultAccount(login, type, way, amount);
 	}
 	
 	public long addOperation(String login, long accId, String type, String way, double amount) {
-		return 0;
+		return myMoney.addOperation(login, accId, type, way, amount);
 	}
 
 	public String getOperationType(long opId) {
-		return null;
+		return myMoney.getOperationType(opId);
 	}
 
 	public String getOperationWay(long opId) {
-		return null;
+		return myMoney.getoperationWay(opId);
 	}
 
 	public double getOperationAmount(long opId) {
-		return 0.0;
+		return myMoney.getOperationAmount(opId);
 	}
 	
 	public long getNumberOfOperations(String login) {
-		return 0;
+		return myMoney.getNumberOfOperations(login);
 	}
 	
 	// US-05

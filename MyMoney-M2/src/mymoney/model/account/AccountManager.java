@@ -20,4 +20,8 @@ public interface AccountManager {
 	
 	String getOperationWay(long opId);
 
+	long getNumberOfOperations(String login);
+
+	double getOperationAmount(long opId);
+
 }
