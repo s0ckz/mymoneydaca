@@ -3,7 +3,9 @@ package mymoney.model;
 import mymoney.model.exceptions.DuplicatedLoginException;
 import mymoney.model.exceptions.InvalidArgumentException;
 import mymoney.model.exceptions.InvalidEmailException;
+import mymoney.model.exceptions.LoginUnregisteredException;
 import mymoney.model.exceptions.MissingArgumentException;
+import mymoney.model.exceptions.PasswordMismatchException;
 
 public interface MyMoney {
 
@@ -18,6 +20,6 @@ public interface MyMoney {
 
 	String getUserName(String login);
 
-	void doLogin(String login, String password);
+	void doLogin(String login, String password) throws PasswordMismatchException, InvalidArgumentException, LoginUnregisteredException;
 	
 }

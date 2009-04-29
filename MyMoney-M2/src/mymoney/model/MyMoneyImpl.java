@@ -5,7 +5,9 @@ import mymoney.model.auth.AuthManagerImpl;
 import mymoney.model.exceptions.DuplicatedLoginException;
 import mymoney.model.exceptions.InvalidArgumentException;
 import mymoney.model.exceptions.InvalidEmailException;
+import mymoney.model.exceptions.LoginUnregisteredException;
 import mymoney.model.exceptions.MissingArgumentException;
+import mymoney.model.exceptions.PasswordMismatchException;
 import mymoney.model.user.UserManager;
 import mymoney.model.user.UserManagerImpl;
 
@@ -41,7 +43,7 @@ public class MyMoneyImpl implements MyMoney {
 	}
 
 	@Override
-	public void doLogin(String login, String password) {
+	public void doLogin(String login, String password) throws PasswordMismatchException, InvalidArgumentException, LoginUnregisteredException {
 		authManager.doLogin(login, password);
 	}
 
