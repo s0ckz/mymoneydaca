@@ -10,6 +10,7 @@ import mymoney.model.exceptions.InvalidEmailException;
 import mymoney.model.exceptions.LoginUnregisteredException;
 import mymoney.model.exceptions.MissingArgumentException;
 import mymoney.model.exceptions.PasswordMismatchException;
+import mymoney.model.exceptions.PermissionDeniedException;
 import mymoney.model.util.HibernateUtil;
 
 public class MyMoneyFacade {
@@ -76,11 +77,11 @@ public class MyMoneyFacade {
 	// US-04
 
 	public long addOperationIntoDefaultAccount(String login, String type,
-			String way, double amount) throws BusinessException {
+			String way, double amount) throws BusinessException, PermissionDeniedException {
 		return myMoney.addOperationIntoDefaultAccount(login, type, way, amount);
 	}
 	
-	public long addOperation(String login, long accId, String type, String way, double amount) throws BusinessException {
+	public long addOperation(String login, long accId, String type, String way, double amount) throws BusinessException, PermissionDeniedException {
 		return myMoney.addOperation(login, accId, type, way, amount);
 	}
 

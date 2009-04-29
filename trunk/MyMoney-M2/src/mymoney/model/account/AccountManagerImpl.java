@@ -7,6 +7,7 @@ import java.util.List;
 import mymoney.model.exceptions.BusinessException;
 import mymoney.model.exceptions.DuplicatedAccountException;
 import mymoney.model.exceptions.MissingArgumentException;
+import mymoney.model.exceptions.PermissionDeniedException;
 import mymoney.model.util.ExceptionUtil;
 import mymoney.model.util.HibernateUtil;
 
@@ -18,17 +19,21 @@ public class AccountManagerImpl implements AccountManager {
 	private static final String DEFAULT_ACCOUNT = "default";
 
 	public long addOperation(String login, long accId, String type, String way,
-			double amount) throws BusinessException {
+			double amount) throws BusinessException, PermissionDeniedException {
 		if (amount < 0.0)
 			throw new BusinessException("negative amount");
+		else if (amount == 0.0)
+			throw new BusinessException("zero amount");
 		Account account = getAccount(accId);
 		if (account == null) /*LANCAR EXCECAO*/;
+		if (!account.getLogin().equals(login))
+			throw new PermissionDeniedException("you do not own this account");
 		Operation operation = new Operation(account, type, way, amount);
 		return (Long) HibernateUtil.save(operation);
 	}
 
 	public long addOperationIntoDefaultAccount(String login, String type,
-			String way, double amount) throws BusinessException {
+			String way, double amount) throws BusinessException, PermissionDeniedException {
 		long defaultAccount = getDefaultAccount(login).getId();
 		return addOperation(login, defaultAccount, type, way, amount);
 	}
@@ -109,7 +114,7 @@ public class AccountManagerImpl implements AccountManager {
 		return (Account) HibernateUtil.load(Account.class, accId);
 	}
 	
-	public static void main(String[] args) throws MissingArgumentException, DuplicatedAccountException, BusinessException {
+	public static void main(String[] args) throws MissingArgumentException, DuplicatedAccountException, BusinessException, PermissionDeniedException {
 		AccountManager acc = new AccountManagerImpl();
 		long accId = acc.createAccount("teste", "a", "b", "c");
 		long opId = acc.addOperation("teste", accId, "blah", "bleh", 200);

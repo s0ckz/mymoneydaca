@@ -37,7 +37,7 @@ doLogin ${login} ${password}
 accId=createAccount ${login} ${label} ${agency} ${account}
 
 # Registering operation into the account
-expectError "Business validation: negative amount" addOperation ${login} ${accId} ${type} ${way} ${amount}
+expectError "Business validation: zero amount" addOperation ${login} ${accId} ${type} ${way} ${amount}
 
 # Logging off with user
 doLogoff ${login} ${password}

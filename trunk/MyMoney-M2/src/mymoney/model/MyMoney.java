@@ -8,6 +8,7 @@ import mymoney.model.exceptions.InvalidEmailException;
 import mymoney.model.exceptions.LoginUnregisteredException;
 import mymoney.model.exceptions.MissingArgumentException;
 import mymoney.model.exceptions.PasswordMismatchException;
+import mymoney.model.exceptions.PermissionDeniedException;
 
 public interface MyMoney {
 
@@ -37,8 +38,8 @@ public interface MyMoney {
 	long getNumberOfOperations(String login);
 
 	long addOperationIntoDefaultAccount(String login, String type, String way,
-			double amount) throws BusinessException;
+			double amount) throws BusinessException, PermissionDeniedException;
 
-	long addOperation(String login, long accId, String type, String way, double amount) throws BusinessException;
+	long addOperation(String login, long accId, String type, String way, double amount) throws BusinessException, PermissionDeniedException;
 	
 }
