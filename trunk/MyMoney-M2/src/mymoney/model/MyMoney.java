@@ -9,6 +9,7 @@ import mymoney.model.exceptions.LoginUnregisteredException;
 import mymoney.model.exceptions.MissingArgumentException;
 import mymoney.model.exceptions.PasswordMismatchException;
 import mymoney.model.exceptions.PermissionDeniedException;
+import mymoney.model.exceptions.UnknownOperationException;
 
 public interface MyMoney {
 
@@ -45,5 +46,7 @@ public interface MyMoney {
 	double getDefAccOverallAmount(String login) throws PermissionDeniedException;
 	
 	double getAccOverallAmount(String login, long accId) throws PermissionDeniedException;
+
+	void removeOperation(String login, long opId) throws PermissionDeniedException, UnknownOperationException;
 	
 }

@@ -8,6 +8,7 @@ import mymoney.model.exceptions.BusinessException;
 import mymoney.model.exceptions.DuplicatedAccountException;
 import mymoney.model.exceptions.MissingArgumentException;
 import mymoney.model.exceptions.PermissionDeniedException;
+import mymoney.model.exceptions.UnknownOperationException;
 import mymoney.model.util.ExceptionUtil;
 import mymoney.model.util.HibernateUtil;
 
@@ -46,14 +47,14 @@ public class AccountManagerImpl implements AccountManager {
 	}
 
 	public String getOperationType(long opId) {
-		Operation operation = (Operation) HibernateUtil.load(Operation.class, opId);
+		Operation operation = getOperation(opId);
 		if (operation == null)
 			return "";
 		return operation.getType();
 	}
 
 	public String getOperationWay(long opId) {
-		Operation operation = (Operation) HibernateUtil.load(Operation.class, opId);
+		Operation operation = getOperation(opId);
 		if (operation == null)
 			return "";
 		return operation.getWay();
@@ -67,7 +68,7 @@ public class AccountManagerImpl implements AccountManager {
 	}
 
 	public double getOperationAmount(long opId) {
-		Operation operation = (Operation) HibernateUtil.load(Operation.class, opId);
+		Operation operation = getOperation(opId);
 		if (operation == null)
 			return 0.0;
 		return operation.getAmount();
@@ -90,7 +91,12 @@ public class AccountManagerImpl implements AccountManager {
 	public void removeAccount(String login, long id) {
 
 	}
-	
+
+	public void removeOperation(String login, long opId) throws UnknownOperationException, PermissionDeniedException {
+		Operation operation = getOperation(login, opId);
+		HibernateUtil.delete(operation);
+	}
+
 	@SuppressWarnings("unchecked")
 	private Account getAccount(String login, String label, String agency,
 			String account) {
@@ -127,6 +133,20 @@ public class AccountManagerImpl implements AccountManager {
 		if (!account.getLogin().equals(login))
 			throw new PermissionDeniedException("you do not own this account");
 		return account;
+	}
+
+	private Operation getOperation(long opId) {
+		Operation operation = (Operation) HibernateUtil.load(Operation.class, opId);
+		return operation;
+	}
+	
+	private Operation getOperation(String login, long opId) throws PermissionDeniedException, UnknownOperationException {
+		Operation operation = getOperation(opId);
+		if (operation == null)
+			throw new UnknownOperationException();
+		if (!operation.getAccount().getLogin().equals(login))
+			throw new PermissionDeniedException("you do not own this operation");
+		return operation;
 	}
 	
 	public static void main(String[] args) throws MissingArgumentException, DuplicatedAccountException, BusinessException, PermissionDeniedException {

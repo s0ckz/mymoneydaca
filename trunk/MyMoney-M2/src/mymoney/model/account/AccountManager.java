@@ -4,6 +4,7 @@ import mymoney.model.exceptions.BusinessException;
 import mymoney.model.exceptions.DuplicatedAccountException;
 import mymoney.model.exceptions.MissingArgumentException;
 import mymoney.model.exceptions.PermissionDeniedException;
+import mymoney.model.exceptions.UnknownOperationException;
 
 
 public interface AccountManager {
@@ -29,5 +30,7 @@ public interface AccountManager {
 	double getDefAccOverallAmount(String login) throws PermissionDeniedException;
 
 	double getAccOverallAmount(String login, long accId) throws PermissionDeniedException;
+
+	void removeOperation(String login, long opId) throws PermissionDeniedException, UnknownOperationException;
 
 }

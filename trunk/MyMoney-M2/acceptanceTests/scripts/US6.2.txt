@@ -32,7 +32,7 @@ agency=echo "5678"
 # Operation definition
 type=echo "credit"
 way=echo "cash"
-amount=echo "0"
+amount=echo "10"
 
 # Registering user 1
 register ${login1} ${password1} ${name1} ${gender1} ${email1}
