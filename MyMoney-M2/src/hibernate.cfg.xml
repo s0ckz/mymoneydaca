@@ -19,6 +19,8 @@
 			
 			<mapping class="mymoney.model.user.User"/>
 			
+			<mapping class="mymoney.model.auth.Auth"/>
+			
 			<mapping class="mymoney.model.account.Operation"/>
 			
 			<mapping class="mymoney.model.account.Account"/>
