@@ -12,8 +12,8 @@ import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.hibernate.tool.hbm2ddl.SchemaUpdate;
 
 /**
- * Classe que é responsável pela comunicação com o Hibernate
- * e fazer persistência, consultas, etc.
+ * Classe que ï¿½ responsï¿½vel pela comunicaï¿½ï¿½o com o Hibernate
+ * e fazer persistï¿½ncia, consultas, etc.
  */
 public class HibernateUtil {
 
@@ -55,10 +55,10 @@ public class HibernateUtil {
 	}
 
 	/**
-	 * Carrega a sessão corrente em relação à thread atual.
-	 * Como a aplicação será utilizada em Tomcat/afins, cada
-	 * requisição será numa thread separada, garantido a não-sobreposição de sessões.
-	 * @return Uma sessão baseada na thread atual.
+	 * Carrega a sessï¿½o corrente em relaï¿½ï¿½o ï¿½ thread atual.
+	 * Como a aplicaï¿½ï¿½o serï¿½ utilizada em Tomcat/afins, cada
+	 * requisiï¿½ï¿½o serï¿½ numa thread separada, garantido a nï¿½o-sobreposiï¿½ï¿½o de sessï¿½es.
+	 * @return Uma sessï¿½o baseada na thread atual.
 	 * @throws HibernateException Caso algum problema com o Hibernate ocorra.
 	 */
 	public static Session getSession() throws HibernateException {
@@ -67,10 +67,10 @@ public class HibernateUtil {
 	
 	/**
 	 * Salva um objeto na base de dados. Deve ser utilizado quando
-	 * o objeto não existir. Caso o objeto já exista, utilizar {@link HibernateUtil#update(Object)}.
+	 * o objeto nï¿½o existir. Caso o objeto jï¿½ exista, utilizar {@link HibernateUtil#update(Object)}.
 	 * @param obj Objeto a ser salvo.
-	 * @return Um possível valor gerado que serve como chave. <code>null</code> caso
-	 * contrário.
+	 * @return Um possï¿½vel valor gerado que serve como chave. <code>null</code> caso
+	 * contrï¿½rio.
 	 * @see HibernateUtil#update(Object)
 	 */
 	public static Serializable save(Object obj) {
@@ -87,7 +87,7 @@ public class HibernateUtil {
 	}
 	
 	/**
-	 * Atualiza um objeto já existente no banco de dados.
+	 * Atualiza um objeto jï¿½ existente no banco de dados.
 	 * @param obj Objeto a ser atualizado.
 	 */
 	public static void update(Object obj) {
@@ -105,10 +105,10 @@ public class HibernateUtil {
 	/**
 	 * Retorna um objeto de acordo com o seu identificador.
 	 * Utiliza {@link Session#get(Class, Serializable)}, para evitar
-	 * que objetos que não existam causem exceções do tipo
+	 * que objetos que nï¿½o existam causem exceï¿½ï¿½es do tipo
 	 * {@link LazyInitializationException}.
 	 * @param clazz Classe do objeto a ser carregado.
-	 * @param id Chave primária do objeto.
+	 * @param id Chave primï¿½ria do objeto.
 	 * @return O objeto requerido.
 	 */
 	@SuppressWarnings("unchecked")
