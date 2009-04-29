@@ -1,5 +1,6 @@
 package mymoney.model;
 
+import mymoney.model.exceptions.DuplicatedAccountException;
 import mymoney.model.exceptions.DuplicatedLoginException;
 import mymoney.model.exceptions.InvalidArgumentException;
 import mymoney.model.exceptions.InvalidEmailException;
@@ -21,6 +22,8 @@ public interface MyMoney {
 	String getUserName(String login);
 
 	void doLogin(String login, String password) throws PasswordMismatchException, InvalidArgumentException, LoginUnregisteredException;
+
+	long createAccount(String login, String label, String agency, String account) throws MissingArgumentException, DuplicatedAccountException;
 
 	boolean isLogged(String login) throws LoginUnregisteredException;
 	

@@ -1,19 +1,23 @@
 package mymoney.model.util;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.LazyInitializationException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.criterion.SimpleExpression;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.hibernate.tool.hbm2ddl.SchemaUpdate;
 
 /**
- * Classe que � respons�vel pela comunica��o com o Hibernate
- * e fazer persist�ncia, consultas, etc.
+ * Classe que eh responsavel pela comunicacao com o Hibernate
+ * e fazer persistencia, consultas, etc.
  */
 public class HibernateUtil {
 
@@ -55,22 +59,41 @@ public class HibernateUtil {
 	}
 
 	/**
-	 * Carrega a sess�o corrente em rela��o � thread atual.
-	 * Como a aplica��o ser� utilizada em Tomcat/afins, cada
-	 * requisi��o ser� numa thread separada, garantido a n�o-sobreposi��o de sess�es.
-	 * @return Uma sess�o baseada na thread atual.
+	 * Carrega a sessao corrente em relacao a thread atual.
+	 * Como a aplicacao sera utilizada em Tomcat/afins, cada
+	 * requisicao sera numa thread separada, garantido a nao-sobreposicao de sessoes.
+	 * @return Uma sessao baseada na thread atual.
 	 * @throws HibernateException Caso algum problema com o Hibernate ocorra.
 	 */
-	public static Session getSession() throws HibernateException {
+	private static Session getSession() throws HibernateException {
 		return sessionFactory.getCurrentSession();
 	}
 	
 	/**
+	 * Retorna os objetos que se encaixam no critério requerido.
+	 * @param clazz Classe a ser utilizada.
+	 * @param expressions Expressões que serão avaliadas.
+	 * @return Lista de objetos que casam com as expressões enviadas.
+	 */
+	public static List<?> createQueryBasedOnExpressions(
+			Class<?> clazz, Collection<SimpleExpression> expressions) {
+		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		Criteria crit = session.createCriteria(clazz);
+		for (SimpleExpression se : expressions) {
+			crit.add(se);
+		}
+		List<?> list = crit.list();
+		session.close();
+		return list;
+	}
+	
+	/**
 	 * Salva um objeto na base de dados. Deve ser utilizado quando
-	 * o objeto n�o existir. Caso o objeto j� exista, utilizar {@link HibernateUtil#update(Object)}.
+	 * o objeto nao existir. Caso o objeto ja exista, utilizar {@link HibernateUtil#update(Object)}.
 	 * @param obj Objeto a ser salvo.
-	 * @return Um poss�vel valor gerado que serve como chave. <code>null</code> caso
-	 * contr�rio.
+	 * @return Um possivel valor gerado que serve como chave. <code>null</code> caso
+	 * contrï¿½rio.
 	 * @see HibernateUtil#update(Object)
 	 */
 	public static Serializable save(Object obj) {
@@ -87,7 +110,7 @@ public class HibernateUtil {
 	}
 	
 	/**
-	 * Atualiza um objeto j� existente no banco de dados.
+	 * Atualiza um objeto jï¿½ existente no banco de dados.
 	 * @param obj Objeto a ser atualizado.
 	 */
 	public static void update(Object obj) {
@@ -105,10 +128,10 @@ public class HibernateUtil {
 	/**
 	 * Retorna um objeto de acordo com o seu identificador.
 	 * Utiliza {@link Session#get(Class, Serializable)}, para evitar
-	 * que objetos que n�o existam causem exce��es do tipo
+	 * que objetos que nao existam causem excecoes do tipo
 	 * {@link LazyInitializationException}.
 	 * @param clazz Classe do objeto a ser carregado.
-	 * @param id Chave prim�ria do objeto.
+	 * @param id Chave primaria do objeto.
 	 * @return O objeto requerido.
 	 */
 	@SuppressWarnings("unchecked")

@@ -1,10 +1,13 @@
 package mymoney.model.account;
 
+import mymoney.model.exceptions.DuplicatedAccountException;
+import mymoney.model.exceptions.MissingArgumentException;
+
 
 public interface AccountManager {
 	
 	long createAccount(String login, String label, String agency,
-			String account);
+			String account) throws MissingArgumentException, DuplicatedAccountException;
 	
 	void removeAccount(String login, long id);
 	

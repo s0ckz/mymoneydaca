@@ -40,6 +40,9 @@
 		</jar>
 	</target>   
 	
+	<target name="test-AllUS" depends="test-US01,test-US02,test-US03">
+	</target>
+	
 	<target name="test-US01" depends="jar,compileTestsSource">
 		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
 			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
@@ -55,6 +58,15 @@
 			<jvmarg value="-ea"/>
 			<arg value="${mymoney.facade}"/>
 			<arg value="US2.txt"/>
+		</java>
+	</target>
+
+	<target name="test-US03" depends="jar,compileTestsSource">
+		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
+			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
+			<jvmarg value="-ea"/>
+			<arg value="${mymoney.facade}"/>
+			<arg value="US3.txt"/>
 		</java>
 	</target>
 

@@ -1,20 +1,22 @@
 # User Story 3
 # Criar conta
 
-register login="ze", password="12345", name="Jose", gender="M", eMail=""
-doLogin login="ze", password="12345"
+cleanAll
+
+register login="zezo" password="12345" name="Jose" gender="M" eMail=""
+doLogin login="zezo" password="12345"
 
 # Cenário 1 - O usuário tenta criar uma conta sem passar o label
-expectError "Missing Argument" createAccount login="ze", label="", agency="1591-1", account="11405-2"
+expectError "Missing Argument" createAccount login="zezo" label="" agency="1591-1" account="11405-2"
 
 # Cenário 2 - O usuário tenta criar uma conta sem passar a agência
-expectError "Missing Argument" createAccount login="ze", label="Banco do Brasil", agency="", account="11405-2"
+expectError "Missing Argument" createAccount login="zezo" label="Banco do Brasil" agency="" account="11405-2"
 
 # Cenário 3 - O usuário tenta criar uma conta sem passar o número da conta
-expectError "Missing Argument" createAccount login="ze", label="Banco do Brasil", agency="1591-1", account=""
+expectError "Missing Argument" createAccount login="zezo" label="Banco do Brasil" agency="1591-1" account=""
 
 # Cenário 4 - O usuário cria uma conta com sucesso
-createAccount login="ze", label="Banco do Brasil", agency="1591-1", account="11405-2"
+createAccount login="zezo" label="Banco do Brasil" agency="1591-1" account="11405-2"
 
 # Cenário 5 - O usuário tenta criar uma conta já existente
-expectError "Account Already Exists" createAccount login="ze", label="Banco do Brasil", agency="1591-1", account="11405-2"
+expectError "Account Already Exists" createAccount login="zezo" label="Banco do Brasil" agency="1591-1" account="11405-2"
