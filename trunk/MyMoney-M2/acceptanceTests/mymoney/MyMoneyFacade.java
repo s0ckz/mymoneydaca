@@ -2,6 +2,7 @@ package mymoney;
 
 import mymoney.model.MyMoney;
 import mymoney.model.MyMoneyImpl;
+import mymoney.model.exceptions.DuplicatedAccountException;
 import mymoney.model.exceptions.DuplicatedLoginException;
 import mymoney.model.exceptions.InvalidArgumentException;
 import mymoney.model.exceptions.InvalidEmailException;
@@ -67,8 +68,8 @@ public class MyMoneyFacade {
 	// US-03
 
 	public long createAccount(String login, String label, String agency,
-			String account) {
-		return 0;
+			String account) throws MissingArgumentException, DuplicatedAccountException {
+		return myMoney.createAccount(login, label, agency, account);
 	}
 
 	// US-04

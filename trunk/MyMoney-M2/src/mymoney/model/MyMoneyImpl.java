@@ -1,7 +1,10 @@
 package mymoney.model;
 
+import mymoney.model.account.AccountManager;
+import mymoney.model.account.AccountManagerImpl;
 import mymoney.model.auth.AuthManager;
 import mymoney.model.auth.AuthManagerImpl;
+import mymoney.model.exceptions.DuplicatedAccountException;
 import mymoney.model.exceptions.DuplicatedLoginException;
 import mymoney.model.exceptions.InvalidArgumentException;
 import mymoney.model.exceptions.InvalidEmailException;
@@ -16,6 +19,7 @@ public class MyMoneyImpl implements MyMoney {
 	
 	private UserManager userManager = new UserManagerImpl();
 	private AuthManager authManager = new AuthManagerImpl();
+	private AccountManager accountManager = new AccountManagerImpl();
 	
 	public MyMoneyImpl() {
 	}
@@ -42,12 +46,15 @@ public class MyMoneyImpl implements MyMoney {
 		userManager.removeUser(login);
 	}
 
-	@Override
 	public void doLogin(String login, String password) throws PasswordMismatchException, InvalidArgumentException, LoginUnregisteredException {
 		authManager.doLogin(login, password);
 	}
 
-	@Override
+	public long createAccount(String login, String label, String agency,
+			String account) throws MissingArgumentException, DuplicatedAccountException {
+		return accountManager.createAccount(login, label, agency, account);
+	}
+
 	public boolean isLogged(String login) throws LoginUnregisteredException {
 		return authManager.isLogged(login);
 	}
