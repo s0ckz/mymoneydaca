@@ -12,6 +12,7 @@ import mymoney.model.exceptions.InvalidEmailException;
 import mymoney.model.exceptions.LoginUnregisteredException;
 import mymoney.model.exceptions.MissingArgumentException;
 import mymoney.model.exceptions.PasswordMismatchException;
+import mymoney.model.exceptions.PermissionDeniedException;
 import mymoney.model.user.UserManager;
 import mymoney.model.user.UserManagerImpl;
 
@@ -77,12 +78,12 @@ public class MyMoneyImpl implements MyMoney {
 	}
 
 	public long addOperationIntoDefaultAccount(String login, String type,
-			String way, double amount) throws BusinessException {
+			String way, double amount) throws BusinessException, PermissionDeniedException {
 		return accountManager.addOperationIntoDefaultAccount(login, type, way, amount);
 	}
 
 	public long addOperation(String login, long accId, String type, String way,
-			double amount) throws BusinessException {
+			double amount) throws BusinessException, PermissionDeniedException {
 		return accountManager.addOperation(login, accId, type, way, amount);
 	}
 
