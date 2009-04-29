@@ -24,10 +24,7 @@ public class AccountManagerImpl implements AccountManager {
 			throw new BusinessException("negative amount");
 		else if (amount == 0.0)
 			throw new BusinessException("zero amount");
-		Account account = getAccount(accId);
-		if (account == null) /*LANCAR EXCECAO*/;
-		if (!account.getLogin().equals(login))
-			throw new PermissionDeniedException("you do not own this account");
+		Account account = getAccount(login, accId);
 		Operation operation = new Operation(account, type, way, amount);
 		return (Long) HibernateUtil.save(operation);
 	}
@@ -75,6 +72,20 @@ public class AccountManagerImpl implements AccountManager {
 			return 0.0;
 		return operation.getAmount();
 	}
+	
+	public double getAccOverallAmount(String login, long accId) throws PermissionDeniedException {
+		Account account = getAccount(login, accId);
+		double amount = 0.0;
+		for (Operation op : account.getOperations()) {
+			amount += op.correctAmount();
+		}
+		return amount;
+	}
+
+	public double getDefAccOverallAmount(String login) throws PermissionDeniedException {
+		long defaultAccount = getDefaultAccount(login).getId();
+		return getAccOverallAmount(login, defaultAccount);
+	}
 
 	public void removeAccount(String login, long id) {
 
@@ -110,8 +121,12 @@ public class AccountManagerImpl implements AccountManager {
 		return account;
 	}
 
-	private Account getAccount(long accId) {
-		return (Account) HibernateUtil.load(Account.class, accId);
+	private Account getAccount(String login, long accId) throws PermissionDeniedException {
+		Account account = (Account) HibernateUtil.load(Account.class, accId);
+		if (account == null) /* EXCEÇÃO */;
+		if (!account.getLogin().equals(login))
+			throw new PermissionDeniedException("you do not own this account");
+		return account;
 	}
 	
 	public static void main(String[] args) throws MissingArgumentException, DuplicatedAccountException, BusinessException, PermissionDeniedException {
@@ -122,5 +137,6 @@ public class AccountManagerImpl implements AccountManager {
 		System.out.println(HibernateUtil.load(Operation.class, opId));
 		System.out.println(((Account) HibernateUtil.load(Account.class, accId)).getOperations());
 	}
+
 	
 }

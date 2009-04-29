@@ -40,7 +40,7 @@
 		</jar>
 	</target>   
 	
-	<target name="test-AllUS" depends="test-US01,test-US02,test-US03,test-US04">
+	<target name="test-AllUS" depends="test-US01,test-US02,test-US03,test-US04,test-US05">
 	</target>
 	
 	<target name="test-US01" depends="jar,compileTestsSource">
@@ -78,6 +78,21 @@
 			<arg value="US4.1.txt"/>
 			<arg value="US4.2.txt"/>
 			<arg value="US4.3.txt"/>
+			<arg value="US4.4.txt"/>
+			<arg value="US4.5.txt"/>
+			<arg value="US4.6.txt"/>
+			<arg value="US4.7.txt"/>
+		</java>
+	</target>
+
+	<target name="test-US05" depends="jar,compileTestsSource">
+		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
+			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
+			<jvmarg value="-ea"/>
+			<arg value="${mymoney.facade}"/>
+			<arg value="US5.1.txt"/>
+			<arg value="US5.2.txt"/>
+			<arg value="US5.3.txt"/>
 		</java>
 	</target>
 

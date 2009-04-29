@@ -48,7 +48,7 @@ doLogoff ${login1} ${password1}
 doLogin ${login2} ${password2}
 
 # User 2 tries to check account owned by user 1
-expectError "Permission denied: you do not own this account" getAccOverallAmount ${accId}
+expectError "Permission denied: you do not own this account" getAccOverallAmount ${login2} ${accId}
 
 # Logging off with user
 doLogoff ${login2} ${password2}

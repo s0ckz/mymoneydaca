@@ -32,7 +32,7 @@ doLogin ${login} ${password}
 accId=createAccount ${login} ${label} ${agency} ${account}
 
 # Checking whether the overall amount of the account is ZERO
-expect 0.0 getAccOverallAmount ${accId}
+expect 0.0 getAccOverallAmount ${login} ${accId}
 
 # Logging off with user
 doLogoff ${login} ${password}
