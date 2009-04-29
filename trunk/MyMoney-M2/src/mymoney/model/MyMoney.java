@@ -1,5 +1,6 @@
 package mymoney.model;
 
+import mymoney.model.exceptions.AccountNotFoundException;
 import mymoney.model.exceptions.BusinessException;
 import mymoney.model.exceptions.DuplicatedAccountException;
 import mymoney.model.exceptions.DuplicatedLoginException;
@@ -39,14 +40,16 @@ public interface MyMoney {
 	long getNumberOfOperations(String login);
 
 	long addOperationIntoDefaultAccount(String login, String type, String way,
-			double amount) throws BusinessException, PermissionDeniedException;
+			double amount) throws BusinessException, PermissionDeniedException, AccountNotFoundException;
 
-	long addOperation(String login, long accId, String type, String way, double amount) throws BusinessException, PermissionDeniedException;
+	long addOperation(String login, long accId, String type, String way, double amount) throws BusinessException, PermissionDeniedException, AccountNotFoundException;
 
-	double getDefAccOverallAmount(String login) throws PermissionDeniedException;
+	double getDefAccOverallAmount(String login) throws PermissionDeniedException, AccountNotFoundException;
 	
-	double getAccOverallAmount(String login, long accId) throws PermissionDeniedException;
+	double getAccOverallAmount(String login, long accId) throws PermissionDeniedException, AccountNotFoundException;
 
 	void removeOperation(String login, long opId) throws PermissionDeniedException, UnknownOperationException;
+
+	void removeAccount(String login, long accId) throws PermissionDeniedException, AccountNotFoundException;
 	
 }

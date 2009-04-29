@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import mymoney.model.exceptions.AccountNotFoundException;
 import mymoney.model.exceptions.BusinessException;
 import mymoney.model.exceptions.DuplicatedAccountException;
 import mymoney.model.exceptions.MissingArgumentException;
@@ -20,7 +21,7 @@ public class AccountManagerImpl implements AccountManager {
 	private static final String DEFAULT_ACCOUNT = "default";
 
 	public long addOperation(String login, long accId, String type, String way,
-			double amount) throws BusinessException, PermissionDeniedException {
+			double amount) throws BusinessException, PermissionDeniedException, AccountNotFoundException {
 		if (amount < 0.0)
 			throw new BusinessException("negative amount");
 		else if (amount == 0.0)
@@ -31,7 +32,7 @@ public class AccountManagerImpl implements AccountManager {
 	}
 
 	public long addOperationIntoDefaultAccount(String login, String type,
-			String way, double amount) throws BusinessException, PermissionDeniedException {
+			String way, double amount) throws BusinessException, PermissionDeniedException, AccountNotFoundException {
 		long defaultAccount = getDefaultAccount(login).getId();
 		return addOperation(login, defaultAccount, type, way, amount);
 	}
@@ -74,7 +75,7 @@ public class AccountManagerImpl implements AccountManager {
 		return operation.getAmount();
 	}
 	
-	public double getAccOverallAmount(String login, long accId) throws PermissionDeniedException {
+	public double getAccOverallAmount(String login, long accId) throws PermissionDeniedException, AccountNotFoundException {
 		Account account = getAccount(login, accId);
 		double amount = 0.0;
 		for (Operation op : account.getOperations()) {
@@ -83,13 +84,14 @@ public class AccountManagerImpl implements AccountManager {
 		return amount;
 	}
 
-	public double getDefAccOverallAmount(String login) throws PermissionDeniedException {
+	public double getDefAccOverallAmount(String login) throws PermissionDeniedException, AccountNotFoundException {
 		long defaultAccount = getDefaultAccount(login).getId();
 		return getAccOverallAmount(login, defaultAccount);
 	}
 
-	public void removeAccount(String login, long id) {
-
+	public void removeAccount(String login, long id) throws PermissionDeniedException, AccountNotFoundException {
+		Account account = getAccount(login, id);
+		HibernateUtil.delete(account);
 	}
 
 	public void removeOperation(String login, long opId) throws UnknownOperationException, PermissionDeniedException {
@@ -127,9 +129,10 @@ public class AccountManagerImpl implements AccountManager {
 		return account;
 	}
 
-	private Account getAccount(String login, long accId) throws PermissionDeniedException {
+	private Account getAccount(String login, long accId) throws PermissionDeniedException, AccountNotFoundException {
 		Account account = (Account) HibernateUtil.load(Account.class, accId);
-		if (account == null) /* EXCEÇÃO */;
+		if (account == null)
+			throw new AccountNotFoundException();
 		if (!account.getLogin().equals(login))
 			throw new PermissionDeniedException("you do not own this account");
 		return account;
@@ -149,7 +152,7 @@ public class AccountManagerImpl implements AccountManager {
 		return operation;
 	}
 	
-	public static void main(String[] args) throws MissingArgumentException, DuplicatedAccountException, BusinessException, PermissionDeniedException {
+	public static void main(String[] args) throws MissingArgumentException, DuplicatedAccountException, BusinessException, PermissionDeniedException, AccountNotFoundException {
 		AccountManager acc = new AccountManagerImpl();
 		long accId = acc.createAccount("teste", "a", "b", "c");
 		long opId = acc.addOperation("teste", accId, "blah", "bleh", 200);

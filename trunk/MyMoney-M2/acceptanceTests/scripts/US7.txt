@@ -1,15 +1,17 @@
 # User Story 7
 # Remover Conta
 
-register login="Maria", password="12345", name="Maria do Nascimento", gender="F", eMail=""
-doLogin login="Maria", password="12345"
-accountID=echo createAccount login="Maria", label="Banco Real", agency="1591-1", account="11405-2"
+cleanAll
+
+register login="Maria" password="12345" name="Maria do Nascimento" gender="F" eMail=""
+doLogin login="Maria" password="12345"
+accountID=createAccount login="Maria" label="Banco Real" agency="1591-1" account="11405-2"
 
 # Cenário 1 - O usuário remove uma conta
-removeAccount login="Maria", id=${accountID}
+removeAccount login="Maria" id=${accountID}
 
 # Cenário 2 - O usuário tenta remover uma conta não existente
-expectError "Account not found" removeAccount login="Maria", id=${accountID}
+expectError "Account not found" removeAccount login="Maria" id=${accountID}
 
 
 
