@@ -26,4 +26,8 @@ public interface AccountManager {
 
 	double getOperationAmount(long opId);
 
+	double getDefAccOverallAmount(String login) throws PermissionDeniedException;
+
+	double getAccOverallAmount(String login, long accId) throws PermissionDeniedException;
+
 }

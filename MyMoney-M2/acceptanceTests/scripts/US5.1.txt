@@ -24,7 +24,7 @@ register ${login} ${password} ${name} ${gender} ${email}
 doLogin ${login} ${password}
 
 # Checking whether the overall amount of the default account is ZERO
-expect 0.0 getDefAccOverallAmount
+expect 0.0 getDefAccOverallAmount ${login}
 
 # Logging off with user
 doLogoff ${login} ${password}

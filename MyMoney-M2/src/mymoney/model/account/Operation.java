@@ -88,5 +88,9 @@ public class Operation implements Serializable {
 	public String toString() {
 		return "id: " + getId() + ", account: " + getAccount() + ", " + getType() + ", way: " + getWay() + ", amount: " + getAmount();
 	}
+
+	public double correctAmount() {
+		return type.equals("debit") ? -amount : amount;
+	}
 	
 }

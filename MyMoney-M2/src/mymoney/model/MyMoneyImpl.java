@@ -87,4 +87,12 @@ public class MyMoneyImpl implements MyMoney {
 		return accountManager.addOperation(login, accId, type, way, amount);
 	}
 
+	public double getDefAccOverallAmount(String login) throws PermissionDeniedException {
+		return accountManager.getDefAccOverallAmount(login);
+	}
+
+	public double getAccOverallAmount(String login, long accId) throws PermissionDeniedException {
+		return accountManager.getAccOverallAmount(login, accId);
+	}
+
 }

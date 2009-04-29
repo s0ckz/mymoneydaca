@@ -103,12 +103,12 @@ public class MyMoneyFacade {
 	
 	// US-05
 	
-	public double getDefAccOverallAmount() {
-		return 0.0;
+	public double getDefAccOverallAmount(String login) throws PermissionDeniedException {
+		return myMoney.getDefAccOverallAmount(login);
 	}
 	
-	public double getAccOverallAmount() {
-		return 0.0;
+	public double getAccOverallAmount(String login, long accId) throws PermissionDeniedException {
+		return  myMoney.getAccOverallAmount(login, accId);
 	}
 	
 	// US-06

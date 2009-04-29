@@ -41,5 +41,9 @@ public interface MyMoney {
 			double amount) throws BusinessException, PermissionDeniedException;
 
 	long addOperation(String login, long accId, String type, String way, double amount) throws BusinessException, PermissionDeniedException;
+
+	double getDefAccOverallAmount(String login) throws PermissionDeniedException;
+	
+	double getAccOverallAmount(String login, long accId) throws PermissionDeniedException;
 	
 }
