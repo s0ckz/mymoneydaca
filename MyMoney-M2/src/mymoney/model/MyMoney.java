@@ -21,5 +21,7 @@ public interface MyMoney {
 	String getUserName(String login);
 
 	void doLogin(String login, String password) throws PasswordMismatchException, InvalidArgumentException, LoginUnregisteredException;
+
+	boolean isLogged(String login) throws LoginUnregisteredException;
 	
 }

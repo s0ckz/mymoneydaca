@@ -47,4 +47,9 @@ public class MyMoneyImpl implements MyMoney {
 		authManager.doLogin(login, password);
 	}
 
+	@Override
+	public boolean isLogged(String login) throws LoginUnregisteredException {
+		return authManager.isLogged(login);
+	}
+
 }

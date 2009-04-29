@@ -11,4 +11,6 @@ public interface AuthManager {
 
 	void doLogin(String login, String password) throws PasswordMismatchException, InvalidArgumentException, LoginUnregisteredException;
 
+	boolean isLogged(String login) throws LoginUnregisteredException;
+
 }

@@ -60,8 +60,8 @@ public class MyMoneyFacade {
 		myMoney.doLogin(login, password);
 	}
 	
-	public boolean isLogged(String login) {
-		return false;
+	public boolean isLogged(String login) throws LoginUnregisteredException {
+		return myMoney.isLogged(login);
 	}
 
 	// US-03

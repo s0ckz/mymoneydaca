@@ -30,4 +30,11 @@ public class AuthManagerImpl implements AuthManager {
 		HibernateUtil.update(gotten);
 	}
 
+	@Override
+	public boolean isLogged(String login) throws LoginUnregisteredException {
+		Auth gotten = (Auth) HibernateUtil.load(Auth.class, login);
+		if (gotten == null) throw new LoginUnregisteredException();
+		return gotten.isLoggedIn();
+	}
+
 }
