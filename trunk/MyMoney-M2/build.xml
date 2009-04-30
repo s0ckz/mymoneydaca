@@ -40,7 +40,7 @@
 		</jar>
 	</target>   
 	
-	<target name="test-AllUS" depends="test-US01,test-US02,test-US03,test-US04,test-US05,test-US06,test-US07,test-US11">
+	<target name="test-AllUS" depends="test-US01,test-US02,test-US03,test-US04,test-US05,test-US06,test-US07,test-US08,test-US09,test-US10,test-US11">
 	</target>
 	
 	<target name="test-US01" depends="jar,compileTestsSource">
@@ -131,6 +131,7 @@
 			<jvmarg value="-ea"/>
 			<arg value="${mymoney.facade}"/>
 			<arg value="US9.txt"/>
+			<arg value="US9-2.txt"/>
 		</java>
 	</target>
 	

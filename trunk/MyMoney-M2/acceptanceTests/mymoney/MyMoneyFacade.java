@@ -1,6 +1,7 @@
 package mymoney;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import mymoney.model.MyMoney;
 import mymoney.model.MyMoneyImpl;
@@ -12,6 +13,7 @@ import mymoney.model.exceptions.InvalidArgumentException;
 import mymoney.model.exceptions.InvalidEmailException;
 import mymoney.model.exceptions.LoginUnregisteredException;
 import mymoney.model.exceptions.MissingArgumentException;
+import mymoney.model.exceptions.MisunderstandingFileContent;
 import mymoney.model.exceptions.PasswordMismatchException;
 import mymoney.model.exceptions.PermissionDeniedException;
 import mymoney.model.exceptions.UnknownOperationException;
@@ -167,10 +169,14 @@ public class MyMoneyFacade {
 	
 	// US - 09
 	
-	public void submitBankOperations(String login, String fileContent) {
-		myMoney.submitBankOperations(login, fileContent);
+	public String submitBankOperationsCSV(String login, String fileContent) throws BusinessException, PermissionDeniedException, AccountNotFoundException, MisunderstandingFileContent {
+		return Arrays.toString(myMoney.submitBankOperationsCSV(login, fileContent));
 	}
-	
+
+	public String submitBankOperationsTXT(String login, String fileContent) throws BusinessException, PermissionDeniedException, AccountNotFoundException, MisunderstandingFileContent {
+		return Arrays.toString(myMoney.submitBankOperationsTXT(login, fileContent));
+	}
+
 	// US-10
 	
 	public void generateReport(String login, String begin, String end, String operationType, long idAccount, boolean commitments) {

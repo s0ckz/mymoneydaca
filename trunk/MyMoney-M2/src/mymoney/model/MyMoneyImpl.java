@@ -12,6 +12,7 @@ import mymoney.model.exceptions.InvalidArgumentException;
 import mymoney.model.exceptions.InvalidEmailException;
 import mymoney.model.exceptions.LoginUnregisteredException;
 import mymoney.model.exceptions.MissingArgumentException;
+import mymoney.model.exceptions.MisunderstandingFileContent;
 import mymoney.model.exceptions.MyMoneyException;
 import mymoney.model.exceptions.PasswordMismatchException;
 import mymoney.model.exceptions.PermissionDeniedException;
@@ -141,7 +142,12 @@ public class MyMoneyImpl implements MyMoney {
 	}
 
 	@Override
-	public void submitBankOperations(String login, String fileContent) {
-		xptoManager.submitBankOperations(login, fileContent);
+	public long[] submitBankOperationsCSV(String login, String fileContent) throws BusinessException, PermissionDeniedException, AccountNotFoundException, MisunderstandingFileContent {
+		return xptoManager.submitBankOperationsCSV(login, fileContent);
+	}
+
+	@Override
+	public long[] submitBankOperationsTXT(String login, String fileContent) throws MisunderstandingFileContent, BusinessException, PermissionDeniedException, AccountNotFoundException {
+		return xptoManager.submitBankOperationsTXT(login, fileContent);
 	}
 }
