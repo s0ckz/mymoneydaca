@@ -37,6 +37,18 @@ public class Commitment {
 		this.type = type;
 	}
 
+	
+	public Commitment(){
+		
+	}
+	/**
+	 * @param code the code to set
+	 */
+	public void setCode(long code) {
+		this.code = code;
+	}
+
+
 	/**
 	 * @return the login
 	 */
@@ -52,7 +64,7 @@ public class Commitment {
 	public void setLogin(String login) throws MissingArgumentException {
 		if (login.isEmpty()) {
 			throw new MissingArgumentException(
-					"the user´s login of the commitment cannot be empty.");
+					"the userï¿½s login of the commitment cannot be empty.");
 		}
 		this.login = login;
 	}

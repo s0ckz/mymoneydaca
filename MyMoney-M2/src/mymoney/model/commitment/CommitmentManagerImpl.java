@@ -23,6 +23,12 @@ import org.hibernate.criterion.SimpleExpression;
  */
 public class CommitmentManagerImpl implements CommitmentManager {
 
+	
+	
+	
+	public CommitmentManagerImpl(){
+		
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
