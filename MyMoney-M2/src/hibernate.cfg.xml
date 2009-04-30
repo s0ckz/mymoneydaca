@@ -24,6 +24,8 @@
 		<mapping class="mymoney.model.account.Operation" />
 
 		<mapping class="mymoney.model.account.Account" />
+		
+		<mapping class = "mymoney.model.commitment.Commitment" />
 
 		<!-- Debug Configuration 		
 		<property name="show_sql">true</property>

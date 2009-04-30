@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import mymoney.model.exceptions.AccountNotFoundException;
 import mymoney.model.exceptions.BusinessException;
+import mymoney.model.exceptions.CommitmentException;
 import mymoney.model.exceptions.DuplicatedAccountException;
 import mymoney.model.exceptions.DuplicatedLoginException;
 import mymoney.model.exceptions.InvalidArgumentException;
@@ -21,9 +22,12 @@ import mymoney.model.exceptions.UserUnregisteredException;
 public interface MyMoney {
 
 	void registerUser(String login, String password, String name,
-			String gender, String mail) throws MissingArgumentException, InvalidArgumentException, InvalidEmailException, DuplicatedLoginException;
+			String gender, String mail) throws MissingArgumentException,
+			InvalidArgumentException, InvalidEmailException,
+			DuplicatedLoginException;
 
-	void removeUser(String login) throws UserUnregisteredException, LoginUnregisteredException;
+	void removeUser(String login) throws UserUnregisteredException,
+			LoginUnregisteredException;
 
 	String getUserEmail(String login) throws UserUnregisteredException;
 
@@ -31,9 +35,12 @@ public interface MyMoney {
 
 	String getUserName(String login) throws UserUnregisteredException;
 
-	void doLogin(String login, String password) throws PasswordMismatchException, InvalidArgumentException, LoginUnregisteredException, UserAlreadyLoggedException;
+	void doLogin(String login, String password)
+			throws PasswordMismatchException, InvalidArgumentException,
+			LoginUnregisteredException, UserAlreadyLoggedException;
 
-	long createAccount(String login, String label, String agency, String account) throws MissingArgumentException, DuplicatedAccountException;
+	long createAccount(String login, String label, String agency, String account)
+			throws MissingArgumentException, DuplicatedAccountException;
 
 	boolean isLogged(String login) throws LoginUnregisteredException;
 
@@ -46,28 +53,64 @@ public interface MyMoney {
 	long getNumberOfOperations(String login);
 
 	long addOperationIntoDefaultAccount(String login, String type, String way,
-			double amount) throws BusinessException, PermissionDeniedException, AccountNotFoundException;
+			double amount) throws BusinessException, PermissionDeniedException,
+			AccountNotFoundException;
 
-	long addOperation(String login, long accId, String type, String way, double amount) throws BusinessException, PermissionDeniedException, AccountNotFoundException;
+	long addOperation(String login, long accId, String type, String way,
+			double amount) throws BusinessException, PermissionDeniedException,
+			AccountNotFoundException;
 
-	double getDefAccOverallAmount(String login) throws PermissionDeniedException, AccountNotFoundException;
+	double getDefAccOverallAmount(String login)
+			throws PermissionDeniedException, AccountNotFoundException;
+
+	double getAccOverallAmount(String login, long accId)
+			throws PermissionDeniedException, AccountNotFoundException;
+
+	void removeOperation(String login, long opId)
+			throws PermissionDeniedException, UnknownOperationException;
+
+	void removeAccount(String login, long accId)
+			throws PermissionDeniedException, AccountNotFoundException;
+
+	void doLogoff(String login, String password)
+			throws InvalidArgumentException, LoginUnregisteredException,
+			PasswordMismatchException, UserNotLoggedException;
+
+	void updateUser(String login, String name, String gender, String mail)
+			throws MissingArgumentException, InvalidEmailException,
+			InvalidArgumentException, UserUnregisteredException;
+
 	
-	double getAccOverallAmount(String login, long accId) throws PermissionDeniedException, AccountNotFoundException;
+	long addCommitment(String login, String label, String date, double amount,
+			String type, String frequency) throws MissingArgumentException;
 
-	void removeOperation(String login, long opId) throws PermissionDeniedException, UnknownOperationException;
+	String getCommitmentLabel(String login, long id) throws CommitmentException;
 
-	void removeAccount(String login, long accId) throws PermissionDeniedException, AccountNotFoundException;
+	String getCommitmentDate(String login, long id) throws CommitmentException;
 
-	void doLogoff(String login, String password) throws InvalidArgumentException, LoginUnregisteredException, PasswordMismatchException, UserNotLoggedException;
+	double getCommitmentAmount(String login, long id)
+			throws CommitmentException;
 
-	void updateUser(String login, String name, String gender, String mail) throws MissingArgumentException, InvalidEmailException, InvalidArgumentException, UserUnregisteredException;
+	String getCommitmentType(String login, long id) throws CommitmentException;
 
-	long[] submitBankOperationsCSV(String login, String fileContent) throws BusinessException, PermissionDeniedException, AccountNotFoundException, MisunderstandingFileContent;
+	String getCommitmentFrequency(String login, long id)
+			throws CommitmentException;
 
-	long[] submitBankOperationsTXT(String login, String fileContent) throws MisunderstandingFileContent, BusinessException, PermissionDeniedException, AccountNotFoundException;
+	long numberOfCommitments(String login);
 
-	void exportBankOperationsCSV(String login, long accId, String pathToFile) throws IOException;
-	
-	void exportBankOperationsTXT(String login, long accId, String pathToFile) throws IOException;	
+	void removeCommitment(String login, long id) throws CommitmentException;
+
+	long[] submitBankOperationsCSV(String login, String fileContent)
+			throws BusinessException, PermissionDeniedException,
+			AccountNotFoundException, MisunderstandingFileContent;
+
+	long[] submitBankOperationsTXT(String login, String fileContent)
+			throws MisunderstandingFileContent, BusinessException,
+			PermissionDeniedException, AccountNotFoundException;
+
+	void exportBankOperationsCSV(String login, long accId, String pathToFile)
+			throws IOException;
+
+	void exportBankOperationsTXT(String login, long accId, String pathToFile)
+			throws IOException;
 }
-
