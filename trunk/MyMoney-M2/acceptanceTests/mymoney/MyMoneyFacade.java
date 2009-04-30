@@ -155,7 +155,7 @@ public class MyMoneyFacade {
 
 	public long addCommitment(String login, String label, String date,
 			double amount, String type, String frequency)
-			throws CommitmentException , MissingArgumentException{
+			throws CommitmentException, MissingArgumentException {
 		return myMoney.addCommitment(login, label, date, amount, type,
 				frequency);
 	}
@@ -185,7 +185,7 @@ public class MyMoneyFacade {
 		return myMoney.getCommitmentFrequency(login, id);
 	}
 
-	public long numberOfCommitments(String login) throws CommitmentException {
+	public int numberOfCommitments(String login) throws CommitmentException {
 		return myMoney.numberOfCommitments(login);
 	}
 
@@ -224,22 +224,25 @@ public class MyMoneyFacade {
 
 	public void generateReport(String login, String begin, String end,
 			String operationType, long idAccount, boolean commitments) {
+		myMoney.generateReport(login, begin, end, operationType, idAccount,
+				commitments);
+
 	}
 
 	public int getNumberOfOperationsReport() {
-		return 0;
+		return myMoney.getNumberOfOperationsReport();
 	}
 
 	public int getNumberOfCreditOperationsReport() {
-		return 0;
+		return myMoney.getNumberOfCreditOperationsReport();
 	}
 
 	public int getNumberOfDebtOperationsReport() {
-		return 0;
+		return myMoney.getNumberOfDebtOperationsReport();
 	}
 
 	public int getNumberOfCommitmentsReport() {
-		return 0;
+		return myMoney.getNumberOfCommitmentsReport();
 	}
 
 	// US-11

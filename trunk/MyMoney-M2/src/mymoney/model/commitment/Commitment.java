@@ -55,7 +55,6 @@ public class Commitment {
 	/**
 	 * @return the login
 	 */
-	@ForeignKey(name = "Users")
 	@Column(name = "login")
 	public String getLogin() {
 		return login;

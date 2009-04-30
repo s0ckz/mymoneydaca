@@ -106,7 +106,7 @@ public interface CommitmentManager {
 	 * 
 	 * @return a long that represents the number of commitments
 	 */
-	public long numberOfCommitments(String login);
+	public int numberOfCommitments(String login);
 
 	/**
 	 * Remove a commitment
@@ -115,10 +115,18 @@ public interface CommitmentManager {
 	 *            the login of the owner
 	 * @param id
 	 *            the id of the commitment
-	 *        
+	 * 
 	 * @throws CommitmentException
 	 */
 	public void removeCommitment(String login, long id)
 			throws CommitmentException;
+
+	/**
+	 * Removes all commitments of the user
+	 * 
+	 * @param login
+	 *            user´s login
+	 */
+	public void removeCommitment(String login);
 
 }
