@@ -18,8 +18,15 @@ public class ExceptionUtilTest extends TestCase {
 		
 		try {
 			ExceptionUtil.checkMissingArguments("nullArg", nullArg);
+		} catch (MissingArgumentException e) {}
+
+		try {
 			ExceptionUtil.checkMissingArguments("emptyArg", emptyArg);
+		} catch (MissingArgumentException e) {}
+		try {
 			ExceptionUtil.checkMissingArguments("nullArg", nullArg, "emptyArg", emptyArg);
+		} catch (MissingArgumentException e) {}
+		try {
 			ExceptionUtil.checkMissingArguments("nullArg", nullArg, "emptyArg", emptyArg, "nonEmptyArg", nonEmptyArg);
 		} catch (MissingArgumentException e) {}
 		
@@ -28,27 +35,28 @@ public class ExceptionUtilTest extends TestCase {
 	
 	@Test
 	public void testInvalidArgs() throws InvalidArgumentException {
-		
 		String validArg = "abc-def.ghi_jkl";
-		
 		String smallArg = "abc";
 		String invalidChars = "!@#$%&";
 		String[] invalidArgs = new String[]{"abc!", "abc ", "abc@", "abc#", "abc\"", "abc$", "abc%", "abc&", "abc=", "abc/", "abc?", "abc\\", "abc+", "abc-", "abc(", "abc)", "abc*"};
-		
-		
 		try {
 			ExceptionUtil.checkInvalidRequiredArguments("smallArg", smallArg);
-			ExceptionUtil.checkInvalidRequiredArguments("invalidChars", invalidChars);
-			for (String invalidArg : invalidArgs) {
-				ExceptionUtil.checkInvalidRequiredArguments("invalidArg", invalidArg);	
-			}
-			ExceptionUtil.checkInvalidRequiredArguments("smallArg", smallArg, "invalidChars", invalidChars);
-			ExceptionUtil.checkInvalidRequiredArguments("smallArg", smallArg, "invalidChars", invalidChars, "validArg", validArg);
 		} catch (InvalidArgumentException e) {}
-		
-		
+		try {
+			ExceptionUtil.checkInvalidRequiredArguments("invalidChars", invalidChars);
+		} catch (InvalidArgumentException e) {}
+			for (String invalidArg : invalidArgs) {
+				try {
+					ExceptionUtil.checkInvalidRequiredArguments("invalidArg", invalidArg);
+				} catch (InvalidArgumentException e) {}
+			}
+			try {
+				ExceptionUtil.checkInvalidRequiredArguments("smallArg", smallArg, "invalidChars", invalidChars);
+			} catch (InvalidArgumentException e) {}
+			try {
+				ExceptionUtil.checkInvalidRequiredArguments("smallArg", smallArg, "invalidChars", invalidChars, "validArg", validArg);
+			} catch (InvalidArgumentException e) {}
 		ExceptionUtil.checkInvalidRequiredArguments("validArg", validArg);
-		
 	}
 	
 	@Test
@@ -62,11 +70,22 @@ public class ExceptionUtilTest extends TestCase {
 		String noDot = "user@domaincom";
 		try {
 			ExceptionUtil.checkEmail(noPrefix);
+		} catch (InvalidEmailException e) {}
+		
+		try {
 			ExceptionUtil.checkEmail(noDomain);
+		} catch (InvalidEmailException e) {}
+		
+		try {
 			ExceptionUtil.checkEmail(noSufix);
+		} catch (InvalidEmailException e) {}
+		try {
 			ExceptionUtil.checkEmail(noAt);
+		} catch (InvalidEmailException e) {}
+		try {
 			ExceptionUtil.checkEmail(noDot);
 		} catch (InvalidEmailException e) {}
+		
 		ExceptionUtil.checkEmail(validEmail);
 		ExceptionUtil.checkEmail(emptyEmail);
 	}

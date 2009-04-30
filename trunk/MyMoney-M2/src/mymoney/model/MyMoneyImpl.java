@@ -12,13 +12,17 @@ import mymoney.model.exceptions.InvalidArgumentException;
 import mymoney.model.exceptions.InvalidEmailException;
 import mymoney.model.exceptions.LoginUnregisteredException;
 import mymoney.model.exceptions.MissingArgumentException;
+import mymoney.model.exceptions.MyMoneyException;
 import mymoney.model.exceptions.PasswordMismatchException;
 import mymoney.model.exceptions.PermissionDeniedException;
 import mymoney.model.exceptions.UnknownOperationException;
 import mymoney.model.exceptions.UserAlreadyLoggedException;
 import mymoney.model.exceptions.UserNotLoggedException;
+import mymoney.model.exceptions.UserUnregisteredException;
 import mymoney.model.user.UserManager;
 import mymoney.model.user.UserManagerImpl;
+import mymoney.model.xpto.XptoManager;
+import mymoney.model.xpto.XptoManagerImpl;
 
 
 public class MyMoneyImpl implements MyMoney {
@@ -26,30 +30,49 @@ public class MyMoneyImpl implements MyMoney {
 	private UserManager userManager = new UserManagerImpl();
 	private AuthManager authManager = new AuthManagerImpl();
 	private AccountManager accountManager = new AccountManagerImpl();
+	private XptoManager xptoManager = new XptoManagerImpl();
 	
 	public MyMoneyImpl() {
 	}
 
-	public String getUserEmail(String login) {
+	public String getUserEmail(String login) throws UserUnregisteredException {
 		return userManager.getUserEmail(login);
 	}
 
-	public String getUserGender(String login) {
+	public String getUserGender(String login) throws UserUnregisteredException {
 		return userManager.getUserGender(login);
 	}
 
-	public String getUserName(String login) {
+	public String getUserName(String login) throws UserUnregisteredException {
 		return userManager.getUserName(login);
 	}
 
 	public void registerUser(String login, String password, String name,
 			String gender, String mail) throws MissingArgumentException, InvalidArgumentException, InvalidEmailException, DuplicatedLoginException {
-		userManager.register(login, password, name, gender, mail);
-		authManager.register(login, password);
+		userManager.register(login, name, gender, mail);
+		try {
+			authManager.register(login, password);
+		} catch (InvalidArgumentException e) {
+			rollbackUserRegister(login, e);
+			throw e;
+		} catch (MissingArgumentException e) {
+			rollbackUserRegister(login, e);
+			throw e;
+		} catch (DuplicatedLoginException e) {
+			rollbackUserRegister(login, e);
+			throw e;
+		}
 	}
 
-	public void removeUser(String login) {
+	private void rollbackUserRegister(String login, MyMoneyException e) {
+		try {
+			userManager.removeUser(login);
+		} catch (UserUnregisteredException e1) {}
+	}
+
+	public void removeUser(String login) throws UserUnregisteredException, LoginUnregisteredException {
 		userManager.removeUser(login);
+		authManager.remove(login);
 	}
 
 	public void doLogin(String login, String password) throws PasswordMismatchException, InvalidArgumentException, LoginUnregisteredException, UserAlreadyLoggedException {
@@ -112,4 +135,13 @@ public class MyMoneyImpl implements MyMoney {
 		authManager.doLogoff(login, password);
 	}
 
+	@Override
+	public void updateUser(String login, String name, String gender, String mail) throws MissingArgumentException, InvalidEmailException, InvalidArgumentException, UserUnregisteredException {
+		userManager.updateUser(login, name, gender, mail);
+	}
+
+	@Override
+	public void submitBankOperations(String login, String fileContent) {
+		xptoManager.submitBankOperations(login, fileContent);
+	}
 }

@@ -39,3 +39,5 @@ expect ${gender} getUserGender ${login}
 
 # Logging off with user
 doLogoff ${login} ${password}
+
+expect false isLogged login=${login}

@@ -17,7 +17,11 @@ expectError "Invalid Argument" doLogin login="osa" password="12345"
 # Cenário 4 - O usuário cadastrado tenta efetuar login no sistema passando o seu login errado
 expectError "Login unregistered" doLogin login="osamaaaa" password="12345"
 
+expectError "Login unregistered" isLogged login="osamaaaa"
+
 # Cenário 5 - O usuário cadastrado se loga no sistema com sucesso
 doLogin login="osama" password="12345"
+
+expect true isLogged login="osama"
 
 cleanAll
