@@ -34,4 +34,6 @@ public interface AccountManager {
 
 	void removeOperation(String login, long opId) throws PermissionDeniedException, UnknownOperationException;
 
+	long[] getAllOperations(String login, long accId);
+
 }

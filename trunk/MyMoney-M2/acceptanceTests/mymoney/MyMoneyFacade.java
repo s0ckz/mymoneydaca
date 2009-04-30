@@ -176,6 +176,14 @@ public class MyMoneyFacade {
 	public String submitBankOperationsTXT(String login, String fileContent) throws BusinessException, PermissionDeniedException, AccountNotFoundException, MisunderstandingFileContent {
 		return Arrays.toString(myMoney.submitBankOperationsTXT(login, fileContent));
 	}
+	
+	public void exportBankOperationsCSV(String login, long accId, String pathToFile) throws IOException {
+		myMoney.exportBankOperationsCSV(login, accId, pathToFile);
+	}
+
+	public void exportBankOperationsTXT(String login, long accId, String pathToFile) throws IOException {
+		myMoney.exportBankOperationsTXT(login, accId, pathToFile);
+	}
 
 	// US-10
 	

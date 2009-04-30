@@ -1,5 +1,7 @@
 package mymoney.model;
 
+import java.io.IOException;
+
 import mymoney.model.account.AccountManager;
 import mymoney.model.account.AccountManagerImpl;
 import mymoney.model.auth.AuthManager;
@@ -149,5 +151,17 @@ public class MyMoneyImpl implements MyMoney {
 	@Override
 	public long[] submitBankOperationsTXT(String login, String fileContent) throws MisunderstandingFileContent, BusinessException, PermissionDeniedException, AccountNotFoundException {
 		return xptoManager.submitBankOperationsTXT(login, fileContent);
+	}
+
+	@Override
+	public void exportBankOperationsCSV(String login, long accId,
+			String pathToFile) throws IOException {
+		xptoManager.exportBankOperationsCSV(login, accId, pathToFile);
+	}
+	
+	@Override
+	public void exportBankOperationsTXT(String login, long accId,
+			String pathToFile) throws IOException {
+		xptoManager.exportBankOperationsTXT(login, accId, pathToFile);
 	}
 }

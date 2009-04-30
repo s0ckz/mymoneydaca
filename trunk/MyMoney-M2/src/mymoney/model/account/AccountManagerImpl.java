@@ -161,5 +161,10 @@ public class AccountManagerImpl implements AccountManager {
 		System.out.println(((Account) HibernateUtil.load(Account.class, accId)).getOperations());
 	}
 
+	@Override
+	public long[] getAllOperations(String login, long accId) {
+		// TODO
+		return new long[]{1,2};
+	}
 	
 }
