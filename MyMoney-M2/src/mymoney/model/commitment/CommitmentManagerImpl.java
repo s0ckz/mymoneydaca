@@ -8,7 +8,12 @@ import java.util.Collection;
 import java.util.List;
 
 import mymoney.model.exceptions.CommitmentException;
+import mymoney.model.exceptions.DuplicatedLoginException;
+import mymoney.model.exceptions.InvalidArgumentException;
+import mymoney.model.exceptions.InvalidEmailException;
 import mymoney.model.exceptions.MissingArgumentException;
+import mymoney.model.user.UserManager;
+import mymoney.model.user.UserManagerImpl;
 import mymoney.model.util.ExceptionUtil;
 import mymoney.model.util.HibernateUtil;
 
@@ -16,8 +21,8 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 
 /**
- * @author Danilo de Sá
- * @author Leandro José
+ * @author Danilo de Sï¿½
+ * @author Leandro Josï¿½
  * @author Rodrigo Bruno
  * 
  */
@@ -132,6 +137,8 @@ public class CommitmentManagerImpl implements CommitmentManager {
 				.eq("login", login));
 		List<Commitment> list = (List<Commitment>) HibernateUtil
 				.createQueryBasedOnExpressions(Commitment.class, expressions);
+		System.out.println(login);
+		System.out.println(list);
 
 		return list.size();
 
@@ -171,4 +178,13 @@ public class CommitmentManagerImpl implements CommitmentManager {
 		HibernateUtil.delete(commitment);
 	}
 
+	
+	public static void main(String[] args) throws MissingArgumentException, InvalidArgumentException, InvalidEmailException, DuplicatedLoginException {
+		UserManager u = new UserManagerImpl();
+		CommitmentManager c = new CommitmentManagerImpl();
+//		u.register("login1", "nome", "M", "rodrigobls@balhblah.com");
+//		c.addCommitment("login1","blah", "blah", 200, "blah","blah");
+		System.out.println(c.numberOfCommitments("login1"));
+		
+	}
 }
