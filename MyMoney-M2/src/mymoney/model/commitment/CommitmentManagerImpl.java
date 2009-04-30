@@ -28,12 +28,10 @@ import org.hibernate.criterion.SimpleExpression;
  */
 public class CommitmentManagerImpl implements CommitmentManager {
 
-	
-	
-	
-	public CommitmentManagerImpl(){
-		
+	public CommitmentManagerImpl() {
+
 	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -132,7 +130,7 @@ public class CommitmentManagerImpl implements CommitmentManager {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public long numberOfCommitments(String login) {
+	public int numberOfCommitments(String login) {
 		Collection<SimpleExpression> expressions = Arrays.asList(Restrictions
 				.eq("login", login));
 		List<Commitment> list = (List<Commitment>) HibernateUtil
@@ -169,20 +167,33 @@ public class CommitmentManagerImpl implements CommitmentManager {
 	@Override
 	public void removeCommitment(String login, long id)
 			throws CommitmentException {
-		if(numberOfCommitments(login) == 0){
+		if (numberOfCommitments(login) == 0) {
 			throw new CommitmentException("None Commitment registered");
 		}
 		Commitment commitment = getCommitment(login, id);
 		HibernateUtil.delete(commitment);
+
 	}
 
-	
-	public static void main(String[] args) throws MissingArgumentException, InvalidArgumentException, InvalidEmailException, DuplicatedLoginException {
+	@SuppressWarnings("unchecked")
+	public void removeCommitment(String login) {
+		Collection<SimpleExpression> expressions = Arrays.asList(Restrictions
+				.eq("login", login));
+		List<Commitment> list = (List<Commitment>) HibernateUtil
+				.createQueryBasedOnExpressions(Commitment.class, expressions);
+		for (Commitment commitment : list) {
+			HibernateUtil.delete(commitment);
+		}
+	}
+
+	public static void main(String[] args) throws MissingArgumentException,
+			InvalidArgumentException, InvalidEmailException,
+			DuplicatedLoginException {
 		UserManager u = new UserManagerImpl();
 		CommitmentManager c = new CommitmentManagerImpl();
-//		u.register("login1", "nome", "M", "rodrigobls@balhblah.com");
-//		c.addCommitment("login1","blah", "blah", 200, "blah","blah");
+		// u.register("login1", "nome", "M", "rodrigobls@balhblah.com");
+		// c.addCommitment("login1","blah", "blah", 200, "blah","blah");
 		System.out.println(c.numberOfCommitments("login1"));
-		
+
 	}
 }

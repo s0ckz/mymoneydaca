@@ -116,7 +116,7 @@ public class AccountManagerImpl implements AccountManager {
 			return list.get(0);
 	}
 
-	private Account getDefaultAccount(String login) {
+	public Account getDefaultAccount(String login) {
 		Account account = getAccount(login, DEFAULT_ACCOUNT, DEFAULT_ACCOUNT, DEFAULT_ACCOUNT);
 		if (account == null) {
 			try {
@@ -129,7 +129,7 @@ public class AccountManagerImpl implements AccountManager {
 		return account;
 	}
 
-	private Account getAccount(String login, long accId) throws PermissionDeniedException, AccountNotFoundException {
+	public Account getAccount(String login, long accId) throws PermissionDeniedException, AccountNotFoundException {
 		Account account = (Account) HibernateUtil.load(Account.class, accId);
 		if (account == null)
 			throw new AccountNotFoundException();

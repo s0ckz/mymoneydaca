@@ -80,7 +80,6 @@ public interface MyMoney {
 			throws MissingArgumentException, InvalidEmailException,
 			InvalidArgumentException, UserUnregisteredException;
 
-	
 	long addCommitment(String login, String label, String date, double amount,
 			String type, String frequency) throws MissingArgumentException;
 
@@ -96,7 +95,7 @@ public interface MyMoney {
 	String getCommitmentFrequency(String login, long id)
 			throws CommitmentException;
 
-	long numberOfCommitments(String login);
+	int numberOfCommitments(String login);
 
 	void removeCommitment(String login, long id) throws CommitmentException;
 
@@ -113,4 +112,16 @@ public interface MyMoney {
 
 	void exportBankOperationsTXT(String login, long accId, String pathToFile)
 			throws IOException;
+
+	void generateReport(String login, String begin, String end,
+			String operationType, long idAccount, boolean commitments);
+
+	int getNumberOfOperationsReport();
+
+	int getNumberOfCreditOperationsReport();
+
+	int getNumberOfDebtOperationsReport();
+
+	int getNumberOfCommitmentsReport();
+
 }

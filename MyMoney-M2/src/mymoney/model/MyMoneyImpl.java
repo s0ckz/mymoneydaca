@@ -25,6 +25,8 @@ import mymoney.model.exceptions.UnknownOperationException;
 import mymoney.model.exceptions.UserAlreadyLoggedException;
 import mymoney.model.exceptions.UserNotLoggedException;
 import mymoney.model.exceptions.UserUnregisteredException;
+import mymoney.model.report.ReportManager;
+import mymoney.model.report.ReportManagerImpl;
 import mymoney.model.user.UserManager;
 import mymoney.model.user.UserManagerImpl;
 import mymoney.model.xpto.XptoManager;
@@ -37,6 +39,7 @@ public class MyMoneyImpl implements MyMoney {
 	private AccountManager accountManager = new AccountManagerImpl();
 	private XptoManager xptoManager = new XptoManagerImpl();
 	private CommitmentManager commitmentManager = new CommitmentManagerImpl();
+	private ReportManager reportManager = new ReportManagerImpl();
 
 	public MyMoneyImpl() {
 	}
@@ -83,6 +86,7 @@ public class MyMoneyImpl implements MyMoney {
 			LoginUnregisteredException {
 		userManager.removeUser(login);
 		authManager.remove(login);
+		commitmentManager.removeCommitment(login);
 	}
 
 	public void doLogin(String login, String password)
@@ -265,7 +269,7 @@ public class MyMoneyImpl implements MyMoney {
 	 * @see mymoney.model.MyMoney#numberOfCommitments(java.lang.String)
 	 */
 	@Override
-	public long numberOfCommitments(String login) {
+	public int numberOfCommitments(String login) {
 
 		return commitmentManager.numberOfCommitments(login);
 	}
@@ -280,6 +284,31 @@ public class MyMoneyImpl implements MyMoney {
 			throws CommitmentException {
 		commitmentManager.removeCommitment(login, id);
 
+	}
+
+	public void generateReport(String login, String begin, String end,
+			String operationType, long idAccount, boolean commitments) {
+		reportManager.generateReport(login, begin, end, operationType,
+				idAccount, commitments);
+
+		
+		
+	}
+
+	public int getNumberOfOperationsReport() {
+		return 0;
+	}
+
+	public int getNumberOfCreditOperationsReport() {
+		return 0;
+	}
+
+	public int getNumberOfDebtOperationsReport() {
+		return 0;
+	}
+
+	public int getNumberOfCommitmentsReport() {
+		return 0;
 	}
 
 }
