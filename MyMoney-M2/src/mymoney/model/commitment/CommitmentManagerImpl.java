@@ -137,8 +137,6 @@ public class CommitmentManagerImpl implements CommitmentManager {
 				.eq("login", login));
 		List<Commitment> list = (List<Commitment>) HibernateUtil
 				.createQueryBasedOnExpressions(Commitment.class, expressions);
-		System.out.println(login);
-		System.out.println(list);
 
 		return list.size();
 
