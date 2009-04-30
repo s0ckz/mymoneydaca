@@ -8,6 +8,7 @@ import mymoney.model.exceptions.InvalidArgumentException;
 import mymoney.model.exceptions.InvalidEmailException;
 import mymoney.model.exceptions.LoginUnregisteredException;
 import mymoney.model.exceptions.MissingArgumentException;
+import mymoney.model.exceptions.MisunderstandingFileContent;
 import mymoney.model.exceptions.PasswordMismatchException;
 import mymoney.model.exceptions.PermissionDeniedException;
 import mymoney.model.exceptions.UnknownOperationException;
@@ -59,6 +60,8 @@ public interface MyMoney {
 
 	void updateUser(String login, String name, String gender, String mail) throws MissingArgumentException, InvalidEmailException, InvalidArgumentException, UserUnregisteredException;
 
-	void submitBankOperations(String login, String fileContent);
+	long[] submitBankOperationsCSV(String login, String fileContent) throws BusinessException, PermissionDeniedException, AccountNotFoundException, MisunderstandingFileContent;
+
+	long[] submitBankOperationsTXT(String login, String fileContent) throws MisunderstandingFileContent, BusinessException, PermissionDeniedException, AccountNotFoundException;
 	
 }
