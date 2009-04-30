@@ -4,6 +4,8 @@
 #chamada a Facade
 #public long addCommitment(String login  String label  String date  String amount  String type  String frequency) throws InvalidDateException
 
+cleanAll
+
 usuario=echo "felipe"
 senha=echo "teste"
 nome=echo "Joao Felipe"
@@ -67,5 +69,5 @@ expect 1 numberOfCommitments login=${usuario}
 expectError "None Commitment with the given id" removeCommitment login=${usuario}  id=10
 removeUser login=${usuario}
 
-quit
+cleanAll
 

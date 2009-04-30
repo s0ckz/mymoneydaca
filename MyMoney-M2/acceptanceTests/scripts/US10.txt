@@ -4,6 +4,8 @@
 #Chamada a facade
 #public void generateReport(String login, String begin, String end, String operationType, long idAccount, boolean commitments)
 
+cleanAll
+
 usuario=echo "felipe"
 senha=echo "teste"
 nome=echo "Joao Felipe"
@@ -55,3 +57,5 @@ expect 2 getNumberOfOperationsReport
 expect 1 getNumberOfCreditOperationsReport
 expect 1 getNumberOfDebtOperationsReport
 expect 1 getNumberOfCommitmentsReport
+
+cleanAll
