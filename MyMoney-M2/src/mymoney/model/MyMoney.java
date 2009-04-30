@@ -13,19 +13,20 @@ import mymoney.model.exceptions.PermissionDeniedException;
 import mymoney.model.exceptions.UnknownOperationException;
 import mymoney.model.exceptions.UserAlreadyLoggedException;
 import mymoney.model.exceptions.UserNotLoggedException;
+import mymoney.model.exceptions.UserUnregisteredException;
 
 public interface MyMoney {
 
 	void registerUser(String login, String password, String name,
 			String gender, String mail) throws MissingArgumentException, InvalidArgumentException, InvalidEmailException, DuplicatedLoginException;
 
-	void removeUser(String login);
+	void removeUser(String login) throws UserUnregisteredException, LoginUnregisteredException;
 
-	String getUserEmail(String login);
+	String getUserEmail(String login) throws UserUnregisteredException;
 
-	String getUserGender(String login);
+	String getUserGender(String login) throws UserUnregisteredException;
 
-	String getUserName(String login);
+	String getUserName(String login) throws UserUnregisteredException;
 
 	void doLogin(String login, String password) throws PasswordMismatchException, InvalidArgumentException, LoginUnregisteredException, UserAlreadyLoggedException;
 
@@ -55,5 +56,9 @@ public interface MyMoney {
 	void removeAccount(String login, long accId) throws PermissionDeniedException, AccountNotFoundException;
 
 	void doLogoff(String login, String password) throws InvalidArgumentException, LoginUnregisteredException, PasswordMismatchException, UserNotLoggedException;
+
+	void updateUser(String login, String name, String gender, String mail) throws MissingArgumentException, InvalidEmailException, InvalidArgumentException, UserUnregisteredException;
+
+	void submitBankOperations(String login, String fileContent);
 	
 }

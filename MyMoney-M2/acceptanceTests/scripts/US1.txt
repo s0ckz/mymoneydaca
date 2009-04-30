@@ -3,6 +3,8 @@
 
 cleanAll
 
+expectError "Invalid Argument" register login="diego" password="123" name="Diego Rodrigues" gender="M" eMail="diegotabira@gmail.com"
+
 # Cen�rio 1 - O usu�rio tenta fazer o registro no sistema esquecendo de digitar o login
 expectError "Missing Argument" register login="" password="12345" name="Diego Rodrigues" gender="M" eMail="diegotabira@gmail.com"
 
@@ -25,6 +27,10 @@ register login="diego" password="12345" name="Diego Rodrigues" gender="M" eMail=
 
 # Cen�rio 7 - Um usu�rio sem e-mail faz o registro no sistema com sucesso
 register login="fulano" password="54321" name="Fulano de Tal" gender="M" eMail=""
+
+expect "Fulano de Tal" getUserName login="fulano"
+expect "M" getUserGender login="fulano"
+expect "" getUserEmail login="fulano"
 
 # Cen�rio 8 - Um usu�rio tenta fazer registro com um login j� cadastrado
 expectError "Login already registered" register login="diego" password="12345" name="Diego Rodrigues" gender="M" eMail="diegotabira@gmail.com"

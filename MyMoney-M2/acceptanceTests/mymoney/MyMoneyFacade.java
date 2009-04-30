@@ -1,5 +1,7 @@
 package mymoney;
 
+import java.io.IOException;
+
 import mymoney.model.MyMoney;
 import mymoney.model.MyMoneyImpl;
 import mymoney.model.exceptions.AccountNotFoundException;
@@ -15,7 +17,9 @@ import mymoney.model.exceptions.PermissionDeniedException;
 import mymoney.model.exceptions.UnknownOperationException;
 import mymoney.model.exceptions.UserAlreadyLoggedException;
 import mymoney.model.exceptions.UserNotLoggedException;
+import mymoney.model.exceptions.UserUnregisteredException;
 import mymoney.model.util.HibernateUtil;
+import mymoney.util.FileContentParser;
 
 public class MyMoneyFacade {
 	
@@ -27,15 +31,12 @@ public class MyMoneyFacade {
 
 	// Utils
 	
-	public void quit() {
-	}
-	
 	public void cleanAll() {
 		HibernateUtil.cleanAll();
 	}
 	
-	public String getFileContent(String filePath) {
-		return null;
+	public String getFileContent(String filePath) throws IOException {
+		return FileContentParser.getFileContent(filePath);
 	}
 
 	// US-01
@@ -45,20 +46,24 @@ public class MyMoneyFacade {
 		myMoney.registerUser(login, password, name, gender, eMail);
 	}
 	
-	public String getUserName(String login) {
+	public String getUserName(String login) throws UserUnregisteredException {
 		return myMoney.getUserName(login);
 	}
 	
-	public String getUserGender(String login) {
+	public String getUserGender(String login) throws UserUnregisteredException {
 		return myMoney.getUserGender(login);
 	}
 	
-	public String getUserEmail(String login) {
+	public String getUserEmail(String login) throws UserUnregisteredException {
 		return myMoney.getUserEmail(login);
 	}
 	
-	public void removeUser(String login) {
+	public void removeUser(String login) throws UserUnregisteredException, LoginUnregisteredException {
 		myMoney.removeUser(login);
+	}
+	
+	public void updateUser(String login, String name, String gender, String eMail) throws MissingArgumentException, InvalidEmailException, InvalidArgumentException, UserUnregisteredException {
+		myMoney.updateUser(login, name, gender, eMail);
 	}
 
 	// US-02
@@ -163,6 +168,7 @@ public class MyMoneyFacade {
 	// US - 09
 	
 	public void submitBankOperations(String login, String fileContent) {
+		myMoney.submitBankOperations(login, fileContent);
 	}
 	
 	// US-10

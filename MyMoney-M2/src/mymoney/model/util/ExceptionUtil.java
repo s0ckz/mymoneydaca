@@ -28,7 +28,7 @@ public class ExceptionUtil {
 		assert args.length % 2 == 0;
 		for (int i = 0; i < args.length; i+=2) {
 			if (args[i+1] == null || args[i+1].isEmpty()) {
-				throw new MissingArgumentException();
+				throw new MissingArgumentException(args[i]);
 			}
 		}
 	}
