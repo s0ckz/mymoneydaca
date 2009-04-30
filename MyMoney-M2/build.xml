@@ -48,7 +48,7 @@
 			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
 			<jvmarg value="-ea"/>
 			<arg value="${mymoney.facade}"/>
-			<arg value="US1.txt"/>
+			<arg value="US1-1.txt"/>
 			<arg value="US1-2.txt"/>
 		</java>
 	</target>
@@ -130,8 +130,9 @@
 			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
 			<jvmarg value="-ea"/>
 			<arg value="${mymoney.facade}"/>
-			<arg value="US9.txt"/>
+			<arg value="US9-1.txt"/>
 			<arg value="US9-2.txt"/>
+			<arg value="US9-3.txt"/>
 		</java>
 	</target>
 	
