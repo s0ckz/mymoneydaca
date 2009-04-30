@@ -137,34 +137,35 @@ public class MyMoneyFacade {
 	// US-08
 	
 	public long addCommitment(String login, String label, String date, double amount, String type, String frequency) {
-		return 0;
+		return myMoney.addCommitment(login, label, date, amount, type, frequency);
 	}
-	
+
 	public String getCommitmentLabel(String login, long id) {
-		return null;
+		return myMoney.getCommitmentLabel(login, id);
 	}
-	
+
 	public String getCommitmentDate(String login, long id) {
-		return null;
+		return myMoney.getCommitmentDate(login, id);
 	}
-	
+
 	public double getCommitmentAmount(String login, long id) {
-		return 0.0;
+		return myMoney.getCommitmentAmount(login, id);
 	}
-	
+
 	public String getCommitmentType(String login, long id) {
-		return null;
+		return myMoney.getCommitmentType(login, id);
 	}
-	
+
 	public String getCommitmentFrequency(String login, long id) {
-		return null;
+		return myMoney.getCommitmentFrequency(login, id);
 	}
-	
-	public long numberOfCommitments(String  login) {
-		return 0;
+
+	public long numberOfCommitments(String login) {
+		return myMoney.numberOfCommitments(login);
 	}
-	
+
 	public void removeCommitment(String login, long id) {
+		myMoney.removeCommitment(login, id);
 	}
 	
 	// US - 09
