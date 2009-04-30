@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ForeignKey;
+
 import mymoney.model.exceptions.MissingArgumentException;
 
 @Entity
@@ -35,6 +37,7 @@ public class Commitment {
 		this.frequency = frequency;
 		this.label = label;
 		this.type = type;
+		this.login=login;
 	}
 
 	
@@ -52,6 +55,7 @@ public class Commitment {
 	/**
 	 * @return the login
 	 */
+	@ForeignKey(name = "Users")
 	@Column(name = "login")
 	public String getLogin() {
 		return login;

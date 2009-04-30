@@ -21,7 +21,7 @@ code=addCommitment login=${usuario}  label="Financiamento"  date="15/04/2009"  a
 expect 1 numberOfCommitments login=${usuario}
 expect "Financiamento" getCommitmentLabel login=${usuario}  id=${code}
 expect "15/04/2009" getCommitmentDate login=${usuario}  id=${code}
-expect 450 getCommitmentAmount login=${usuario}  id=${code}
+expect 450.0 getCommitmentAmount login=${usuario}  id=${code}
 expect "debt" getCommitmentType login=${usuario}  id=${code}
 expect "monthly" getCommitmentFrequency login=${usuario}  id=${code}
 removeUser login=${usuario}
@@ -33,15 +33,15 @@ expect true isLogged login=${usuario}
 firstCode=addCommitment login=${usuario}  label="Financiamento"  date="15/09/2009"  amount=450  type="debt"  frequency="monthly"
 expect 1 numberOfCommitments login=${usuario}
 expect "Financiamento" getCommitmentLabel login=${usuario}  id=${firstCode}
-expect "15/04/2009" getCommitmentDate login=${usuario}  id=${firstCode}
-expect 450 getCommitmentAmount login=${usuario}  id=${firstCode}
+expect "15/09/2009" getCommitmentDate login=${usuario}  id=${firstCode}
+expect 450.0 getCommitmentAmount login=${usuario}  id=${firstCode}
 expect "debt" getCommitmentType login=${usuario}  id=${firstCode}
 expect "monthly" getCommitmentFrequency login=${usuario}  id=${firstCode}
 secondCode=addCommitment login=${usuario}  label="Aluguel"  date="10/10/2009"  amount=35  type="credit"  frequency="monthly"
 expect 2 numberOfCommitments login=${usuario}
 expect "Aluguel" getCommitmentLabel login=${usuario}  id=${secondCode}
 expect "10/10/2009" getCommitmentDate login=${usuario}  id=${secondCode}
-expect 35 getCommitmentAmount login=${usuario}  id=${secondCode}
+expect 35.0 getCommitmentAmount login=${usuario}  id=${secondCode}
 expect "credit" getCommitmentType login=${usuario}  id=${secondCode}
 expect "monthly" getCommitmentFrequency login=${usuario}  id=${secondCode}
 removeCommitment login=${usuario}  id=${secondCode}
