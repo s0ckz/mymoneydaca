@@ -16,15 +16,19 @@ expect true isLogged login=${usuario}
 
 # cria uma nova conta
 accId=createAccount login=${usuario} label="personal" agency="1111" account="2222-2"
+addOperation login=${usuario} accId=${accId} type="credit" way="cash" amount=300.0
+addOperation login=${usuario} accId=${accId} type="debit" way="cash" amount=2000.0
 
-extratoTxt=echo ${accId}"	\"credit\"	\"cash\"	1000.0"
+fileSep=echo "/"
+csvFile=echo ..${fileSep}files${fileSep}extrato.csv
+csvExpected=echo ..${fileSep}files${fileSep}expected.csv
+txtFile=echo ..${fileSep}files${fileSep}extrato.txt
+txtExpected=echo ..${fileSep}files${fileSep}expected.txt
 
-submitBankOperationsTXT login=${usuario} fileContent=${extratoTxt}
+exportBankOperationsCSV login=${usuario} accId=${accId} file=${csvFile}
+equalFiles ${csvFile} ${csvExpected}
 
-expect "credit" getOperationType oppId=1
-expect "cash" getOperationWay oppId=1
-expectWithin 0.001 1000.0 getOperationAmount oppId=1
-
-expect 1 getNumberOfOperations login=${usuario}
+exportBankOperationsTXT login=${usuario} accId=${accId} file=${txtFile}
+equalFiles ${txtFile} ${txtExpected}
 
 cleanAll
