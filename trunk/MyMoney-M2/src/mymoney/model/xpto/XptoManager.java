@@ -18,9 +18,9 @@ public interface XptoManager {
 			PermissionDeniedException, AccountNotFoundException;
 
 	void exportBankOperationsCSV(String login, long accId, String pathToFile)
-			throws IOException;
+			throws IOException, PermissionDeniedException, AccountNotFoundException;
 
 	void exportBankOperationsTXT(String login, long accId, String pathToFile)
-			throws IOException;
+			throws IOException, PermissionDeniedException, AccountNotFoundException;
 
 }

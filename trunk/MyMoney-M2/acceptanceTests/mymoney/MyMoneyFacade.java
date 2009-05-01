@@ -211,12 +211,12 @@ public class MyMoneyFacade {
 	}
 
 	public void exportBankOperationsCSV(String login, long accId,
-			String pathToFile) throws IOException {
+			String pathToFile) throws IOException, PermissionDeniedException, AccountNotFoundException {
 		myMoney.exportBankOperationsCSV(login, accId, pathToFile);
 	}
 
 	public void exportBankOperationsTXT(String login, long accId,
-			String pathToFile) throws IOException {
+			String pathToFile) throws IOException, PermissionDeniedException, AccountNotFoundException {
 		myMoney.exportBankOperationsTXT(login, accId, pathToFile);
 	}
 

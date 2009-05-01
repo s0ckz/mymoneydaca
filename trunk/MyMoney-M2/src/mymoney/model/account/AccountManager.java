@@ -1,5 +1,7 @@
 package mymoney.model.account;
 
+import java.util.Collection;
+
 import mymoney.model.exceptions.AccountNotFoundException;
 import mymoney.model.exceptions.BusinessException;
 import mymoney.model.exceptions.DuplicatedAccountException;
@@ -34,6 +36,6 @@ public interface AccountManager {
 
 	void removeOperation(String login, long opId) throws PermissionDeniedException, UnknownOperationException;
 
-	long[] getAllOperations(String login, long accId);
+	Collection<Long> getAllOperations(String login, long accId) throws PermissionDeniedException, AccountNotFoundException;
 
 }

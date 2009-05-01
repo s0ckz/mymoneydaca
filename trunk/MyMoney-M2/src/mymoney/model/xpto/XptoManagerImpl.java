@@ -23,12 +23,12 @@ public class XptoManagerImpl implements XptoManager {
 
 	@Override
 	public void exportBankOperationsCSV(String login, long accId,
-			String pathToFile) throws IOException {
+			String pathToFile) throws IOException, PermissionDeniedException, AccountNotFoundException {
 		new CSVExporter().export(login, accId, pathToFile);
 	}
 
 	public void exportBankOperationsTXT(String login, long accId,
-			String pathToFile) throws IOException {
+			String pathToFile) throws IOException, PermissionDeniedException, AccountNotFoundException {
 		new CSVExporter().export(login, accId, pathToFile);
 	}
 
