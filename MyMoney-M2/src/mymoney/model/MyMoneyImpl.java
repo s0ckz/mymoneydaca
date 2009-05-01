@@ -87,6 +87,7 @@ public class MyMoneyImpl implements MyMoney {
 		userManager.removeUser(login);
 		authManager.remove(login);
 		commitmentManager.removeCommitment(login);
+		reportManager.removeReports(login);
 	}
 
 	public void doLogin(String login, String password)
@@ -286,29 +287,63 @@ public class MyMoneyImpl implements MyMoney {
 
 	}
 
-	public void generateReport(String login, String begin, String end,
-			String operationType, long idAccount, boolean commitments) {
-		reportManager.generateReport(login, begin, end, operationType,
-				idAccount, commitments);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * mymoney.model.MyMoney#generateReportCreditOperations(java.lang.String,
+	 * java.lang.String, java.lang.String, long)
+	 */
+	@Override
+	public long generateReportCreditOperations(String login, String begin,
+			String end, long idAccount) throws MissingArgumentException {
 
-		
-		
+		return reportManager.generateReportCreditOperations(login, begin, end,
+				idAccount);
 	}
 
-	public int getNumberOfOperationsReport() {
-		return 0;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see mymoney.model.MyMoney#generateReportDebtOperations(java.lang.String,
+	 * java.lang.String, java.lang.String, long)
+	 */
+	@Override
+	public long generateReportDebtOperations(String login, String begin,
+			String end, long idAccount) throws MissingArgumentException {
+
+		return reportManager.generateReportDebtOperations(login, begin, end,
+				idAccount);
 	}
 
-	public int getNumberOfCreditOperationsReport() {
-		return 0;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see mymoney.model.MyMoney#generateReportOperations(java.lang.String,
+	 * java.lang.String, java.lang.String, long)
+	 */
+	@Override
+	public long generateReportOperations(String login, String begin,
+			String end, long idAccount, String typeOperation)
+			throws MissingArgumentException {
+
+		return reportManager.generateReportOperations(login, begin, end,
+				idAccount, typeOperation);
 	}
 
-	public int getNumberOfDebtOperationsReport() {
-		return 0;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see mymoney.model.MyMoney#getReport(long)
+	 */
+	
+	@Override
+	public int getReports(String login) {
+		return reportManager.getReports(login);
 	}
 
-	public int getNumberOfCommitmentsReport() {
-		return 0;
+	public void removeReports(String login) {
+		reportManager.removeReports(login);
 	}
 
 }

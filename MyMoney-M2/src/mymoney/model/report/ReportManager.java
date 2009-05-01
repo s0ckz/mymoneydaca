@@ -3,6 +3,8 @@
  */
 package mymoney.model.report;
 
+import mymoney.model.exceptions.MissingArgumentException;
+
 /**
  * @author Danilo de Sá
  * @author Rodrigo Bruno
@@ -11,46 +13,16 @@ package mymoney.model.report;
  */
 public interface ReportManager {
 
-	/**
-	 * Generates a Report
-	 * 
-	 * @param login
-	 *            user´s login
-	 * @param begin
-	 *            begin date
-	 * @param end
-	 *            end date
-	 * @param operationType
-	 *            type of operation
-	 * @param idAccount
-	 *            the id of the account
-	 * @param commitments
-	 */
-	void generateReport(String login, String begin, String end,
-			String operationType, long idAccount, boolean commitments);
+	long generateReportCreditOperations(String login, String begin, String end,
+			long idAccount) throws MissingArgumentException;
 
-	/**
-	 * Return the number of operations report
-	 * 
-	 * @return int that represents the number of operations report
-	 */
-	int getNumberOfOperationsReport();
+	long generateReportDebtOperations(String login, String begin, String end,
+			long idAccount) throws MissingArgumentException;
 
-	/**
-	 * 
-	 * @return
-	 */
-	int getNumberOfCreditOperationsReport();
+	long generateReportOperations(String login, String begin, String end,
+			long idAccount, String typeOperation) throws MissingArgumentException;
 
-	/**
-	 * 
-	 * @return
-	 */
-	int getNumberOfDebtOperationsReport();
+	int getReports(String login);
 
-	/**
-	 * 
-	 * @return
-	 */
-	public int getNumberOfCommitmentsReport();
+	void removeReports(String login);
 }

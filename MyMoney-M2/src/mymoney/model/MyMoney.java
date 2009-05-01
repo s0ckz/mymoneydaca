@@ -113,15 +113,15 @@ public interface MyMoney {
 	void exportBankOperationsTXT(String login, long accId, String pathToFile)
 			throws IOException, PermissionDeniedException, AccountNotFoundException;
 
-	void generateReport(String login, String begin, String end,
-			String operationType, long idAccount, boolean commitments);
+	long generateReportCreditOperations(String login, String begin, String end,
+			long idAccount) throws MissingArgumentException;
 
-	int getNumberOfOperationsReport();
+	long generateReportOperations(String login, String begin, String end,
+			long idAccount, String typeOperation) throws MissingArgumentException;
 
-	int getNumberOfCreditOperationsReport();
+	long generateReportDebtOperations(String login, String begin, String end,
+			long idAccount) throws MissingArgumentException;
 
-	int getNumberOfDebtOperationsReport();
-
-	int getNumberOfCommitmentsReport();
+	int getReports(String login);
 
 }
