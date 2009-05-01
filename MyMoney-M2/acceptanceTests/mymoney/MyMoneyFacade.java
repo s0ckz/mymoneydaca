@@ -211,34 +211,39 @@ public class MyMoneyFacade {
 	}
 
 	public void exportBankOperationsCSV(String login, long accId,
-			String pathToFile) throws IOException, PermissionDeniedException, AccountNotFoundException {
+			String pathToFile) throws IOException, PermissionDeniedException,
+			AccountNotFoundException {
 		myMoney.exportBankOperationsCSV(login, accId, pathToFile);
 	}
 
 	public void exportBankOperationsTXT(String login, long accId,
-			String pathToFile) throws IOException, PermissionDeniedException, AccountNotFoundException {
+			String pathToFile) throws IOException, PermissionDeniedException,
+			AccountNotFoundException {
 		myMoney.exportBankOperationsTXT(login, accId, pathToFile);
 	}
 
 	// US-10
 
-	
 	public long generateReportDebitOperations(String login, String begin,
 			String end, long idAccount) throws MissingArgumentException {
-		return myMoney.generateReportDebtOperations(login, begin, end, idAccount);
+		return myMoney.generateReportDebtOperations(login, begin, end,
+				idAccount);
 	}
-	
+
 	public long generateReportCreditOperations(String login, String begin,
 			String end, long idAccount) throws MissingArgumentException {
-		return myMoney.generateReportCreditOperations(login, begin, end, idAccount);
+		return myMoney.generateReportCreditOperations(login, begin, end,
+				idAccount);
 	}
 
 	public long generateReportsOperations(String login, String begin,
-			String end, long idAccount, String typeOperation) throws MissingArgumentException{
-		return myMoney.generateReportOperations(login, begin, end, idAccount, typeOperation);
+			String end, long idAccount, String typeOperation)
+			throws MissingArgumentException {
+		return myMoney.generateReportOperations(login, begin, end, idAccount,
+				typeOperation);
 	}
 
-	public int getReports(String  login) {
+	public int getReports(String login) {
 		return myMoney.getReports(login);
 	}
 
