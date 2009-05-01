@@ -7,18 +7,12 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.SimpleExpression;
-
-import mymoney.model.account.AccountManager;
-import mymoney.model.account.AccountManagerImpl;
-import mymoney.model.commitment.Commitment;
-import mymoney.model.commitment.CommitmentManager;
-import mymoney.model.commitment.CommitmentManagerImpl;
 import mymoney.model.exceptions.MissingArgumentException;
 import mymoney.model.util.ExceptionUtil;
 import mymoney.model.util.HibernateUtil;
-import mymoney.model.util.ParseDate;
+
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.SimpleExpression;
 
 /**
  * @author Rodrigo
@@ -93,6 +87,7 @@ public class ReportManagerImpl implements ReportManager {
 
 	
 	
+	@SuppressWarnings("unchecked")
 	public void removeReports(String login) {
 		Collection<SimpleExpression> expressions = Arrays.asList(Restrictions
 				.eq("login", login));

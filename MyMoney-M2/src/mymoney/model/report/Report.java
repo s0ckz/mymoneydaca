@@ -4,13 +4,18 @@
 package mymoney.model.report;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
 
 /**
  * @author Rodrigo
  * 
  */
+@Entity
+@Table(name="reports")
 public class Report {
 
 	private String login = "";
