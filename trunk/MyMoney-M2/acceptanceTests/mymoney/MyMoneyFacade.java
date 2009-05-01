@@ -222,27 +222,24 @@ public class MyMoneyFacade {
 
 	// US-10
 
-	public void generateReport(String login, String begin, String end,
-			String operationType, long idAccount, boolean commitments) {
-		myMoney.generateReport(login, begin, end, operationType, idAccount,
-				commitments);
-
+	
+	public long generateReportDebitOperations(String login, String begin,
+			String end, long idAccount) throws MissingArgumentException {
+		return myMoney.generateReportDebtOperations(login, begin, end, idAccount);
+	}
+	
+	public long generateReportCreditOperations(String login, String begin,
+			String end, long idAccount) throws MissingArgumentException {
+		return myMoney.generateReportCreditOperations(login, begin, end, idAccount);
 	}
 
-	public int getNumberOfOperationsReport() {
-		return myMoney.getNumberOfOperationsReport();
+	public long generateReportsOperations(String login, String begin,
+			String end, long idAccount, String typeOperation) throws MissingArgumentException{
+		return myMoney.generateReportOperations(login, begin, end, idAccount, typeOperation);
 	}
 
-	public int getNumberOfCreditOperationsReport() {
-		return myMoney.getNumberOfCreditOperationsReport();
-	}
-
-	public int getNumberOfDebtOperationsReport() {
-		return myMoney.getNumberOfDebtOperationsReport();
-	}
-
-	public int getNumberOfCommitmentsReport() {
-		return myMoney.getNumberOfCommitmentsReport();
+	public int getReports(String  login) {
+		return myMoney.getReports(login);
 	}
 
 	// US-11

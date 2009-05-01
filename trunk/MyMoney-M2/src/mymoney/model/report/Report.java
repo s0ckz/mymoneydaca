@@ -3,19 +3,23 @@
  */
 package mymoney.model.report;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  * @author Rodrigo
  * 
  */
 public class Report {
 
-	private String login;
-	private String dateBegin;
-	private String dateEnd;
-	private String operationType;
+	private String login = "";
+	private String dateBegin = "";
+	private String dateEnd = "";
+	private String operationType = "";
 	private long idAccount;
-	private boolean commitments;
-	private String report;
+	private String label;
+	private long reportCode;
 	
 	/**
 	 * @param commitments
@@ -25,14 +29,16 @@ public class Report {
 	 * @param login
 	 * @param operationType
 	 */
-	public Report(boolean commitments, String dateBegin, String dateEnd,
-			long idAccount, String login, String operationType) {
-		this.commitments = commitments;
+	public Report(String login , String dateBegin, String dateEnd,
+			long idAccount, String operationType) {
 		this.dateBegin = dateBegin;
 		this.dateEnd = dateEnd;
 		this.idAccount = idAccount;
 		this.login = login;
 		this.operationType = operationType;
+		this.label="";
+		
+		
 	}
 
 	public Report() {
@@ -41,6 +47,7 @@ public class Report {
 	/**
 	 * @return the login
 	 */
+	@Column(name = "login")
 	public String getLogin() {
 		return login;
 	}
@@ -55,7 +62,9 @@ public class Report {
 
 	/**
 	 * @return the dateBegin
+	 * 
 	 */
+	@Column(name = "datebegin")
 	public String getDateBegin() {
 		return dateBegin;
 	}
@@ -71,6 +80,7 @@ public class Report {
 	/**
 	 * @return the dateEnd
 	 */
+	@Column(name = "dateEnd")
 	public String getDateEnd() {
 		return dateEnd;
 	}
@@ -86,6 +96,7 @@ public class Report {
 	/**
 	 * @return the operationType
 	 */
+	@Column(name = "type")
 	public String getOperationType() {
 		return operationType;
 	}
@@ -101,6 +112,7 @@ public class Report {
 	/**
 	 * @return the idAccount
 	 */
+	@Column(name = "idAccount")
 	public long getIdAccount() {
 		return idAccount;
 	}
@@ -114,32 +126,40 @@ public class Report {
 	}
 
 	/**
-	 * @return the commitments
+	 * @param label the label to set
 	 */
-	public boolean isCommitments() {
-		return commitments;
+	
+	public void setLabel(String label) {
+		this.label = label;
 	}
 
 	/**
-	 * @param commitments
-	 *            the commitments to set
+	 * @return the label
 	 */
-	public void setCommitments(boolean commitments) {
-		this.commitments = commitments;
+	@Column(name = "label")
+	public String getLabel() {
+		return label;
 	}
 
 	/**
-	 * @param report the report to set
+	 * @param reportCode the reportCode to set
 	 */
-	public void setReport(String report) {
-		this.report = report;
+	public void setReportCode(long reportCode) {
+		this.reportCode = reportCode;
 	}
 
 	/**
-	 * @return the report
+	 * @return the reportCode
 	 */
-	public String getReport() {
-		return report;
+	@Id
+	@GeneratedValue
+	@Column(name = "code")
+	public long getReportCode() {
+		return reportCode;
 	}
 
+	
+	
+
+	
 }
