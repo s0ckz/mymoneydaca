@@ -108,10 +108,10 @@ public interface MyMoney {
 			PermissionDeniedException, AccountNotFoundException;
 
 	void exportBankOperationsCSV(String login, long accId, String pathToFile)
-			throws IOException;
+			throws IOException, PermissionDeniedException, AccountNotFoundException;
 
 	void exportBankOperationsTXT(String login, long accId, String pathToFile)
-			throws IOException;
+			throws IOException, PermissionDeniedException, AccountNotFoundException;
 
 	void generateReport(String login, String begin, String end,
 			String operationType, long idAccount, boolean commitments);

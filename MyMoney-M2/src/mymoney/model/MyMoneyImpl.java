@@ -184,13 +184,13 @@ public class MyMoneyImpl implements MyMoney {
 
 	@Override
 	public void exportBankOperationsCSV(String login, long accId,
-			String pathToFile) throws IOException {
+			String pathToFile) throws IOException, PermissionDeniedException, AccountNotFoundException {
 		xptoManager.exportBankOperationsCSV(login, accId, pathToFile);
 	}
 
 	@Override
 	public void exportBankOperationsTXT(String login, long accId,
-			String pathToFile) throws IOException {
+			String pathToFile) throws IOException, PermissionDeniedException, AccountNotFoundException {
 		xptoManager.exportBankOperationsTXT(login, accId, pathToFile);
 	}
 

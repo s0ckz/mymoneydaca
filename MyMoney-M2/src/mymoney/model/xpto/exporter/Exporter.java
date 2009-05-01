@@ -3,9 +3,12 @@ package mymoney.model.xpto.exporter;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Collection;
 
 import mymoney.model.account.AccountManager;
 import mymoney.model.account.AccountManagerImpl;
+import mymoney.model.exceptions.AccountNotFoundException;
+import mymoney.model.exceptions.PermissionDeniedException;
 
 public abstract class Exporter {
 
@@ -18,11 +21,11 @@ public abstract class Exporter {
 		accountManager = new AccountManagerImpl();
 	}
 	
-	public void export(String login, long accId, String pathToFile) throws IOException {
+	public void export(String login, long accId, String pathToFile) throws IOException, PermissionDeniedException, AccountNotFoundException {
 		
 		BufferedWriter writer = new BufferedWriter(new FileWriter(pathToFile));
 		
-		long[] ids = accountManager.getAllOperations(login,accId);
+		Collection<Long> ids = accountManager.getAllOperations(login,accId);
 		StringBuilder content = new StringBuilder();
 		for (long opId : ids) {
 			String type = accountManager.getOperationType(opId);

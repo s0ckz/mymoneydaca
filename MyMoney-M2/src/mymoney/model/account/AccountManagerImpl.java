@@ -2,6 +2,7 @@ package mymoney.model.account;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 import mymoney.model.exceptions.AccountNotFoundException;
@@ -61,11 +62,18 @@ public class AccountManagerImpl implements AccountManager {
 		return operation.getWay();
 	}
 
+	@SuppressWarnings("unchecked")
 	public long getNumberOfOperations(String login) {
-//		Operation operation = (Operation) HibernateUtil.load(Operation.class, opId);
-//		if (operation == null)
-//			return 0;
-		return 0;
+		Collection<SimpleExpression> expressions = 
+			Arrays.asList(Restrictions.eq("login", login));
+		
+		List<Account> accounts = (List<Account>) HibernateUtil.createQueryBasedOnExpressions(Account.class, expressions);
+		
+		long numberOfOperations = 0;
+		for (Account account : accounts) {
+			numberOfOperations += account.getOperations().size();
+		}
+		return numberOfOperations;
 	}
 
 	public double getOperationAmount(long opId) {
@@ -161,10 +169,14 @@ public class AccountManagerImpl implements AccountManager {
 		System.out.println(((Account) HibernateUtil.load(Account.class, accId)).getOperations());
 	}
 
-	@Override
-	public long[] getAllOperations(String login, long accId) {
-		// TODO
-		return new long[]{1,2};
+	public Collection<Long> getAllOperations(String login, long accId) throws PermissionDeniedException, AccountNotFoundException {
+		Account account = getAccount(login, accId);
+		Collection<Operation> operations = account.getOperations();
+		Collection<Long> operationsToReturn = new LinkedList<Long>();
+		for (Operation o : operations) {
+			operationsToReturn.add(o.getId());
+		}
+		return operationsToReturn;
 	}
 	
 }

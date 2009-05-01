@@ -1,8 +1,8 @@
 package mymoney.model.account;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,7 +26,7 @@ public class Account implements Serializable {
 	
 	private String agency;
 
-	private Set<Operation> operations = new HashSet<Operation>();;
+	private List<Operation> operations = new ArrayList<Operation>();
 
 	private String account;
 
@@ -68,7 +68,7 @@ public class Account implements Serializable {
 	}
 
 	@OneToMany(mappedBy="account", fetch=FetchType.EAGER)
-	public Set<Operation> getOperations() {
+	public List<Operation> getOperations() {
 		return operations;
 	}
 	
@@ -92,7 +92,7 @@ public class Account implements Serializable {
 		this.agency = agency;
 	}
 
-	public void setOperations(Set<Operation> operations) {
+	public void setOperations(List<Operation> operations) {
 		this.operations = operations;
 	}
 
