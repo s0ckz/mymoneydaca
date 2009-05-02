@@ -23,7 +23,6 @@ import mymoney.model.exceptions.UserAlreadyLoggedException;
 import mymoney.model.exceptions.UserNotLoggedException;
 import mymoney.model.exceptions.UserUnregisteredException;
 import mymoney.model.util.HibernateUtil;
-import mymoney.util.FileContentParser;
 
 /**
  * Fachada utilizada pelo EasyAccept.
@@ -46,10 +45,6 @@ public class MyMoneyFacade {
 	 */
 	public void cleanAll() {
 		HibernateUtil.cleanAll();
-	}
-
-	public String getFileContent(String filePath) throws IOException {
-		return FileContentParser.getFileContent(filePath);
 	}
 
 	// US-01
