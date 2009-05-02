@@ -9,48 +9,81 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 /**
- * @author Rodrigo
+ * 
+ * Classe que implementa um Relatorio
+ * 
+ * @author Danilo Resende
+ * @author Leandro Jose
+ * @author Rodrigo Bruno
  * 
  */
 @Entity
-@Table(name="reports")
+@Table(name = "reports")
 public class Report {
 
-	private String login = "";
-	private String dateBegin = "";
-	private String dateEnd = "";
-	private String operationType = "";
-	private long idAccount;
-	private String label;
-	private long reportCode;
-	
 	/**
-	 * @param commitments
-	 * @param dateBegin
-	 * @param dateEnd
-	 * @param idAccount
-	 * @param login
-	 * @param operationType
+	 * O login do usuario
 	 */
-	public Report(String login , String dateBegin, String dateEnd,
+	private String login = "";
+	/**
+	 * A data de inicio
+	 */
+	private String dateBegin = "";
+	/**
+	 * Data de fim
+	 */
+	private String dateEnd = "";
+	/**
+	 * Tipo de operacao
+	 */
+	private String operationType = "";
+	/**
+	 * id da conta
+	 */
+	private long idAccount;
+	/**
+	 * descricao
+	 */
+	private String label;
+	/**
+	 * Codigo do relatorio
+	 */
+	private long reportCode;
+
+	/**
+	 * Construtor da classe
+	 * 
+	 * @param dateBegin
+	 *            A data de Inicio do relatorio
+	 * @param dateEnd
+	 *            A data de fim do relatorio
+	 * @param idAccount
+	 *            O id da conta
+	 * @param login
+	 *            O login do usuario
+	 * @param operationType
+	 *            O tipo de operacao
+	 */
+	public Report(String login, String dateBegin, String dateEnd,
 			long idAccount, String operationType) {
 		this.dateBegin = dateBegin;
 		this.dateEnd = dateEnd;
 		this.idAccount = idAccount;
 		this.login = login;
 		this.operationType = operationType;
-		this.label="";
-		
-		
+		this.label = "";
+
 	}
 
+	/**
+	 * Construtor da classe
+	 */
 	public Report() {
 	}
 
 	/**
-	 * @return the login
+	 * @return o login
 	 */
 	@Column(name = "login")
 	public String getLogin() {
@@ -59,14 +92,14 @@ public class Report {
 
 	/**
 	 * @param login
-	 *            the login to set
+	 *            o login a ser setado
 	 */
 	public void setLogin(String login) {
 		this.login = login;
 	}
 
 	/**
-	 * @return the dateBegin
+	 * @return o dateBegin
 	 * 
 	 */
 	@Column(name = "datebegin")
@@ -76,14 +109,14 @@ public class Report {
 
 	/**
 	 * @param dateBegin
-	 *            the dateBegin to set
+	 *            a data de inicio a ser setada
 	 */
 	public void setDateBegin(String dateBegin) {
 		this.dateBegin = dateBegin;
 	}
 
 	/**
-	 * @return the dateEnd
+	 * @return a dateEnd
 	 */
 	@Column(name = "dateEnd")
 	public String getDateEnd() {
@@ -92,14 +125,14 @@ public class Report {
 
 	/**
 	 * @param dateEnd
-	 *            the dateEnd to set
+	 *            a data de fim a ser setada
 	 */
 	public void setDateEnd(String dateEnd) {
 		this.dateEnd = dateEnd;
 	}
 
 	/**
-	 * @return the operationType
+	 * @return o operationType
 	 */
 	@Column(name = "type")
 	public String getOperationType() {
@@ -108,14 +141,14 @@ public class Report {
 
 	/**
 	 * @param operationType
-	 *            the operationType to set
+	 *            o tipo de operacao a ser setado
 	 */
 	public void setOperationType(String operationType) {
 		this.operationType = operationType;
 	}
 
 	/**
-	 * @return the idAccount
+	 * @return o idAccount
 	 */
 	@Column(name = "idAccount")
 	public long getIdAccount() {
@@ -124,22 +157,23 @@ public class Report {
 
 	/**
 	 * @param idAccount
-	 *            the idAccount to set
+	 *            o id da conta a ser setado
 	 */
 	public void setIdAccount(long idAccount) {
 		this.idAccount = idAccount;
 	}
 
 	/**
-	 * @param label the label to set
+	 * @param label
+	 *            o label a ser setado
 	 */
-	
+
 	public void setLabel(String label) {
 		this.label = label;
 	}
 
 	/**
-	 * @return the label
+	 * @return o label
 	 */
 	@Column(name = "label")
 	public String getLabel() {
@@ -147,14 +181,15 @@ public class Report {
 	}
 
 	/**
-	 * @param reportCode the reportCode to set
+	 * @param reportCode
+	 *            o codigo do relatorio a ser setado
 	 */
 	public void setReportCode(long reportCode) {
 		this.reportCode = reportCode;
 	}
 
 	/**
-	 * @return the reportCode
+	 * @return o reportCode
 	 */
 	@Id
 	@GeneratedValue
@@ -163,8 +198,4 @@ public class Report {
 		return reportCode;
 	}
 
-	
-	
-
-	
 }
