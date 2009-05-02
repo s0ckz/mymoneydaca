@@ -7,28 +7,28 @@ import mymoney.model.exceptions.CommitmentException;
 import mymoney.model.exceptions.MissingArgumentException;
 
 /**
- * @author Danilo de Sa
- * @author Leandro Jose
+ * @author Danilo de Sá
+ * @author Leandro José
  * @author Rodrigo Bruno
  * 
  */
 public interface CommitmentManager {
 
 	/**
-	 * This method adds a commitment
+	 * Metodo que adiciona um compromisso
 	 * 
 	 * @param login
-	 *            the login of the commitment owner
+	 *            o login do dono do compromisso
 	 * @param label
-	 *            the commitment's label
+	 *            o label do compromisso
 	 * @param date
-	 *            the commitment's date
+	 *            a data do compromisso
 	 * @param amount
-	 *            the commitment's amount
+	 *            o montante do compromisso
 	 * @param type
-	 *            the commitment's type
+	 *            o tipo do compromisso
 	 * @param frequency
-	 *            the commitment's frequency
+	 *            a frequencia do compromisso
 	 * @return code the code of the commitment added
 	 * @throws MissingArgumentException
 	 */
@@ -36,85 +36,88 @@ public interface CommitmentManager {
 			String type, String frequency) throws MissingArgumentException;
 
 	/**
-	 * Return the label of the commitment
+	 * Metodo que retorna o label de um compromisso
 	 * 
 	 * @param login
-	 *            the login of the commitment owner
+	 *            o login do dono do compromisso
 	 * @param id
-	 *            the commitment's id
-	 * @return label
+	 *            a id do compromisso
+	 * @return label o label do compromisso
 	 * @throws CommitmentException
 	 */
 	public String getCommitmentLabel(String login, long id)
 			throws CommitmentException;
 
 	/**
-	 * Return the date of the commitment
+	 * Metodo que retorna a data de um compromisso
 	 * 
 	 * @param login
-	 *            the login of the commitment owner
+	 *            O login do dono do compromisso
 	 * @param id
-	 *            the commitment's id
-	 * @return date the commitment's date
+	 *            o id do compromisso
+	 * @return date a data do compromisso
 	 * @throws CommitmentException
 	 */
 	public String getCommitmentDate(String login, long id)
 			throws CommitmentException;
 
 	/**
-	 * Return the amount of the commitment
+	 * Retorna o montante do compromisso
 	 * 
 	 * @param login
-	 *            the login of the commitment owner
+	 *            o login do usuario dono do compromisso
 	 * @param id
-	 *            the commitment's id
-	 * @return amount the commitment's amount
+	 *            a id do compromisso
+	 * @return amount o montante do comprimisso
 	 * @throws CommitmentException
 	 */
 	public double getCommitmentAmount(String login, long id)
 			throws CommitmentException;
 
 	/**
-	 * Return the type of the commitment
+	 * Retorna o tipo do compromisso
 	 * 
 	 * @param login
+	 *            o login do dono do compromisso
 	 * @param id
-	 *            the commitment's id
-	 * @return type the commitment's type
+	 *            o id do compromisso
+	 * 
+	 * @return type o tipo do compromisso
 	 * @throws CommitmentException
 	 */
 	public String getCommitmentType(String login, long id)
 			throws CommitmentException;
 
 	/**
-	 * Return the frequency of the commitment
+	 * Retorna a frequencia do comprimisso
 	 * 
 	 * @param login
+	 *            o login do dono do compromisso
 	 * @param id
-	 *            the commitment's id
-	 * @return frequency the commitment's frequency
+	 *            o id do compromisso
+	 * @return frequency a frequencia do compromisso
 	 * @throws CommitmentException
 	 */
 	public String getCommitmentFrequency(String login, long id)
 			throws CommitmentException;
 
 	/**
-	 * Returns the user's commitments number
+	 * Retorna o numero de compromissos de um usuario
 	 * 
 	 * @param login
-	 *            the user's login
+	 *            o login do usuario
 	 * 
-	 * @return a long that represents the number of commitments
+	 * @return um inteiro que representa o numero de compromissos do usuario
 	 */
 	public int numberOfCommitments(String login);
 
 	/**
-	 * Remove a commitment
+	 * Metodo que remove um comentario
 	 * 
 	 * @param login
-	 *            the login of the owner
+	 *            o login do usuario a que pertence o compromisso
 	 * @param id
-	 *            the id of the commitment
+	 *            o id do compromisso
 	 * 
 	 * @throws CommitmentException
 	 */
@@ -122,10 +125,14 @@ public interface CommitmentManager {
 			throws CommitmentException;
 
 	/**
-	 * Removes all commitments of the user
+	 * Metodo que remove todos os comentario de um usuario
 	 * 
 	 * @param login
-	 *            user's login
+	 *            o login do usuario a que pertence o compromisso
+	 * @param id
+	 *            o id do compromisso
+	 * 
+	 * @throws CommitmentException
 	 */
 	public void removeCommitment(String login);
 

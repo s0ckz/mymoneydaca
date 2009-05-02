@@ -8,7 +8,12 @@ import java.util.Collection;
 import java.util.List;
 
 import mymoney.model.exceptions.CommitmentException;
+import mymoney.model.exceptions.DuplicatedLoginException;
+import mymoney.model.exceptions.InvalidArgumentException;
+import mymoney.model.exceptions.InvalidEmailException;
 import mymoney.model.exceptions.MissingArgumentException;
+import mymoney.model.user.UserManager;
+import mymoney.model.user.UserManagerImpl;
 import mymoney.model.util.ExceptionUtil;
 import mymoney.model.util.HibernateUtil;
 
@@ -16,8 +21,8 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 
 /**
- * @author Danilo de S�
- * @author Leandro Jos�
+ * @author Danilo Resende
+ * @author Leandro Jose
  * @author Rodrigo Bruno
  * 
  */
@@ -170,6 +175,7 @@ public class CommitmentManagerImpl implements CommitmentManager {
 
 	}
 
+	
 	@SuppressWarnings("unchecked")
 	public void removeCommitment(String login) {
 		Collection<SimpleExpression> expressions = Arrays.asList(Restrictions
@@ -181,4 +187,7 @@ public class CommitmentManagerImpl implements CommitmentManager {
 		}
 	}
 
+	
+	
+	
 }

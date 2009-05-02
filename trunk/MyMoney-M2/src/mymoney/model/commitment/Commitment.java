@@ -6,27 +6,67 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ForeignKey;
+
 import mymoney.model.exceptions.MissingArgumentException;
 
+/**
+ * Classe que implementa um compromisso.
+ * 
+ * @author Danilo Resende
+ * @author Leandro Jose
+ * @author Rodrigo Bruno
+ * 
+ */
 @Entity
 @Table(name = "Commitment")
 public class Commitment {
 
+	/**
+	 * O login do usuario
+	 */
 	private String login = "";
+	/**
+	 * Descricao do compromisso
+	 */
 	private String label = "";
+	/**
+	 * A data do compromisso
+	 */
 	private String data = "";
+	/**
+	 * O tipo do compromisso
+	 */
 	private String type = "";
+	/**
+	 * O valor atribuido ao compromisso
+	 */
 	private double amount;
+	/**
+	 * A frequencia do compromisso
+	 */
 	private String frequency;
+	/**
+	 * O codigo do compromisso
+	 */
 	private long code;
 
 	/**
+	 * 
+	 * Construtor da classe
+	 * 
 	 * @param login
+	 *            O login do usuario
 	 * @param amount
+	 *            O valor atribuido ao compromisso
 	 * @param data
+	 *            A data do compromisso
 	 * @param frequency
+	 *            A frequencia do compromisso
 	 * @param label
+	 *            Descricao do compromisso
 	 * @param type
+	 *            O tipo do compromisso
 	 */
 	public Commitment(String login, double amount, String data,
 			String frequency, String label, String type) {
@@ -35,23 +75,26 @@ public class Commitment {
 		this.frequency = frequency;
 		this.label = label;
 		this.type = type;
-		this.login=login;
+		this.login = login;
 	}
 
-	
-	public Commitment(){
-		
-	}
 	/**
-	 * @param code the code to set
+	 * Construtor da classe
+	 */
+	public Commitment() {
+
+	}
+
+	/**
+	 * @param code
+	 *            o codigo a ser setado
 	 */
 	public void setCode(long code) {
 		this.code = code;
 	}
 
-
 	/**
-	 * @return the login
+	 * @return o login
 	 */
 	@Column(name = "login")
 	public String getLogin() {
@@ -60,7 +103,7 @@ public class Commitment {
 
 	/**
 	 * @param login
-	 *            the login to set
+	 *            o login a ser setado
 	 */
 	public void setLogin(String login) throws MissingArgumentException {
 		if (login.isEmpty()) {
@@ -71,7 +114,7 @@ public class Commitment {
 	}
 
 	/**
-	 * @return the label
+	 * @return o label
 	 */
 	@Column(name = "label")
 	public String getLabel() {
@@ -80,7 +123,7 @@ public class Commitment {
 
 	/**
 	 * @param label
-	 *            the label to set
+	 *            o label a ser setado
 	 */
 	public void setLabel(String label) throws MissingArgumentException {
 		if (label.isEmpty()) {
@@ -91,16 +134,16 @@ public class Commitment {
 	}
 
 	/**
-	 * @return the data
+	 * @return a data
 	 */
-	@Column(name="data")
+	@Column(name = "data")
 	public String getData() {
 		return data;
 	}
 
 	/**
 	 * @param data
-	 *            the data to set
+	 *            a data a ser setada
 	 * @throws MissingArgumentException
 	 */
 	public void setData(String data) throws MissingArgumentException {
@@ -112,16 +155,16 @@ public class Commitment {
 	}
 
 	/**
-	 * @return the type
+	 * @return o type
 	 */
-	@Column(name="type")
+	@Column(name = "type")
 	public String getType() {
 		return type;
 	}
 
 	/**
 	 * @param type
-	 *            the type to set
+	 *            o tipo a ser setado
 	 * @throws MissingArgumentException
 	 */
 	public void setType(String type) throws MissingArgumentException {
@@ -133,16 +176,16 @@ public class Commitment {
 	}
 
 	/**
-	 * @return the amount
+	 * @return o amount
 	 */
-	@Column(name="amount")
+	@Column(name = "amount")
 	public double getAmount() {
 		return amount;
 	}
 
 	/**
 	 * @param amount
-	 *            the amount to set
+	 *            o montante a ser setado
 	 */
 	public void setAmount(double amount) throws Exception {
 		if (amount <= 0.0) {
@@ -153,17 +196,17 @@ public class Commitment {
 	}
 
 	/**
-	 * @return the frequency
+	 * @return a frequencia
 	 */
-	@Column(name="frequency")
+	@Column(name = "frequency")
 	public String getFrequency() {
 		return frequency;
 	}
 
 	/**
 	 * @param frequency
-	 *            the frequency to set
-	 * @throws MissingArgumentException 
+	 *            a frequencia a ser setada
+	 * @throws MissingArgumentException
 	 */
 	public void setFrequency(String frequency) throws MissingArgumentException {
 		if (data.isEmpty()) {
@@ -174,7 +217,7 @@ public class Commitment {
 	}
 
 	/**
-	 * @return the code
+	 * @return o codigo
 	 */
 	@Id
 	@GeneratedValue
@@ -182,7 +225,5 @@ public class Commitment {
 	public long getCode() {
 		return code;
 	}
-
-	
 
 }
