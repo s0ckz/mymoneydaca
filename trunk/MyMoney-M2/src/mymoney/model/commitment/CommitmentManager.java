@@ -7,8 +7,8 @@ import mymoney.model.exceptions.CommitmentException;
 import mymoney.model.exceptions.MissingArgumentException;
 
 /**
- * @author Danilo de Sá
- * @author Leandro José
+ * @author Danilo de Sa
+ * @author Leandro Jose
  * @author Rodrigo Bruno
  * 
  */
@@ -20,15 +20,15 @@ public interface CommitmentManager {
 	 * @param login
 	 *            the login of the commitment owner
 	 * @param label
-	 *            the commitment´s label
+	 *            the commitment's label
 	 * @param date
-	 *            the commitment´s date
+	 *            the commitment's date
 	 * @param amount
-	 *            the commitment´s amount
+	 *            the commitment's amount
 	 * @param type
-	 *            the commitment´s type
+	 *            the commitment's type
 	 * @param frequency
-	 *            the commitment´s frequency
+	 *            the commitment's frequency
 	 * @return code the code of the commitment added
 	 * @throws MissingArgumentException
 	 */
@@ -41,7 +41,7 @@ public interface CommitmentManager {
 	 * @param login
 	 *            the login of the commitment owner
 	 * @param id
-	 *            the commitment´s id
+	 *            the commitment's id
 	 * @return label
 	 * @throws CommitmentException
 	 */
@@ -54,8 +54,8 @@ public interface CommitmentManager {
 	 * @param login
 	 *            the login of the commitment owner
 	 * @param id
-	 *            the commitment´s id
-	 * @return date the commitment´s date
+	 *            the commitment's id
+	 * @return date the commitment's date
 	 * @throws CommitmentException
 	 */
 	public String getCommitmentDate(String login, long id)
@@ -67,8 +67,8 @@ public interface CommitmentManager {
 	 * @param login
 	 *            the login of the commitment owner
 	 * @param id
-	 *            the commitment´s id
-	 * @return amount the commitment´s amount
+	 *            the commitment's id
+	 * @return amount the commitment's amount
 	 * @throws CommitmentException
 	 */
 	public double getCommitmentAmount(String login, long id)
@@ -79,8 +79,8 @@ public interface CommitmentManager {
 	 * 
 	 * @param login
 	 * @param id
-	 *            the commitment´s id
-	 * @return type the commitment´s type
+	 *            the commitment's id
+	 * @return type the commitment's type
 	 * @throws CommitmentException
 	 */
 	public String getCommitmentType(String login, long id)
@@ -91,18 +91,18 @@ public interface CommitmentManager {
 	 * 
 	 * @param login
 	 * @param id
-	 *            the commitment´s id
-	 * @return frequency the commitment´s frequency
+	 *            the commitment's id
+	 * @return frequency the commitment's frequency
 	 * @throws CommitmentException
 	 */
 	public String getCommitmentFrequency(String login, long id)
 			throws CommitmentException;
 
 	/**
-	 * Returns the user´s commitments number
+	 * Returns the user's commitments number
 	 * 
 	 * @param login
-	 *            the user´s login
+	 *            the user's login
 	 * 
 	 * @return a long that represents the number of commitments
 	 */
@@ -125,7 +125,7 @@ public interface CommitmentManager {
 	 * Removes all commitments of the user
 	 * 
 	 * @param login
-	 *            user´s login
+	 *            user's login
 	 */
 	public void removeCommitment(String login);
 

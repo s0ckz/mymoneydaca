@@ -4,6 +4,7 @@
 	<classpathentry kind="src" path="acceptanceTests"/>
 	<classpathentry kind="lib" path="lib/log4j/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="lib/mysql/mysql-connector-java-5.1.7-bin.jar"/>
+	<classpathentry kind="lib" path="lib/h2_database/h2-1.1.111.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/hibernate/antlr-2.7.6.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate/aspectjrt.jar"/>

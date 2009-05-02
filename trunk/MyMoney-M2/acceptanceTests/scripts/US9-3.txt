@@ -1,9 +1,6 @@
 #User Story 9
 #Fornecer extrato bancario
 
-#Chamada a facade
-#public void submitBankOperations(String login, String fileContent)
-
 cleanAll
 
 usuario=echo "jose"
@@ -26,9 +23,9 @@ txtFile=echo ..${fileSep}files${fileSep}extrato.txt
 txtExpected=echo ..${fileSep}files${fileSep}expected.txt
 
 exportBankOperationsCSV login=${usuario} accId=${accId} file=${csvFile}
-equalFiles ${csvFile} ${csvExpected}
+equalFiles ${csvExpected} ${csvFile} 
 
 exportBankOperationsTXT login=${usuario} accId=${accId} file=${txtFile}
-equalFiles ${txtFile} ${txtExpected}
+equalFiles ${txtExpected} ${txtFile} 
 
 cleanAll

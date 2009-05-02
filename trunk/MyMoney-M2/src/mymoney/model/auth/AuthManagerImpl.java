@@ -10,6 +10,11 @@ import mymoney.model.exceptions.UserNotLoggedException;
 import mymoney.model.util.ExceptionUtil;
 import mymoney.model.util.HibernateUtil;
 
+/**
+ * Implementacao da interface <code>AuthManager</code>.
+ * 
+ * @see AuthManager
+ */
 public class AuthManagerImpl implements AuthManager {
 
 	@Override
@@ -45,7 +50,7 @@ public class AuthManagerImpl implements AuthManager {
 	}
 
 	@Override
-	public void doLogoff(String login, String password) throws InvalidArgumentException, LoginUnregisteredException, PasswordMismatchException, UserNotLoggedException {
+	public void doLogout(String login, String password) throws InvalidArgumentException, LoginUnregisteredException, PasswordMismatchException, UserNotLoggedException {
 		ExceptionUtil.checkInvalidRequiredArguments("login", login, "password", password);
 		Auth gotten = make(login);
 		if (!gotten.getPassword().equals(password)) {
@@ -58,6 +63,9 @@ public class AuthManagerImpl implements AuthManager {
 		HibernateUtil.update(gotten);
 	}
 
+	/*
+	 * Carrega uma entidade Auth do banco de dados.
+	 */
 	private Auth make(String login) throws LoginUnregisteredException {
 		Auth gotten = (Auth) HibernateUtil.load(Auth.class, login);
 		if (gotten == null) throw new LoginUnregisteredException();

@@ -1,4 +1,4 @@
 /**
- * Provê as classes necessárias para criar contas e operações.
+ * Prove as classes necessarias para criar contas e operacoes.
  */
 package mymoney.model.account;

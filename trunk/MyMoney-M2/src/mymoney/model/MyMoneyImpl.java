@@ -25,19 +25,19 @@ import mymoney.model.exceptions.UnknownOperationException;
 import mymoney.model.exceptions.UserAlreadyLoggedException;
 import mymoney.model.exceptions.UserNotLoggedException;
 import mymoney.model.exceptions.UserUnregisteredException;
+import mymoney.model.external.ExternalManager;
+import mymoney.model.external.ExternalManagerImpl;
 import mymoney.model.report.ReportManager;
 import mymoney.model.report.ReportManagerImpl;
 import mymoney.model.user.UserManager;
 import mymoney.model.user.UserManagerImpl;
-import mymoney.model.xpto.XptoManager;
-import mymoney.model.xpto.XptoManagerImpl;
 
 public class MyMoneyImpl implements MyMoney {
 
 	private UserManager userManager = new UserManagerImpl();
 	private AuthManager authManager = new AuthManagerImpl();
 	private AccountManager accountManager = new AccountManagerImpl();
-	private XptoManager xptoManager = new XptoManagerImpl();
+	private ExternalManager xptoManager = new ExternalManagerImpl();
 	private CommitmentManager commitmentManager = new CommitmentManagerImpl();
 	private ReportManager reportManager = new ReportManagerImpl();
 
@@ -159,7 +159,7 @@ public class MyMoneyImpl implements MyMoney {
 	public void doLogoff(String login, String password)
 			throws InvalidArgumentException, LoginUnregisteredException,
 			PasswordMismatchException, UserNotLoggedException {
-		authManager.doLogoff(login, password);
+		authManager.doLogout(login, password);
 	}
 
 	@Override

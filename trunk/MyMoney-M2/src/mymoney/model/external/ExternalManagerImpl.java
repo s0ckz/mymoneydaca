@@ -1,4 +1,4 @@
-package mymoney.model.xpto;
+package mymoney.model.external;
 
 import java.io.IOException;
 
@@ -6,11 +6,17 @@ import mymoney.model.exceptions.AccountNotFoundException;
 import mymoney.model.exceptions.BusinessException;
 import mymoney.model.exceptions.MisunderstandingFileContent;
 import mymoney.model.exceptions.PermissionDeniedException;
-import mymoney.model.xpto.exporter.CSVExporter;
-import mymoney.model.xpto.importer.CSVImporter;
-import mymoney.model.xpto.importer.TXTImporter;
+import mymoney.model.external.exporter.CSVExporter;
+import mymoney.model.external.exporter.TXTExporter;
+import mymoney.model.external.importer.CSVImporter;
+import mymoney.model.external.importer.TXTImporter;
 
-public class XptoManagerImpl implements XptoManager {
+/**
+ * Prove implementacao para a interface <code>ExternalManager</code>.
+ * @see <code>ExternalManager</code>
+ *
+ */
+public class ExternalManagerImpl implements ExternalManager {
 
 	@Override
 	public long[] submitBankOperationsCSV(String login, String fileContent) throws BusinessException, PermissionDeniedException, AccountNotFoundException, MisunderstandingFileContent {
@@ -29,7 +35,7 @@ public class XptoManagerImpl implements XptoManager {
 
 	public void exportBankOperationsTXT(String login, long accId,
 			String pathToFile) throws IOException, PermissionDeniedException, AccountNotFoundException {
-		new CSVExporter().export(login, accId, pathToFile);
+		new TXTExporter().export(login, accId, pathToFile);
 	}
 
 }

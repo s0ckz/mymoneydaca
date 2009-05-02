@@ -1,5 +1,5 @@
 /**
- * Provê as classes necessárias para implementar o MyMoney, um gerenciador
- * de finanças pessoais.
+ * Prove as classes necessarias para implementar o MyMoney, um gerenciador
+ * de financas pessoais.
  */
 package mymoney;

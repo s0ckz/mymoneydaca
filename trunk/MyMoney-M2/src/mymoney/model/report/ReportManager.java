@@ -6,9 +6,9 @@ package mymoney.model.report;
 import mymoney.model.exceptions.MissingArgumentException;
 
 /**
- * @author Danilo de Sá
+ * @author Danilo de Sa
  * @author Rodrigo Bruno
- * @author Leandro José
+ * @author Leandro Jose
  * 
  */
 public interface ReportManager {

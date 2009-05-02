@@ -41,7 +41,7 @@ public interface MyMoney {
 			LoginUnregisteredException, UserAlreadyLoggedException;
 
 	/**
-	 * Metodo para criar uma nova conta. Todos os campos sao obrigatórios e
+	 * Metodo para criar uma nova conta. Todos os campos sao obrigatorios e
 	 * nenhum usuario pode ter duas contas com os mesmos atributos.
 	 * @param login Login do usuario que eh dono dessa conta.
 	 * @param label Descricao dessa conta.
@@ -84,7 +84,7 @@ public interface MyMoney {
 	double getOperationAmount(long opId);
 
 	/**
-	 * Metodo de acesso ao numero total de operacoes que o usuário tem, ou seja, eh o somatorio
+	 * Metodo de acesso ao numero total de operacoes que o usuario tem, ou seja, eh o somatorio
 	 * de operacoes de todas as contas.
 	 * @param login Login do usuario
 	 * @return Numero maior ou igual a zero.
@@ -156,8 +156,8 @@ public interface MyMoney {
 			throws PermissionDeniedException, UnknownOperationException;
 
 	/**
-	 * Remove uma conta a partir do seu identificador e do login do usuário que
-	 * é dono dessa conta.
+	 * Remove uma conta a partir do seu identificador e do login do usuario que
+	 * e dono dessa conta.
 	 * @param login Login do usuario.
 	 * @param accId Identificador dessa conta.
 	 * @throws PermissionDeniedException Caso o usuario tente remover uma conta que nao pertence a ele.

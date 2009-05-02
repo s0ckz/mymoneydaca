@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * Classe que representa uma conta. Cada usuario pode ter multiplas contas, e cada conta pode conter varias operacões.
+ * Classe que representa uma conta. Cada usuario pode ter multiplas contas, e cada conta pode conter varias operacoes.
  * @see Operation
  */
 @Entity
@@ -102,8 +102,8 @@ public class Account implements Serializable {
 	}
 
 	/**
-	 * Metodo de acesso as operacões que foram realizadas com essa conta.
-	 * @return Uma lista de operacões, ordenadas pela ordem de insercao.
+	 * Metodo de acesso as operacoes que foram realizadas com essa conta.
+	 * @return Uma lista de operacoes, ordenadas pela ordem de insercao.
 	 */
 	@OneToMany(mappedBy="account", fetch=FetchType.EAGER)
 	public List<Operation> getOperations() {
@@ -147,8 +147,8 @@ public class Account implements Serializable {
 	}
 
 	/**
-	 * Metodo de alteracao da lista de operacões que essa conta contempla.
-	 * @param operations Nova lista de operacões
+	 * Metodo de alteracao da lista de operacoes que essa conta contempla.
+	 * @param operations Nova lista de operacoes
 	 */
 	public void setOperations(List<Operation> operations) {
 		this.operations = operations;
