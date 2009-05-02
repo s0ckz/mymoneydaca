@@ -230,7 +230,7 @@ public class MyMoneyFacade {
 	/**
 	 * Remove uma operacao.
 	 * @param login Login do usuario.
-	 * @param opId Identificador da operacao a ser removida.
+	 * @param idOperation Identificador da operacao a ser removida.
 	 * @throws PermissionDeniedException Caso a operacao nao pertenca a esse usuario.
 	 * @throws UnknownOperationException Caso a operacao nao exista.
 	 */
