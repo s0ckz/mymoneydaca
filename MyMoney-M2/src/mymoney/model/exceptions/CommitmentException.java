@@ -4,7 +4,13 @@
 package mymoney.model.exceptions;
 
 /**
- * @author Rodrigo
+ * 
+ * Excecao que eh lancada quando ocorre algum evento inesperado com relacao a um
+ * comprimisso
+ * 
+ * @author Danilo Resende
+ * @author Leandro Jose
+ * @author Rodrigo Bruno
  * 
  */
 public class CommitmentException extends Exception {
@@ -22,5 +28,4 @@ public class CommitmentException extends Exception {
 		super(message);
 	}
 
-	
 }
