@@ -22,6 +22,20 @@
 		<mkdir dir="${jar.dir}" />
 		<mkdir dir="${classes.dir}" />
 	</target>
+	
+	<target name="configH2">
+		<copy todir="${classes.dir}">
+			<fileset dir="${h2.cfg.dir}"/>
+			<fileset dir="${log.cfg.dir}"/>
+		</copy>
+	</target>
+
+	<target name="configMySQL">
+		<copy todir="${classes.dir}">
+			<fileset dir="${mysql.cfg.dir}"/>
+			<fileset dir="${log.cfg.dir}"/>
+		</copy>
+	</target>
 
 	<target name="compila" depends="init">
 		<javac debug="true" srcdir="${src.dir}" destdir="${classes.dir}"
@@ -33,7 +47,10 @@
 			classpathref="classpath" />
 	</target>
     
-    <target name="jar" depends="compila" >
+    <target name="jar" depends="jarH2" >
+	</target>   
+
+	<target name="jarH2" depends="compila,configH2" >
 		<jar destfile="${jar.dir}/${jar.name}">
 			<fileset dir="${classes.dir}"/>
 			<fileset dir="${src.dir}"/>
