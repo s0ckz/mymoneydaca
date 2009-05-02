@@ -8,6 +8,11 @@ import mymoney.model.exceptions.UserUnregisteredException;
 import mymoney.model.util.ExceptionUtil;
 import mymoney.model.util.HibernateUtil;
 
+/**
+ * Implementacao da interface <code>UserManager</code>.
+ * 
+ * @see <code>UserManager</code>
+ */
 public class UserManagerImpl implements UserManager {
 	
 	public void register(String login, String name,
@@ -44,6 +49,9 @@ public class UserManagerImpl implements UserManager {
 		if (user != null) HibernateUtil.delete(user);
 	}
 
+	/*
+	 * Carrega um usuario do banco de dados.
+	 */
 	private User makeUser(String login) throws UserUnregisteredException {
 		User user = (User) HibernateUtil.load(User.class, login);
 		if (user == null) {

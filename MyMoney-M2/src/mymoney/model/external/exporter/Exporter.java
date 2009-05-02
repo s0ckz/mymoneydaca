@@ -1,4 +1,4 @@
-package mymoney.model.xpto.exporter;
+package mymoney.model.external.exporter;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

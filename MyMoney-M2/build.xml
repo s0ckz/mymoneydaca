@@ -11,39 +11,39 @@
 		<fileset dir="${build.dir}" includes="**/*.jar" />
 	</path>
 
-    <target name="clean">
+    <target name="limpa">
         <delete dir="${classes.dir}"/>
 		<delete dir="${build.dir}" />		
 		<delete dir="${jar.dir}" />		
     </target>
 
-	<target name="init" depends="clean">
+	<target name="init" depends="limpa">
 		<mkdir dir="${build.dir}" />
 		<mkdir dir="${jar.dir}" />
 		<mkdir dir="${classes.dir}" />
 	</target>
 
-	<target name="compile" depends="init">
+	<target name="compila" depends="init">
 		<javac debug="true" srcdir="${src.dir}" destdir="${classes.dir}"
 			classpathref="classpath" />
 	</target>
 	
-	<target name="compileTestsSource" depends="init">
+	<target name="compilaTestsSource" depends="init">
 		<javac debug="true" srcdir="${src.tests.dir}" destdir="${classes.dir}"
 			classpathref="classpath" />
 	</target>
     
-    <target name="jar" depends="compile" >
+    <target name="jar" depends="compila" >
 		<jar destfile="${jar.dir}/${jar.name}">
 			<fileset dir="${classes.dir}"/>
 			<fileset dir="${src.dir}"/>
 		</jar>
 	</target>   
 	
-	<target name="test-AllUS" depends="test-US01,test-US02,test-US03,test-US04,test-US05,test-US06,test-US07,test-US08,test-US09,test-US10,test-US11">
+	<target name="testa" depends="test-US01,test-US02,test-US03,test-US04,test-US05,test-US06,test-US07,test-US08,test-US09,test-US10,test-US11">
 	</target>
 	
-	<target name="test-US01" depends="jar,compileTestsSource">
+	<target name="test-US01" depends="jar,compilaTestsSource">
 		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
 			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
 			<jvmarg value="-ea"/>
@@ -53,7 +53,7 @@
 		</java>
 	</target>
 
-	<target name="test-US02" depends="jar,compileTestsSource">
+	<target name="test-US02" depends="jar,compilaTestsSource">
 		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
 			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
 			<jvmarg value="-ea"/>
@@ -62,7 +62,7 @@
 		</java>
 	</target>
 
-	<target name="test-US03" depends="jar,compileTestsSource">
+	<target name="test-US03" depends="jar,compilaTestsSource">
 		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
 			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
 			<jvmarg value="-ea"/>
@@ -71,7 +71,7 @@
 		</java>
 	</target>
 
-	<target name="test-US04" depends="jar,compileTestsSource">
+	<target name="test-US04" depends="jar,compilaTestsSource">
 		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
 			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
 			<jvmarg value="-ea"/>
@@ -86,7 +86,7 @@
 		</java>
 	</target>
 
-	<target name="test-US05" depends="jar,compileTestsSource">
+	<target name="test-US05" depends="jar,compilaTestsSource">
 		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
 			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
 			<jvmarg value="-ea"/>
@@ -97,7 +97,7 @@
 		</java>
 	</target>
 
-	<target name="test-US06" depends="jar,compileTestsSource">
+	<target name="test-US06" depends="jar,compilaTestsSource">
 		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
 			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
 			<jvmarg value="-ea"/>
@@ -107,7 +107,7 @@
 		</java>
 	</target>
 
-	<target name="test-US07" depends="jar,compileTestsSource">
+	<target name="test-US07" depends="jar,compilaTestsSource">
 		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
 			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
 			<jvmarg value="-ea"/>
@@ -116,7 +116,7 @@
 		</java>
 	</target>
 	
-	<target name="test-US08" depends="jar,compileTestsSource">
+	<target name="test-US08" depends="jar,compilaTestsSource">
 		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
 			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
 			<jvmarg value="-ea"/>
@@ -125,7 +125,7 @@
 		</java>
 	</target>
 
-	<target name="test-US09" depends="jar,compileTestsSource">
+	<target name="test-US09" depends="jar,compilaTestsSource">
 		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
 			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
 			<jvmarg value="-ea"/>
@@ -136,7 +136,7 @@
 		</java>
 	</target>
 	
-	<target name="test-US10" depends="jar,compileTestsSource">
+	<target name="test-US10" depends="jar,compilaTestsSource">
 		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
 			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
 			<jvmarg value="-ea"/>
@@ -145,7 +145,7 @@
 		</java>
 	</target>
 
-		<target name="test-US11" depends="jar,compileTestsSource">
+		<target name="test-US11" depends="jar,compilaTestsSource">
 		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
 			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
 			<jvmarg value="-ea"/>

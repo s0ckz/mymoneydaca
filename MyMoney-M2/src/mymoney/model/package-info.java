@@ -1,4 +1,4 @@
 /**
- * Provê as classes necessárias para acessar a fachada do sistema.
+ * Prove as classes necessarias para acessar a fachada do sistema.
  */
 package mymoney.model;

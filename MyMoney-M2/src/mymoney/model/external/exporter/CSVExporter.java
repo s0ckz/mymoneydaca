@@ -1,4 +1,4 @@
-package mymoney.model.xpto.exporter;
+package mymoney.model.external.exporter;
 
 public class CSVExporter extends Exporter {
 

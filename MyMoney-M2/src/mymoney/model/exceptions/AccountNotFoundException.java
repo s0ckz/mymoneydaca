@@ -1,7 +1,7 @@
 package mymoney.model.exceptions;
 
 /**
- * Excecao que é lancada quando uma conta nao eh encontrada
+ * Excecao que e lancada quando uma conta nao eh encontrada
  * no sistema.
  */
 public class AccountNotFoundException extends MyMoneyException {

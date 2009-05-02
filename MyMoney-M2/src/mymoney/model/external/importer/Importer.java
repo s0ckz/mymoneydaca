@@ -1,4 +1,4 @@
-package mymoney.model.xpto.importer;
+package mymoney.model.external.importer;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
