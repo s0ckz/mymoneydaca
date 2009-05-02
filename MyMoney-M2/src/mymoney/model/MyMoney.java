@@ -159,7 +159,7 @@ public interface MyMoney {
 	 * Remove uma conta a partir do seu identificador e do login do usuário que
 	 * é dono dessa conta.
 	 * @param login Login do usuario.
-	 * @param id Identificador dessa conta.
+	 * @param accId Identificador dessa conta.
 	 * @throws PermissionDeniedException Caso o usuario tente remover uma conta que nao pertence a ele.
 	 * @throws AccountNotFoundException Caso a conta nao seja encontrada.
 	 */
