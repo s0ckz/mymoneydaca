@@ -7,6 +7,9 @@ public class DuplicatedAccountException extends MyMoneyException {
 
 	private static final long serialVersionUID = 2547513262477931687L;
 
+	/**
+	 * Construtor de uma nova excecao.
+	 */
 	public DuplicatedAccountException() {
 		super("Account Already Exists");
 	}

@@ -8,6 +8,9 @@ public class AccountNotFoundException extends MyMoneyException {
 
 	private static final long serialVersionUID = -756106789994451835L;
 
+	/**
+	 * Construtor de uma nova excecao.
+	 */
 	public AccountNotFoundException() {
 		super("Account not found");
 	}
