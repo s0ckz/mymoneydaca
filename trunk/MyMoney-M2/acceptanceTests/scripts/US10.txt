@@ -34,6 +34,7 @@ addCommitment login=${usuario} label="Financiamento" date="15/04/2009" amount=45
 generateReportsOperations login=${usuario} begin="1/11/2008" end="31/03/2009" idAccount=${op1Id} typeOperation=${tipoCredito}
 expect 1 getReports login=${usuario}
 
+
 #Cen�rio 2 
 generateReportCreditOperations login=${usuario} begin="1/11/2008" end="31/03/2009" idAccount=${op1Id}
 expect 2 getReports login=${usuario}
@@ -42,7 +43,8 @@ expect 2 getReports login=${usuario}
 #Cen�rio 3
 generateReportDebitOperations login=${usuario} begin="1/11/2008" end="31/03/2009" idAccount=${op1Id}
 expect 3 getReports login=${usuario}
-
+removeUser login=${usuario}
+expect 0 getReports login=${usuario}
 
 cleanAll
 
