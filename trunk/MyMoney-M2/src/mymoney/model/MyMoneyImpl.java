@@ -156,7 +156,7 @@ public class MyMoneyImpl implements MyMoney {
 	}
 
 	@Override
-	public void doLogoff(String login, String password)
+	public void doLogout(String login, String password)
 			throws InvalidArgumentException, LoginUnregisteredException,
 			PasswordMismatchException, UserNotLoggedException {
 		authManager.doLogout(login, password);
