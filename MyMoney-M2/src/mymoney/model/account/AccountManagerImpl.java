@@ -17,6 +17,9 @@ import mymoney.model.util.HibernateUtil;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 
+/**
+ * Implementacao do gerenciador de contas e operacoes.
+ */
 public class AccountManagerImpl implements AccountManager {
 
 	private static final String DEFAULT_ACCOUNT = "default";
@@ -107,6 +110,14 @@ public class AccountManagerImpl implements AccountManager {
 		HibernateUtil.delete(operation);
 	}
 
+	/**
+	 * Metodo de acesso a uma certa conta a partir de seus identificadores.
+	 * @param login Login do usuario.
+	 * @param label Descricao da conta.
+	 * @param agency Agencia da conta.
+	 * @param account Numero da conta.
+	 * @return <code>null</code> caso a conta nao exista.
+	 */
 	@SuppressWarnings("unchecked")
 	private Account getAccount(String login, String label, String agency,
 			String account) {
@@ -124,6 +135,11 @@ public class AccountManagerImpl implements AccountManager {
 			return list.get(0);
 	}
 
+	/**
+	 * Metodo de acesso a conta padrao de um dado usuario.
+	 * @param login Login do usuario.
+	 * @return A conta padrao do usuario.
+	 */
 	public Account getDefaultAccount(String login) {
 		Account account = getAccount(login, DEFAULT_ACCOUNT, DEFAULT_ACCOUNT, DEFAULT_ACCOUNT);
 		if (account == null) {
@@ -137,6 +153,14 @@ public class AccountManagerImpl implements AccountManager {
 		return account;
 	}
 
+	/**
+	 * Metodo de acesso a uma conta.
+	 * @param login Login do usuario.
+	 * @param accId Identificador da conta.
+	 * @return A conta do usuario.
+	 * @throws PermissionDeniedException Caso a conta nao pertenca a esse usuario.
+	 * @throws AccountNotFoundException Caso a conta nao exista.
+	 */
 	public Account getAccount(String login, long accId) throws PermissionDeniedException, AccountNotFoundException {
 		Account account = (Account) HibernateUtil.load(Account.class, accId);
 		if (account == null)
@@ -146,11 +170,24 @@ public class AccountManagerImpl implements AccountManager {
 		return account;
 	}
 
+	/**
+	 * Metodo de acesso a uma operacao.
+	 * @param opId Identificador da operacao.
+	 * @return <code>null</code> caso a operacao nao exista.
+	 */
 	private Operation getOperation(long opId) {
 		Operation operation = (Operation) HibernateUtil.load(Operation.class, opId);
 		return operation;
 	}
 	
+	/**
+	 * Metodo de cesso a uma operacao.
+	 * @param login Login do usuario.
+	 * @param opId Identificador da operacao.
+	 * @return Uma operacao.
+	 * @throws PermissionDeniedException Caso a operacao nao pertenca ao usuario.
+	 * @throws UnknownOperationException Caso a operacao nao exista.
+	 */
 	private Operation getOperation(String login, long opId) throws PermissionDeniedException, UnknownOperationException {
 		Operation operation = getOperation(opId);
 		if (operation == null)
@@ -160,15 +197,6 @@ public class AccountManagerImpl implements AccountManager {
 		return operation;
 	}
 	
-	public static void main(String[] args) throws MissingArgumentException, DuplicatedAccountException, BusinessException, PermissionDeniedException, AccountNotFoundException {
-		AccountManager acc = new AccountManagerImpl();
-		long accId = acc.createAccount("teste", "a", "b", "c");
-		long opId = acc.addOperation("teste", accId, "blah", "bleh", 200);
-		
-		System.out.println(HibernateUtil.load(Operation.class, opId));
-		System.out.println(((Account) HibernateUtil.load(Account.class, accId)).getOperations());
-	}
-
 	public Collection<Long> getAllOperations(String login, long accId) throws PermissionDeniedException, AccountNotFoundException {
 		Account account = getAccount(login, accId);
 		Collection<Operation> operations = account.getOperations();
