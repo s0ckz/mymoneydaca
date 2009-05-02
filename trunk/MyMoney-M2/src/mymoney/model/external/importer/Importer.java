@@ -10,6 +10,14 @@ import mymoney.model.exceptions.BusinessException;
 import mymoney.model.exceptions.MisunderstandingFileContent;
 import mymoney.model.exceptions.PermissionDeniedException;
 
+/**
+ * Prove funcionalidade de importar as operacoes financeiras de uma conta 
+ * do MyMoney.
+ * <br>
+ * Essa classe eh independente de formato de arquivo. Para adicionar um novo
+ * importador para um novo tipo de arquivo basta estender essa classe e 
+ * implementar o metodo: makeOperationPattern.
+ */
 public abstract class Importer {
 
 	protected AccountManager accountManager;
@@ -26,13 +34,25 @@ public abstract class Importer {
 
 	protected static final int NUM_GROUPS = 4;
 	
-	protected static final String TOKEN_TXT = "(\"[^\"]*\"|[^\\s]*)";
-
-
+	/**
+	 * Construtor Default.
+	 */
 	protected Importer() {
 		accountManager = new AccountManagerImpl();
 	}
 
+	/**
+	 * Importa um arquivo contendo operacoes financeiras do MyMoney.
+	 * 
+	 * @param login O login do usuario dono da conta.
+	 * @param fileContent O conteudo do arquivo a ser importado.
+	 * @return Um vetor contendo os ids das operacoes importadas.
+	 * 
+	 * @throws MisunderstandingFileContent Se o conteudo do arquivo nao puder ser entendido pelo importador.
+	 * @throws BusinessException Se alguma regra de negocio do MyMoney for violada.
+	 * @throws PermissionDeniedException Se o usuario nao for o dono da conta requisitada.
+	 * @throws AccountNotFoundException Se a conta nao tiver sido cadastrada no sistema.
+	 */
 	public long[] submitBankOperations(String login, String fileContent) throws MisunderstandingFileContent, BusinessException,
 			PermissionDeniedException, AccountNotFoundException {
 		Pattern p = makeOperationPattern();
@@ -66,6 +86,16 @@ public abstract class Importer {
 		return ids;
 	}
 
+	/**
+	 * Produz uma expressao regular que corresponde a uma operacao financeira, no formato de arquivo
+	 * do importador que implementa esse metodo. 
+	 * <br><br>
+	 * Essa expressao regular sera usada para a leitura e interpretacao do arquivo. 
+	 * Ela deve conter 4 grupos de capturacao que serao lidos na seguinte ordem:
+	 * <br>idDaConta, tipoDaOperacao, modoDePagamento, valor. 
+	 * 
+	 * @return um objeto <code>Pattern</code> contendo a expressao regular gerada.
+	 */
 	protected abstract Pattern makeOperationPattern();
 	
 }
