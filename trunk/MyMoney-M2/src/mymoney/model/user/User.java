@@ -58,7 +58,7 @@ public class User implements Serializable {
 
 	/**
 	 * Atualiza o login do usuario.
-	 * @return O novo login.
+	 * @param login Login do usuario.
 	 */
 	public void setLogin(String login) {
 		this.login = login;
