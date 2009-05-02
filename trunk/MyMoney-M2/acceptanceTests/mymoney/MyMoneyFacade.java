@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import mymoney.model.MyMoney;
 import mymoney.model.MyMoneyImpl;
+import mymoney.model.account.AccountManager;
 import mymoney.model.exceptions.AccountNotFoundException;
 import mymoney.model.exceptions.BusinessException;
 import mymoney.model.exceptions.CommitmentException;
@@ -24,16 +25,25 @@ import mymoney.model.exceptions.UserUnregisteredException;
 import mymoney.model.util.HibernateUtil;
 import mymoney.util.FileContentParser;
 
+/**
+ * Fachada utilizada pelo EasyAccept.
+ */
 public class MyMoneyFacade {
 
 	private MyMoney myMoney;
 
+	/**
+	 * Cria uma nova fachada.
+	 */
 	public MyMoneyFacade() {
 		myMoney = new MyMoneyImpl();
 	}
 
 	// Utils
 
+	/**
+	 * Limpa o banco de dados.
+	 */
 	public void cleanAll() {
 		HibernateUtil.cleanAll();
 	}
@@ -89,6 +99,19 @@ public class MyMoneyFacade {
 
 	// US-03
 
+	/**
+	 * Metodo para criar uma nova conta. Todos os campos sao obrigatórios e
+	 * nenhum usuario pode ter duas contas com os mesmos atributos.
+	 * @param login Login do usuario que eh dono dessa conta.
+	 * @param label Descricao dessa conta.
+	 * @param agency Agencia dessa conta.
+	 * @param account Numero dessa conta.
+	 * @return Um numero maior ou igual a um que identifica essa conta.
+	 * @throws MissingArgumentException Caso algum dos quatro parametros que sao
+	 * passados para esse metodo estejam faltando.
+	 * @throws DuplicatedAccountException Caso jah exista uma conta com os mesmos
+	 * <code>login</code>, <code>label</code>, <code>agency</code> e <code>account</code>.
+	 */
 	public long createAccount(String login, String label, String agency,
 			String account) throws MissingArgumentException,
 			DuplicatedAccountException {
@@ -97,41 +120,106 @@ public class MyMoneyFacade {
 
 	// US-04
 
+	/**
+	 * Adiciona uma nova operacao a conta padrao.
+	 * @param login Login do usuario.
+	 * @param type Tipo da operacao, podendo ser <code>debit</code> ou <code>credit</code>.
+	 * @param way Modo de pagamento, podendo ser <code>cash</code>, <code>creditcard</code> ou
+	 * <code>check</code>.
+	 * @param amount Quantia de dinheiro que essa operacao movimentou. Deve ser um valor positivo.
+	 * @return Um identificador para essa operacao.
+	 * @throws BusinessException Caso a quantia seja menor ou igual a zero.
+	 * @throws PermissionDeniedException Caso o usuario tente adicionar a uma conta que nao o pertence.
+	 * @throws AccountNotFoundException Caso a conta padrao nao exista.
+	 */
 	public long addOperationIntoDefaultAccount(String login, String type,
 			String way, double amount) throws BusinessException,
 			PermissionDeniedException, AccountNotFoundException {
 		return myMoney.addOperationIntoDefaultAccount(login, type, way, amount);
 	}
 
+	/**
+	 * Adiciona uma nova operacao a uma dada conta.
+	 * @param login Login do usuario.
+	 * @param accId Identificador da conta.
+	 * @param type Tipo da operacao, podendo ser <code>debit</code> ou <code>credit</code>.
+	 * @param way Modo de pagamento, podendo ser <code>cash</code>, <code>creditcard</code> ou
+	 * <code>check</code>.
+	 * @param amount Quantia de dinheiro que essa operacao movimentou. Deve ser um valor positivo.
+	 * @return Um identificador para essa operacao.
+	 * @throws BusinessException Caso a quantia seja menor ou igual a zero.
+	 * @throws PermissionDeniedException Caso o usuario tente adicionar a uma conta que nao o pertence.
+	 * @throws AccountNotFoundException Caso a conta padrao nao exista.
+	 */
 	public long addOperation(String login, long accId, String type, String way,
 			double amount) throws BusinessException, PermissionDeniedException,
 			AccountNotFoundException {
 		return myMoney.addOperation(login, accId, type, way, amount);
 	}
 
+	/**
+	 * Metodo de acesso ao tipo da operacao.
+	 * @param opId Identificador da conta.
+	 * @return O tipo da operacao.
+	 * @see AccountManager#addOperation(String, long, String, String, double)
+	 * @see AccountManager#addOperationIntoDefaultAccount(String, String, String, double)
+	 */
 	public String getOperationType(long opId) {
 		return myMoney.getOperationType(opId);
 	}
 
+	/**
+	 * Metodo de acesso ao modo de pagamento da operacao.
+	 * @param opId Identificador da conta.
+	 * @return O modo de pagamento da operacao.
+	 * @see AccountManager#addOperation(String, long, String, String, double)
+	 * @see AccountManager#addOperationIntoDefaultAccount(String, String, String, double)
+	 */
 	public String getOperationWay(long opId) {
 		return myMoney.getoperationWay(opId);
 	}
 
+	/**
+	 * Metodo de acesso a quantia que foi movimentada por uma operacao.
+	 * @param opId Identificador da operacao.
+	 * @return Um numero maior do que zero.
+	 */
 	public double getOperationAmount(long opId) {
 		return myMoney.getOperationAmount(opId);
 	}
 
+	/**
+	 * Metodo de acesso ao numero total de operacoes que o usuário tem, ou seja, eh o somatorio
+	 * de operacoes de todas as contas.
+	 * @param login Login do usuario
+	 * @return Numero maior ou igual a zero.
+	 */
 	public long getNumberOfOperations(String login) {
 		return myMoney.getNumberOfOperations(login);
 	}
 
 	// US-05
 
+	/**
+	 * Retorna o valor total na conta padrao.
+	 * @param login Login do usuario.
+	 * @return Um valor maior ou igual a zero.
+	 * @throws PermissionDeniedException Caso a conta nao pertence ao login passado.
+	 * @throws AccountNotFoundException Caso a conta padrao nao exista.
+	 */
 	public double getDefAccOverallAmount(String login)
 			throws PermissionDeniedException, AccountNotFoundException {
 		return myMoney.getDefAccOverallAmount(login);
 	}
 
+	/**
+	 * Retorna o valor total em uma dada conta.
+	 * @param login Login do usuario.
+	 * @param accId Identificador da conta.
+	 * @return Um valor maior ou igual a zero.
+	 * @throws PermissionDeniedException Caso a conta nao pertence ao login passado.
+	 * @throws AccountNotFoundException Caso a conta padrao nao exista.
+	 */
 	public double getAccOverallAmount(String login, long accId)
 			throws PermissionDeniedException, AccountNotFoundException {
 		return myMoney.getAccOverallAmount(login, accId);
@@ -139,6 +227,13 @@ public class MyMoneyFacade {
 
 	// US-06
 
+	/**
+	 * Remove uma operacao.
+	 * @param login Login do usuario.
+	 * @param opId Identificador da operacao a ser removida.
+	 * @throws PermissionDeniedException Caso a operacao nao pertenca a esse usuario.
+	 * @throws UnknownOperationException Caso a operacao nao exista.
+	 */
 	public void removeOperation(String login, long idOperation)
 			throws PermissionDeniedException, UnknownOperationException {
 		myMoney.removeOperation(login, idOperation);
@@ -146,6 +241,14 @@ public class MyMoneyFacade {
 
 	// US-07
 
+	/**
+	 * Remove uma conta a partir do seu identificador e do login do usuário que
+	 * é dono dessa conta.
+	 * @param login Login do usuario.
+	 * @param id Identificador dessa conta.
+	 * @throws PermissionDeniedException Caso o usuario tente remover uma conta que nao pertence a ele.
+	 * @throws AccountNotFoundException Caso a conta nao seja encontrada.
+	 */
 	public void removeAccount(String login, long id)
 			throws PermissionDeniedException, AccountNotFoundException {
 		myMoney.removeAccount(login, id);
