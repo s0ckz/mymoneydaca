@@ -7,8 +7,8 @@ import mymoney.model.exceptions.CommitmentException;
 import mymoney.model.exceptions.MissingArgumentException;
 
 /**
- * @author Danilo de Sá
- * @author Leandro José
+ * @author Danilo de Sa
+ * @author Leandro Jose
  * @author Rodrigo Bruno
  * 
  */

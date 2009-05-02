@@ -8,12 +8,7 @@ import java.util.Collection;
 import java.util.List;
 
 import mymoney.model.exceptions.CommitmentException;
-import mymoney.model.exceptions.DuplicatedLoginException;
-import mymoney.model.exceptions.InvalidArgumentException;
-import mymoney.model.exceptions.InvalidEmailException;
 import mymoney.model.exceptions.MissingArgumentException;
-import mymoney.model.user.UserManager;
-import mymoney.model.user.UserManagerImpl;
 import mymoney.model.util.ExceptionUtil;
 import mymoney.model.util.HibernateUtil;
 
