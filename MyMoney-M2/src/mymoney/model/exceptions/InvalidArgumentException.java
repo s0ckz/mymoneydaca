@@ -21,7 +21,7 @@ public class InvalidArgumentException extends MyMoneyException {
 
 	/**
 	 * Construtor de uma nova excecao.
-	 * @arg arg Argumento invalido.
+	 * @param arg Argumento invalido.
 	 */
 	public InvalidArgumentException(String arg) {
 		super("Invalid Argument: " + arg);
