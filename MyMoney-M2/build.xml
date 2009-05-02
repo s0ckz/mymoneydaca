@@ -42,7 +42,7 @@
 			classpathref="classpath" />
 	</target>
 	
-	<target name="compilaTestsSource" depends="init">
+	<target name="compilaTestsSource">
 		<javac debug="true" srcdir="${src.tests.dir}" destdir="${classes.dir}"
 			classpathref="classpath" />
 	</target>
@@ -50,7 +50,13 @@
     <target name="jar" depends="jarH2" >
 	</target>   
 
-	<target name="jarH2" depends="compila,configH2" >
+	<target name="jarH2" depends="init,compila,configH2,jarCommon" >
+	</target>
+	
+	<target name="jarMySQL" depends="init,compila,configMySQL,jarCommon" >
+	</target>
+	
+	<target name="jarCommon">
 		<jar destfile="${jar.dir}/${jar.name}">
 			<fileset dir="${classes.dir}"/>
 			<fileset dir="${src.dir}"/>
@@ -59,7 +65,7 @@
 	
 	<target name="testa" depends="test-US01,test-US02,test-US03,test-US04,test-US05,test-US06,test-US07,test-US08,test-US09,test-US10,test-US11">
 	</target>
-	
+
 	<target name="test-US01" depends="jar,compilaTestsSource">
 		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
 			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
