@@ -13,6 +13,9 @@ public class PasswordMismatchException extends MyMoneyException {
 
 	private static final long serialVersionUID = 7912396531558097592L;
 
+	/**
+	 * Construtor de uma nova excecao.
+	 */
 	public PasswordMismatchException() {
 		super("Wrong password");
 	}

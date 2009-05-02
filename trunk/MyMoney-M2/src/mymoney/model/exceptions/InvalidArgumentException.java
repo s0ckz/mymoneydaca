@@ -12,10 +12,17 @@ public class InvalidArgumentException extends MyMoneyException {
 
 	private static final long serialVersionUID = -5061543715389961172L;
 
+	/**
+	 * Construtor de uma nova excecao.
+	 */
 	public InvalidArgumentException() {
 		super("Invalid Argument");
 	}
 
+	/**
+	 * Construtor de uma nova excecao.
+	 * @arg arg Argumento invalido.
+	 */
 	public InvalidArgumentException(String arg) {
 		super("Invalid Argument: " + arg);
 	}

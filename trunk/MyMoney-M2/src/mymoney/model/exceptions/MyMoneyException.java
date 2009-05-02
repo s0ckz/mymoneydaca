@@ -11,10 +11,17 @@ package mymoney.model.exceptions;
  */
 public class MyMoneyException extends Exception {
 
+	/**
+	 * Construtor de uma nova excecao.
+	 * @param msg Mensagem de erro.
+	 */
 	public MyMoneyException(String msg) {
 		super(msg);
 	}
 
+	/**
+	 * Construtor de uma nova excecao.
+	 */
 	public MyMoneyException() {
 		super();
 	}

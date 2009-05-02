@@ -13,6 +13,9 @@ public class UserAlreadyLoggedException extends MyMoneyException {
 
 	private static final long serialVersionUID = -6177097177239719010L;
 
+	/**
+	 * Construtor de uma nova excecao.
+	 */
 	public UserAlreadyLoggedException() {
 		super("User is already logged in");
 	}
