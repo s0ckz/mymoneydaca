@@ -2,8 +2,6 @@ package mymoney.model.account;
 
 import java.util.Collection;
 
-import sun.awt.geom.AreaOp.AddOp;
-
 import mymoney.model.exceptions.AccountNotFoundException;
 import mymoney.model.exceptions.BusinessException;
 import mymoney.model.exceptions.DuplicatedAccountException;

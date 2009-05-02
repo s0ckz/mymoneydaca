@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * Classe que representa uma operacao bancaria.
+ */
 @Entity
 @Table(name="Operations")
 public class Operation implements Serializable {
@@ -26,10 +29,21 @@ public class Operation implements Serializable {
 	
 	private double amount;
 	
+	/**
+	 * Construtor padrao usado pelo Hibernate.
+	 */
 	public Operation() {
 		
 	}
 	
+	/**
+	 * Construtor de uma nova conta.
+	 * @param account Conta que contempla essa operacao.
+	 * @param type Tipo da operacao.
+	 * @param way Modo de pagamento.
+	 * @param amount Quantia de dinheiro.
+	 * @see AccountManager#addOperation(String, long, String, String, double)
+	 */
 	public Operation(Account account, String type, String way, double amount) {
 		this.account = account;
 		this.type = type;
@@ -37,6 +51,10 @@ public class Operation implements Serializable {
 		this.amount = amount;
 	}
 
+	/**
+	 * Metodo de acesso ao identificador dessa operacao.
+	 * @return Um numero maior do que zero.
+	 */
 	@Id
 	@GeneratedValue
 	@Column(name = "id")
@@ -44,44 +62,83 @@ public class Operation implements Serializable {
 		return id;
 	}
 
+	/**
+	 * Metodo de alteracao do identificador dessa operacao. Deve ser utilizado somente pelo Hibernate.
+	 * @param id Novo identificador.
+	 */
 	public void setId(long id) {
 		this.id = id;
 	}
 
+	/**
+	 * Metodo de acesso ao tipo dessa operacao.
+	 * @return O tipo da operacao.
+	 * @see AccountManager#addOperation(String, long, String, String, double)
+	 */
 	@Column(name = "type")
 	public String getType() {
 		return type;
 	}
 
+	/**
+	 * Metodo de alteracao do tipo dessa operacao.
+	 * @param type O novo tipo da operacao.
+	 * @see AccountManager#addOperation(String, long, String, String, double)
+	 */
 	public void setType(String type) {
 		this.type = type;
 	}
 
+	/**
+	 * Metodo de acesso a forma de pagamento.
+	 * @return A nova forma de pagamento.
+	 */
 	@Column(name = "way")
 	public String getWay() {
 		return way;
 	}
 
+	/**
+	 * Metodo de alteracao da forma de pagamento.
+	 * @param way Nova forma de pagamento.
+	 * @see AccountManager#addOperation(String, long, String, String, double)
+	 */
 	public void setWay(String way) {
 		this.way = way;
 	}
 
+	/**
+	 * Metodo de acesso a quantia de dinheiro que essa operacao movimentou.
+	 * @return Um numero maior do que zero.
+	 */
 	@Column(name = "amount")
 	public double getAmount() {
 		return amount;
 	}
 
+	/**
+	 * Metodo de alteracao da quantia de dinheiro.
+	 * @param amount A nova quantia.
+	 */
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 
 
+	/**
+	 * Metodo de acesso a conta que contempla essa operacao.
+	 * @return Uma conta.
+	 */
 	@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="account_fk")
 	public Account getAccount() {
 		return account;
 	}
 
+	/**
+	 * Metodo de alteracao da conta que contempla essa operacao.
+	 * @param account A nova conta.
+	 */
 	public void setAccount(Account account) {
 		this.account = account;
 	}
@@ -90,6 +147,11 @@ public class Operation implements Serializable {
 		return "id: " + getId() + ", account: " + getAccount() + ", " + getType() + ", way: " + getWay() + ", amount: " + getAmount();
 	}
 
+	/**
+	 * Metodo que retorna valores positivos caso a operacao seja de credito, e negativos
+	 * se forem debito.
+	 * @return Um numero real.
+	 */
 	public double correctAmount() {
 		return type.equals("debit") ? -amount : amount;
 	}
