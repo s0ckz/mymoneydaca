@@ -1,9 +1,11 @@
 package mymoney.model;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Date;
 
 import mymoney.model.account.AccountManager;
+import mymoney.model.account.Operation;
 import mymoney.model.exceptions.AccountNotFoundException;
 import mymoney.model.exceptions.BusinessException;
 import mymoney.model.exceptions.CommitmentException;

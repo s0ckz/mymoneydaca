@@ -1,9 +1,12 @@
 package mymoney.model;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import mymoney.model.account.AccountManager;
 import mymoney.model.account.AccountManagerImpl;
+import mymoney.model.account.Operation;
 import mymoney.model.auth.AuthManager;
 import mymoney.model.auth.AuthManagerImpl;
 import mymoney.model.commitment.CommitmentManager;
@@ -33,6 +36,7 @@ import mymoney.model.report.ReportManagerImpl;
 import mymoney.model.user.UserManager;
 import mymoney.model.user.UserManagerImpl;
 import mymoney.model.util.DateUtils;
+import mymoney.model.util.HibernateUtil;
 
 /**
  * Classe que implementa o sistema MyMoney.
@@ -272,9 +276,15 @@ public class MyMoneyImpl implements MyMoney {
 	public long[] generateReport(String login, String begin,
 			String end, long idAccount, String typeOperation)
 			throws MissingArgumentException, PermissionDeniedException, AccountNotFoundException, InvalidDateException {
-
+		
+		Collection<Operation> operacoes = new ArrayList<Operation>();
+		for (Long opId : accountManager.getAllOperations(login, idAccount)) {
+			Operation operation = (Operation) HibernateUtil.load(
+					Operation.class, opId);
+			operacoes.add(operation);
+		}
 		return reportManager.generateReport(login, begin, end,
-				idAccount, typeOperation);
+				idAccount, typeOperation , operacoes);
 	}
 
 	

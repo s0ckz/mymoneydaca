@@ -3,6 +3,9 @@
  */
 package mymoney.model.report;
 
+import java.util.Collection;
+
+import mymoney.model.account.Operation;
 import mymoney.model.exceptions.AccountNotFoundException;
 import mymoney.model.exceptions.InvalidDateException;
 import mymoney.model.exceptions.MissingArgumentException;
@@ -39,7 +42,7 @@ public interface ReportManager {
 	 * @throws PermissionDeniedException 
 	 */
 	long[] generateReport(String login, String begin, String end,
-			long idAccount, String typeOperation)
+			long idAccount, String typeOperation, Collection<Operation> operacoes)
 			throws MissingArgumentException, PermissionDeniedException, AccountNotFoundException, InvalidDateException;
 
 	/**
