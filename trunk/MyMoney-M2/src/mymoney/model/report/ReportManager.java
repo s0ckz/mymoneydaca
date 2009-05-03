@@ -4,6 +4,7 @@
 package mymoney.model.report;
 
 import java.util.Collection;
+import java.util.List;
 
 import mymoney.model.account.Operation;
 import mymoney.model.exceptions.AccountNotFoundException;
