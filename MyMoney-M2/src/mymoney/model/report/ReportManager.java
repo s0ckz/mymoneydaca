@@ -41,7 +41,7 @@ public interface ReportManager {
 	 * @throws AccountNotFoundException 
 	 * @throws PermissionDeniedException 
 	 */
-	long[] generateReport(String login, String begin, String end,
+	Collection<Long> generateReport(String login, String begin, String end,
 			long idAccount, String typeOperation, Collection<Operation> operacoes)
 			throws MissingArgumentException, PermissionDeniedException, AccountNotFoundException, InvalidDateException;
 

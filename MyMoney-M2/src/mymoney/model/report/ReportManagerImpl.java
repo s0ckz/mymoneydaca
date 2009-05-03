@@ -51,7 +51,7 @@ public class ReportManagerImpl implements ReportManager {
 
 	}
 
-	public long[] generateReport(String login, String begin, String end,
+	public Collection<Long> generateReport(String login, String begin, String end,
 			long idAccount, String typeOperation,
 			Collection<Operation> operacoes) throws MissingArgumentException,
 			PermissionDeniedException, AccountNotFoundException,
@@ -59,7 +59,7 @@ public class ReportManagerImpl implements ReportManager {
 		ExceptionUtil.checkMissingArguments("login", login, "begin", begin,
 				"end", end);
 
-		List<Long> operacoesToReport = new ArrayList<Long>();
+		Collection<Long> operacoesToReport = new ArrayList<Long>();
 		for (Operation op : operacoes) {
 			if (op.getDate().compareTo(DateUtils.createDate(begin)) >= 0
 					&& op.getDate().compareTo(DateUtils.createDate(end)) <= 0) {
@@ -76,11 +76,9 @@ public class ReportManagerImpl implements ReportManager {
 
 		Report report = new Report(login, begin, end, idAccount, typeOperation,
 				operacoesToReport);
-		long[] operationsIds = new long[operacoesToReport.size()];
-		for (int i = 0; i < operationsIds.length; i++) {
-			operacoesToReport.get(i);
-		}
-		return operationsIds;
+		
+		
+		return operacoesToReport;
 	}
 
 	@SuppressWarnings("unchecked")
