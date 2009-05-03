@@ -70,10 +70,10 @@ public class HibernateUtil {
 	}
 	
 	/**
-	 * Retorna os objetos que se encaixam no critério requerido.
+	 * Retorna os objetos que se encaixam no criterio requerido.
 	 * @param clazz Classe a ser utilizada.
-	 * @param expressions Expressões que serão avaliadas.
-	 * @return Lista de objetos que casam com as expressões enviadas.
+	 * @param expressions Expressoes que serao avaliadas.
+	 * @return Lista de objetos que casam com as expressoes enviadas.
 	 */
 	public static List<?> createQueryBasedOnExpressions(
 			Class<?> clazz, Collection<SimpleExpression> expressions) {
@@ -93,7 +93,7 @@ public class HibernateUtil {
 	 * o objeto nao existir. Caso o objeto ja exista, utilizar {@link HibernateUtil#update(Object)}.
 	 * @param obj Objeto a ser salvo.
 	 * @return Um possivel valor gerado que serve como chave. <code>null</code> caso
-	 * contrï¿½rio.
+	 * contrario.
 	 * @see HibernateUtil#update(Object)
 	 */
 	public static Serializable save(Object obj) {
@@ -110,7 +110,7 @@ public class HibernateUtil {
 	}
 	
 	/**
-	 * Atualiza um objeto jï¿½ existente no banco de dados.
+	 * Atualiza um objeto ja existente no banco de dados.
 	 * @param obj Objeto a ser atualizado.
 	 */
 	public static void update(Object obj) {
