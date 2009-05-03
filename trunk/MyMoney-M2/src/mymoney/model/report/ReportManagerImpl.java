@@ -87,7 +87,6 @@ public class ReportManagerImpl implements ReportManager {
 
 		Report report = new Report(login, begin, end, idAccount, typeOperation,
 				operacoesToReport);
-		HibernateUtil.save(report);
 		long[] operationsIds = new long[operacoesToReport.size()];
 		for (int i = 0; i < operationsIds.length; i++) {
 			operacoesToReport.get(i);

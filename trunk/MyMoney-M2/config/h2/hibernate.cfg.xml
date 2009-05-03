@@ -27,7 +27,6 @@
 		
 		<mapping class = "mymoney.model.commitment.Commitment" />
 		
-		<mapping class = "mymoney.model.report.Report" />
 
 		<!-- Debug Configuration 		
 		<property name="show_sql">true</property>

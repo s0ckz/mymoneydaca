@@ -5,16 +5,6 @@ package mymoney.model.report;
 
 import java.util.Collection;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import mymoney.model.account.Operation;
-
 /**
  * 
  * Classe que implementa um Relatorio
@@ -24,8 +14,7 @@ import mymoney.model.account.Operation;
  * @author Rodrigo Bruno
  * 
  */
-@Entity
-@Table(name = "reports")
+
 public class Report {
 
 	/**
@@ -89,7 +78,6 @@ public class Report {
 	/**
 	 * @return the operacoes
 	 */
-	@OneToMany(mappedBy="idAccount", fetch=FetchType.EAGER)
 	public Collection<Long> getOperacoes() {
 		return operacoes;
 	}
@@ -111,7 +99,7 @@ public class Report {
 	/**
 	 * @return o login
 	 */
-	@Column(name = "login")
+
 	public String getLogin() {
 		return login;
 	}
@@ -128,7 +116,6 @@ public class Report {
 	 * @return o dateBegin
 	 * 
 	 */
-	@Column(name = "datebegin")
 	public String getDateBegin() {
 		return dateBegin;
 	}
@@ -144,7 +131,6 @@ public class Report {
 	/**
 	 * @return a dateEnd
 	 */
-	@Column(name = "dateEnd")
 	public String getDateEnd() {
 		return dateEnd;
 	}
@@ -160,7 +146,6 @@ public class Report {
 	/**
 	 * @return o operationType
 	 */
-	@Column(name = "type")
 	public String getOperationType() {
 		return operationType;
 	}
@@ -176,7 +161,6 @@ public class Report {
 	/**
 	 * @return o idAccount
 	 */
-	@Column(name = "idAccount")
 	public long getIdAccount() {
 		return idAccount;
 	}
@@ -200,9 +184,6 @@ public class Report {
 	/**
 	 * @return o reportCode
 	 */
-	@Id
-	@GeneratedValue
-	@Column(name = "code")
 	public long getReportCode() {
 		return reportCode;
 	}
