@@ -204,11 +204,7 @@ public class MyMoneyImpl implements MyMoney {
 				type, frequency);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see mymoney.model.MyMoney#getCommitmentAmount(java.lang.String, long)
-	 */
+	
 	@Override
 	public double getCommitmentAmount(String login, long id)
 			throws CommitmentException {
@@ -216,11 +212,7 @@ public class MyMoneyImpl implements MyMoney {
 		return commitmentManager.getCommitmentAmount(login, id);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see mymoney.model.MyMoney#getCommitmentDate(java.lang.String, long)
-	 */
+	
 	@Override
 	public String getCommitmentDate(String login, long id)
 			throws CommitmentException {
@@ -228,11 +220,6 @@ public class MyMoneyImpl implements MyMoney {
 		return commitmentManager.getCommitmentDate(login, id);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see mymoney.model.MyMoney#getCommitmentFrequency(java.lang.String, long)
-	 */
 	@Override
 	public String getCommitmentFrequency(String login, long id)
 			throws CommitmentException {
@@ -240,11 +227,7 @@ public class MyMoneyImpl implements MyMoney {
 		return commitmentManager.getCommitmentFrequency(login, id);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see mymoney.model.MyMoney#getCommitmentLabel(java.lang.String, long)
-	 */
+	
 	@Override
 	public String getCommitmentLabel(String login, long id)
 			throws CommitmentException {
@@ -252,11 +235,7 @@ public class MyMoneyImpl implements MyMoney {
 		return commitmentManager.getCommitmentLabel(login, id);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see mymoney.model.MyMoney#getCommitmentType(java.lang.String, long)
-	 */
+	
 	@Override
 	public String getCommitmentType(String login, long id)
 			throws CommitmentException {
@@ -264,22 +243,14 @@ public class MyMoneyImpl implements MyMoney {
 		return commitmentManager.getCommitmentType(login, id);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see mymoney.model.MyMoney#numberOfCommitments(java.lang.String)
-	 */
+	
 	@Override
 	public int numberOfCommitments(String login) {
 
 		return commitmentManager.numberOfCommitments(login);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see mymoney.model.MyMoney#removeCommitment(java.lang.String, long)
-	 */
+	
 	@Override
 	public void removeCommitment(String login, long id)
 			throws CommitmentException {
@@ -287,13 +258,7 @@ public class MyMoneyImpl implements MyMoney {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * mymoney.model.MyMoney#generateReportCreditOperations(java.lang.String,
-	 * java.lang.String, java.lang.String, long)
-	 */
+	
 	@Override
 	public long generateReportCreditOperations(String login, String begin,
 			String end, long idAccount) throws MissingArgumentException {
@@ -302,12 +267,7 @@ public class MyMoneyImpl implements MyMoney {
 				idAccount);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see mymoney.model.MyMoney#generateReportDebtOperations(java.lang.String,
-	 * java.lang.String, java.lang.String, long)
-	 */
+	
 	@Override
 	public long generateReportDebtOperations(String login, String begin,
 			String end, long idAccount) throws MissingArgumentException {
@@ -316,12 +276,7 @@ public class MyMoneyImpl implements MyMoney {
 				idAccount);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see mymoney.model.MyMoney#generateReportOperations(java.lang.String,
-	 * java.lang.String, java.lang.String, long)
-	 */
+	
 	@Override
 	public long generateReportOperations(String login, String begin,
 			String end, long idAccount, String typeOperation)
@@ -331,11 +286,7 @@ public class MyMoneyImpl implements MyMoney {
 				idAccount, typeOperation);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see mymoney.model.MyMoney#getReport(long)
-	 */
+	
 	
 	@Override
 	public int getReports(String login) {
