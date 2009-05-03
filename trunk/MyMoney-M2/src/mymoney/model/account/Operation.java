@@ -45,7 +45,7 @@ public class Operation implements Serializable {
 	 * @param type Tipo da operacao.
 	 * @param way Modo de pagamento.
 	 * @param amount Quantia de dinheiro.
-	 * @param date Data da operação.
+	 * @param date Data da operacao.
 	 * @see AccountManager#addOperation(String, long, String, String, double, Date)
 	 */
 	public Operation(Account account, String type, String way, double amount, Date date) {
