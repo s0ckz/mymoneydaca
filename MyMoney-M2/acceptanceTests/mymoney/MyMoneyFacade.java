@@ -711,45 +711,8 @@ public class MyMoneyFacade {
 
 	// US-10
 
-	/**
-	 * Gera um relatorio de debitos * @param login O login do usuario
-	 * 
-	 * @param begin
-	 *            A data de inicio do relatorio
-	 * @param end
-	 *            A data de fim do relatorio
-	 * @param idAccount
-	 *            O id da conta
-	 * @return long que representa o codigo do relatorio gerado
-	 * @throws MissingArgumentException
-	 *             Caso algum argumento nao tenha sido passado
-	 */
-	public long generateReportDebitOperations(String login, String begin,
-			String end, long idAccount) throws MissingArgumentException {
-		return myMoney.generateReportDebtOperations(login, begin, end,
-				idAccount);
-	}
-
-	/**
-	 * Gera um relatorio de creditos
-	 * 
-	 * @param login
-	 *            O login do usuario
-	 * @param begin
-	 *            A data de inicio do relatorio
-	 * @param end
-	 *            A data de fim do relatorio
-	 * @param idAccount
-	 *            O id da conta
-	 * @return long que representa o codigo do relatorio gerado
-	 * @throws MissingArgumentException
-	 *             Caso algum argumento nao tenha sido passado
-	 */
-	public long generateReportCreditOperations(String login, String begin,
-			String end, long idAccount) throws MissingArgumentException {
-		return myMoney.generateReportCreditOperations(login, begin, end,
-				idAccount);
-	}
+	
+	
 
 	/**
 	 * Metodo que gera um relatorio
@@ -765,25 +728,18 @@ public class MyMoneyFacade {
 	 * @return long que representa o codigo do relatorio gerado
 	 * @throws MissingArgumentException
 	 *             Caso algum argumento nao tenha sido passado
+	 * @throws InvalidDateException 
+	 * @throws AccountNotFoundException 
+	 * @throws PermissionDeniedException 
 	 */
-	public long generateReportsOperations(String login, String begin,
+	public long[] generateReport(String login, String begin,
 			String end, long idAccount, String typeOperation)
-			throws MissingArgumentException {
-		return myMoney.generateReportOperations(login, begin, end, idAccount,
+			throws MissingArgumentException, PermissionDeniedException, AccountNotFoundException, InvalidDateException {
+		return myMoney.generateReport(login, begin, end, idAccount,
 				typeOperation);
 	}
 
-	/**
-	 * Metodo que retorna o numero de relatorios de um usuario
-	 * 
-	 * @param login
-	 *            O login do usuario
-	 * @return inteiro que representa o numero de relatorios de um usuario
-	 */
-	public int getReports(String login) {
-		return myMoney.getReports(login);
-	}
-
+	
 	// US-11
 
 	/**

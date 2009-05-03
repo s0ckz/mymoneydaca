@@ -264,35 +264,20 @@ public class MyMoneyImpl implements MyMoney {
 
 	}
 
-	@Override
-	public long generateReportCreditOperations(String login, String begin,
-			String end, long idAccount) throws MissingArgumentException {
+	
 
-		return reportManager.generateReportCreditOperations(login, begin, end,
-				idAccount);
-	}
+	
 
 	@Override
-	public long generateReportDebtOperations(String login, String begin,
-			String end, long idAccount) throws MissingArgumentException {
-
-		return reportManager.generateReportDebtOperations(login, begin, end,
-				idAccount);
-	}
-
-	@Override
-	public long generateReportOperations(String login, String begin,
+	public long[] generateReport(String login, String begin,
 			String end, long idAccount, String typeOperation)
-			throws MissingArgumentException {
+			throws MissingArgumentException, PermissionDeniedException, AccountNotFoundException, InvalidDateException {
 
-		return reportManager.generateReportOperations(login, begin, end,
+		return reportManager.generateReport(login, begin, end,
 				idAccount, typeOperation);
 	}
 
-	@Override
-	public int getReports(String login) {
-		return reportManager.getReports(login);
-	}
+	
 
 	public void removeReports(String login) {
 		reportManager.removeReports(login);
