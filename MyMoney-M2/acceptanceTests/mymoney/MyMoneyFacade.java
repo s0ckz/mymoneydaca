@@ -50,22 +50,32 @@ public class MyMoneyFacade {
 	// US-01
 
 	/**
-	 * Realiza cadastro de um novo usuario no sistema.
-	 * <br>
-	 * Para que o cadastro seja efetuado com sucesso, o parametro login deve ser uma cadeia de caracteres 
-	 * de tamanho maior ou igual a 4 contendo apenas caracteres que podem ser alfa numericos, underline, hifen ou ponto.
+	 * Realiza cadastro de um novo usuario no sistema. <br>
+	 * Para que o cadastro seja efetuado com sucesso, o parametro login deve ser
+	 * uma cadeia de caracteres de tamanho maior ou igual a 4 contendo apenas
+	 * caracteres que podem ser alfa numericos, underline, hifen ou ponto.
 	 * 
-	 * O e-mail deve ser vazio ou respeitar o seguinte padrao: $usuario@$dominio.$extensao, em que $usuario, $dominio 
-	 * devem ser uma cadeira de caracteres qualquer de tamanho maior ou igual a 1 e $extensao deve ser uma cadeia de letras minusculas. 
+	 * O e-mail deve ser vazio ou respeitar o seguinte padrao:
+	 * $usuario@$dominio.$extensao, em que $usuario, $dominio devem ser uma
+	 * cadeira de caracteres qualquer de tamanho maior ou igual a 1 e $extensao
+	 * deve ser uma cadeia de letras minusculas.
 	 * 
-	 * @param login O login do usuario.
-	 * @param name O nome do usuario.
-	 * @param gender O sexo do usuario.
-	 * @param eMail O e-mail do usuario.
-	 * @throws MissingArgumentException Se login e/ou nome forem nulos ou vazios.
-	 * @throws InvalidArgumentException Se login for invalido.
-	 * @throws InvalidEmailException Se o e-mail for invalido.
-	 * @throws DuplicatedLoginException Se ja houver um login identico cadastrado.
+	 * @param login
+	 *            O login do usuario.
+	 * @param name
+	 *            O nome do usuario.
+	 * @param gender
+	 *            O sexo do usuario.
+	 * @param eMail
+	 *            O e-mail do usuario.
+	 * @throws MissingArgumentException
+	 *             Se login e/ou nome forem nulos ou vazios.
+	 * @throws InvalidArgumentException
+	 *             Se login for invalido.
+	 * @throws InvalidEmailException
+	 *             Se o e-mail for invalido.
+	 * @throws DuplicatedLoginException
+	 *             Se ja houver um login identico cadastrado.
 	 */
 	public void register(String login, String password, String name,
 			String gender, String eMail) throws MissingArgumentException,
@@ -77,9 +87,11 @@ public class MyMoneyFacade {
 	/**
 	 * Recupera o nome de um usuario.
 	 * 
-	 * @param login O login do usuario.
+	 * @param login
+	 *            O login do usuario.
 	 * @return O nome do usuario.
-	 * @throws UserUnregisteredException Se o usuario nao tiver sido cadastrado no sistema.
+	 * @throws UserUnregisteredException
+	 *             Se o usuario nao tiver sido cadastrado no sistema.
 	 */
 	public String getUserName(String login) throws UserUnregisteredException {
 		return myMoney.getUserName(login);
@@ -87,9 +99,12 @@ public class MyMoneyFacade {
 
 	/**
 	 * Recupera o sexo do usuario.
-	 * @param login O login do usuario.
+	 * 
+	 * @param login
+	 *            O login do usuario.
 	 * @return O sexo do usuario.
-	 * @throws UserUnregisteredException Se o usuario nao tiver sido cadastrado no sistema.
+	 * @throws UserUnregisteredException
+	 *             Se o usuario nao tiver sido cadastrado no sistema.
 	 */
 	public String getUserGender(String login) throws UserUnregisteredException {
 		return myMoney.getUserGender(login);
@@ -97,9 +112,12 @@ public class MyMoneyFacade {
 
 	/**
 	 * Recupera o e-mail do usuario.
-	 * @param login O login do usuario.
+	 * 
+	 * @param login
+	 *            O login do usuario.
 	 * @return O e-mail do usuario.
-	 * @throws UserUnregisteredException Se o usuario nao tiver sido cadastrado no sistema.
+	 * @throws UserUnregisteredException
+	 *             Se o usuario nao tiver sido cadastrado no sistema.
 	 */
 	public String getUserEmail(String login) throws UserUnregisteredException {
 		return myMoney.getUserEmail(login);
@@ -107,8 +125,11 @@ public class MyMoneyFacade {
 
 	/**
 	 * Remove um usuario do sistema.
-	 * @param login O login do usuario a ser removido.
-	 * @throws UserUnregisteredException Se o usuario nao tiver sido cadastrado no sistema.
+	 * 
+	 * @param login
+	 *            O login do usuario a ser removido.
+	 * @throws UserUnregisteredException
+	 *             Se o usuario nao tiver sido cadastrado no sistema.
 	 */
 	public void removeUser(String login) throws UserUnregisteredException,
 			LoginUnregisteredException {
@@ -116,18 +137,25 @@ public class MyMoneyFacade {
 	}
 
 	/**
-	 * Atualiza informacoes de um usuario no sistema.
-	 * <br>
+	 * Atualiza informacoes de um usuario no sistema. <br>
 	 * O atributo login nao pode ser atualizado.
 	 * 
-	 * @param login O login do usuario.
-	 * @param name O novo nome do usuario.
-	 * @param gender O novo sexo do usuario.
-	 * @param email O novo e-mail do usuario.
-	 * @throws UserUnregisteredException Se o usuario nao tiver sido cadastrado no sistema.
-	 * @throws MissingArgumentException Se login e/ou nome forem nulos ou vazios.
-	 * @throws InvalidArgumentException Se login for invalido.
-	 * @throws InvalidEmailException Se o e-mail for invalido.
+	 * @param login
+	 *            O login do usuario.
+	 * @param name
+	 *            O novo nome do usuario.
+	 * @param gender
+	 *            O novo sexo do usuario.
+	 * @param email
+	 *            O novo e-mail do usuario.
+	 * @throws UserUnregisteredException
+	 *             Se o usuario nao tiver sido cadastrado no sistema.
+	 * @throws MissingArgumentException
+	 *             Se login e/ou nome forem nulos ou vazios.
+	 * @throws InvalidArgumentException
+	 *             Se login for invalido.
+	 * @throws InvalidEmailException
+	 *             Se o e-mail for invalido.
 	 */
 	public void updateUser(String login, String name, String gender,
 			String eMail) throws MissingArgumentException,
@@ -139,15 +167,22 @@ public class MyMoneyFacade {
 	// US-02
 
 	/**
-	 * Executa login no sistema. Essa operacao permite que o usuario possa usar todas 
-	 * as funcionalidades do MyMoney, por exemplo: cadastrar uma conta, adicionar uma operacao financeira, etc.
+	 * Executa login no sistema. Essa operacao permite que o usuario possa usar
+	 * todas as funcionalidades do MyMoney, por exemplo: cadastrar uma conta,
+	 * adicionar uma operacao financeira, etc.
 	 * 
-	 * @param login O login do usuario.
-	 * @param password A senha do usuario.
-	 * @throws PasswordMismatchException Se a senha nao conferir com a cadastrada no sistema.
-	 * @throws InvalidArgumentException Se login e/ou senha forem invalidos.
-	 * @throws LoginUnregisteredException Se o login nao tiver sido cadastrado no sistema.
-	 * @throws UserAlreadyLoggedException Se o usuario ja estiver logado no sistema.
+	 * @param login
+	 *            O login do usuario.
+	 * @param password
+	 *            A senha do usuario.
+	 * @throws PasswordMismatchException
+	 *             Se a senha nao conferir com a cadastrada no sistema.
+	 * @throws InvalidArgumentException
+	 *             Se login e/ou senha forem invalidos.
+	 * @throws LoginUnregisteredException
+	 *             Se o login nao tiver sido cadastrado no sistema.
+	 * @throws UserAlreadyLoggedException
+	 *             Se o usuario ja estiver logado no sistema.
 	 */
 	public void doLogin(String login, String password)
 			throws PasswordMismatchException, InvalidArgumentException,
@@ -156,11 +191,14 @@ public class MyMoneyFacade {
 	}
 
 	/**
-	 * Retorna <code>true</code> se o usuario estiver logado no sistema, caso contrario, retorna <code>false</code>.
+	 * Retorna <code>true</code> se o usuario estiver logado no sistema, caso
+	 * contrario, retorna <code>false</code>.
 	 * 
-	 * @param login O login do usuario.
-	 * @return Se o usuario estiver logado. 
-	 * @throws LoginUnregisteredException Se o login nao tiver sido cadastrado no sistema
+	 * @param login
+	 *            O login do usuario.
+	 * @return Se o usuario estiver logado.
+	 * @throws LoginUnregisteredException
+	 *             Se o login nao tiver sido cadastrado no sistema
 	 */
 	public boolean isLogged(String login) throws LoginUnregisteredException {
 		return myMoney.isLogged(login);
@@ -507,24 +545,35 @@ public class MyMoneyFacade {
 	// US - 09
 
 	/**
-	 * Importa as operacoes financeiras em formato .csv para a conta
-	 * de um dado usuario.
-	 * <br><br>
-	 * O arquivo .csv deve ter no seguinte padrao:
-	 * <br>"$idDaConta","$tipo","$modo","$valor" 
-	 *
-	 * <br><br>Exemplo de arquivo:
-	 * <br>"1","credit","cash","300.0
-	 * <br>"1","debit","cash","2000.0
+	 * Importa as operacoes financeiras em formato .csv para a conta de um dado
+	 * usuario. <br>
+	 * <br>
+	 * O arquivo .csv deve ter no seguinte padrao: <br>
+	 * "$idDaConta","$tipo","$modo","$valor"
 	 * 
-	 * @param login O login do usuario.
-	 * @param fileContent O conteudo do arquivo.
-	 * @return Retorna um vetor com os identificadores das operacoes adicionadas.
+	 * <br>
+	 * <br>
+	 * Exemplo de arquivo: <br>
+	 * "1","credit","cash","300.0 <br>
+	 * "1","debit","cash","2000.0
 	 * 
-	 * @throws BusinessException Se alguma regra de negocio do MyMoney for violada.
-	 * @throws PermissionDeniedException Se o usuario nao tiver a permissao necessaria para executar as operacoes financeiras.
-	 * @throws AccountNotFoundException Se algum conta especificada no arquivo nao existir no sistema. 
-	 * @throws MisunderstandingFileContent Se houver erro no conteudo do arquivo.
+	 * @param login
+	 *            O login do usuario.
+	 * @param fileContent
+	 *            O conteudo do arquivo.
+	 * @return Retorna um vetor com os identificadores das operacoes
+	 *         adicionadas.
+	 * 
+	 * @throws BusinessException
+	 *             Se alguma regra de negocio do MyMoney for violada.
+	 * @throws PermissionDeniedException
+	 *             Se o usuario nao tiver a permissao necessaria para executar
+	 *             as operacoes financeiras.
+	 * @throws AccountNotFoundException
+	 *             Se algum conta especificada no arquivo nao existir no
+	 *             sistema.
+	 * @throws MisunderstandingFileContent
+	 *             Se houver erro no conteudo do arquivo.
 	 */
 	public String submitBankOperationsCSV(String login, String fileContent)
 			throws BusinessException, PermissionDeniedException,
@@ -534,24 +583,35 @@ public class MyMoneyFacade {
 	}
 
 	/**
-	 * Importa as operacoes financeiras em formato .txt para a conta
-	 * de um dado usuario.
-	 * <br><br>
-	 * O arquivo .txt deve ter no seguinte padrao:
-	 * <br>$idDaConta	$tipo	$modo	$valor 
-	 *
-	 * <br><br>Exemplo de arquivo:
-	 * <br>1	credit	cash	300.0
-	 * <br>1	debit	cash	2000.0
+	 * Importa as operacoes financeiras em formato .txt para a conta de um dado
+	 * usuario. <br>
+	 * <br>
+	 * O arquivo .txt deve ter no seguinte padrao: <br>
+	 * $idDaConta $tipo $modo $valor
 	 * 
-	 * @param login O login do usuario.
-	 * @param fileContent O conteudo do arquivo.
-	 * @return Retorna um vetor com os identificadores das operacoes adicionadas.
+	 * <br>
+	 * <br>
+	 * Exemplo de arquivo: <br>
+	 * 1 credit cash 300.0 <br>
+	 * 1 debit cash 2000.0
 	 * 
-	 * @throws BusinessException Se alguma regra de negocio do MyMoney for violada.
-	 * @throws PermissionDeniedException Se o usuario nao tiver a permissao necessaria para executar as operacoes financeiras.
-	 * @throws AccountNotFoundException Se algum conta especificada no arquivo nao existir no sistema. 
-	 * @throws MisunderstandingFileContent Se houver erro no conteudo do arquivo.
+	 * @param login
+	 *            O login do usuario.
+	 * @param fileContent
+	 *            O conteudo do arquivo.
+	 * @return Retorna um vetor com os identificadores das operacoes
+	 *         adicionadas.
+	 * 
+	 * @throws BusinessException
+	 *             Se alguma regra de negocio do MyMoney for violada.
+	 * @throws PermissionDeniedException
+	 *             Se o usuario nao tiver a permissao necessaria para executar
+	 *             as operacoes financeiras.
+	 * @throws AccountNotFoundException
+	 *             Se algum conta especificada no arquivo nao existir no
+	 *             sistema.
+	 * @throws MisunderstandingFileContent
+	 *             Se houver erro no conteudo do arquivo.
 	 */
 	public String submitBankOperationsTXT(String login, String fileContent)
 			throws BusinessException, PermissionDeniedException,
@@ -561,21 +621,32 @@ public class MyMoneyFacade {
 	}
 
 	/**
-	 * Exporta as operacoes financeiras de uma conta de um usuario para um arquivo em formato .csv.
-	 * <br><br>
-	 * O arquivo .csv tera o seguinte padrao:
-	 * <br>"$idDaConta","$tipo","$modo","$valor" 
-	 *
-	 * <br><br>Exemplo de arquivo:
-	 * <br>"1","credit","cash","300.0
-	 * <br>"1","debit","cash","2000.0
+	 * Exporta as operacoes financeiras de uma conta de um usuario para um
+	 * arquivo em formato .csv. <br>
+	 * <br>
+	 * O arquivo .csv tera o seguinte padrao: <br>
+	 * "$idDaConta","$tipo","$modo","$valor"
 	 * 
-	 * @param login O login do usuario.
-	 * @param accId O id da conta.
-	 * @param pathToFile O caminho para o arquivo onde sera gravado.
-	 * @throws IOException Se ocorrer algum problema de I/O.
-	 * @throws PermissionDeniedException Se o usuario nao tiver a permissao necessaria para executar as operacoes financeiras.
-	 * @throws AccountNotFoundException Se algum conta especificada no arquivo nao existir no sistema. 
+	 * <br>
+	 * <br>
+	 * Exemplo de arquivo: <br>
+	 * "1","credit","cash","300.0 <br>
+	 * "1","debit","cash","2000.0
+	 * 
+	 * @param login
+	 *            O login do usuario.
+	 * @param accId
+	 *            O id da conta.
+	 * @param pathToFile
+	 *            O caminho para o arquivo onde sera gravado.
+	 * @throws IOException
+	 *             Se ocorrer algum problema de I/O.
+	 * @throws PermissionDeniedException
+	 *             Se o usuario nao tiver a permissao necessaria para executar
+	 *             as operacoes financeiras.
+	 * @throws AccountNotFoundException
+	 *             Se algum conta especificada no arquivo nao existir no
+	 *             sistema.
 	 */
 	public void exportBankOperationsCSV(String login, long accId,
 			String pathToFile) throws IOException, PermissionDeniedException,
@@ -584,21 +655,32 @@ public class MyMoneyFacade {
 	}
 
 	/**
-	 * Exporta as operacoes financeiras de uma conta de um usuario para um arquivo em formato .txt.
-	 * <br><br>
-	 * O arquivo .txt deve ter no seguinte padrao:
-	 * <br>$idDaConta	$tipo	$modo	$valor 
-	 *
-	 * <br><br>Exemplo de arquivo:
-	 * <br>1	credit	cash	300.0
-	 * <br>1	debit	cash	2000.0
+	 * Exporta as operacoes financeiras de uma conta de um usuario para um
+	 * arquivo em formato .txt. <br>
+	 * <br>
+	 * O arquivo .txt deve ter no seguinte padrao: <br>
+	 * $idDaConta $tipo $modo $valor
 	 * 
-	 * @param login O login do usuario.
-	 * @param accId O id da conta.
-	 * @param pathToFile O caminho para o arquivo onde sera gravado.
-	 * @throws IOException Se ocorrer algum problema de I/O.
-	 * @throws PermissionDeniedException Se o usuario nao tiver a permissao necessaria para executar as operacoes financeiras.
-	 * @throws AccountNotFoundException Se algum conta especificada no arquivo nao existir no sistema. 
+	 * <br>
+	 * <br>
+	 * Exemplo de arquivo: <br>
+	 * 1 credit cash 300.0 <br>
+	 * 1 debit cash 2000.0
+	 * 
+	 * @param login
+	 *            O login do usuario.
+	 * @param accId
+	 *            O id da conta.
+	 * @param pathToFile
+	 *            O caminho para o arquivo onde sera gravado.
+	 * @throws IOException
+	 *             Se ocorrer algum problema de I/O.
+	 * @throws PermissionDeniedException
+	 *             Se o usuario nao tiver a permissao necessaria para executar
+	 *             as operacoes financeiras.
+	 * @throws AccountNotFoundException
+	 *             Se algum conta especificada no arquivo nao existir no
+	 *             sistema.
 	 */
 	public void exportBankOperationsTXT(String login, long accId,
 			String pathToFile) throws IOException, PermissionDeniedException,
@@ -684,15 +766,22 @@ public class MyMoneyFacade {
 	// US-11
 
 	/**
-	 * Executa logout no sistema. Apos executar este metodo, qualquer operacao que o usuario deseje realizar serah
-	 * invalida ate que ele volte a fazer login no sistema.
+	 * Executa logout no sistema. Apos executar este metodo, qualquer operacao
+	 * que o usuario deseje realizar serah invalida ate que ele volte a fazer
+	 * login no sistema.
 	 * 
-	 * @param login O login do usuario.
-	 * @param password A senha do usuario.
-	 * @throws InvalidArgumentException Se login e/ou senha forem invalidos.
-	 * @throws LoginUnregisteredException Se o login nao tiver sido cadastrado no sistema.
-	 * @throws PasswordMismatchException Se a senha nao conferir com a cadastrada no sistema.
-	 * @throws UserNotLoggedException Se o usuario nao estiver logado no sistema.
+	 * @param login
+	 *            O login do usuario.
+	 * @param password
+	 *            A senha do usuario.
+	 * @throws InvalidArgumentException
+	 *             Se login e/ou senha forem invalidos.
+	 * @throws LoginUnregisteredException
+	 *             Se o login nao tiver sido cadastrado no sistema.
+	 * @throws PasswordMismatchException
+	 *             Se a senha nao conferir com a cadastrada no sistema.
+	 * @throws UserNotLoggedException
+	 *             Se o usuario nao estiver logado no sistema.
 	 */
 	public void doLogoff(String login, String password)
 			throws InvalidArgumentException, LoginUnregisteredException,
