@@ -32,6 +32,9 @@ import mymoney.model.report.ReportManagerImpl;
 import mymoney.model.user.UserManager;
 import mymoney.model.user.UserManagerImpl;
 
+/**
+ * Classe que implementa o sistema MyMoney.
+ */
 public class MyMoneyImpl implements MyMoney {
 
 	private UserManager userManager = new UserManagerImpl();
