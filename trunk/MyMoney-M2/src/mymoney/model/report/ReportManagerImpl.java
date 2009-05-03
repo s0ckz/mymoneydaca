@@ -51,26 +51,15 @@ public class ReportManagerImpl implements ReportManager {
 
 	}
 
-	
-
-	
-
 	public long[] generateReport(String login, String begin, String end,
-			long idAccount, String typeOperation)
-			throws MissingArgumentException, PermissionDeniedException,
-			AccountNotFoundException, InvalidDateException {
+			long idAccount, String typeOperation,
+			Collection<Operation> operacoes) throws MissingArgumentException,
+			PermissionDeniedException, AccountNotFoundException,
+			InvalidDateException {
 		ExceptionUtil.checkMissingArguments("login", login, "begin", begin,
 				"end", end);
 
-		Collection<Operation> operacoes = new ArrayList<Operation>();
 		List<Long> operacoesToReport = new ArrayList<Long>();
-
-		for (Long opId : accountManager.getAllOperations(login, idAccount)) {
-			Operation operation = (Operation) HibernateUtil.load(
-					Operation.class, opId);
-			operacoes.add(operation);
-		}
-
 		for (Operation op : operacoes) {
 			if (op.getDate().compareTo(DateUtils.createDate(begin)) >= 0
 					&& op.getDate().compareTo(DateUtils.createDate(end)) <= 0) {
@@ -104,7 +93,6 @@ public class ReportManagerImpl implements ReportManager {
 		return list.size();
 	}
 
-	
 	@SuppressWarnings("unchecked")
 	public void removeReports(String login) {
 		Collection<SimpleExpression> expressions = Arrays.asList(Restrictions
