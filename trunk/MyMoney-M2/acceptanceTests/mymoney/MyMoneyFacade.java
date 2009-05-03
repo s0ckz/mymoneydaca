@@ -2,6 +2,7 @@ package mymoney;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collection;
 
 import mymoney.model.MyMoney;
 import mymoney.model.MyMoneyImpl;
@@ -267,7 +268,8 @@ public class MyMoneyFacade {
 	 */
 	public long addOperationIntoDefaultAccount(String login, String type,
 			String way, double amount, String date) throws BusinessException,
-			PermissionDeniedException, AccountNotFoundException, InvalidDateException {
+			PermissionDeniedException, AccountNotFoundException,
+			InvalidDateException {
 		return myMoney.addOperationIntoDefaultAccount(login, type, way, amount,
 				date);
 	}
@@ -303,7 +305,8 @@ public class MyMoneyFacade {
 	 */
 	public long addOperation(String login, long accId, String type, String way,
 			double amount, String date) throws BusinessException,
-			PermissionDeniedException, AccountNotFoundException, InvalidDateException {
+			PermissionDeniedException, AccountNotFoundException,
+			InvalidDateException {
 		return myMoney.addOperation(login, accId, type, way, amount, date);
 	}
 
@@ -313,7 +316,8 @@ public class MyMoneyFacade {
 	 * @param opId
 	 *            Identificador da conta.
 	 * @return O tipo da operacao.
-	 * @see AccountManager#addOperation(String, long, String, String, double, Date)
+	 * @see AccountManager#addOperation(String, long, String, String, double,
+	 *      Date)
 	 * @see AccountManager#addOperationIntoDefaultAccount(String, String,
 	 *      String, double, Date)
 	 */
@@ -323,7 +327,9 @@ public class MyMoneyFacade {
 
 	/**
 	 * Metodo de acesso a data que de uma operacao.
-	 * @param opId Identificador da operacao
+	 * 
+	 * @param opId
+	 *            Identificador da operacao
 	 * @return Uma data no formato <code>"dd/MM/yyyy HH:mm:ss"</code>.
 	 */
 	public String getOperationDate(long opId) {
@@ -336,7 +342,8 @@ public class MyMoneyFacade {
 	 * @param opId
 	 *            Identificador da conta.
 	 * @return O modo de pagamento da operacao.
-	 * @see AccountManager#addOperation(String, long, String, String, double, Date)
+	 * @see AccountManager#addOperation(String, long, String, String, double,
+	 *      Date)
 	 * @see AccountManager#addOperationIntoDefaultAccount(String, String,
 	 *      String, double, Date)
 	 */
@@ -711,9 +718,6 @@ public class MyMoneyFacade {
 
 	// US-10
 
-	
-	
-
 	/**
 	 * Metodo que gera um relatorio
 	 * 
@@ -728,18 +732,18 @@ public class MyMoneyFacade {
 	 * @return long que representa o codigo do relatorio gerado
 	 * @throws MissingArgumentException
 	 *             Caso algum argumento nao tenha sido passado
-	 * @throws InvalidDateException 
-	 * @throws AccountNotFoundException 
-	 * @throws PermissionDeniedException 
+	 * @throws InvalidDateException
+	 * @throws AccountNotFoundException
+	 * @throws PermissionDeniedException
 	 */
-	public long[] generateReport(String login, String begin,
+	public Collection<Long> generateReport(String login, String begin,
 			String end, long idAccount, String typeOperation)
-			throws MissingArgumentException, PermissionDeniedException, AccountNotFoundException, InvalidDateException {
+			throws MissingArgumentException, PermissionDeniedException,
+			AccountNotFoundException, InvalidDateException {
 		return myMoney.generateReport(login, begin, end, idAccount,
 				typeOperation);
 	}
 
-	
 	// US-11
 
 	/**

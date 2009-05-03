@@ -650,7 +650,7 @@ public interface MyMoney {
 	 * @throws AccountNotFoundException 
 	 * @throws PermissionDeniedException 
 	 */
-	long[] generateReport(String login, String begin, String end, long idAccount,
+	Collection<Long> generateReport(String login, String begin, String end, long idAccount,
 			String typeOperation) throws MissingArgumentException, PermissionDeniedException, AccountNotFoundException, InvalidDateException;
 
 }

@@ -137,14 +137,16 @@ public class MyMoneyImpl implements MyMoney {
 
 	public long addOperationIntoDefaultAccount(String login, String type,
 			String way, double amount, String date) throws BusinessException,
-			PermissionDeniedException, AccountNotFoundException, InvalidDateException {
+			PermissionDeniedException, AccountNotFoundException,
+			InvalidDateException {
 		return accountManager.addOperationIntoDefaultAccount(login, type, way,
 				amount, DateUtils.createDate(date));
 	}
 
 	public long addOperation(String login, long accId, String type, String way,
 			double amount, String date) throws BusinessException,
-			PermissionDeniedException, AccountNotFoundException, InvalidDateException {
+			PermissionDeniedException, AccountNotFoundException,
+			InvalidDateException {
 		return accountManager.addOperation(login, accId, type, way, amount,
 				DateUtils.createDate(date));
 	}
@@ -268,26 +270,21 @@ public class MyMoneyImpl implements MyMoney {
 
 	}
 
-	
-
-	
-
 	@Override
-	public long[] generateReport(String login, String begin,
+	public Collection<Long> generateReport(String login, String begin,
 			String end, long idAccount, String typeOperation)
-			throws MissingArgumentException, PermissionDeniedException, AccountNotFoundException, InvalidDateException {
-		
+			throws MissingArgumentException, PermissionDeniedException,
+			AccountNotFoundException, InvalidDateException {
+
 		Collection<Operation> operacoes = new ArrayList<Operation>();
 		for (Long opId : accountManager.getAllOperations(login, idAccount)) {
 			Operation operation = (Operation) HibernateUtil.load(
 					Operation.class, opId);
 			operacoes.add(operation);
 		}
-		return reportManager.generateReport(login, begin, end,
-				idAccount, typeOperation , operacoes);
+		return reportManager.generateReport(login, begin, end, idAccount,
+				typeOperation, operacoes);
 	}
-
-	
 
 	public void removeReports(String login) {
 		reportManager.removeReports(login);
