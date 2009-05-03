@@ -7,8 +7,10 @@ import mymoney.model.account.AccountManager;
 import mymoney.model.account.AccountManagerImpl;
 import mymoney.model.exceptions.AccountNotFoundException;
 import mymoney.model.exceptions.BusinessException;
-import mymoney.model.exceptions.MisunderstandingFileContent;
+import mymoney.model.exceptions.InvalidDateException;
+import mymoney.model.exceptions.MisunderstandingFileContentException;
 import mymoney.model.exceptions.PermissionDeniedException;
+import mymoney.model.util.DateUtils;
 
 /**
  * Prove funcionalidade de importar as operacoes financeiras de uma conta 
@@ -32,7 +34,9 @@ public abstract class Importer {
 
 	protected static final int AMOUNT_GROUP = 4;
 
-	protected static final int NUM_GROUPS = 4;
+	protected static final int DATE_GROUP = 5;
+
+	protected static final int NUM_GROUPS = 5;
 	
 	/**
 	 * Construtor Default.
@@ -48,12 +52,12 @@ public abstract class Importer {
 	 * @param fileContent O conteudo do arquivo a ser importado.
 	 * @return Um vetor contendo os ids das operacoes importadas.
 	 * 
-	 * @throws MisunderstandingFileContent Se o conteudo do arquivo nao puder ser entendido pelo importador.
+	 * @throws MisunderstandingFileContentException Se o conteudo do arquivo nao puder ser entendido pelo importador.
 	 * @throws BusinessException Se alguma regra de negocio do MyMoney for violada.
 	 * @throws PermissionDeniedException Se o usuario nao for o dono da conta requisitada.
 	 * @throws AccountNotFoundException Se a conta nao tiver sido cadastrada no sistema.
 	 */
-	public long[] submitBankOperations(String login, String fileContent) throws MisunderstandingFileContent, BusinessException,
+	public long[] submitBankOperations(String login, String fileContent) throws MisunderstandingFileContentException, BusinessException,
 			PermissionDeniedException, AccountNotFoundException {
 		Pattern p = makeOperationPattern();
 		String[] operations = fileContent.split(NEW_LINE);
@@ -63,7 +67,7 @@ public abstract class Importer {
 			Matcher m = p.matcher(op);
 			m.matches();
 			if (!m.matches() || m.groupCount() != NUM_GROUPS) {
-				throw new MisunderstandingFileContent();
+				throw new MisunderstandingFileContentException();
 			}
 			try {
 				long accId = Long.parseLong(m.group(ACC_ID_GROUP).replace("\"",
@@ -72,9 +76,12 @@ public abstract class Importer {
 						.replace("\"", ""));
 				ids[index++] = accountManager.addOperation(login, accId, m
 						.group(TYPE_GROUP).replace("\"", ""), m
-						.group(WAY_GROUP).replace("\"", ""), amount);
+						.group(WAY_GROUP).replace("\"", ""), amount,
+						DateUtils.createDate(m.group(DATE_GROUP).replace("\"", "")));
+			} catch (InvalidDateException e) {
+				throw new MisunderstandingFileContentException();
 			} catch (NumberFormatException e) {
-				throw new MisunderstandingFileContent();
+				throw new MisunderstandingFileContentException();
 			} catch (BusinessException e) {
 				throw e;
 			} catch (PermissionDeniedException e) {

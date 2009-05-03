@@ -1,6 +1,7 @@
 package mymoney.model.account;
 
 import java.util.Collection;
+import java.util.Date;
 
 import mymoney.model.exceptions.AccountNotFoundException;
 import mymoney.model.exceptions.BusinessException;
@@ -50,13 +51,14 @@ public interface AccountManager {
 	 * @param way Modo de pagamento, podendo ser <code>cash</code>, <code>creditcard</code> ou
 	 * <code>check</code>.
 	 * @param amount Quantia de dinheiro que essa operacao movimentou. Deve ser um valor positivo.
+	 * @param date Data da operacao.
 	 * @return Um identificador para essa operacao.
 	 * @throws BusinessException Caso a quantia seja menor ou igual a zero.
 	 * @throws PermissionDeniedException Caso o usuario tente adicionar a uma conta que nao o pertence.
 	 * @throws AccountNotFoundException Caso a conta padrao nao exista.
 	 */
 	long addOperationIntoDefaultAccount(String login, String type,
-			String way, double amount) throws BusinessException, PermissionDeniedException, AccountNotFoundException;
+			String way, double amount, Date date) throws BusinessException, PermissionDeniedException, AccountNotFoundException;
 	
 	/**
 	 * Adiciona uma nova operacao a uma dada conta.
@@ -66,19 +68,20 @@ public interface AccountManager {
 	 * @param way Modo de pagamento, podendo ser <code>cash</code>, <code>creditcard</code> ou
 	 * <code>check</code>.
 	 * @param amount Quantia de dinheiro que essa operacao movimentou. Deve ser um valor positivo.
+	 * @param date Data da operacao
 	 * @return Um identificador para essa operacao.
 	 * @throws BusinessException Caso a quantia seja menor ou igual a zero.
 	 * @throws PermissionDeniedException Caso o usuario tente adicionar a uma conta que nao o pertence.
 	 * @throws AccountNotFoundException Caso a conta padrao nao exista.
 	 */
-	long addOperation(String login, long accId, String type, String way, double amount) throws BusinessException, PermissionDeniedException, AccountNotFoundException;
+	long addOperation(String login, long accId, String type, String way, double amount, Date date) throws BusinessException, PermissionDeniedException, AccountNotFoundException;
 	
 	/**
 	 * Metodo de acesso ao tipo da operacao.
 	 * @param opId Identificador da conta.
 	 * @return O tipo da operacao.
-	 * @see AccountManager#addOperation(String, long, String, String, double)
-	 * @see AccountManager#addOperationIntoDefaultAccount(String, String, String, double)
+	 * @see AccountManager#addOperation(String, long, String, String, double, Date)
+	 * @see AccountManager#addOperationIntoDefaultAccount(String, String, String, double, Date)
 	 */
 	String getOperationType(long opId);
 	
@@ -86,8 +89,8 @@ public interface AccountManager {
 	 * Metodo de acesso ao modo de pagamento da operacao.
 	 * @param opId Identificador da conta.
 	 * @return O modo de pagamento da operacao.
-	 * @see AccountManager#addOperation(String, long, String, String, double)
-	 * @see AccountManager#addOperationIntoDefaultAccount(String, String, String, double)
+	 * @see AccountManager#addOperation(String, long, String, String, double, Date)
+	 * @see AccountManager#addOperationIntoDefaultAccount(String, String, String, double, Date)
 	 */
 	String getOperationWay(long opId);
 
@@ -105,6 +108,13 @@ public interface AccountManager {
 	 * @return Um numero maior do que zero.
 	 */
 	double getOperationAmount(long opId);
+
+	/**
+	 * Metodo de acesso a data que de uma operacao.
+	 * @param opId Identificador da operacao
+	 * @return Uma data.
+	 */
+	Date getOperationDate(long opId);
 
 	/**
 	 * Retorna o valor total na conta padrao.

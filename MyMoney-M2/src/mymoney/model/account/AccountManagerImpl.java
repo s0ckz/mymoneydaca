@@ -2,6 +2,7 @@ package mymoney.model.account;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,20 +26,20 @@ public class AccountManagerImpl implements AccountManager {
 	private static final String DEFAULT_ACCOUNT = "default";
 
 	public long addOperation(String login, long accId, String type, String way,
-			double amount) throws BusinessException, PermissionDeniedException, AccountNotFoundException {
+			double amount, Date date) throws BusinessException, PermissionDeniedException, AccountNotFoundException {
 		if (amount < 0.0)
 			throw new BusinessException("negative amount");
 		else if (amount == 0.0)
 			throw new BusinessException("zero amount");
 		Account account = getAccount(login, accId);
-		Operation operation = new Operation(account, type, way, amount);
+		Operation operation = new Operation(account, type, way, amount, date);
 		return (Long) HibernateUtil.save(operation);
 	}
 
 	public long addOperationIntoDefaultAccount(String login, String type,
-			String way, double amount) throws BusinessException, PermissionDeniedException, AccountNotFoundException {
+			String way, double amount, Date date) throws BusinessException, PermissionDeniedException, AccountNotFoundException {
 		long defaultAccount = getDefaultAccount(login).getId();
-		return addOperation(login, defaultAccount, type, way, amount);
+		return addOperation(login, defaultAccount, type, way, amount, date);
 	}
 
 	public long createAccount(String login, String label, String agency,
@@ -84,6 +85,13 @@ public class AccountManagerImpl implements AccountManager {
 		if (operation == null)
 			return 0.0;
 		return operation.getAmount();
+	}
+
+	public Date getOperationDate(long opId) {
+		Operation operation = getOperation(opId);
+		if (operation == null)
+			return new Date();
+		return operation.getDate();
 	}
 	
 	public double getAccOverallAmount(String login, long accId) throws PermissionDeniedException, AccountNotFoundException {

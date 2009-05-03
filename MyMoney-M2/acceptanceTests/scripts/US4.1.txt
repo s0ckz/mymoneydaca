@@ -21,6 +21,7 @@ email=echo "renato@renato.com"
 type=echo "credit"
 way=echo "cash"
 amount=echo "10.0"
+date=echo "10/11/2008 23:00:00"
 
 # Registering user
 register ${login} ${password} ${name} ${gender} ${email}
@@ -29,12 +30,13 @@ register ${login} ${password} ${name} ${gender} ${email}
 doLogin ${login} ${password}
 
 # Registering operation into the default account
-opId=addOperationIntoDefaultAccount ${login} ${type} ${way} ${amount}
+opId=addOperationIntoDefaultAccount ${login} ${type} ${way} ${amount} ${date}
 
 # Checking whether the operation was registered well
 expect ${type} getOperationType ${opId}
 expect ${way} getOperationWay ${opId}
 expect ${amount} getOperationAmount ${opId}
+expect ${date} getOperationDate ${opId}
 
 # Logging off with user
 doLogoff ${login} ${password}

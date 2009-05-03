@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import mymoney.model.exceptions.AccountNotFoundException;
 import mymoney.model.exceptions.BusinessException;
-import mymoney.model.exceptions.MisunderstandingFileContent;
+import mymoney.model.exceptions.MisunderstandingFileContentException;
 import mymoney.model.exceptions.PermissionDeniedException;
 
 /**
@@ -32,11 +32,11 @@ public interface ExternalManager {
 	 * @throws BusinessException Se alguma regra de negocio do MyMoney for violada.
 	 * @throws PermissionDeniedException Se o usuario nao tiver a permissao necessaria para executar as operacoes financeiras.
 	 * @throws AccountNotFoundException Se algum conta especificada no arquivo nao existir no sistema. 
-	 * @throws MisunderstandingFileContent Se houver erro no conteudo do arquivo.
+	 * @throws MisunderstandingFileContentException Se houver erro no conteudo do arquivo.
 	 */
 	long[] submitBankOperationsCSV(String login, String fileContent)
 			throws BusinessException, PermissionDeniedException,
-			AccountNotFoundException, MisunderstandingFileContent;
+			AccountNotFoundException, MisunderstandingFileContentException;
 
 	/**
 	 * Importa as operacoes financeiras em formato .txt para a conta
@@ -56,10 +56,10 @@ public interface ExternalManager {
 	 * @throws BusinessException Se alguma regra de negocio do MyMoney for violada.
 	 * @throws PermissionDeniedException Se o usuario nao tiver a permissao necessaria para executar as operacoes financeiras.
 	 * @throws AccountNotFoundException Se algum conta especificada no arquivo nao existir no sistema. 
-	 * @throws MisunderstandingFileContent Se houver erro no conteudo do arquivo.
+	 * @throws MisunderstandingFileContentException Se houver erro no conteudo do arquivo.
 	 */
 	long[] submitBankOperationsTXT(String login, String fileContent)
-			throws MisunderstandingFileContent, BusinessException,
+			throws MisunderstandingFileContentException, BusinessException,
 			PermissionDeniedException, AccountNotFoundException;
 
 	/**

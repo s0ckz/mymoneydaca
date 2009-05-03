@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Date;
 
 import mymoney.model.account.AccountManager;
 import mymoney.model.account.AccountManagerImpl;
@@ -52,7 +53,8 @@ public abstract class Exporter {
 			String type = accountManager.getOperationType(opId);
 			String way = accountManager.getOperationWay(opId);
 			double amount = accountManager.getOperationAmount(opId);
-			content.append(operationToString(accId, type, way, amount));
+			Date date = accountManager.getOperationDate(opId);
+			content.append(operationToString(accId, type, way, amount, date));
 		}
 		
 		writer.write(content.toString());
@@ -69,8 +71,9 @@ public abstract class Exporter {
 	 * @param type O tipo da operacao. Pode ser <i>debit</i> ou <i>credit</i>.
 	 * @param way O modo de pagamento.
 	 * @param amount O valor da operacao.
+	 * @param date A data da operacao.
 	 * @return Retorna um string que representa a operacao financeira em questao. 
 	 */
-	protected abstract String operationToString(long accId, String type, String way, double amount);	
+	protected abstract String operationToString(long accId, String type, String way, double amount, Date date);	
 
 }

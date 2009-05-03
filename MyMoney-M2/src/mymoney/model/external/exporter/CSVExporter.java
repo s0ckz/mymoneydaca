@@ -1,5 +1,9 @@
 package mymoney.model.external.exporter;
 
+import java.util.Date;
+
+import mymoney.model.util.DateUtils;
+
 /**
  * Prove exportacao das operacoes financeiras de um conta para um 
  * arquivo no formato CSV.
@@ -16,8 +20,8 @@ public class CSVExporter extends Exporter {
 
 	@Override
 	protected String operationToString(long accId, String type, String way,
-			double amount) {
-		return "\""+accId+"\",\""+type+"\",\""+way+"\",\""+amount+NEW_LINE;
+			double amount, Date date) {
+		return "\""+accId+"\",\""+type+"\",\""+way+"\",\""+amount+"\",\""+DateUtils.toString(date)+NEW_LINE;
 	}
 
 }

@@ -1,6 +1,7 @@
 package mymoney.model;
 
 import java.io.IOException;
+import java.util.Date;
 
 import mymoney.model.account.AccountManager;
 import mymoney.model.exceptions.AccountNotFoundException;
@@ -9,10 +10,11 @@ import mymoney.model.exceptions.CommitmentException;
 import mymoney.model.exceptions.DuplicatedAccountException;
 import mymoney.model.exceptions.DuplicatedLoginException;
 import mymoney.model.exceptions.InvalidArgumentException;
+import mymoney.model.exceptions.InvalidDateException;
 import mymoney.model.exceptions.InvalidEmailException;
 import mymoney.model.exceptions.LoginUnregisteredException;
 import mymoney.model.exceptions.MissingArgumentException;
-import mymoney.model.exceptions.MisunderstandingFileContent;
+import mymoney.model.exceptions.MisunderstandingFileContentException;
 import mymoney.model.exceptions.PasswordMismatchException;
 import mymoney.model.exceptions.PermissionDeniedException;
 import mymoney.model.exceptions.UnknownOperationException;
@@ -39,7 +41,7 @@ public interface MyMoney {
 	 *            O nome do usuario.
 	 * @param gender
 	 *            O sexo do usuario.
-	 * @param eMail
+	 * @param mail
 	 *            O e-mail do usuario.
 	 * @throws MissingArgumentException
 	 *             Se login e/ou nome forem nulos ou vazios.
@@ -163,9 +165,10 @@ public interface MyMoney {
 	 * @param opId
 	 *            Identificador da conta.
 	 * @return O tipo da operacao.
-	 * @see AccountManager#addOperation(String, long, String, String, double)
+	 * @see AccountManager#addOperation(String, long, String, String, double,
+	 *      Date)
 	 * @see AccountManager#addOperationIntoDefaultAccount(String, String,
-	 *      String, double)
+	 *      String, double, Date)
 	 */
 	String getOperationType(long opId);
 
@@ -175,9 +178,10 @@ public interface MyMoney {
 	 * @param opId
 	 *            Identificador da conta.
 	 * @return O modo de pagamento da operacao.
-	 * @see AccountManager#addOperation(String, long, String, String, double)
+	 * @see AccountManager#addOperation(String, long, String, String, double,
+	 *      Date)
 	 * @see AccountManager#addOperationIntoDefaultAccount(String, String,
-	 *      String, double)
+	 *      String, double, Date)
 	 */
 	String getoperationWay(long opId);
 
@@ -214,6 +218,8 @@ public interface MyMoney {
 	 * @param amount
 	 *            Quantia de dinheiro que essa operacao movimentou. Deve ser um
 	 *            valor positivo.
+	 * @param date
+	 *            Data da operacao no formato padrao: "dd/MM/yyyy HH:mm:ss".
 	 * @return Um identificador para essa operacao.
 	 * @throws BusinessException
 	 *             Caso a quantia seja menor ou igual a zero.
@@ -222,10 +228,12 @@ public interface MyMoney {
 	 *             pertence.
 	 * @throws AccountNotFoundException
 	 *             Caso a conta padrao nao exista.
+	 * @throws InvalidDateException
+	 *             Caso o formato da data seja invalido.
 	 */
 	long addOperationIntoDefaultAccount(String login, String type, String way,
-			double amount) throws BusinessException, PermissionDeniedException,
-			AccountNotFoundException;
+			double amount, String date) throws BusinessException,
+			PermissionDeniedException, AccountNotFoundException, InvalidDateException;
 
 	/**
 	 * Adiciona uma nova operacao a uma dada conta.
@@ -243,6 +251,8 @@ public interface MyMoney {
 	 * @param amount
 	 *            Quantia de dinheiro que essa operacao movimentou. Deve ser um
 	 *            valor positivo.
+	 * @param date
+	 *            Data da operacao no formato padrao: "dd/MM/yyyy HH:mm:ss".
 	 * @return Um identificador para essa operacao.
 	 * @throws BusinessException
 	 *             Caso a quantia seja menor ou igual a zero.
@@ -251,10 +261,13 @@ public interface MyMoney {
 	 *             pertence.
 	 * @throws AccountNotFoundException
 	 *             Caso a conta padrao nao exista.
+	 * @throws InvalidDateException
+	 *             Caso o formato da data seja invalido.
 	 */
 	long addOperation(String login, long accId, String type, String way,
-			double amount) throws BusinessException, PermissionDeniedException,
-			AccountNotFoundException;
+			double amount, String date) throws BusinessException,
+			PermissionDeniedException, AccountNotFoundException,
+			InvalidDateException;
 
 	/**
 	 * Retorna o valor total na conta padrao.
@@ -350,7 +363,7 @@ public interface MyMoney {
 	 *            O novo nome do usuario.
 	 * @param gender
 	 *            O novo sexo do usuario.
-	 * @param email
+	 * @param mail
 	 *            O novo e-mail do usuario.
 	 * @throws UserUnregisteredException
 	 *             Se o usuario nao tiver sido cadastrado no sistema.
@@ -507,12 +520,12 @@ public interface MyMoney {
 	 * @throws AccountNotFoundException
 	 *             Se algum conta especificada no arquivo nao existir no
 	 *             sistema.
-	 * @throws MisunderstandingFileContent
+	 * @throws MisunderstandingFileContentException
 	 *             Se houver erro no conteudo do arquivo.
 	 */
 	long[] submitBankOperationsCSV(String login, String fileContent)
 			throws BusinessException, PermissionDeniedException,
-			AccountNotFoundException, MisunderstandingFileContent;
+			AccountNotFoundException, MisunderstandingFileContentException;
 
 	/**
 	 * Importa as operacoes financeiras em formato .txt para a conta de um dado
@@ -542,11 +555,11 @@ public interface MyMoney {
 	 * @throws AccountNotFoundException
 	 *             Se algum conta especificada no arquivo nao existir no
 	 *             sistema.
-	 * @throws MisunderstandingFileContent
+	 * @throws MisunderstandingFileContentException
 	 *             Se houver erro no conteudo do arquivo.
 	 */
 	long[] submitBankOperationsTXT(String login, String fileContent)
-			throws MisunderstandingFileContent, BusinessException,
+			throws MisunderstandingFileContentException, BusinessException,
 			PermissionDeniedException, AccountNotFoundException;
 
 	/**
@@ -624,5 +637,12 @@ public interface MyMoney {
 			long idAccount) throws MissingArgumentException;
 
 	int getReports(String login);
+
+	/**
+	 * Metodo de acesso a data que de uma operacao.
+	 * @param opId Identificador da operacao
+	 * @return Uma data no formato <code>"dd/MM/yyyy HH:mm:ss"</code>.
+	 */
+	String getOperationDate(long opId);
 
 }
