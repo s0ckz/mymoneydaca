@@ -6,6 +6,7 @@ package mymoney.model.report;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import mymoney.model.account.AccountManager;
@@ -61,8 +62,13 @@ public class ReportManagerImpl implements ReportManager {
 
 		Collection<Long> operacoesToReport = new ArrayList<Long>();
 		for (Operation op : operacoes) {
-			if (op.getDate().compareTo(DateUtils.createDate(begin)) >= 0
-					&& op.getDate().compareTo(DateUtils.createDate(end)) <= 0) {
+			Date beginDate = DateUtils.createDate(begin);
+			Date endDate = DateUtils.createDate(end);
+			if(beginDate.compareTo(endDate) > 0){
+				throw new InvalidDateException("Invalid Dates");
+			}
+			if (op.getDate().compareTo(beginDate) >= 0
+					&& op.getDate().compareTo(endDate) <= 0) {
 				if (!typeOperation.isEmpty()) {
 					if (op.getType().equalsIgnoreCase(typeOperation)) {
 						operacoesToReport.add(op.getId());
