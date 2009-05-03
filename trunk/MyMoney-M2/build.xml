@@ -106,6 +106,7 @@
 			<arg value="US4.5.txt"/>
 			<arg value="US4.6.txt"/>
 			<arg value="US4.7.txt"/>
+			<arg value="US4.8.txt"/>
 		</java>
 	</target>
 

@@ -17,13 +17,14 @@ expect true isLogged login=${usuario}
 # cria uma nova conta
 accId=createAccount login=${usuario} label="personal" agency="1111" account="2222-2"
 
-extratoTxt=echo ${accId}"	\"credit\"	\"cash\"	1000.0"
+extratoTxt=echo ${accId}"	\"credit\"	\"cash\"	1000.0	\"20/01/1988 12:12:12\""
 
 submitBankOperationsTXT login=${usuario} fileContent=${extratoTxt}
 
 expect "credit" getOperationType oppId=1
 expect "cash" getOperationWay oppId=1
 expectWithin 0.001 1000.0 getOperationAmount oppId=1
+expect "20/01/1988 12:12:12" getOperationDate oppId=1
 
 expect 1 getNumberOfOperations login=${usuario}
 

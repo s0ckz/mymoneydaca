@@ -12,16 +12,18 @@ import mymoney.model.exceptions.CommitmentException;
 import mymoney.model.exceptions.DuplicatedAccountException;
 import mymoney.model.exceptions.DuplicatedLoginException;
 import mymoney.model.exceptions.InvalidArgumentException;
+import mymoney.model.exceptions.InvalidDateException;
 import mymoney.model.exceptions.InvalidEmailException;
 import mymoney.model.exceptions.LoginUnregisteredException;
 import mymoney.model.exceptions.MissingArgumentException;
-import mymoney.model.exceptions.MisunderstandingFileContent;
+import mymoney.model.exceptions.MisunderstandingFileContentException;
 import mymoney.model.exceptions.PasswordMismatchException;
 import mymoney.model.exceptions.PermissionDeniedException;
 import mymoney.model.exceptions.UnknownOperationException;
 import mymoney.model.exceptions.UserAlreadyLoggedException;
 import mymoney.model.exceptions.UserNotLoggedException;
 import mymoney.model.exceptions.UserUnregisteredException;
+import mymoney.model.util.DateUtils;
 import mymoney.model.util.HibernateUtil;
 
 /**
@@ -146,7 +148,7 @@ public class MyMoneyFacade {
 	 *            O novo nome do usuario.
 	 * @param gender
 	 *            O novo sexo do usuario.
-	 * @param email
+	 * @param eMail
 	 *            O novo e-mail do usuario.
 	 * @throws UserUnregisteredException
 	 *             Se o usuario nao tiver sido cadastrado no sistema.
@@ -249,6 +251,9 @@ public class MyMoneyFacade {
 	 * @param amount
 	 *            Quantia de dinheiro que essa operacao movimentou. Deve ser um
 	 *            valor positivo.
+	 * @param date
+	 *            Data da operacao no formato padrao: "dd/MM/yyyy HH:mm:ss".
+	 * @see DateUtils
 	 * @return Um identificador para essa operacao.
 	 * @throws BusinessException
 	 *             Caso a quantia seja menor ou igual a zero.
@@ -257,11 +262,14 @@ public class MyMoneyFacade {
 	 *             pertence.
 	 * @throws AccountNotFoundException
 	 *             Caso a conta padrao nao exista.
+	 * @throws InvalidDateException
+	 *             Caso o formato da data seja invalido.
 	 */
 	public long addOperationIntoDefaultAccount(String login, String type,
-			String way, double amount) throws BusinessException,
-			PermissionDeniedException, AccountNotFoundException {
-		return myMoney.addOperationIntoDefaultAccount(login, type, way, amount);
+			String way, double amount, String date) throws BusinessException,
+			PermissionDeniedException, AccountNotFoundException, InvalidDateException {
+		return myMoney.addOperationIntoDefaultAccount(login, type, way, amount,
+				date);
 	}
 
 	/**
@@ -280,6 +288,8 @@ public class MyMoneyFacade {
 	 * @param amount
 	 *            Quantia de dinheiro que essa operacao movimentou. Deve ser um
 	 *            valor positivo.
+	 * @param date
+	 *            Data da operacao no formato padrao: "dd/MM/yyyy HH:mm:ss".
 	 * @return Um identificador para essa operacao.
 	 * @throws BusinessException
 	 *             Caso a quantia seja menor ou igual a zero.
@@ -288,11 +298,13 @@ public class MyMoneyFacade {
 	 *             pertence.
 	 * @throws AccountNotFoundException
 	 *             Caso a conta padrao nao exista.
+	 * @throws InvalidDateException
+	 *             Caso o formato da data seja invalido.
 	 */
 	public long addOperation(String login, long accId, String type, String way,
-			double amount) throws BusinessException, PermissionDeniedException,
-			AccountNotFoundException {
-		return myMoney.addOperation(login, accId, type, way, amount);
+			double amount, String date) throws BusinessException,
+			PermissionDeniedException, AccountNotFoundException, InvalidDateException {
+		return myMoney.addOperation(login, accId, type, way, amount, date);
 	}
 
 	/**
@@ -301,12 +313,21 @@ public class MyMoneyFacade {
 	 * @param opId
 	 *            Identificador da conta.
 	 * @return O tipo da operacao.
-	 * @see AccountManager#addOperation(String, long, String, String, double)
+	 * @see AccountManager#addOperation(String, long, String, String, double, Date)
 	 * @see AccountManager#addOperationIntoDefaultAccount(String, String,
-	 *      String, double)
+	 *      String, double, Date)
 	 */
 	public String getOperationType(long opId) {
 		return myMoney.getOperationType(opId);
+	}
+
+	/**
+	 * Metodo de acesso a data que de uma operacao.
+	 * @param opId Identificador da operacao
+	 * @return Uma data no formato <code>"dd/MM/yyyy HH:mm:ss"</code>.
+	 */
+	public String getOperationDate(long opId) {
+		return myMoney.getOperationDate(opId);
 	}
 
 	/**
@@ -315,9 +336,9 @@ public class MyMoneyFacade {
 	 * @param opId
 	 *            Identificador da conta.
 	 * @return O modo de pagamento da operacao.
-	 * @see AccountManager#addOperation(String, long, String, String, double)
+	 * @see AccountManager#addOperation(String, long, String, String, double, Date)
 	 * @see AccountManager#addOperationIntoDefaultAccount(String, String,
-	 *      String, double)
+	 *      String, double, Date)
 	 */
 	public String getOperationWay(long opId) {
 		return myMoney.getoperationWay(opId);
@@ -441,7 +462,7 @@ public class MyMoneyFacade {
 	 *            O login do usuario
 	 * @param id
 	 *            o id do compromisso
-	 * @return
+	 * @return Uma cadeia de caracteres
 	 * @throws CommitmentException
 	 *             Caso haja algum evento inesperado com o compromisso
 	 */
@@ -572,12 +593,12 @@ public class MyMoneyFacade {
 	 * @throws AccountNotFoundException
 	 *             Se algum conta especificada no arquivo nao existir no
 	 *             sistema.
-	 * @throws MisunderstandingFileContent
+	 * @throws MisunderstandingFileContentException
 	 *             Se houver erro no conteudo do arquivo.
 	 */
 	public String submitBankOperationsCSV(String login, String fileContent)
 			throws BusinessException, PermissionDeniedException,
-			AccountNotFoundException, MisunderstandingFileContent {
+			AccountNotFoundException, MisunderstandingFileContentException {
 		return Arrays.toString(myMoney.submitBankOperationsCSV(login,
 				fileContent));
 	}
@@ -610,12 +631,12 @@ public class MyMoneyFacade {
 	 * @throws AccountNotFoundException
 	 *             Se algum conta especificada no arquivo nao existir no
 	 *             sistema.
-	 * @throws MisunderstandingFileContent
+	 * @throws MisunderstandingFileContentException
 	 *             Se houver erro no conteudo do arquivo.
 	 */
 	public String submitBankOperationsTXT(String login, String fileContent)
 			throws BusinessException, PermissionDeniedException,
-			AccountNotFoundException, MisunderstandingFileContent {
+			AccountNotFoundException, MisunderstandingFileContentException {
 		return Arrays.toString(myMoney.submitBankOperationsTXT(login,
 				fileContent));
 	}

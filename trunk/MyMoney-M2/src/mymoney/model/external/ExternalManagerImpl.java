@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import mymoney.model.exceptions.AccountNotFoundException;
 import mymoney.model.exceptions.BusinessException;
-import mymoney.model.exceptions.MisunderstandingFileContent;
+import mymoney.model.exceptions.MisunderstandingFileContentException;
 import mymoney.model.exceptions.PermissionDeniedException;
 import mymoney.model.external.exporter.CSVExporter;
 import mymoney.model.external.exporter.TXTExporter;
@@ -19,11 +19,11 @@ import mymoney.model.external.importer.TXTImporter;
 public class ExternalManagerImpl implements ExternalManager {
 
 	@Override
-	public long[] submitBankOperationsCSV(String login, String fileContent) throws BusinessException, PermissionDeniedException, AccountNotFoundException, MisunderstandingFileContent {
+	public long[] submitBankOperationsCSV(String login, String fileContent) throws BusinessException, PermissionDeniedException, AccountNotFoundException, MisunderstandingFileContentException {
 		return new CSVImporter().submitBankOperations(login,fileContent);
 	}
 
-	public long[] submitBankOperationsTXT(String login, String fileContent) throws MisunderstandingFileContent, BusinessException, PermissionDeniedException, AccountNotFoundException {
+	public long[] submitBankOperationsTXT(String login, String fileContent) throws MisunderstandingFileContentException, BusinessException, PermissionDeniedException, AccountNotFoundException {
 		return new TXTImporter().submitBankOperations(login,fileContent);
 	}
 

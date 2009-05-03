@@ -26,6 +26,7 @@ agency=echo "5678"
 type=echo "credit"
 way=echo "cash"
 amount=echo "-10"
+date=echo "20/03/2009 20:00:00"
 
 # Registering user
 register ${login} ${password} ${name} ${gender} ${email}
@@ -37,7 +38,7 @@ doLogin ${login} ${password}
 accId=createAccount ${login} ${label} ${agency} ${account}
 
 # Registering operation into the account
-expectError "Business validation: negative amount" addOperation ${login} ${accId} ${type} ${way} ${amount}
+expectError "Business validation: negative amount" addOperation ${login} ${accId} ${type} ${way} ${amount} ${date}
 
 # Logging off with user
 doLogoff ${login} ${password}

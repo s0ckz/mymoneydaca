@@ -129,8 +129,6 @@ public interface CommitmentManager {
 	 * 
 	 * @param login
 	 *            o login do usuario a que pertence o compromisso
-	 * @param id
-	 *            o id do compromisso
 	 * 
 	 * @throws CommitmentException
 	 */

@@ -14,10 +14,11 @@ import mymoney.model.exceptions.CommitmentException;
 import mymoney.model.exceptions.DuplicatedAccountException;
 import mymoney.model.exceptions.DuplicatedLoginException;
 import mymoney.model.exceptions.InvalidArgumentException;
+import mymoney.model.exceptions.InvalidDateException;
 import mymoney.model.exceptions.InvalidEmailException;
 import mymoney.model.exceptions.LoginUnregisteredException;
 import mymoney.model.exceptions.MissingArgumentException;
-import mymoney.model.exceptions.MisunderstandingFileContent;
+import mymoney.model.exceptions.MisunderstandingFileContentException;
 import mymoney.model.exceptions.MyMoneyException;
 import mymoney.model.exceptions.PasswordMismatchException;
 import mymoney.model.exceptions.PermissionDeniedException;
@@ -31,6 +32,7 @@ import mymoney.model.report.ReportManager;
 import mymoney.model.report.ReportManagerImpl;
 import mymoney.model.user.UserManager;
 import mymoney.model.user.UserManagerImpl;
+import mymoney.model.util.DateUtils;
 
 /**
  * Classe que implementa o sistema MyMoney.
@@ -117,6 +119,10 @@ public class MyMoneyImpl implements MyMoney {
 		return accountManager.getOperationWay(opId);
 	}
 
+	public String getOperationDate(long opId) {
+		return DateUtils.toString(accountManager.getOperationDate(opId));
+	}
+
 	public long getNumberOfOperations(String login) {
 		return accountManager.getNumberOfOperations(login);
 	}
@@ -126,16 +132,17 @@ public class MyMoneyImpl implements MyMoney {
 	}
 
 	public long addOperationIntoDefaultAccount(String login, String type,
-			String way, double amount) throws BusinessException,
-			PermissionDeniedException, AccountNotFoundException {
+			String way, double amount, String date) throws BusinessException,
+			PermissionDeniedException, AccountNotFoundException, InvalidDateException {
 		return accountManager.addOperationIntoDefaultAccount(login, type, way,
-				amount);
+				amount, DateUtils.createDate(date));
 	}
 
 	public long addOperation(String login, long accId, String type, String way,
-			double amount) throws BusinessException, PermissionDeniedException,
-			AccountNotFoundException {
-		return accountManager.addOperation(login, accId, type, way, amount);
+			double amount, String date) throws BusinessException,
+			PermissionDeniedException, AccountNotFoundException, InvalidDateException {
+		return accountManager.addOperation(login, accId, type, way, amount,
+				DateUtils.createDate(date));
 	}
 
 	public double getDefAccOverallAmount(String login)
@@ -175,26 +182,28 @@ public class MyMoneyImpl implements MyMoney {
 	@Override
 	public long[] submitBankOperationsCSV(String login, String fileContent)
 			throws BusinessException, PermissionDeniedException,
-			AccountNotFoundException, MisunderstandingFileContent {
+			AccountNotFoundException, MisunderstandingFileContentException {
 		return xptoManager.submitBankOperationsCSV(login, fileContent);
 	}
 
 	@Override
 	public long[] submitBankOperationsTXT(String login, String fileContent)
-			throws MisunderstandingFileContent, BusinessException,
+			throws MisunderstandingFileContentException, BusinessException,
 			PermissionDeniedException, AccountNotFoundException {
 		return xptoManager.submitBankOperationsTXT(login, fileContent);
 	}
 
 	@Override
 	public void exportBankOperationsCSV(String login, long accId,
-			String pathToFile) throws IOException, PermissionDeniedException, AccountNotFoundException {
+			String pathToFile) throws IOException, PermissionDeniedException,
+			AccountNotFoundException {
 		xptoManager.exportBankOperationsCSV(login, accId, pathToFile);
 	}
 
 	@Override
 	public void exportBankOperationsTXT(String login, long accId,
-			String pathToFile) throws IOException, PermissionDeniedException, AccountNotFoundException {
+			String pathToFile) throws IOException, PermissionDeniedException,
+			AccountNotFoundException {
 		xptoManager.exportBankOperationsTXT(login, accId, pathToFile);
 	}
 
@@ -207,7 +216,6 @@ public class MyMoneyImpl implements MyMoney {
 				type, frequency);
 	}
 
-	
 	@Override
 	public double getCommitmentAmount(String login, long id)
 			throws CommitmentException {
@@ -215,7 +223,6 @@ public class MyMoneyImpl implements MyMoney {
 		return commitmentManager.getCommitmentAmount(login, id);
 	}
 
-	
 	@Override
 	public String getCommitmentDate(String login, long id)
 			throws CommitmentException {
@@ -230,7 +237,6 @@ public class MyMoneyImpl implements MyMoney {
 		return commitmentManager.getCommitmentFrequency(login, id);
 	}
 
-	
 	@Override
 	public String getCommitmentLabel(String login, long id)
 			throws CommitmentException {
@@ -238,7 +244,6 @@ public class MyMoneyImpl implements MyMoney {
 		return commitmentManager.getCommitmentLabel(login, id);
 	}
 
-	
 	@Override
 	public String getCommitmentType(String login, long id)
 			throws CommitmentException {
@@ -246,14 +251,12 @@ public class MyMoneyImpl implements MyMoney {
 		return commitmentManager.getCommitmentType(login, id);
 	}
 
-	
 	@Override
 	public int numberOfCommitments(String login) {
 
 		return commitmentManager.numberOfCommitments(login);
 	}
 
-	
 	@Override
 	public void removeCommitment(String login, long id)
 			throws CommitmentException {
@@ -261,7 +264,6 @@ public class MyMoneyImpl implements MyMoney {
 
 	}
 
-	
 	@Override
 	public long generateReportCreditOperations(String login, String begin,
 			String end, long idAccount) throws MissingArgumentException {
@@ -270,7 +272,6 @@ public class MyMoneyImpl implements MyMoney {
 				idAccount);
 	}
 
-	
 	@Override
 	public long generateReportDebtOperations(String login, String begin,
 			String end, long idAccount) throws MissingArgumentException {
@@ -279,7 +280,6 @@ public class MyMoneyImpl implements MyMoney {
 				idAccount);
 	}
 
-	
 	@Override
 	public long generateReportOperations(String login, String begin,
 			String end, long idAccount, String typeOperation)
@@ -289,8 +289,6 @@ public class MyMoneyImpl implements MyMoney {
 				idAccount, typeOperation);
 	}
 
-	
-	
 	@Override
 	public int getReports(String login) {
 		return reportManager.getReports(login);

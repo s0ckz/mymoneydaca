@@ -1,6 +1,7 @@
 package mymoney.model.account;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,6 +29,8 @@ public class Operation implements Serializable {
 	private String way;
 	
 	private double amount;
+
+	private Date date;
 	
 	/**
 	 * Construtor padrao usado pelo Hibernate.
@@ -42,13 +45,15 @@ public class Operation implements Serializable {
 	 * @param type Tipo da operacao.
 	 * @param way Modo de pagamento.
 	 * @param amount Quantia de dinheiro.
-	 * @see AccountManager#addOperation(String, long, String, String, double)
+	 * @param date Data da operação.
+	 * @see AccountManager#addOperation(String, long, String, String, double, Date)
 	 */
-	public Operation(Account account, String type, String way, double amount) {
+	public Operation(Account account, String type, String way, double amount, Date date) {
 		this.account = account;
 		this.type = type;
 		this.way = way;
 		this.amount = amount;
+		this.date = date;
 	}
 
 	/**
@@ -73,7 +78,7 @@ public class Operation implements Serializable {
 	/**
 	 * Metodo de acesso ao tipo dessa operacao.
 	 * @return O tipo da operacao.
-	 * @see AccountManager#addOperation(String, long, String, String, double)
+	 * @see AccountManager#addOperation(String, long, String, String, double, Date)
 	 */
 	@Column(name = "type")
 	public String getType() {
@@ -83,7 +88,7 @@ public class Operation implements Serializable {
 	/**
 	 * Metodo de alteracao do tipo dessa operacao.
 	 * @param type O novo tipo da operacao.
-	 * @see AccountManager#addOperation(String, long, String, String, double)
+	 * @see AccountManager#addOperation(String, long, String, String, double, Date)
 	 */
 	public void setType(String type) {
 		this.type = type;
@@ -101,7 +106,7 @@ public class Operation implements Serializable {
 	/**
 	 * Metodo de alteracao da forma de pagamento.
 	 * @param way Nova forma de pagamento.
-	 * @see AccountManager#addOperation(String, long, String, String, double)
+	 * @see AccountManager#addOperation(String, long, String, String, double, Date)
 	 */
 	public void setWay(String way) {
 		this.way = way;
@@ -154,6 +159,23 @@ public class Operation implements Serializable {
 	 */
 	public double correctAmount() {
 		return type.equals("debit") ? -amount : amount;
+	}
+
+	/**
+	 * Metodo de acesso a data da operacao.
+	 * @return Data da operacao.
+	 */
+	@Column(name="date")
+	public Date getDate() {
+		return date;
+	}
+
+	/**
+	 * Metodo de alteracao da data da operacao.
+	 * @param date Data da operacao.
+	 */
+	public void setDate(Date date) {
+		this.date = date;
 	}
 	
 }
