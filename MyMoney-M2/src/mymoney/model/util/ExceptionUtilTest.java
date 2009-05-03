@@ -8,8 +8,15 @@ import org.junit.Test;
 
 import junit.framework.TestCase;
 
+/**
+ * Teste de unidade para a classe <code>ExceptionUtil</coode>.
+ *
+ */
 public class ExceptionUtilTest extends TestCase {
 	
+	/**
+	 * Testa o metodo checkMissingArguments(String... args);
+	 */
 	@Test
 	public void testMissingArgs() throws MissingArgumentException {
 		String nullArg = null;
@@ -33,6 +40,9 @@ public class ExceptionUtilTest extends TestCase {
 		ExceptionUtil.checkMissingArguments("nonEmptyArg", nonEmptyArg);
 	}
 	
+	/**
+	 * Testa o metodo checkInvalidRequiredArguments(String... args);
+	 */
 	@Test
 	public void testInvalidArgs() throws InvalidArgumentException {
 		String validArg = "abc-def.ghi_jkl";
@@ -59,6 +69,9 @@ public class ExceptionUtilTest extends TestCase {
 		ExceptionUtil.checkInvalidRequiredArguments("validArg", validArg);
 	}
 	
+	/**
+	 * Testa o metodo checkEmail(String email);
+	 */
 	@Test
 	public void testInvalidEmail() throws InvalidEmailException {
 		String emptyEmail = "";
