@@ -17,4 +17,11 @@ public class InvalidDateException extends MyMoneyException {
 		super("The date format is invalid");
 	}
 
+	
+	/**
+	 * Construtor de uma nova excecao.
+	 */
+	public InvalidDateException(String message) {
+		super(message);
+	}
 }
