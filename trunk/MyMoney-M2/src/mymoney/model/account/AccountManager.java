@@ -154,4 +154,5 @@ public interface AccountManager {
 	 */
 	Collection<Long> getAllOperations(String login, long accId) throws PermissionDeniedException, AccountNotFoundException;
 
+	
 }

@@ -3,7 +3,10 @@
  */
 package mymoney.model.report;
 
+import mymoney.model.exceptions.AccountNotFoundException;
+import mymoney.model.exceptions.InvalidDateException;
 import mymoney.model.exceptions.MissingArgumentException;
+import mymoney.model.exceptions.PermissionDeniedException;
 
 /**
  * @author Danilo de Sa
@@ -13,40 +16,9 @@ import mymoney.model.exceptions.MissingArgumentException;
  */
 public interface ReportManager {
 
-	/**
-	 * Metodo que gera um relatorio de creditos
-	 * 
-	 * @param login
-	 *            o login do usuario
-	 * @param begin
-	 *            a data de inicio do relatorio
-	 * @param end
-	 *            a data de fim do relatorio
-	 * @param idAccount
-	 *            o id da conta
-	 * @return long que representa o codigo do relatorio
-	 * @throws MissingArgumentException
-	 */
-	long generateReportCreditOperations(String login, String begin, String end,
-			long idAccount) throws MissingArgumentException;
+	
 
-	/**
-	 * Metodo que gera um relatorio de debitos
-	 * 
-	 * @param login
-	 *            o login do usuario
-	 * @param begin
-	 *            a data de inicio do relatorio
-	 * @param end
-	 *            a data de fim do relatorio
-	 * @param idAccount
-	 *            o id da conta
-	 * @return long que representa o codigo do relatorio
-	 * @throws MissingArgumentException
-	 */
-	long generateReportDebtOperations(String login, String begin, String end,
-			long idAccount) throws MissingArgumentException;
-
+	
 	/**
 	 * Metodo que gera um relatorio de debitos
 	 * 
@@ -62,10 +34,13 @@ public interface ReportManager {
 	 *            o tipo da oparacao
 	 * @return long que representa o codigo do relatorio
 	 * @throws MissingArgumentException
+	 * @throws InvalidDateException 
+	 * @throws AccountNotFoundException 
+	 * @throws PermissionDeniedException 
 	 */
-	long generateReportOperations(String login, String begin, String end,
+	long[] generateReport(String login, String begin, String end,
 			long idAccount, String typeOperation)
-			throws MissingArgumentException;
+			throws MissingArgumentException, PermissionDeniedException, AccountNotFoundException, InvalidDateException;
 
 	/**
 	 * Metodo que retorna os relatorios gerados por um usuario

@@ -233,7 +233,8 @@ public interface MyMoney {
 	 */
 	long addOperationIntoDefaultAccount(String login, String type, String way,
 			double amount, String date) throws BusinessException,
-			PermissionDeniedException, AccountNotFoundException, InvalidDateException;
+			PermissionDeniedException, AccountNotFoundException,
+			InvalidDateException;
 
 	/**
 	 * Adiciona uma nova operacao a uma dada conta.
@@ -626,23 +627,28 @@ public interface MyMoney {
 			throws IOException, PermissionDeniedException,
 			AccountNotFoundException;
 
-	long generateReportCreditOperations(String login, String begin, String end,
-			long idAccount) throws MissingArgumentException;
-
-	long generateReportOperations(String login, String begin, String end,
-			long idAccount, String typeOperation)
-			throws MissingArgumentException;
-
-	long generateReportDebtOperations(String login, String begin, String end,
-			long idAccount) throws MissingArgumentException;
-
-	int getReports(String login);
-
 	/**
 	 * Metodo de acesso a data que de uma operacao.
-	 * @param opId Identificador da operacao
+	 * 
+	 * @param opId
+	 *            Identificador da operacao
 	 * @return Uma data no formato <code>"dd/MM/yyyy HH:mm:ss"</code>.
 	 */
 	String getOperationDate(long opId);
+
+	/**
+	 * @param login
+	 * @param begin
+	 * @param end
+	 * @param idAccount
+	 * @param typeOperation
+	 * @return
+	 * @throws MissingArgumentException
+	 * @throws InvalidDateException 
+	 * @throws AccountNotFoundException 
+	 * @throws PermissionDeniedException 
+	 */
+	long[] generateReport(String login, String begin, String end, long idAccount,
+			String typeOperation) throws MissingArgumentException, PermissionDeniedException, AccountNotFoundException, InvalidDateException;
 
 }

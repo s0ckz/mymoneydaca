@@ -3,11 +3,17 @@
  */
 package mymoney.model.report;
 
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import mymoney.model.account.Operation;
 
 /**
  * 
@@ -42,14 +48,17 @@ public class Report {
 	 * id da conta
 	 */
 	private long idAccount;
-	/**
-	 * descricao
-	 */
-	private String label;
+
 	/**
 	 * Codigo do relatorio
 	 */
 	private long reportCode;
+
+	/**
+	 * Operacoes
+	 * 
+	 */
+	private Collection<Long> operacoes;
 
 	/**
 	 * Construtor da classe
@@ -64,16 +73,33 @@ public class Report {
 	 *            O login do usuario
 	 * @param operationType
 	 *            O tipo de operacao
+	 * @param operacoes
 	 */
 	public Report(String login, String dateBegin, String dateEnd,
-			long idAccount, String operationType) {
+			long idAccount, String operationType, Collection<Long> operacoes) {
 		this.dateBegin = dateBegin;
 		this.dateEnd = dateEnd;
 		this.idAccount = idAccount;
 		this.login = login;
 		this.operationType = operationType;
-		this.label = "";
+		this.operacoes = operacoes;
 
+	}
+
+	/**
+	 * @return the operacoes
+	 */
+	@OneToMany(mappedBy="idAccount", fetch=FetchType.EAGER)
+	public Collection<Long> getOperacoes() {
+		return operacoes;
+	}
+
+	/**
+	 * @param operacoes
+	 *            the operacoes to set
+	 */
+	public void setOperacoes(Collection<Long> operacoes) {
+		this.operacoes = operacoes;
 	}
 
 	/**
@@ -164,23 +190,6 @@ public class Report {
 	}
 
 	/**
-	 * @param label
-	 *            o label a ser setado
-	 */
-
-	public void setLabel(String label) {
-		this.label = label;
-	}
-
-	/**
-	 * @return o label
-	 */
-	@Column(name = "label")
-	public String getLabel() {
-		return label;
-	}
-
-	/**
 	 * @param reportCode
 	 *            o codigo do relatorio a ser setado
 	 */
@@ -196,6 +205,17 @@ public class Report {
 	@Column(name = "code")
 	public long getReportCode() {
 		return reportCode;
+	}
+
+	public String toString() {
+		String description = " operations: ";
+		for (Long code : getOperacoes()) {
+			description += code + " ";
+		}
+		return "Login: " + getLogin() + " Code: " + getReportCode()
+				+ " date begin: " + getDateBegin() + " date end: "
+				+ getDateEnd() + " account id: " + getIdAccount() + description;
+
 	}
 
 }
