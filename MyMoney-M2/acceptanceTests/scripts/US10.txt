@@ -42,15 +42,24 @@ expect ${expected} generateReport login=${usuario} begin="10/1/2008 00:00:00" en
 expected=echo [${op2Id}, ${op3Id}]
 expect ${expected} generateReport login=${usuario} begin="10/1/2008 00:00:00" end="31/03/2008 00:00:00" idAccount=${acc1} typeOperation=""
 
+#Cenario 3
+expected=echo []
+expect ${expected} generateReport login=${usuario} begin="11/03/2008 00:00:00" end="31/03/2008 00:00:00" idAccount=${acc1} typeOperation=${tipoDebito}
+
+#Cenario 4
+acc2=createAccount ${usuario} "Conta Banco do Brasil" "1591-1" "12006-2" 
+data2=echo "10/04/2009 20:20:20"
+op4Id=addOperation ${usuario} ${acc2} ${tipoCredito} ${forma} ${quantia} ${data2}
+expected=echo []
+expect ${expected} generateReport login=${usuario} begin="10/03/2009 00:00:00" end="31/04/2009 00:00:00" idAccount=${acc2} typeOperation=${tipoDebito}
 
 
+#Cenario 5
+expectError "Missing Argument"  generateReport login=${usuario} begin="" end="" idAccount=${acc2} typeOperation=${tipoDebito}
 
+#Cenario 6
+expectError "Invalid Dates"  generateReport login=${usuario} begin="31/04/2009 00:00:00" end="10/03/2009 00:00:00"  idAccount=${acc2} typeOperation=${tipoDebito}
 
-#Cen�rio 3
-#generateReportDebitOperations login=${usuario} begin="1/11/2008" end="31/03/2009" idAccount=${op1Id}
-#expect 3 getReports login=${usuario}
-#removeUser login=${usuario}
-#expect 0 getReports login=${usuario}
 
 cleanAll
 
