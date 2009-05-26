@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="800" height="500">
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%">
 	<mx:Script>
-		<![CDATA[			
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			import remote.RemoteFacade;
+			import events.DoLogoutEvent;			
 			
 			private function getPeriodos(mesInicial:int, anoInicial:int, mesFinal:int, anoFinal:int):ArrayCollection {
 				var meses:Array = ["", "Jan", "Fev", "Mar", "Abril", "Maio"];
@@ -16,6 +21,19 @@
 				
 				return periodos;
 			}			
+			
+			private function logout():void {
+//				RemoteFacade.getInstance().doLogout(login.text, senha.text, callBackResult, callBackFault);
+			}
+			
+			private function callBackResult(e:ResultEvent):void {
+				dispatchEvent(new DoLogoutEvent(DoLogoutEvent.LOGOUT));
+			}
+
+			private function callBackFault(e:FaultEvent):void {
+				Alert.show(e.toString());
+			}
+			
 		]]>
 	</mx:Script>
 	<mx:Array id="contas">
@@ -52,6 +70,7 @@
 	 	 	<mx:VRule height="30"/>
 	 	 	<mx:MenuBar height="100%" width="100%" dataProvider="{menuTransacao}" labelField="@label"/>
 	 	 </mx:ApplicationControlBar>
+	 	 <mx:LinkButton label="Logout" click="logout();"/>
 	 </mx:HBox>
 	<mx:HBox>
 		<mx:Panel title="Contas">			

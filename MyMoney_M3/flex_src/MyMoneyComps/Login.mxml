@@ -3,6 +3,8 @@
 	width="400" height="300" xmlns:MyMoneyComps="MyMoneyComps.*" creationComplete="init()">
 	<mx:Script>
 		<![CDATA[
+			import events.CadastrarUsuarioEvent;
+			import events.DoLoginEvent;
 			import mx.controls.Alert;
 			private function init(): void {
 				doLoginBox.addEventListener(DoLoginEvent.CADASTRO, cadastro);				

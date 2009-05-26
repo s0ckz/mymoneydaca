@@ -3,12 +3,19 @@
 	xmlns:MyMoneyComps="MyMoneyComps.*" creationComplete="init();">
 	<mx:Script>
 		<![CDATA[
-			import mx.rpc.events.ResultEvent;
-			import MyMoneyComps.DoLoginEvent;
+			import remote.RemoteFacade;
+			import events.DoLogoutEvent;
+			import events.DoLoginEvent;
+			import mx.rpc.events.ResultEvent;			
 			
 			private function init():void {
 				loginBox.addDoLoginEventListener(DoLoginEvent.LOGADO, doLogin);
+				homeBox.addEventListener(DoLogoutEvent.LOGOUT, doLogout);
 			} 
+			
+			private function doLogout(e:DoLogoutEvent):void {				
+				mainViewStack.selectedChild = loginBox;
+			}
 			
 			private function doLogin(e:DoLoginEvent):void {
 				mainViewStack.selectedChild = homeBox;
@@ -16,7 +23,7 @@
 			
 		]]>
 	</mx:Script>
-	<mx:ViewStack id="mainViewStack" selectedIndex="0">
+	<mx:ViewStack id="mainViewStack" selectedIndex="0" width="100%">
 		<MyMoneyComps:Login id="loginBox"/>
 		<MyMoneyComps:Home id="homeBox"/>
 	</mx:ViewStack>	
