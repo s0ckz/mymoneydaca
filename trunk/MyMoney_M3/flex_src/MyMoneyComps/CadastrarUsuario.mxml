@@ -2,12 +2,17 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="400" height="300" title="Cadastrar Novo Usuário">
 	<mx:Script>
 		<![CDATA[
+			import mx.rpc.events.ResultEvent;
+			import remote.RemoteFacade;
 			private function cancelar():void {
 				dispatchEvent(new CadastrarUsuarioEvent(CadastrarUsuarioEvent.CANCELAR));
 			}
 			
 			private function cadastrar():void {
-				
+				RemoteFacade.getInstance().registerUser(callBack);
+			}
+			
+			private function callBack(e:ResultEvent):void {
 			}
 		]]>
 	</mx:Script>
