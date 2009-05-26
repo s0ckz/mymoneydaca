@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
-	width="400" height="300" xmlns:MyMoneyComps="MyMoneyComps.*">
-	<mx:ViewStack selectedIndex="0">
+	width="400" height="300" xmlns:MyMoneyComps="MyMoneyComps.*" creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+			private function init(): void {
+				doLoginBox.addEventListener(DoLoginEvent.CADASTRO, cadastro);
+				cadastrarBox.addEventListener(CadastrarUsuarioEvent.CANCELAR, cancelar);
+			}
+			
+			private function cadastro(e:DoLoginEvent):void {
+				view.selectedIndex = 1;
+			}
+			
+			private function cancelar(e:CadastrarUsuarioEvent):void {
+				view.selectedIndex = 0;
+			}
+		]]>
+	</mx:Script>
+	<mx:ViewStack id="view" selectedIndex="0">
 		<MyMoneyComps:DoLogin id="doLoginBox"/>
 		<MyMoneyComps:CadastrarUsuario id="cadastrarBox"/>		
 	</mx:ViewStack>	
