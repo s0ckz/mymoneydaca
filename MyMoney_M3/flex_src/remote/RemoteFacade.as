@@ -32,6 +32,11 @@ package remote
 			async.addResponder(new Responder(result, defaultFaultHandler));
 		}
 		
+		public function registerUser(result: Function):void {
+			var async:AsyncToken = remoteObject.registerUser("login", "senha", "nome", "macho", "user@gmail.com");
+			async.addResponder(new Responder(result, defaultFaultHandler));
+		}
+		
 		private function defaultFaultHandler(e:FaultEvent):void{
 			Alert.show(e.fault.toString(), e.fault.faultString);
 		}
