@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="300" height="300">
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			function signIn():void {
+				mx.controls.Alert.show("sign in");
+			}
+			
+			function cadastrar():void {				
+				mx.controls.Alert.show("cadastrar");
+			}
+
+		]]>
+	</mx:Script>
+	<mx:Panel title="Efetuar Login" borderColor="0x000000" borderStyle="solid" borderThickness="2" >
+		<mx:Form paddingLeft="20" paddingRight="20" paddingTop="20" width="100%">
+			<mx:FormItem label="login" width="100%">
+				<mx:TextInput id="login" width="100%"/>
+			</mx:FormItem>
+			<mx:FormItem label="senha" width="100%">
+				<mx:TextInput id="senha" width="100%" displayAsPassword="true"/>
+			</mx:FormItem>
+		</mx:Form>
+		<mx:HRule width="100%"/>
+		<mx:HBox id="loginHBox" width="100%" horizontalAlign="center">
+			<mx:LinkButton label="Cadastre-se" click="cadastrar();" enabled="true"/>
+			<mx:Spacer width="100%"/>
+			<mx:Button label="Login" click="signIn();" enabled="true"/>
+		</mx:HBox>	
+	</mx:Panel>
+</mx:VBox>

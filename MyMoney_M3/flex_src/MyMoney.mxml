@@ -1,25 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute">
-	<mx:Script>
-		<![CDATA[
-			import remote.RemoteFacade;
-			import mx.rpc.events.ResultEvent;
-			import mx.controls.Alert;
-			import mx.rpc.AsyncToken;
-		 	import mx.rpc.events.FaultEvent;
-		 	import mx.rpc.remoting.mxml.RemoteObject;
-			
-			private var remoteObject:RemoteObject = null;
-			
-			private function chamarFachada():void {
-				RemoteFacade.getInstance().teste(callback);
-			}
-			
-			private function callback(e:ResultEvent):void {
-				Alert.show(e.result as String);
-			}
-        ]]>
-	</mx:Script>
-	<mx:Button x="215" y="191" label="Button" click="chamarFachada()"/>
-	
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:MyMoneyComps="MyMoneyComps.*">
+	<mx:ViewStack id="mainViewStack" selectedIndex="0">
+		<MyMoneyComps:Login id="loginBox"/>
+		<MyMoneyComps:Home id="homeBox"/>
+	</mx:ViewStack>	
 </mx:Application>
