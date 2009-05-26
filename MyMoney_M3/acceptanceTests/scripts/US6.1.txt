@@ -1,0 +1,30 @@
+# User Story 6.1
+#
+# Remove operation from account
+# removeOperation(String login, long idOperation)
+#
+# Scenario 1
+# Removing unknown operation
+
+
+# Clean the environment
+cleanAll
+
+# User info definition
+login=echo "renato"
+name=echo "Renato"
+password=echo "12345"
+gender=echo "M"
+email=echo "renato@renato.com"
+
+# Registering user
+register ${login} ${password} ${name} ${gender} ${email}
+
+# Logging in with user
+doLogin ${login} ${password}
+
+# Removing unknown operation
+expectError "Unknown operation" removeOperation ${login} idOperation=0
+
+# Logging off with user
+doLogoff ${login} ${password}

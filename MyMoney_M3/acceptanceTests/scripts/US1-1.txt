@@ -1,0 +1,45 @@
+# User Story 1
+# Efetuar registro no sistema
+
+cleanAll
+
+expectError "Invalid Argument" register login="diego" password="123" name="Diego Rodrigues" gender="M" eMail="diegotabira@gmail.com"
+
+# Cen�rio 1 - O usu�rio tenta fazer o registro no sistema esquecendo de digitar o login
+expectError "Missing Argument" register login="" password="12345" name="Diego Rodrigues" gender="M" eMail="diegotabira@gmail.com"
+
+# Cen�rio 2 - O usu�rio tenta fazer o registro no sistema esquecendo de digitar a senha
+expectError "Missing Argument" register login="diego" password="" name="Diego Rodrigues" gender="M" eMail="diegotabira@gmail.com"
+
+# Cen�rio 3 - O usu�rio tenta fazer o registro no sistema esquecendo de digitar o nome
+expectError "Missing Argument" register login="diego" password="12345" name="" gender="M" eMail="diegotabira@gmail.com"
+
+# Cen�rio 4 - O usu�rio tenta fazer o registro no sistema digitando logins inv�lidos
+expectError "Invalid Argument" register login="die" password="12345" name="Diego Rodrigues" gender="M" eMail="diegotabira@gmail.com"
+expectError "Invalid Argument" register login="diego rodrigues" password="12345" name="Diego Rodrigues" gender="M" eMail="diegotabira@gmail.com"
+
+# Cen�rio 5 - O usu�rio tenta fazer o registro no sistema digitando senhas inv�lidas
+expectError "Invalid Argument" register login="diego" password="123" name="Diego Rodrigues" gender="M" eMail="diegotabira@gmail.com"
+expectError "Invalid Argument" register login="diego" password="123 45" name="Diego Rodrigues" gender="M" eMail="diegotabira@gmail.com"
+
+# Cen�rio 6 - Um usu�rio com e-mail faz o registro no sistema com sucesso
+register login="diego" password="12345" name="Diego Rodrigues" gender="M" eMail="diegotabira@gmail.com"
+
+# Cen�rio 7 - Um usu�rio sem e-mail faz o registro no sistema com sucesso
+register login="fulano" password="54321" name="Fulano de Tal" gender="M" eMail=""
+
+expect "Fulano de Tal" getUserName login="fulano"
+expect "M" getUserGender login="fulano"
+expect "" getUserEmail login="fulano"
+
+# Cen�rio 8 - Um usu�rio tenta fazer registro com um login j� cadastrado
+expectError "Login already registered" register login="diego" password="12345" name="Diego Rodrigues" gender="M" eMail="diegotabira@gmail.com"
+
+# Cen�rio 9 - Um usu�rio tenta fazer registro com um e-mails invalidos
+expectError "Invalid e-mail" register login="sicrano" password="12345" name="Sicrano de Tal" gender="" eMail="diegotabiragmail.com"
+expectError "Invalid e-mail" register login="sicrano" password="12345" name="Sicrano de Tal" gender="" eMail="diegotabira@gmail"
+expectError "Invalid e-mail" register login="sicrano" password="12345" name="Sicrano de Tal" gender="" eMail="@gmail.com"
+expectError "Invalid e-mail" register login="sicrano" password="12345" name="Sicrano de Tal" gender="" eMail="diegotabira@.com"
+expectError "Invalid e-mail" register login="sicrano" password="12345" name="Sicrano de Tal" gender="" eMail="diegotabira@"
+
+cleanAll

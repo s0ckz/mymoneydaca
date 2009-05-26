@@ -1,0 +1,36 @@
+# User Story 4.5
+#
+# Register operation into account
+# long addOperationIntoDefaultAccount(String login, String operationType, String type, String amount)
+#
+# Scenario 5
+# Registering operation into the default account with an invalid date
+
+
+# Clean the environment
+cleanAll
+
+# User info definition
+login=echo "renato"
+name=echo "Renato"
+password=echo "12345"
+gender=echo "M"
+email=echo "renato@renato.com"
+
+# Operation definition
+type=echo "credit"
+way=echo "cash"
+amount=echo "10"
+date=echo "20/03200 20:00:00"
+
+# Registering user
+register ${login} ${password} ${name} ${gender} ${email}
+
+# Logging in with user
+doLogin ${login} ${password}
+
+# Registering operation into the default account
+expectError "The date format is invalid" addOperationIntoDefaultAccount ${login} ${type} ${way} ${amount} ${date}
+
+# Logging off with user
+doLogoff ${login} ${password}

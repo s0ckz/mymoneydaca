@@ -1,0 +1,63 @@
+# User Story 6.2
+#
+# Remove operation from account
+# removeOperation(String login, long idOperation)
+#
+# Scenario 2
+# Removing operation from the default account of another user
+
+
+# Clean the environment
+cleanAll
+
+# User 1 info definition
+login1=echo "renato"
+name1=echo "Renato"
+password1=echo "12345"
+gender1=echo "M"
+email1=echo "renato@renato.com"
+
+# User 2 info definition
+login2=echo "another"
+name2=echo "Renato2"
+password2=echo "54321"
+gender2=echo "M"
+email2=echo "renato2@renato2.com"
+
+# Account info definition
+label=echo "Banco do Brasil"
+account=echo "1234"
+agency=echo "5678"
+
+# Operation definition
+type=echo "credit"
+way=echo "cash"
+amount=echo "10"
+date=echo "20/03/2008 12:12:12"
+
+# Registering user 1
+register ${login1} ${password1} ${name1} ${gender1} ${email1}
+
+# Registering user 2
+register ${login2} ${password2} ${name2} ${gender2} ${email2}
+
+# Logging in with user 1
+doLogin ${login1} ${password1}
+
+# Registering account
+accId=createAccount ${login1} ${label} ${agency} ${account}
+
+# Registering operation into the account owned by user 1
+opId=addOperation ${login1} ${accId} ${type} ${way} ${amount} ${date}
+
+# Logging off with user 1
+doLogoff ${login1} ${password1}
+
+# Logging in with user 2
+doLogin ${login2} ${password2}
+
+# Removing operation owned by user 1
+expectError "Permission denied: you do not own this operation" removeOperation ${login2} ${opId}
+
+# Logging off with user
+doLogoff ${login2} ${password2}

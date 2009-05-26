@@ -1,0 +1,73 @@
+#User Story 8
+#Agendar compromissos
+
+#chamada a Facade
+#public long addCommitment(String login  String label  String date  String amount  String type  String frequency) throws InvalidDateException
+
+cleanAll
+
+usuario=echo "felipe"
+senha=echo "teste"
+nome=echo "Joao Felipe"
+sexo=echo "M"
+email=echo "joaofso@somewhere.com"
+
+#Cenario 1 - O usu�rio efetua cadastro  se autentica e insere um compromisso
+register login=${usuario}  password=${senha}  name=${nome}  gender=${sexo}  eMail=${email}
+doLogin login=${usuario}  password=${senha}
+expect true isLogged login=${usuario}
+expect "Joao Felipe" getUserName login=${usuario}
+expect "M" getUserGender login=${usuario}
+expect "joaofso@somewhere.com" getUserEmail login=${usuario}
+code=addCommitment login=${usuario}  label="Financiamento"  date="15/04/2009"  amount=450  type="debt"  frequency="monthly"
+expect 1 numberOfCommitments login=${usuario}
+expect "Financiamento" getCommitmentLabel login=${usuario}  id=${code}
+expect "15/04/2009" getCommitmentDate login=${usuario}  id=${code}
+expect 450.0 getCommitmentAmount login=${usuario}  id=${code}
+expect "debt" getCommitmentType login=${usuario}  id=${code}
+expect "monthly" getCommitmentFrequency login=${usuario}  id=${code}
+removeUser login=${usuario}
+
+#Cenario 2 - O usu�rio efetua cadastro  se autentica  insere dois compromissos e remove um deles
+register login=${usuario}  password=${senha}  name="Joao Felipe"  gender="M"  eMail="joaofso@gmail.com"
+doLogin login=${usuario}  password=${senha}
+expect true isLogged login=${usuario}
+firstCode=addCommitment login=${usuario}  label="Financiamento"  date="15/09/2009"  amount=450  type="debt"  frequency="monthly"
+expect 1 numberOfCommitments login=${usuario}
+expect "Financiamento" getCommitmentLabel login=${usuario}  id=${firstCode}
+expect "15/09/2009" getCommitmentDate login=${usuario}  id=${firstCode}
+expect 450.0 getCommitmentAmount login=${usuario}  id=${firstCode}
+expect "debt" getCommitmentType login=${usuario}  id=${firstCode}
+expect "monthly" getCommitmentFrequency login=${usuario}  id=${firstCode}
+secondCode=addCommitment login=${usuario}  label="Aluguel"  date="10/10/2009"  amount=35  type="credit"  frequency="monthly"
+expect 2 numberOfCommitments login=${usuario}
+expect "Aluguel" getCommitmentLabel login=${usuario}  id=${secondCode}
+expect "10/10/2009" getCommitmentDate login=${usuario}  id=${secondCode}
+expect 35.0 getCommitmentAmount login=${usuario}  id=${secondCode}
+expect "credit" getCommitmentType login=${usuario}  id=${secondCode}
+expect "monthly" getCommitmentFrequency login=${usuario}  id=${secondCode}
+removeCommitment login=${usuario}  id=${secondCode}
+expect 1 numberOfCommitments login=${usuario}
+removeUser login=${usuario}
+
+#Cenario 3 - O usu�rio efetua cadastro  se autentica  insere um compromisso  o remove e tenta remover um compromisso que nao existe
+register login=${usuario}  password=${senha}  name="Joao Felipe"  gender="M"  eMail="joaofso@gmail.com"
+doLogin login=${usuario}  password=${senha}
+expect true isLogged login=${usuario}
+firstCode=addCommitment login=${usuario}  label="Financiamento"  date="15/09/2009"  amount=450  type="debit"  frequency="monthly"
+expect 1 numberOfCommitments login=${usuario}
+removeCommitment login=${usuario}  id=${firstCode}
+expectError "None Commitment registered" removeCommitment login=${usuario}  id=10
+removeUser login=${usuario}
+
+#Cenario 4 - O usu�rio efetua cadastro  se autentica  insere um compromisso e tenta remover um compromisso com identificador errado
+register login=${usuario}  password=${senha}  name="Joao Felipe"  gender="M"  eMail="joaofso@gmail.com"
+doLogin login=${usuario}  password=${senha}
+expect true isLogged login=${usuario}
+firstCode=addCommitment login=${usuario}  label="Financiamento"  date="15/09/2009"  amount=450  type="debt"  frequency="monthly"
+expect 1 numberOfCommitments login=${usuario}
+expectError "None Commitment with the given id" removeCommitment login=${usuario}  id=10
+removeUser login=${usuario}
+
+cleanAll
+

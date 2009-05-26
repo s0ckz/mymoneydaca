@@ -1,0 +1,236 @@
+<project name="MyMoney">
+	
+	<taskdef resource="flexTasks.tasks" classpath="lib/flexTasks.jar"/>
+
+	<property file="build.properties"/>
+	
+	<path id="classpath">
+		<fileset dir="${lib.dir}" includes="**/*.jar" />
+		<fileset dir="${webcontent.dir}/WEB-INF/lib" includes="**/*.jar" />
+	</path>
+	
+	<path id="classpathEasyAccept">
+		<fileset dir="${lib.dir}" includes="**/*.jar" />
+		<fileset dir="${build.dir}" includes="**/*.jar" />
+		<fileset dir="${webcontent.dir}/WEB-INF/lib" includes="**/*.jar" />
+	</path>
+
+    <target name="limpa">
+        <delete dir="${classes.dir}"/>
+		<delete dir="${build.dir}" />		
+		<delete dir="${jar.dir}" />		
+    </target>
+
+	<target name="init" depends="limpa">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${jar.dir}" />
+		<mkdir dir="${classes.dir}" />
+	</target>
+	
+	<target name="configH2">
+		<copy todir="${classes.dir}">
+			<fileset dir="${h2.cfg.dir}"/>
+			<fileset dir="${log.cfg.dir}"/>
+		</copy>
+	</target>
+
+	<target name="configMySQL">
+		<copy todir="${classes.dir}">
+			<fileset dir="${mysql.cfg.dir}"/>
+			<fileset dir="${log.cfg.dir}"/>
+		</copy>
+	</target>
+
+	<target name="compila" depends="init">
+		<javac debug="true" srcdir="${src.dir}" destdir="${classes.dir}"
+			classpathref="classpath" />
+	</target>
+	
+	<target name="compilaTestsSource">
+		<javac debug="true" srcdir="${src.tests.dir}" destdir="${classes.dir}"
+			classpathref="classpath" />
+	</target>
+
+	<target name="doc">
+		<echo>Gerando documentacao</echo>
+		<javadoc
+			sourcepath="${src.dir}"
+			destdir="doc"
+			windowtitle="My Title"
+			author="true"
+			version="true"
+			use="true">
+			<classpath refid="classpath"/>
+		</javadoc>
+	</target>
+    
+    <target name="jar" depends="jarH2" >
+	</target>   
+
+	<target name="jarH2" depends="init,compila,configH2,jarCommon" >
+	</target>
+	
+	<target name="jarMySQL" depends="init,compila,configMySQL,jarCommon" >
+	</target>
+	
+	<target name="jarCommon">
+		<jar destfile="${jar.dir}/${jar.name}">
+			<fileset dir="${classes.dir}"/>
+			<fileset dir="${src.dir}"/>
+		</jar>
+	</target>   
+	
+	<target name="testa" depends="test-US01,test-US02,test-US03,test-US04,test-US05,test-US06,test-US07,test-US08,test-US09,test-US10,test-US11">
+	</target>
+
+	<target name="test-US01" depends="jar,compilaTestsSource">
+		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
+			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
+			<jvmarg value="-ea"/>
+			<arg value="${mymoney.facade}"/>
+			<arg value="US1-1.txt"/>
+			<arg value="US1-2.txt"/>
+		</java>
+	</target>
+
+	<target name="test-US02" depends="jar,compilaTestsSource">
+		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
+			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
+			<jvmarg value="-ea"/>
+			<arg value="${mymoney.facade}"/>
+			<arg value="US2.txt"/>
+		</java>
+	</target>
+
+	<target name="test-US03" depends="jar,compilaTestsSource">
+		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
+			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
+			<jvmarg value="-ea"/>
+			<arg value="${mymoney.facade}"/>
+			<arg value="US3.txt"/>
+		</java>
+	</target>
+
+	<target name="test-US04" depends="jar,compilaTestsSource">
+		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
+			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
+			<jvmarg value="-ea"/>
+			<arg value="${mymoney.facade}"/>
+			<arg value="US4.1.txt"/>
+			<arg value="US4.2.txt"/>
+			<arg value="US4.3.txt"/>
+			<arg value="US4.4.txt"/>
+			<arg value="US4.5.txt"/>
+			<arg value="US4.6.txt"/>
+			<arg value="US4.7.txt"/>
+			<arg value="US4.8.txt"/>
+		</java>
+	</target>
+
+	<target name="test-US05" depends="jar,compilaTestsSource">
+		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
+			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
+			<jvmarg value="-ea"/>
+			<arg value="${mymoney.facade}"/>
+			<arg value="US5.1.txt"/>
+			<arg value="US5.2.txt"/>
+			<arg value="US5.3.txt"/>
+		</java>
+	</target>
+
+	<target name="test-US06" depends="jar,compilaTestsSource">
+		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
+			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
+			<jvmarg value="-ea"/>
+			<arg value="${mymoney.facade}"/>
+			<arg value="US6.1.txt"/>
+			<arg value="US6.2.txt"/>
+		</java>
+	</target>
+
+	<target name="test-US07" depends="jar,compilaTestsSource">
+		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
+			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
+			<jvmarg value="-ea"/>
+			<arg value="${mymoney.facade}"/>
+			<arg value="US7.txt"/>
+		</java>
+	</target>
+	
+	<target name="test-US08" depends="jar,compilaTestsSource">
+		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
+			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
+			<jvmarg value="-ea"/>
+			<arg value="${mymoney.facade}"/>
+			<arg value="US8.txt"/>
+		</java>
+	</target>
+
+	<target name="test-US09" depends="jar,compilaTestsSource">
+		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
+			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
+			<jvmarg value="-ea"/>
+			<arg value="${mymoney.facade}"/>
+			<arg value="US9-1.txt"/>
+			<arg value="US9-2.txt"/>
+			<arg value="US9-3.txt"/>
+		</java>
+	</target>
+	
+	<target name="test-US10" depends="jar,compilaTestsSource">
+		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
+			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
+			<jvmarg value="-ea"/>
+			<arg value="${mymoney.facade}"/>
+			<arg value="US10.txt"/>
+		</java>
+	</target>
+
+		<target name="test-US11" depends="jar,compilaTestsSource">
+		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
+			classpathref="classpathEasyAccept" fork="true" dir="${tests.scripts.dir}">
+			<jvmarg value="-ea"/>
+			<arg value="${mymoney.facade}"/>
+			<arg value="US11.txt"/>
+		</java>
+	</target>
+
+	
+	<target name="copia" depends="jar">
+		<mkdir dir="${build.dir}"/>
+		<copy todir="${build.dir}">
+			<fileset dir="${webcontent.dir}" />
+		</copy>
+		<copy todir="${build.dir}/WEB-INF/lib">
+			<fileset dir="${lib.dir}">
+				<exclude name="junit.jar" />
+				<exclude name="flexTasks.jar" />
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="swf" depends="jar">
+        <mxmlc file="${mxml}/MyMoney.mxml" output="${build.dir}/MyMoney.swf" services="${build.dir}/WEB-INF/flex/services-config.xml">
+        	<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+        	<source-path path-element="${FLEX_HOME}/frameworks"/>
+        </mxmlc>
+		<html-wrapper title="MyMoney" file="MyMoney.html"
+            application="app" swf="MyMoney" width="100%"
+            height="100%" version-major="0"
+            version-minor="9" version-revision="0"
+            template="express-installation"
+            output="${build.dir}" />
+    </target>
+	
+	<target name="war" depends="limpa, copia, swf">
+		<war destfile="${build.dir}/MyMoney.war" webxml="${build.dir}/WEB-INF/web.xml">
+			<webinf dir="${build.dir}/WEB-INF/" includes="flex/" />
+			<classes dir="${build.dir}/WEB-INF/classes" includes="*.properties" />
+			<lib dir="${build.dir}/WEB-INF/lib" />
+			<fileset dir="${build.dir}" includes="*.*, images/"/>
+		</war>
+		<delete dir="${tomcat}/webapps/MyMoney"/>
+		<copy file="${build.dir}/MyMoney.war" tofile="${tomcat}\webapps\MyMoney.war"/>
+	</target>
+	
+</project>

@@ -1,0 +1,66 @@
+#User Story 10
+#Gerar relat�rio
+
+#Chamada a facade
+#public void generateReport(String login String begin String end String operationType long idAccount boolean commitments)
+
+cleanAll
+
+usuario=echo "felipe"
+senha=echo "teste"
+nome=echo "Joao Felipe"
+sexo=echo "M"
+email=echo "joaofso@somewhere.com"
+
+tipoCredito=echo "credit"
+tipoDebito=echo "debit"
+forma=echo "cash"
+quantia=echo "10"
+data=echo "10/03/2008 20:20:20"
+
+#Prepara��o - Um usuario efetua cadastro se autentica cadastra uma conta insere duas opera��es (uma na conta default e outra 
+#na conta cadastrada) e um compromisso
+register login=${usuario} password=${senha} name=${nome} gender=${sexo} eMail=${email}
+doLogin login=${usuario} password=${senha}
+expect true isLogged login=${usuario}
+expect "Joao Felipe" getUserName login=${usuario}
+expect "M" getUserGender login=${usuario}
+expect "joaofso@somewhere.com" getUserEmail login=${usuario}
+op1Id=addOperationIntoDefaultAccount ${usuario} ${tipoCredito} ${forma} ${quantia} ${data}
+acc1=createAccount ${usuario} "Conta Banco do Brasil" "1591-1" "12856-2" 
+op2Id=addOperation ${usuario} ${acc1} ${tipoCredito} ${forma} ${quantia} ${data}
+addCommitment login=${usuario} label="Financiamento" date="15/04/2009" amount=450.0  type="debt" frequency="monthly"
+
+#Cenario 1 
+expected=echo [${op2Id}]
+expect ${expected} generateReport login=${usuario} begin="10/1/2008 00:00:00" end="31/03/2008 00:00:00" idAccount=${acc1} typeOperation=${tipoCredito}
+
+#Cenario 2
+op3Id=addOperation ${usuario} ${acc1} ${tipoDebito} ${forma} ${quantia} ${data}
+expected=echo [${op3Id}]
+expect ${expected} generateReport login=${usuario} begin="10/1/2008 00:00:00" end="31/03/2008 00:00:00" idAccount=${acc1} typeOperation=${tipoDebito}
+expected=echo [${op2Id}, ${op3Id}]
+expect ${expected} generateReport login=${usuario} begin="10/1/2008 00:00:00" end="31/03/2008 00:00:00" idAccount=${acc1} typeOperation=""
+
+#Cenario 3
+expected=echo []
+expect ${expected} generateReport login=${usuario} begin="11/03/2008 00:00:00" end="31/03/2008 00:00:00" idAccount=${acc1} typeOperation=${tipoDebito}
+
+#Cenario 4
+acc2=createAccount ${usuario} "Conta Banco do Brasil" "1591-1" "12006-2" 
+data2=echo "10/04/2009 20:20:20"
+op4Id=addOperation ${usuario} ${acc2} ${tipoCredito} ${forma} ${quantia} ${data2}
+expected=echo []
+expect ${expected} generateReport login=${usuario} begin="10/03/2009 00:00:00" end="31/04/2009 00:00:00" idAccount=${acc2} typeOperation=${tipoDebito}
+
+
+#Cenario 5
+expectError "Missing Argument"  generateReport login=${usuario} begin="" end="" idAccount=${acc2} typeOperation=${tipoDebito}
+
+#Cenario 6
+expectError "Invalid Dates"  generateReport login=${usuario} begin="31/04/2009 00:00:00" end="10/03/2009 00:00:00"  idAccount=${acc2} typeOperation=${tipoDebito}
+
+
+cleanAll
+
+
