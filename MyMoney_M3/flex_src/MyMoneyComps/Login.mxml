@@ -9,11 +9,11 @@
 			}
 			
 			private function cadastro(e:DoLoginEvent):void {
-				view.selectedIndex = 1;
+				view.selectedChild=cadastrarBox;
 			}
 			
 			private function cancelar(e:CadastrarUsuarioEvent):void {
-				view.selectedIndex = 0;
+				view.selectedChild=doLoginBox;
 			}
 		]]>
 	</mx:Script>

@@ -5,6 +5,10 @@
 			private function cancelar():void {
 				dispatchEvent(new CadastrarUsuarioEvent(CadastrarUsuarioEvent.CANCELAR));
 			}
+			
+			private function cadastrar():void {
+				
+			}
 		]]>
 	</mx:Script>
 	<mx:Form width="100%">
@@ -27,7 +31,7 @@
 		</mx:FormItem>
 	</mx:Form>
 	<mx:HBox width="100%" horizontalAlign="center">
-		<mx:Button label="OK"/>
-		<mx:Button label="Cancelar" click="cancelar()"/>
+		<mx:Button label="OK" click="cadastrar();"/>
+		<mx:Button label="Cancelar" click="cancelar();"/>
 	</mx:HBox>
 </mx:Panel>
