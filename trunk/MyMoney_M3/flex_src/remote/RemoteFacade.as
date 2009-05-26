@@ -43,6 +43,11 @@ package remote
 			async.addResponder(new Responder(result, fault));
 		}
 		
+		public function doLogout(login:String, senha:String, result:Function, fault:Function):void {
+			var async:AsyncToken = remoteObject.doLogoff(login, senha);
+			async.addResponder(new Responder(result, fault));
+		}		
+		
 		private function defaultFaultHandler(e:FaultEvent):void{
 			Alert.show(e.fault.toString(), e.fault.faultString);
 		}

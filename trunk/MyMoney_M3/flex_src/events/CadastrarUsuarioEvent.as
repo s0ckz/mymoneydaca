@@ -1,4 +1,4 @@
-package MyMoneyComps
+package events
 {
 	import flash.events.Event;
 

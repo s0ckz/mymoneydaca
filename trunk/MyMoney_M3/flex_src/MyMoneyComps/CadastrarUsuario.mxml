@@ -2,13 +2,25 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="400" height="300" title="Cadastrar Novo Usuário">
 	<mx:Script>
 		<![CDATA[
+			import events.CadastrarUsuarioEvent;
 			import mx.controls.Alert;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			import remote.RemoteFacade;
 			
 			private function cancelar():void {
-				dispatchEvent(new CadastrarUsuarioEvent(CadastrarUsuarioEvent.CANCELAR));	
+				limparForm();
+				dispatchEvent(new CadastrarUsuarioEvent(CadastrarUsuarioEvent.CANCELAR));					
+			}
+			
+			private function limparForm():void {
+				login.text = "";
+				senha.text = "";
+				confirmarSenha.text = "";
+				nome.text = "";
+				sexoMasc.selected = true;
+				sexoFem.selected = false;
+				email.text = "";
 			}
 			
 			private function validarSenha():Boolean {
@@ -25,6 +37,7 @@
 			}
 			
 			private function callBackResult(e:ResultEvent):void {
+				limparForm();
 				dispatchEvent(new CadastrarUsuarioEvent(CadastrarUsuarioEvent.CADASTRADO));
 			}
 			
@@ -49,8 +62,8 @@
 		</mx:FormItem>
 		<mx:FormItem label="Sexo:" width="100%">
 			<mx:RadioButtonGroup id="sexo"/>
-			<mx:RadioButton label="Masculino" groupName="sexo" selected="true"/>			
-			<mx:RadioButton label="Feminino" groupName="sexo"/>						
+			<mx:RadioButton id="sexoMasc" label="Masculino" groupName="sexo" selected="true"/>			
+			<mx:RadioButton id="sexoFem" label="Feminino" groupName="sexo"/>						
 		</mx:FormItem>
 		<mx:FormItem label="E-mail:" width="100%">
 			<mx:TextInput id="email" width="100%"/>
