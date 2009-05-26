@@ -27,9 +27,8 @@
 			<mx:TextInput id="senha" displayAsPassword="true" width="100%"/>
 		</mx:FormItem>
 		<mx:FormItem label="Sexo:" width="100%">
-			<mx:RadioButtonGroup id="sexo"/>
-			<mx:RadioButton label="Masculino" groupName="masculino"/>
-			<mx:RadioButton label="Feminino" groupName="feminino"/>
+			<mx:RadioButton label="Masculino" groupName="sexo"/>
+			<mx:RadioButton label="Feminino" groupName="sexo"/>
 		</mx:FormItem>
 		<mx:FormItem label="E-mail:" width="100%">
 			<mx:TextInput id="email" width="100%"/>
