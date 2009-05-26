@@ -1,0 +1,32 @@
+# User Story 1-2
+# Efetuar remocao/atualizacao de usuario no sistema
+
+cleanAll
+
+register login="fulano" password="54321" name="Fulano de Tal" gender="M" eMail="fulano@fulano.com"
+
+expect "Fulano de Tal" getUserName login="fulano"
+expect "M" getUserGender login="fulano"
+expect "fulano@fulano.com" getUserEmail login="fulano"
+
+doLogin login="fulano" password="54321"
+
+updateUser login="fulano" name="Novo nome" gender="F" eMail="novoemail@fulano.com"
+
+expect "Novo nome" getUserName login="fulano"
+expect "F" getUserGender login="fulano"
+expect "novoemail@fulano.com" getUserEmail login="fulano"
+
+# testa atualizacao com parametros invalidos
+
+expectError "Missing Argument" updateUser login="" name="Diego Rodrigues" gender="M" eMail="diegotabira@gmail.com"
+
+expectError "Missing Argument" updateUser login="diego" name="" gender="M" eMail="diegotabira@gmail.com"
+
+expectError "Invalid Argument" updateUser login="die" name="Diego Rodrigues" gender="M" eMail="diegotabira@gmail.com"
+
+removeUser login="fulano"
+
+expectError "Login unregistered" doLogin login="fulano" password="54321"
+
+cleanAll

@@ -1,0 +1,40 @@
+<!DOCTYPE hibernate-configuration PUBLIC " -//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+	<session-factory>
+
+		<!-- Enable Hibernate's automatic session context management -->
+		<property name="current_session_context_class">thread</property>
+
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLMyISAMDialect</property>
+
+		<property name="hibernate.connection.driver_class">org.gjt.mm.mysql.Driver</property>
+
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/MyMoney</property>
+
+		<property name="hibernate.connection.username">root</property>
+
+		<property name="hibernate.connection.password">admin</property>
+
+		<mapping class="mymoney.model.user.User" />
+
+		<mapping class="mymoney.model.auth.Auth" />
+
+		<mapping class="mymoney.model.account.Operation" />
+
+		<mapping class="mymoney.model.account.Account" />
+		
+		<mapping class = "mymoney.model.commitment.Commitment" />
+		
+		<mapping class = "mymoney.model.report.Report" />
+
+		<!-- Debug Configuration 		
+		<property name="show_sql">true</property>
+		<property name="use_outer_join">true</property>
+		<property name="hibernate.generate_statistics">true</property>
+		<property name="hibernateuse_sql_comments">true</property> -->
+
+	</session-factory>
+
+</hibernate-configuration> 

@@ -1,0 +1,22 @@
+# User Story 3
+# Criar conta
+
+cleanAll
+
+register login="zezo" password="12345" name="Jose" gender="M" eMail=""
+doLogin login="zezo" password="12345"
+
+# Cenário 1 - O usuário tenta criar uma conta sem passar o label
+expectError "Missing Argument" createAccount login="zezo" label="" agency="1591-1" account="11405-2"
+
+# Cenário 2 - O usuário tenta criar uma conta sem passar a agência
+expectError "Missing Argument" createAccount login="zezo" label="Banco do Brasil" agency="" account="11405-2"
+
+# Cenário 3 - O usuário tenta criar uma conta sem passar o número da conta
+expectError "Missing Argument" createAccount login="zezo" label="Banco do Brasil" agency="1591-1" account=""
+
+# Cenário 4 - O usuário cria uma conta com sucesso
+createAccount login="zezo" label="Banco do Brasil" agency="1591-1" account="11405-2"
+
+# Cenário 5 - O usuário tenta criar uma conta já existente
+expectError "Account Already Exists" createAccount login="zezo" label="Banco do Brasil" agency="1591-1" account="11405-2"

@@ -1,0 +1,177 @@
+User Story 1
+Cadastrar usuário
+
+	Todo novo usuário que quiser utilizar o sistema de controle de finanças MyMoney deve inicialmente 
+	criar um cadastro pessoal. Um cadastro de usuário consiste num login único no sistema, uma senha
+	pessoal, um	endereço de email, um nome e o sexo do usuário. Os campos de login e senha são obrigatórios,
+	uma	vez que identificarão o usuário no sistema, enquanto os campos de nome, email e sexo são opcionais.
+	
+	Algumas restrições se aplicam a esses campos obrigatórios: tanto o login quanto a senha são compostos
+	somente de caracteres alfanuméricos, ponto, hífen e underline (mínimo de quatro caracteres). O campo
+	de email, se fornecido, deve satisfazer à expressão regular Java ".+@.+\\.[a-z]+". Caso alguma dessas
+	restrições não seja atendida, o sistema emite erro de validação de entrada.
+	
+	Como o login do usuário deve ser único em todo o sistema, não é permitido o cadastro de um usuário com
+	um login já existente. Nesse caso, o sistema emite erro de login já utilizado pelo sistema no momento
+	do cadastro do usuário.
+
+User Story 2
+Realizar login
+
+	Um usuário cadastrado no sistema precisa estar logado para poder utilizá-lo. Para realizar o login,
+	o usuário deve fornecer seu login e sua senha. O login será bem sucedido caso o usuário esteja de
+	fato cadastrado no sistema e a senha fornecida casar com a senha do usuário. Se o login ou a senha
+	fornecido não satisfizer as restrições de construção desses campos (mínimo quatro caracteres
+	alfanuméricos, ponto, hífen ou underline), o sistema acusará erro de validação de entrada. Se o usuário
+	cujo login foi fornecido não existir ou a senha de entrada não casar com a senha do usuário, o sistema
+	acusará usuário inexistente.
+
+User Story 3
+Cadastrar conta bancária
+
+	Um usuário logado pode cadastrar uma conta bancária no sistema. Contas bancárias facilitam o gerenciamento
+	e controle das finanças por parte do usuário, uma vez que é através delas que o usuário realiza operações
+	monetárias (débito e crédito). As contas também possuem um valor semântico associado, já que referenciam
+	contas bancárias existentes, e portanto simulam o funcionamento dessas contas, facilitando a gestão financeira.
+	
+	Uma conta consiste em um rótulo, o número de agência e o número da conta; todos os campos são obrigatórios.
+	O rótulo da conta bancária deve ser composto de caracteres alfanuméricos, ponto, hífen e underline (mínimo
+	de quatro caracteres). Os números da agência e da conta são valores inteiros positivos. Qualquer infração
+	a essas restrições resulta numa resposta de erro de validação de entrada.
+	
+	Quando cadastrada, uma conta bancária recebe um identificador inteiro positivo único no sistema. O valor
+	desse campo da conta bancária não é fornecido pelo usuário, mas gerado pelo próprio sistema. Esse identificador
+	é utilizado para realizar operações sobre a conta do usuário. Além disso, essa conta bancária pertence ao usuário
+	que a registrou, e somente esse usuário tem permissão de realizar quaisquer operações sobre essa conta.
+	
+	Todo usuário cadastrado possui por padrão uma conta pré-cadastrada no sistema. Essa conta não está atrelada
+	a nenhuma agência ou conta de banco real, já que representa a conta pessoal cujas movimentações não envolvem
+	contas de bancos (isto é, dinheiro na carteira, guardado em casa, no cofre, etc). Operações de crédito e débito
+	também podem ser realizadas a partir da conta padrão.
+	
+User Story 4
+Cadastrar operação em conta
+	
+	Um usuário logado pode cadastrar uma operação em uma conta que lhe pertença. Operações sobre contas são
+	descritas por seu tipo (entrada financeira ou crédito; saída financeira ou débito), sua via (dinheiro,
+	cheque ou cartão) e um montante. A semântica de uma operação em uma conta bancária é a mesma de uma
+	operação em uma conta de banco real; desse modo, em um cenário ideal, qualquer operação sobre a conta
+	bancária real estaria reproduzida em uma operação também no sistema.
+	
+	Ao cadastrar uma operação, o usuário deve fornecer obrigatoriamente seu tipo, sua via e seu montante.
+	O tipo e a via da operação são valores de enumerações (isto é, somente valores predefinidos são aceitos),
+	enquanto o montante da operação é um real positivo. Se os dados fornecidos pelo usuário não satisfizerem
+	essas restrições, o sistema acusará erro de validação de entrada.
+	
+	Um usuário pode cadastrar operações somente em contas que lhe pertençam. Se um usuário tentar cadastrar
+	uma operação em uma conta que não lhe pertença, o sistema barra o cadastro e emite alerta de permissão
+	negada.
+	
+	Assim que cadastrada, a operação recebe um identificador inteiro positivo único no sistema. O valor desse
+	campo da operação não é fornecido pelo usuário, mas gerado pelo próprio sistema. Esse identificador será
+	usado para realizar chamadas de consulta e remoção sobre a operação referente.
+	
+User Story 5
+Obter saldo de conta
+
+	Um usuário logado pode obter o saldo de uma conta que lhe pertença. O saldo de uma conta é um valor real
+	que sumariza as movimentações financeiras sobre aquela conta, e equivale a definir quanto de crédito a
+	conta possui. Ele é calculado ao somar os montantes de todas as operações cadastradas naquela conta, desde
+	sua criação.
+	
+	O sistema só fornece o saldo de uma conta que pertença ao usuário requerente. Se um usuário que não o que
+	a detém requisitar o saldo de uma conta, o sistema emite alerta de permissão negada.
+	
+User Story 6
+Remover operação em conta
+
+	Um usuário logado pode remover uma operação cadastrada em uma conta que lhe pertença. Essa chamada é útil
+	especialmente para casos de erro na entrada, isto é, se uma operação foi cadastrada com campos errados.
+	
+	Para remover operação em conta, o requerente deve fornecer o identificador da operação que deseja remover.
+	Se o usuário requerente não detiver a conta à qual pertence a operação, o sistema emite alerta de permissão
+	negada. Se o usuário requerente detiver a conta mas não há operação cujo identificador é o fornecido cadastrada
+	na conta, o sistema barra a chamada e emite alerta de operação desconhecida. 
+	
+User Story 7
+Remover conta bancária
+
+	Um usuário logado pode remover uma conta bancária que lhe pertença. Remover uma conta bancária significa
+	também remover todas as operações que foram realizadas nessa conta. Uma conta removida não aceita mais
+	quaisquer chamadas que a envolvam, assim sendo bloqueadas pelo sistema.
+	
+	Para remover uma conta, o usuário deve fornecer o identificador da conta a ser removida. Se o identificador
+	não for um inteiro positivo, o sistema acusa erro de validação. Se o usuário requerente não for o mesmo usuário
+	que detém a conta, o sistema emite alerta de permissão negada. Ainda, se não houver conta com tal identificador,
+	o sistema acusa conta inexistente. Se todas as restrições forem satisfeitas, a conta é removida com sucesso. Uma
+	vez removida, não é possível mais obter quaisquer dados dessa conta.  
+	
+User Story 8
+Agendar compromisso
+
+	Um usuário logado pode agendar um lembrete de compromisso para si mesmo. Lembretes de compromisso são úteis
+	dado que, alguma vez, o usuário pode querer ser lembrado de receber ou pagar a alguém em alguma data posterior,
+	para evitar esquecer. Assim, o usuário pode agendar um lembrete de compromisso e o sistema monitorará seus
+	compromissos. Quando a data se aproximar, o sistema, que constantemente monitora os compromissos, pode avisar
+	ao usuário via email, caso um endereço de email válido tenha sido fornecido no momento do cadastro desse usuário.
+	
+	Para agendar um compromisso, o usuário deve fornecer um rótulo, uma data, um montante, um tipo e uma frequência.
+	O rótulo referencia o objetivo do lembrete de compromisso; a data é a data de ocorrência desse compromisso, em que
+	um montante será pago ou recebido (tipos 'crédito' e 'débito') e a periodicidade de ocorrência desse compromisso.
+	A data deve ser uma data no calendário gregoriano válida; o montante é um valor real positivo; e o tipo deve ser
+	'crédito' ou 'débito'. Não atendendo a essas restrições, o sistema bloqueia a chamada e acusa erro de validação
+	de entrada.
+	
+	Uma vez cadastrado, o compromisso recebe um identificador inteiro positivo único no sistema. O valor desse campo
+	do compromisso não é fornecido pelo usuário, mas gerado pelo próprio sistema. Esse identificador será usado para
+	realizar chamadas de consulta e remoção sobre esse mesmo compromisso. 
+	
+User Story 9
+Fornecer extrato bancário
+
+	Para simplificar a tarefa de replicar as operações reais no banco dentro do sistema, é possível fornecer ao sistema
+	o extrato digital das movimentações das contas bancárias. Para tanto, é necessário acessar o site do banco através
+	da Internet e requisitar o extrato digital. O sistema consegue interpretar alguns formatos, entre eles o .CSV e o
+	.TXT. Uma vez que esses arquivos são fornecidos ao sistema, é possível inserir e recuperar automaticamente as
+	operações realizadas sobre a conta referente à real no sistema. O sistema recupera o tipo, a via e o montante de
+	cada operação contida no extrato e possibilita ao usuário inserir tais dados na respectiva conta.
+	
+	Caso o arquivo fornecido esteja danificado ou inacessível, o sistema não pode prosseguir e emite erro de leitura
+	do arquivo. Se, no entanto, o arquivo estiver legível, mas houver erro no momento da interpretação de seu conteúdo,
+	o sistema acusa erro de interpretação e aborta a operação.
+	
+User Story 10
+Gerar relatório
+
+	Pode ser necessário gerar certos relatórios acerca de suas movimentações cadastradas em quaisquer de suas contas.
+	Para tanto, o sistema provê da funcionalidade de busca aliada à de geração de relatórios. Um relatório, antes de
+	tudo, é uma busca no sistema e um parsing das informações para apresentação ao usuário. Para realizar a busca,
+	é preciso fornecer as datas de início e término do cadastro do que se procura, o tipo de operação procurada
+	('crédito' ou 'débito') e o identificador da conta (se for busca por operação). Nenhum desses campos é
+	obrigatório senão o que identifica a conta; no caso de nenhum campo ser válido, retornam-se todos os compromissos;
+	se ao menos o campo da conta for válido, são retornados todas as operações sobre aquela conta do tipo definido.
+	
+	Assim, alguns relatórios podem ser:	
+		* sobre débitos: Listar quais as operações de débito que foram inseridas no sistema.	
+		* sobre créditos: Listar quais as operações de crédito que foram inseridas no sistema.	
+		* todas as operações: Listar todas as operações inseridas.	
+		* sobre os compromissos: Listar os compromissos que foram agendados.
+		
+	Uma vez gerado o relatório, ele pode ser visto na tela (para pura consulta) ou salvo em formato digital. Nesse
+	último caso, o formato a ser salvo pode ser escolhido pelo usuário.
+		
+UserStory 11
+Realizar logoff
+
+	Para abandonar a execução de chamadas ao sistema, um usuário logado realiza logoff. Para realizar logoff,
+	o usuário deve fornecer seu login e sua senha. O logoff será bem sucedido caso o usuário esteja de
+	fato cadastrado no sistema e a senha fornecida casar com a senha do usuário. Se o login ou a senha
+	fornecido não satisfizer as restrições desses campos (mínimo quatro caracteres alfanuméricos, ponto, hífen
+	ou underline), o sistema acusará erro de validação de entrada. Se o usuário	cujo login foi fornecido não
+	existir ou a senha de entrada não casar com a senha do usuário, o sistema acusará usuário inexistente. Se
+	o usuário não estiver logado, no entanto, o sistema emitirá um alerta de que o usuário já está deslogado.
+	
+	Após o logoff, toda e qualquer chamada que o usuário fizer ao sistema que não as de registro e login serão
+	prontamente barradas. As chamadas feitas antes do logoff, no entanto, ainda se mantém persistidas no sistema.
+
+	

@@ -1,0 +1,38 @@
+# User Story 5.2
+#
+# Check the overall amount
+# double getAccOverallAmount(int id)
+#
+# Scenario 2
+# Checking the overall amount of a brand-new account
+
+
+# Clean the environment
+cleanAll
+
+# User info definition
+login=echo "renato"
+name=echo "Renato"
+password=echo "12345"
+gender=echo "M"
+email=echo "renato@renato.com"
+
+# Account info definition
+label=echo "Banco do Brasil"
+account=echo "1234"
+agency=echo "5678"
+
+# Registering user
+register ${login} ${password} ${name} ${gender} ${email}
+
+# Logging in with user
+doLogin ${login} ${password}
+
+# Registering account
+accId=createAccount ${login} ${label} ${agency} ${account}
+
+# Checking whether the overall amount of the account is ZERO
+expect 0.0 getAccOverallAmount ${login} ${accId}
+
+# Logging off with user
+doLogoff ${login} ${password}

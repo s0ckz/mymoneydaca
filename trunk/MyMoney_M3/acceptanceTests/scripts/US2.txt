@@ -1,0 +1,27 @@
+# User Story 2
+# Efetuar login no sistema
+
+cleanAll
+
+register login="osama" password="12345" name="Osama Bin Laden" gender="M" eMail=""
+
+# Cenário 1 - O usuário cadastrado tenta efetuar login no sistema passando a senha errada
+expectError "Wrong password" doLogin login="osama" password="111111"
+
+# Cenário 2 - O usuário cadastrado tenta efetuar login no sistema passando a senha inválida
+expectError "Invalid Argument" doLogin login="osama" password="123"
+
+# Cenário 3 - O usuário cadastrado tenta efetuar login no sistema passando o login inválido
+expectError "Invalid Argument" doLogin login="osa" password="12345"
+
+# Cenário 4 - O usuário cadastrado tenta efetuar login no sistema passando o seu login errado
+expectError "Login unregistered" doLogin login="osamaaaa" password="12345"
+
+expectError "Login unregistered" isLogged login="osamaaaa"
+
+# Cenário 5 - O usuário cadastrado se loga no sistema com sucesso
+doLogin login="osama" password="12345"
+
+expect true isLogged login="osama"
+
+cleanAll
