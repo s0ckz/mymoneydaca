@@ -3,12 +3,13 @@
 	<mx:Script>
 		<![CDATA[
 			import mx.controls.Alert;
-			function signIn():void {
+			
+			private function signIn():void {
 				mx.controls.Alert.show("sign in");
 			}
 			
-			function cadastrar():void {				
-				mx.controls.Alert.show("cadastrar");
+			private function cadastrar():void {				
+				dispatchEvent(new DoLoginEvent(DoLoginEvent.CADASTRO));
 			}
 
 		]]>
