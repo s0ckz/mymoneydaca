@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="800" height="500">
+	<mx:Array id="contas">
+		<mx:String>Conta Padrão</mx:String>
+		<mx:String>Banco do Brasil</mx:String>
+	</mx:Array>
+	<mx:ArrayCollection id="ultimasOps">		
+		<mx:Object>
+			<mx:Descricao>Conta</mx:Descricao>
+			<mx:Tipo>Saida</mx:Tipo>
+			<mx:Data>Hoje</mx:Data>
+			<mx:Valor>50,00</mx:Valor>	
+		</mx:Object>		
+		<mx:Object>
+			<mx:Descricao>Salario</mx:Descricao>
+			<mx:Tipo>Entrada</mx:Tipo>
+			<mx:Data>Ontem</mx:Data>
+			<mx:Valor>550,00</mx:Valor>	
+		</mx:Object>		
+	</mx:ArrayCollection>
+	<mx:HBox>
+		<mx:Panel title="Contas">			
+			<mx:List dataProvider="{contas}" width="100%" selectedIndex="0">		
+			</mx:List>
+		</mx:Panel>
+		
+		<mx:DataGrid dataProvider="{ultimasOps}" width="100%">
+	      <mx:columns>
+	         <mx:DataGridColumn dataField="Descricao" width="150"/>
+	         <mx:DataGridColumn dataField="Tipo" />
+	         <mx:DataGridColumn dataField="Data" />
+	         <mx:DataGridColumn dataField="Valor" />
+	      </mx:columns>
+		</mx:DataGrid>		
+	</mx:HBox>
+</mx:VBox>
