@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
-	xmlns:MyMoneyComps="MyMoneyComps.*">
+	xmlns:MyMoneyComps="MyMoneyComps.*" creationComplete="init();">
+	<mx:Script>
+		<![CDATA[
+			import mx.rpc.events.ResultEvent;
+			import MyMoneyComps.DoLoginEvent;
+			
+			private function init():void {
+				loginBox.addDoLoginEventListener(DoLoginEvent.LOGADO, doLogin);
+			} 
+			
+			private function doLogin(e:DoLoginEvent):void {
+				mainViewStack.selectedChild = homeBox;
+			}
+			
+		]]>
+	</mx:Script>
 	<mx:ViewStack id="mainViewStack" selectedIndex="0">
 		<MyMoneyComps:Login id="loginBox"/>
 		<MyMoneyComps:Home id="homeBox"/>

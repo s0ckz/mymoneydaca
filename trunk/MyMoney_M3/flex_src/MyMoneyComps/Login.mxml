@@ -3,9 +3,15 @@
 	width="400" height="300" xmlns:MyMoneyComps="MyMoneyComps.*" creationComplete="init()">
 	<mx:Script>
 		<![CDATA[
+			import mx.controls.Alert;
 			private function init(): void {
-				doLoginBox.addEventListener(DoLoginEvent.CADASTRO, cadastro);
+				doLoginBox.addEventListener(DoLoginEvent.CADASTRO, cadastro);				
 				cadastrarBox.addEventListener(CadastrarUsuarioEvent.CANCELAR, cancelar);
+				cadastrarBox.addEventListener(CadastrarUsuarioEvent.CADASTRADO, cadastrado);
+			}
+			
+			public function addDoLoginEventListener(evtCode:String, listener:Function):void {
+				doLoginBox.addEventListener(evtCode, listener);	
 			}
 			
 			private function cadastro(e:DoLoginEvent):void {
@@ -15,6 +21,11 @@
 			private function cancelar(e:CadastrarUsuarioEvent):void {
 				view.selectedChild=doLoginBox;
 			}
+			
+			private function cadastrado(e:CadastrarUsuarioEvent):void {				
+				Alert.show("Usuário cadastrado com sucesso!");
+				view.selectedChild=doLoginBox;	
+			}			
 		]]>
 	</mx:Script>
 	<mx:ViewStack id="view" selectedIndex="0">

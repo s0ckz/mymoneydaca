@@ -2,21 +2,39 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="400" height="300" title="Cadastrar Novo Usuário">
 	<mx:Script>
 		<![CDATA[
+			import mx.controls.Alert;
+			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			import remote.RemoteFacade;
+			
 			private function cancelar():void {
-				dispatchEvent(new CadastrarUsuarioEvent(CadastrarUsuarioEvent.CANCELAR));
+				dispatchEvent(new CadastrarUsuarioEvent(CadastrarUsuarioEvent.CANCELAR));	
+			}
+			
+			private function validarSenha():Boolean {
+				return senha.text == confirmarSenha.text;
 			}
 			
 			private function cadastrar():void {
-				RemoteFacade.getInstance().registerUser(callBack);
+				if (validarSenha()) {
+					RemoteFacade.getInstance().registerUser(login.text, senha.text, nome.text, sexo.selectedValue.toString(), email.text, callBackResult, callBackFault);
+				} else {
+					senha.focusEnabled = true;
+					Alert.show("A senha não confere!");
+				}
 			}
 			
-			private function callBack(e:ResultEvent):void {
+			private function callBackResult(e:ResultEvent):void {
+				dispatchEvent(new CadastrarUsuarioEvent(CadastrarUsuarioEvent.CADASTRADO));
 			}
+			
+			private function callBackFault(e:FaultEvent):void {
+				Alert.show(e.toString());
+			}
+			
 		]]>
 	</mx:Script>
-	<mx:Form width="100%">
+	<mx:Form id="cadastrarForm" width="100%">
 		<mx:FormItem label="Nome:" width="100%">
 			<mx:TextInput id="nome" width="100%"/>
 		</mx:FormItem>
@@ -26,9 +44,13 @@
 		<mx:FormItem label="Senha:" width="100%">
 			<mx:TextInput id="senha" displayAsPassword="true" width="100%"/>
 		</mx:FormItem>
+		<mx:FormItem label="Confirmar senha:" width="100%">
+			<mx:TextInput id="confirmarSenha" displayAsPassword="true" width="100%"/>
+		</mx:FormItem>
 		<mx:FormItem label="Sexo:" width="100%">
-			<mx:RadioButton label="Masculino" groupName="sexo"/>
-			<mx:RadioButton label="Feminino" groupName="sexo"/>
+			<mx:RadioButtonGroup id="sexo"/>
+			<mx:RadioButton label="Masculino" groupName="sexo" selected="true"/>			
+			<mx:RadioButton label="Feminino" groupName="sexo"/>						
 		</mx:FormItem>
 		<mx:FormItem label="E-mail:" width="100%">
 			<mx:TextInput id="email" width="100%"/>
