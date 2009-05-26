@@ -207,6 +207,9 @@
 				<exclude name="flexTasks.jar" />
 			</fileset>
 		</copy>
+		<copy todir="${build.dir}/WEB-INF/classes">
+			<fileset dir="bin" />
+		</copy>
 	</target>
 	
 	<target name="swf" depends="jar">
