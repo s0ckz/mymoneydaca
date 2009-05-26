@@ -18,6 +18,19 @@
 			<mx:Valor>550,00</mx:Valor>	
 		</mx:Object>		
 	</mx:ArrayCollection>
+	 <mx:XMLList id="menuConta">
+        <menuitem label="Adicionar Conta" data="Adicionar Conta"/>
+        <menuitem label="Remover Conta" data="Remover Conta"/>        
+    </mx:XMLList>
+	 <mx:XMLList id="menuTransacao">        
+        <menuitem label="Nova Transação" data="Nova Transação"/>
+        <menuitem label="Agendar Transação" data="Agendar Transação"/>                   
+    </mx:XMLList>
+	<mx:ApplicationControlBar id="dockedBar" dock="true">
+		<mx:MenuBar height="100%" width="100%" dataProvider="{menuConta}" labelField="@label"/>		
+		<mx:VRule height="30"/>
+		<mx:MenuBar height="100%" width="100%" dataProvider="{menuTransacao}" labelField="@label"/>
+	</mx:ApplicationControlBar>
 	<mx:HBox>
 		<mx:Panel title="Contas">			
 			<mx:List dataProvider="{contas}" width="100%" selectedIndex="0">		
