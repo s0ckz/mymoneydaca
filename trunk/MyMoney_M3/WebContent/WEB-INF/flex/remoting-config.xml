@@ -12,9 +12,8 @@
 
 	<destination id="remoteFacade">
 		<properties>
-            <source>
-                smart.viewer.facade.Facade
-            </source>
+            <source>mymoney.flex.FlexFacade</source>
+            <scope>session</scope>
         </properties>
 	</destination>
 
