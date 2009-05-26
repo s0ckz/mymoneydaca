@@ -225,7 +225,7 @@
 	<target name="war" depends="limpa, copia, swf">
 		<war destfile="${build.dir}/MyMoney.war" webxml="${build.dir}/WEB-INF/web.xml">
 			<webinf dir="${build.dir}/WEB-INF/" includes="flex/" />
-			<classes dir="${build.dir}/WEB-INF/classes" includes="*.properties" />
+			<classes dir="${build.dir}/WEB-INF/classes" />
 			<lib dir="${build.dir}/WEB-INF/lib" />
 			<fileset dir="${build.dir}" includes="*.*, images/"/>
 		</war>
