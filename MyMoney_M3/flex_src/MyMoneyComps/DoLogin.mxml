@@ -2,12 +2,23 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="300" height="300">
 	<mx:Script>
 		<![CDATA[
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			import remote.RemoteFacade;
 			import mx.controls.Alert;
 			
 			private function signIn():void {
-				mx.controls.Alert.show("sign in");
+				RemoteFacade.getInstance().doLogin(login.text, senha.text, callBackResult, callBackFault);				
 			}
 			
+			private function callBackResult(e:ResultEvent):void {
+				dispatchEvent(new DoLoginEvent(DoLoginEvent.LOGADO));
+			}
+			
+			private function callBackFault(e:FaultEvent):void {
+				Alert.show(e.toString());
+			}
+
 			private function cadastrar():void {				
 				dispatchEvent(new DoLoginEvent(DoLoginEvent.CADASTRO));
 			}

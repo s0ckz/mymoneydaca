@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="800" height="500">
+	<mx:Script>
+		<![CDATA[			
+			
+			private function getPeriodos(mesInicial:int, anoInicial:int, mesFinal:int, anoFinal:int):ArrayCollection {
+				var meses:Array = ["", "Jan", "Fev", "Mar", "Abril", "Maio"];
+				var anos:Array = ["07", "08", "09"];
+				var periodos:ArrayCollection = new ArrayCollection;
+				
+				while (mesInicial <= mesFinal && anoInicial <= anoFinal) {
+					periodos.addItem(meses[mesInicial] + "/" + anoInicial);					
+					mesInicial += 1 % 12;
+					if (mesInicial == 0) anoInicial++;	
+				}
+				
+				return periodos;
+			}			
+		]]>
+	</mx:Script>
 	<mx:Array id="contas">
 		<mx:String>Conta Padrão</mx:String>
 		<mx:String>Banco do Brasil</mx:String>
@@ -26,24 +44,38 @@
         <menuitem label="Nova Transação" data="Nova Transação"/>
         <menuitem label="Agendar Transação" data="Agendar Transação"/>                   
     </mx:XMLList>
-	<mx:ApplicationControlBar id="dockedBar" dock="true">
-		<mx:MenuBar height="100%" width="100%" dataProvider="{menuConta}" labelField="@label"/>		
-		<mx:VRule height="30"/>
-		<mx:MenuBar height="100%" width="100%" dataProvider="{menuTransacao}" labelField="@label"/>
-	</mx:ApplicationControlBar>
+	 <mx:HBox width="100%">
+	 	 <mx:Spacer width="10"/>
+	 	 <mx:Label text="MyMoney" fontSize="16" color="#CDEFC8" fontWeight="bold" letterSpacing="1" paddingTop="5"/>
+	 	 <mx:ApplicationControlBar id="dockedBar" dock="true">
+	 	 	<mx:MenuBar height="100%" width="100%" dataProvider="{menuConta}" labelField="@label"/>		
+	 	 	<mx:VRule height="30"/>
+	 	 	<mx:MenuBar height="100%" width="100%" dataProvider="{menuTransacao}" labelField="@label"/>
+	 	 </mx:ApplicationControlBar>
+	 </mx:HBox>
 	<mx:HBox>
 		<mx:Panel title="Contas">			
 			<mx:List dataProvider="{contas}" width="100%" selectedIndex="0">		
 			</mx:List>
 		</mx:Panel>
-		
-		<mx:DataGrid dataProvider="{ultimasOps}" width="100%">
-	      <mx:columns>
-	         <mx:DataGridColumn dataField="Descricao" width="150"/>
-	         <mx:DataGridColumn dataField="Tipo" />
-	         <mx:DataGridColumn dataField="Data" />
-	         <mx:DataGridColumn dataField="Valor" />
-	      </mx:columns>
-		</mx:DataGrid>		
+		<mx:Panel>
+			<mx:VBox>
+				<mx:DataGrid dataProvider="{ultimasOps}" width="100%">
+			      <mx:columns>
+			         <mx:DataGridColumn dataField="Descricao" width="150"/>
+			         <mx:DataGridColumn dataField="Tipo" />
+			         <mx:DataGridColumn dataField="Data" />
+			         <mx:DataGridColumn dataField="Valor" />
+			      </mx:columns>
+				</mx:DataGrid>		
+				<mx:VBox>
+					<mx:Label text="Período:"/>
+					<mx:HBox width="100%">
+						<mx:Spacer width="70"/>										
+						<mx:ComboBox dataProvider="{getPeriodos(1,9,5,9)}"/>					
+					</mx:HBox>	
+				</mx:VBox>
+			</mx:VBox>
+		</mx:Panel>		
 	</mx:HBox>
 </mx:VBox>
