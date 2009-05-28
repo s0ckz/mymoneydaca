@@ -23,10 +23,10 @@
 			}			
 			
 			private function logout():void {
-//				RemoteFacade.getInstance().doLogout(login.text, senha.text, callBackResult, callBackFault);
+//				RemoteFacade.getInstance().doLogout(login.text, senha.text, callBackLogout, callBackFault);
 			}
 			
-			private function callBackResult(e:ResultEvent):void {
+			private function callBackLogout(e:ResultEvent):void {
 				dispatchEvent(new DoLogoutEvent(DoLogoutEvent.LOGOUT));
 			}
 
@@ -54,21 +54,24 @@
 			<mx:Valor>550,00</mx:Valor>	
 		</mx:Object>		
 	</mx:ArrayCollection>
-	 <mx:XMLList id="menuConta">
-        <menuitem label="Adicionar Conta" data="Adicionar Conta"/>
-        <menuitem label="Remover Conta" data="Remover Conta"/>        
-    </mx:XMLList>
-	 <mx:XMLList id="menuTransacao">        
-        <menuitem label="Nova Transação" data="Nova Transação"/>
-        <menuitem label="Agendar Transação" data="Agendar Transação"/>                   
+	 <mx:XMLList id="menu">
+        <menuitem label="Conta" data="Conta">
+        	<menuitem label="Adicionar Conta" data="Adicionar Conta"/>
+        	<menuitem label="Remover Conta" data="Remover Conta"/>        	
+        </menuitem>               
+        <menuitem label="Transação" data="Transação">
+        	<menuitem label="Adicionar Transação" data="Adicionar Transação"/>
+        	<menuitem label="Remover Transação" data="Remover Transacao"/>
+        	<menuitem label="Agendar Transação" data="Agendar Transacao"/>
+        </menuitem>
+        <menuitem label="Extrato" data="Extrato"/>                           
+        <menuitem label="Gerar Relatório" data="Gerar Relatório"/>
     </mx:XMLList>
 	 <mx:HBox width="100%">
 	 	 <mx:Spacer width="10"/>
 	 	 <mx:Label text="MyMoney" fontSize="16" color="#CDEFC8" fontWeight="bold" letterSpacing="1" paddingTop="5"/>
 	 	 <mx:ApplicationControlBar id="dockedBar" dock="true">
-	 	 	<mx:MenuBar height="100%" width="100%" dataProvider="{menuConta}" labelField="@label"/>		
-	 	 	<mx:VRule height="30"/>
-	 	 	<mx:MenuBar height="100%" width="100%" dataProvider="{menuTransacao}" labelField="@label"/>
+	 	 	<mx:MenuBar height="100%" width="100%" dataProvider="{menu}" labelField="@label"/>		
 	 	 </mx:ApplicationControlBar>
 	 	 <mx:LinkButton label="Logout" click="logout();"/>
 	 </mx:HBox>
