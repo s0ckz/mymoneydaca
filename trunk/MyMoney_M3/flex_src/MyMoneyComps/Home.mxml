@@ -63,8 +63,7 @@
         	<menuitem label="Adicionar Transação" data="Adicionar Transação"/>
         	<menuitem label="Remover Transação" data="Remover Transacao"/>
         	<menuitem label="Agendar Transação" data="Agendar Transacao"/>
-        </menuitem>
-        <menuitem label="Extrato" data="Extrato"/>                           
+        </menuitem>                                   
         <menuitem label="Gerar Relatório" data="Gerar Relatório"/>
     </mx:XMLList>
 	 <mx:HBox width="100%">
@@ -73,6 +72,7 @@
 	 	 <mx:ApplicationControlBar id="dockedBar" dock="true">
 	 	 	<mx:MenuBar height="100%" width="100%" dataProvider="{menu}" labelField="@label"/>		
 	 	 </mx:ApplicationControlBar>
+	 	 <mx:Spacer width="100%"/>
 	 	 <mx:LinkButton label="Logout" click="logout();"/>
 	 </mx:HBox>
 	<mx:HBox>
@@ -80,7 +80,7 @@
 			<mx:List dataProvider="{contas}" width="100%" selectedIndex="0">		
 			</mx:List>
 		</mx:Panel>
-		<mx:Panel>
+		<mx:Panel title="Movimentação Financeira">
 			<mx:VBox>
 				<mx:DataGrid dataProvider="{ultimasOps}" width="100%">
 			      <mx:columns>
@@ -94,7 +94,10 @@
 					<mx:Label text="Período:"/>
 					<mx:HBox width="100%">
 						<mx:Spacer width="70"/>										
-						<mx:ComboBox dataProvider="{getPeriodos(1,9,5,9)}"/>					
+						<mx:HBox width="100%">
+							<mx:ComboBox dataProvider="{getPeriodos(1,9,5,9)}"/>
+							<mx:Button label="Novo Extrato"/>
+						</mx:HBox>
 					</mx:HBox>	
 				</mx:VBox>
 			</mx:VBox>
