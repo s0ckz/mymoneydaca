@@ -154,5 +154,19 @@ public interface AccountManager {
 	 */
 	Collection<Long> getAllOperations(String login, long accId) throws PermissionDeniedException, AccountNotFoundException;
 
+	/**
+	 * Retorna uma colecao com todas as contas de um dado usuario.
+	 * @param login O login do usuario.
+	 */
+	Collection<Long> getAllAccountsIds(String login);
+	
+	/**
+	 * Recupera o label de uma conta de um dado usuario.
+	 * @param login O login do usuario dono da conta.
+	 * @param accId O id da conta.
+	 * @throws PermissionDeniedException Se o usuario nao for o dono da conta.
+	 * @throws AccountNotFoundException Se a conta nao estiver cadastrada no sistema.
+	 */
+	String getAccountLabel(String login, Long accId) throws PermissionDeniedException, AccountNotFoundException;
 	
 }

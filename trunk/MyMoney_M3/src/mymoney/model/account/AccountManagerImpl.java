@@ -18,6 +18,8 @@ import mymoney.model.util.HibernateUtil;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 
+import sun.security.action.GetLongAction;
+
 /**
  * Implementacao do gerenciador de contas e operacoes.
  */
@@ -214,5 +216,24 @@ public class AccountManagerImpl implements AccountManager {
 		}
 		return operationsToReturn;
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<Long> getAllAccountsIds(String login) {
+		Collection<SimpleExpression> expressions = 
+			Arrays.asList(Restrictions.eq("login", login)); 
+		
+		List<Account> list = (List<Account>) HibernateUtil.createQueryBasedOnExpressions(Account.class, expressions);
+		Collection<Long> accountsIds = new LinkedList<Long>();
+		for (Account a : list) {
+			accountsIds.add(a.getId());
+		}
+		return accountsIds;
+	}
+
+	@Override
+	public String getAccountLabel(String login, Long accId) throws PermissionDeniedException, AccountNotFoundException {
+		Account account = getAccount(login, accId);
+		return account.getLabel();
+	}
 }
