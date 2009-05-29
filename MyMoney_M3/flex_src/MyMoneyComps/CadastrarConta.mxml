@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" title="Criar Nova Conta" horizontalAlign="center" verticalAlign="top">
+	<mx:Script>
+		<![CDATA[
+			import util.AuthEntity;
+			import mx.controls.Alert;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			import remote.RemoteFacade;
+			
+			private function cancelar():void {
+				limparForm();
+				dispatchEvent(new CadastrarContaEvent(CadastrarContaEvent.CANCELAR));					
+			}
+			
+			private function limparForm():void {
+				label.text = "";
+				agencia.text = "";
+				conta.text = "";
+			}
+			
+			private function cadastrar():void {
+				var login:String = AuthEntity.getInstance().login;
+				RemoteFacade.getInstance().createAccount(login.text, label.text, agencia.text, conta.text, callBackResult, callBackFault);
+			}
+			
+			private function callBackResult(e:ResultEvent):void {
+				limparForm();
+				dispatchEvent(new CadastrarContaEvent(CadastrarContaEvent.CADASTRADA));
+			}
+			
+			private function callBackFault(e:FaultEvent):void {
+				Alert.show(e.toString());
+			}
+			
+		]]>
+	</mx:Script>
+	<mx:Form id="cadastrarForm" width="100%">
+		<mx:FormItem label="Label:" width="100%">
+			<mx:TextInput id="label" width="100%"/>
+		</mx:FormItem>
+		<mx:FormItem label="Agência:" width="100%">
+			<mx:TextInput id="agencia" width="100%"/>
+		</mx:FormItem>
+		<mx:FormItem label="Conta:" width="100%">
+			<mx:TextInput id="conta" width="100%"/>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:HBox width="100%" horizontalAlign="center">
+		<mx:Button label="OK" click="cadastrar();"/>
+		<mx:Button label="Cancelar" click="cancelar();"/>
+	</mx:HBox>
+</mx:Panel>

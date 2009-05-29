@@ -2,6 +2,7 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="300" height="300">
 	<mx:Script>
 		<![CDATA[
+			import util.AuthEntity;
 			import events.DoLoginEvent;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
@@ -13,6 +14,8 @@
 			}
 			
 			private function callBackResult(e:ResultEvent):void {
+				AuthEntity.getInstance().login = login.text;
+				AuthEntity.getInstance().senha = senha.text;
 				limparForm();
 				dispatchEvent(new DoLoginEvent(DoLoginEvent.LOGADO));
 			}

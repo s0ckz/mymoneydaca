@@ -47,10 +47,16 @@ package remote
 			var async:AsyncToken = remoteObject.doLogoff(login, senha);
 			async.addResponder(new Responder(result, fault));
 		}		
+
+		public function createAccount(login:String, label:String, agencia:String, conta:String, result:Function, fault:Function):void {
+			var async:AsyncToken = remoteObject.createAccount(login, label, agencia, conta);
+			async.addResponder(new Responder(result, fault));
+		}
 		
 		private function defaultFaultHandler(e:FaultEvent):void{
 			Alert.show(e.fault.toString(), e.fault.faultString);
 		}
+		
 
 	}
 }
