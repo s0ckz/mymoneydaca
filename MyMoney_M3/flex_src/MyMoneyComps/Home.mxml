@@ -20,9 +20,42 @@
 			private static const IMPORTAR:String = "Importar Extrato";
 			private static const EXPORTAR:String = "Exportar Extrato";
 			
-			private function init():void {
-				
+			private var accountsIds:ArrayCollection;
+			
+			[Bindable]
+			private var accountsLabels:ArrayCollection;
+			
+			private function init():void {				
+				carregaAccountsIds();
 			}	
+			
+			public function carregaAccountsIds():void {
+				var login:String = AuthEntity.getInstance().login;
+				RemoteFacade.getInstance().getAllAccountsIds(login, accountsIdsHandler, defaultFaultHandler);
+				
+			}
+			
+			private function accountsIdsHandler(e:ResultEvent):void {
+				Alert.show("ids carregados " + e.result.toString());
+				accountsIds = e.result as ArrayCollection;				
+				carregaAccountsLabels();
+			}
+			
+			private function defaultFaultHandler(e:FaultEvent):void {
+				Alert.show(e.toString());
+			}
+			
+			private function carregaAccountsLabels():void {
+				var login:String = AuthEntity.getInstance().login;
+				accountsLabels = new ArrayCollection();
+				for (var i:int = 0; i < accountsIds.length; i++) {
+					RemoteFacade.getInstance().getAccountLabel(login, accountsIds[i], accountLabelHandler, defaultFaultHandler);
+				}
+			}
+			
+			private function accountLabelHandler(e:ResultEvent):void {
+				accountsLabels.addItem(e.result as String);
+			}
 			
 			private function getPeriodos(mesInicial:int, anoInicial:int, mesFinal:int, anoFinal:int):ArrayCollection {
 				var meses:Array = ["", "Jan", "Fev", "Mar", "Abril", "Maio"];
@@ -95,7 +128,6 @@
 			private function exportar():void {
 			}
 
-			
 		]]>
 	</mx:Script>
 	<mx:Array id="contas">
@@ -134,40 +166,44 @@
         
     </mx:XMLList>
 	 <mx:HBox width="100%">
-	 	 <mx:Spacer width="10"/>
-	 	 <mx:Label text="MyMoney" fontSize="16" color="#CDEFC8" fontWeight="bold" letterSpacing="1" paddingTop="5"/>
-	 	 <mx:ApplicationControlBar id="dockedBar" dock="true">
-	 	 	<mx:MenuBar height="100%" width="100%" dataProvider="{menu}" labelField="@label" itemClick="itemClickHandler(event);"/>
-	 	 </mx:ApplicationControlBar>
-	 	 <mx:Spacer width="100%"/>
-	 	 <mx:LinkButton label="Logout" click="logout();"/>
+	 	<mx:VBox>
+		 	 <mx:Label text="MyMoney" fontSize="16" color="#CDEFC8" fontWeight="bold" letterSpacing="1" paddingTop="5"/>
+			<mx:Panel title="Contas">			
+				<mx:List dataProvider="{accountsLabels}" width="100%" selectedIndex="0"/>		
+			</mx:Panel>
+	 	</mx:VBox>
+	 	<mx:VBox>
+	 		<mx:HBox width="100%">
+			 	 <mx:ApplicationControlBar id="dockedBar" dock="true">
+			 	 	<mx:MenuBar height="100%" width="100%" dataProvider="{menu}" labelField="@label" itemClick="itemClickHandler(event);"/>
+			 	 </mx:ApplicationControlBar>
+			 	 <mx:Spacer width="30"/>
+			 	 <mx:LinkButton label="Logout" click="logout();"/>			
+	 		</mx:HBox>
+			<mx:Panel title="Movimentação Financeira">
+				<mx:VBox>
+					<mx:DataGrid dataProvider="{ultimasOps}" width="100%">
+				      <mx:columns>
+				         <mx:DataGridColumn dataField="Descricao" width="150"/>
+				         <mx:DataGridColumn dataField="Tipo" />
+				         <mx:DataGridColumn dataField="Data" />
+				         <mx:DataGridColumn dataField="Valor" />
+				      </mx:columns>
+					</mx:DataGrid>		
+					<mx:VBox>
+						<mx:Label text="Período:"/>
+						<mx:HBox width="100%">
+							<mx:Spacer width="70"/>										
+							<mx:HBox width="100%">
+								<mx:ComboBox dataProvider="{getPeriodos(1,9,5,9)}"/>
+								<mx:Button label="Novo Extrato"/>
+							</mx:HBox>
+						</mx:HBox>	
+					</mx:VBox>
+				</mx:VBox>
+			</mx:Panel>		
+	 	</mx:VBox>	 	 
 	 </mx:HBox>
 	<mx:HBox>
-		<mx:Panel title="Contas">			
-			<mx:List dataProvider="{contas}" width="100%" selectedIndex="0">		
-			</mx:List>
-		</mx:Panel>
-		<mx:Panel title="Movimentação Financeira">
-			<mx:VBox>
-				<mx:DataGrid dataProvider="{ultimasOps}" width="100%">
-			      <mx:columns>
-			         <mx:DataGridColumn dataField="Descricao" width="150"/>
-			         <mx:DataGridColumn dataField="Tipo" />
-			         <mx:DataGridColumn dataField="Data" />
-			         <mx:DataGridColumn dataField="Valor" />
-			      </mx:columns>
-				</mx:DataGrid>		
-				<mx:VBox>
-					<mx:Label text="Período:"/>
-					<mx:HBox width="100%">
-						<mx:Spacer width="70"/>										
-						<mx:HBox width="100%">
-							<mx:ComboBox dataProvider="{getPeriodos(1,9,5,9)}"/>
-							<mx:Button label="Novo Extrato"/>
-						</mx:HBox>
-					</mx:HBox>	
-				</mx:VBox>
-			</mx:VBox>
-		</mx:Panel>		
 	</mx:HBox>
 </mx:VBox>

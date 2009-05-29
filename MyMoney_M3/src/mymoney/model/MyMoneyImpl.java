@@ -110,6 +110,14 @@ public class MyMoneyImpl implements MyMoney {
 			DuplicatedAccountException {
 		return accountManager.createAccount(login, label, agency, account);
 	}
+	
+	public String getAccountLabel(String login, Long accId) throws PermissionDeniedException, AccountNotFoundException {
+		return accountManager.getAccountLabel(login, accId);
+	}
+	
+	public Collection<Long> getAllAccountsIds(String login) {
+		return accountManager.getAllAccountsIds(login);
+	}
 
 	public boolean isLogged(String login) throws LoginUnregisteredException {
 		return authManager.isLogged(login);

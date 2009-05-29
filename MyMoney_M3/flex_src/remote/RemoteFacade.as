@@ -53,6 +53,16 @@ package remote
 			async.addResponder(new Responder(result, fault));
 		}
 		
+		public function getAccountLabel(login:String, accId:Number, result:Function, fault:Function):void {
+			var async:AsyncToken = remoteObject.getAccountLabel(login, accId);
+			async.addResponder(new Responder(result, fault));
+		}
+		
+		public function getAllAccountsIds(login:String, result:Function, fault:Function):void {
+			var async:AsyncToken = remoteObject.getAllAccountsIds(login);
+			async.addResponder(new Responder(result, fault));
+		}
+		
 		private function defaultFaultHandler(e:FaultEvent):void{
 			Alert.show(e.fault.toString(), e.fault.faultString);
 		}

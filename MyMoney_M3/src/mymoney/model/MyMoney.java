@@ -148,7 +148,22 @@ public interface MyMoney {
 	 */
 	long createAccount(String login, String label, String agency, String account)
 			throws MissingArgumentException, DuplicatedAccountException;
+	
+	/**
+	 * Recupera o label de uma conta de um dado usuario.
+	 * @param login O login do usuario dono da conta.
+	 * @param accId O id da conta.
+	 * @throws PermissionDeniedException Se o usuario nao for o dono da conta.
+	 * @throws AccountNotFoundException Se a conta nao estiver cadastrada no sistema.
+	 */
+	String getAccountLabel(String login, Long accId) throws PermissionDeniedException, AccountNotFoundException;
 
+	/**
+	 * Retorna uma colecao com todas as contas de um dado usuario.
+	 * @param login O login do usuario.
+	 */
+	Collection<Long> getAllAccountsIds(String login);
+	
 	/**
 	 * Retorna <code>true</code> se o usuario estiver logado no sistema, caso
 	 * contrario, retorna <code>false</code>.

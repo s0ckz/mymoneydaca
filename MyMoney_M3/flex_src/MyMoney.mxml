@@ -53,6 +53,7 @@
 			// Handlers of CadastrarConta screen
 			private function contaCadastradaHandler(e:CadastrarContaEvent):void {
 				Alert.show("Conta cadastrada com sucesso!");
+				homeBox.carregaAccountsIds();
 				mainViewStack.selectedChild = homeBox;
 			}
 			private function cancelarCadastrarContaHandler(e:CadastrarContaEvent):void {
