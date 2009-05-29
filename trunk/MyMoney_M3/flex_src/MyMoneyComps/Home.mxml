@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%">
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" creationComplete="init();">
 	<mx:Script>
 		<![CDATA[
+			import events.CadastrarContaEvent;
+			import mx.events.MenuEvent;
+			import util.AuthEntity;
 			import mx.controls.Alert;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			import remote.RemoteFacade;
-			import events.DoLogoutEvent;			
+			import events.DoLogoutEvent;
+			
+			private static const ADD_CONTA:String = "Adicionar Conta";
+			private static const REMOVE_CONTA:String = "Remover Conta";			
+			private static const ADD_TRANSACAO:String = "Adicionar Transação";
+			private static const REMOVE_TRANSACAO:String = "Remover Transação";			
+			private static const AGENDAR_TRANSACAO:String = "Agendar Transação";
+			private static const RELATORIO:String = "Gerar Relatório";			
+			private static const IMPORTAR:String = "Importar Extrato";
+			private static const EXPORTAR:String = "Exportar Extrato";
+			
+			private function init():void {
+				
+			}	
 			
 			private function getPeriodos(mesInicial:int, anoInicial:int, mesFinal:int, anoFinal:int):ArrayCollection {
 				var meses:Array = ["", "Jan", "Fev", "Mar", "Abril", "Maio"];
@@ -22,8 +38,8 @@
 				return periodos;
 			}			
 			
-			private function logout():void {
-//				RemoteFacade.getInstance().doLogout(login.text, senha.text, callBackLogout, callBackFault);
+			private function logout():void {				
+				RemoteFacade.getInstance().doLogout(AuthEntity.getInstance().login, AuthEntity.getInstance().senha, callBackLogout, callBackFault);
 			}
 			
 			private function callBackLogout(e:ResultEvent):void {
@@ -33,6 +49,52 @@
 			private function callBackFault(e:FaultEvent):void {
 				Alert.show(e.toString());
 			}
+			
+			private function itemClickHandler(e:MenuEvent):void {
+				if (e.label == ADD_CONTA) {
+					addConta();
+				} else if (e.label == REMOVE_CONTA) {
+					removeConta();
+				} else if (e.label == ADD_TRANSACAO) {
+					addTransacao();
+				} else if (e.label == REMOVE_TRANSACAO) {
+					removeTransacao();
+				} else if (e.label == AGENDAR_TRANSACAO) {
+					agendarTransacao();
+				} else if (e.label == RELATORIO) {
+					gerarRelatorio();
+				}  else if (e.label == IMPORTAR) {
+					importar();
+				} else if (e.label == EXPORTAR) {
+					exportar();
+				}
+			}
+			
+			private function addConta():void {
+				dispatchEvent(new CadastrarContaEvent(CadastrarContaEvent.CADASTRAR));
+			}
+			
+			private function removeConta():void {
+			}
+			
+			private function addTransacao():void {
+			}
+			
+			private function removeTransacao():void {
+			}
+			
+			private function agendarTransacao():void {
+			}
+			
+			private function gerarRelatorio():void {
+			}
+			
+			private function importar():void {
+			}
+			
+			private function exportar():void {
+			}
+
 			
 		]]>
 	</mx:Script>
@@ -56,21 +118,26 @@
 	</mx:ArrayCollection>
 	 <mx:XMLList id="menu">
         <menuitem label="Conta" data="Conta">
-        	<menuitem label="Adicionar Conta" data="Adicionar Conta"/>
-        	<menuitem label="Remover Conta" data="Remover Conta"/>        	
+        	<menuitem label="{ADD_CONTA}" data="{ADD_CONTA"/>
+        	<menuitem label="{REMOVE_CONTA}" data="{REMOVE_CONTA}"/>        	
         </menuitem>               
         <menuitem label="Transação" data="Transação">
-        	<menuitem label="Adicionar Transação" data="Adicionar Transação"/>
-        	<menuitem label="Remover Transação" data="Remover Transacao"/>
-        	<menuitem label="Agendar Transação" data="Agendar Transacao"/>
+        	<menuitem label="{ADD_TRANSACAO}" data="{ADD_TRANSACAO}"/>
+        	<menuitem label="{REMOVE_TRANSACAO}" data="{REMOVE_TRANSACAO}"/>
+        	<menuitem label="{AGENDAR_TRANSACAO}" data="{AGENDAR_TRANSACAO}"/>
         </menuitem>                                   
-        <menuitem label="Gerar Relatório" data="Gerar Relatório"/>
+        <menuitem label="Extratos" data="Extratos">
+        	<menuitem label="{RELATORIO}" data="{RELATORIO}"/>
+        	<menuitem label="{IMPORTAR}" data="{IMPORTAR}"/>
+        	<menuitem label="{EXPORTAR}" data="{EXPORTAR}"/>
+        </menuitem>        
+        
     </mx:XMLList>
 	 <mx:HBox width="100%">
 	 	 <mx:Spacer width="10"/>
 	 	 <mx:Label text="MyMoney" fontSize="16" color="#CDEFC8" fontWeight="bold" letterSpacing="1" paddingTop="5"/>
 	 	 <mx:ApplicationControlBar id="dockedBar" dock="true">
-	 	 	<mx:MenuBar height="100%" width="100%" dataProvider="{menu}" labelField="@label"/>		
+	 	 	<mx:MenuBar height="100%" width="100%" dataProvider="{menu}" labelField="@label" itemClick="itemClickHandler(event);"/>
 	 	 </mx:ApplicationControlBar>
 	 	 <mx:Spacer width="100%"/>
 	 	 <mx:LinkButton label="Logout" click="logout();"/>

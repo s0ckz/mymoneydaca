@@ -12,9 +12,9 @@ package util
 		{
 		}
 		
-		public static function getInstance():RemoteFacade {
+		public static function getInstance():AuthEntity {
 			if (instance == null) {
-				instance = new RemoteFacade();
+				instance = new AuthEntity();
 			}
 			return instance;
 		}
@@ -23,7 +23,7 @@ package util
 			return _login;
 		}
 		
-		public function set login(login:String) {
+		public function set login(login:String):void {
 			this._login = login;
 		}
 
@@ -31,7 +31,7 @@ package util
 			return _senha;
 		}
 		
-		public function set senha(senha:String) {
+		public function set senha(senha:String):void {
 			this._senha = senha;
 		}
 

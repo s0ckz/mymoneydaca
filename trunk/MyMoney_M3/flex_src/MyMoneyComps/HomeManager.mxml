@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:MyMoneyComps="MyMoneyComps.*" width="400" height="300"
+	creationComplete="init();">
+	
+	<mx:Script>
+		<![CDATA[
+			import events.CadastrarContaEvent;
+			
+			private function init():void {
+				home.addEventListener(CadastrarContaEvent.CADASTRAR, cadastrarConta);
+				cadastrarConta.addEventListener(CadastrarContaEvent.CADASTRADA, cadastrouConta);
+				cadastrarConta.addEventListener(CadastrarContaEvent.CANCELAR, cancelar);
+			}
+			
+			private function cadastrarConta(e:CadastrarContaEvent):void {
+				view.selectedChild = "cadastrarConta";
+			}
+			
+			private function cadastrouConta(e:CadastrarContaEvent):void {
+				setHomeAsView();
+			}
+			
+			private function cancelar(e:CadastrarContaEvent):void {
+				setHomeAsView();
+			}
+			
+			private function setHomeAsView():void {
+				view.selectedChild = "home";
+			}
+			
+		]]>
+	</mx:Script>
+
+	<mx:ViewStack id="view" selectedIndex="0">
+		<MyMoneyComps:Home id="home"/>
+		<MyMoneyComps:CadastrarConta id="cadastrarConta"/>
+	</mx:ViewStack>
+</mx:VBox>
