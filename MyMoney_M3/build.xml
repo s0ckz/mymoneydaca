@@ -218,7 +218,7 @@
         	<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
         	<source-path path-element="${FLEX_HOME}/frameworks"/>
             <compiler.library-path dir="${FLEX_HOME}/frameworks" append="true">
-                <include name="${mxml}/SeleniumFlexAhPI.swc" />
+                <include name="${mxml}/SeleniumFlexAPI.swc" />
             </compiler.library-path>
         </mxmlc>
 		<html-wrapper title="MyMoney" file="MyMoney.html"
