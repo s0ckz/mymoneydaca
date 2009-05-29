@@ -3,28 +3,68 @@
 	xmlns:MyMoneyComps="MyMoneyComps.*" creationComplete="init();">
 	<mx:Script>
 		<![CDATA[
+			import events.CadastrarContaEvent;
+			import mx.controls.Alert;
+			import events.CadastrarUsuarioEvent;
 			import remote.RemoteFacade;
 			import events.DoLogoutEvent;
 			import events.DoLoginEvent;
 			import mx.rpc.events.ResultEvent;			
 			
 			private function init():void {
-				loginBox.addDoLoginEventListener(DoLoginEvent.LOGADO, doLogin);
-				homeBox.addEventListener(DoLogoutEvent.LOGOUT, doLogout);
+				loginBox.addEventListener(DoLoginEvent.LOGADO, doLoginHandler);
+				loginBox.addEventListener(DoLoginEvent.CADASTRO, cadastrarUsuarioHandler);
+				homeBox.addEventListener(DoLogoutEvent.LOGOUT, doLogoutHandler);
+				homeBox.addEventListener(CadastrarContaEvent.CADASTRAR, cadastrarContaHandler);
+				cadastrarUsuarioBox.addEventListener(CadastrarUsuarioEvent.CANCELAR, cancelarCadastroUsuarioHandler);
+				cadastrarUsuarioBox.addEventListener(CadastrarUsuarioEvent.CADASTRADO, usuarioCadastradoHandler);
+				cadastrarContaBox.addEventListener(CadastrarContaEvent.CADASTRADA, contaCadastradaHandler);
+				cadastrarContaBox.addEventListener(CadastrarContaEvent.CANCELAR, cancelarCadastrarContaHandler);
 			} 
 			
-			private function doLogout(e:DoLogoutEvent):void {				
+			
+			// Handlers of DoLogin screen
+			private function doLoginHandler(e:DoLoginEvent):void {
+				mainViewStack.selectedChild = homeBox;
+			}
+			private function cadastrarUsuarioHandler(e:DoLoginEvent):void {
+				mainViewStack.selectedChild=cadastrarUsuarioBox;
+			}
+
+
+			// Handlers of Home screen
+			private function doLogoutHandler(e:DoLogoutEvent):void {				
 				mainViewStack.selectedChild = loginBox;
 			}
+			private function cadastrarContaHandler(e:CadastrarContaEvent):void {
+				mainViewStack.selectedChild = cadastrarContaBox;
+			}
 			
-			private function doLogin(e:DoLoginEvent):void {
+			// Handlers of CadastrarUsuario screen
+			private function cancelarCadastroUsuarioHandler(e:CadastrarUsuarioEvent):void {
+				mainViewStack.selectedChild=loginBox;
+			}
+			private function usuarioCadastradoHandler(e:CadastrarUsuarioEvent):void {				
+				Alert.show("Usuário cadastrado com sucesso!");
+				mainViewStack.selectedChild=loginBox;	
+			}			
+			
+			
+			// Handlers of CadastrarConta screen
+			private function contaCadastradaHandler(e:CadastrarContaEvent):void {
+				Alert.show("Conta cadastrada com sucesso!");
+				mainViewStack.selectedChild = homeBox;
+			}
+			private function cancelarCadastrarContaHandler(e:CadastrarContaEvent):void {
 				mainViewStack.selectedChild = homeBox;
 			}
 			
 		]]>
 	</mx:Script>
 	<mx:ViewStack id="mainViewStack" selectedIndex="0" width="100%">
-		<MyMoneyComps:Login id="loginBox"/>
+		<MyMoneyComps:DoLogin id="loginBox"/>
+		<MyMoneyComps:CadastrarUsuario id="cadastrarUsuarioBox"/>
 		<MyMoneyComps:Home id="homeBox"/>
+		<MyMoneyComps:CadastrarConta id="cadastrarContaBox"/>
 	</mx:ViewStack>	
 </mx:Application>
