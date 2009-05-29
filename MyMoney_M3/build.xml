@@ -217,9 +217,10 @@
         <mxmlc file="${mxml}/MyMoney.mxml" output="${build.dir}/MyMoney.swf" services="${build.dir}/WEB-INF/flex/services-config.xml">
         	<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
         	<source-path path-element="${FLEX_HOME}/frameworks"/>
-            <compiler.library-path dir="${FLEX_HOME}/frameworks" append="true">
-                <include name="${mxml}/SeleniumFlexAPI.swc" />
-            </compiler.library-path>
+        	
+        	<compiler.include-libraries dir="${mxml}/${lib.dir}" append="true" >
+        		<include name="SeleniumFlexAPI.swc"/>
+        	</compiler.include-libraries> 
         </mxmlc>
 		<html-wrapper title="MyMoney" file="MyMoney.html"
             application="MyMoneyId" swf="MyMoney" width="100%"
