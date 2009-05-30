@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
-	xmlns:MyMoneyComps="MyMoneyComps.*" creationComplete="init();">
+	xmlns:MyMoneyComps="MyMoneyComps.*" creationComplete="init();" width="100%">
 	<mx:Script>
 		<![CDATA[
 			import events.AdicionarTransacaoEvent;
@@ -22,6 +22,8 @@
 				cadastrarUsuarioBox.addEventListener(CadastrarUsuarioEvent.CADASTRADO, usuarioCadastradoHandler);
 				cadastrarContaBox.addEventListener(CadastrarContaEvent.CADASTRADA, contaCadastradaHandler);
 				cadastrarContaBox.addEventListener(CadastrarContaEvent.CANCELAR, cancelarCadastrarContaHandler);
+				addTransacaoBox.addEventListener(AdicionarTransacaoEvent.ADICIONADA, transacaoAdicionadaHandler);
+				addTransacaoBox.addEventListener(AdicionarTransacaoEvent.CANCELADA, cancelarAddTransacaoHandler);
 			} 
 			
 			
@@ -65,13 +67,24 @@
 				mainViewStack.selectedChild = homeBox;
 			}
 			
+			// Handlers of AdicionarTransacao screen
+			private function transacaoAdicionadaHandler(e:AdicionarTransacaoEvent):void {
+				mainViewStack.selectedChild = homeBox;
+			}
+			private function cancelarAddTransacaoHandler(e:AdicionarTransacaoEvent):void {
+				mainViewStack.selectedChild = homeBox;
+			}
+			
+			
 		]]>
 	</mx:Script>
-	<mx:ViewStack id="mainViewStack" selectedIndex="0" width="100%">
-		<MyMoneyComps:DoLogin id="loginBox"/>
-		<MyMoneyComps:CadastrarUsuario id="cadastrarUsuarioBox"/>
-		<MyMoneyComps:Home id="homeBox"/>
-		<MyMoneyComps:CadastrarConta id="cadastrarContaBox"/>
-		<MyMoneyComps:AdicionarTransacao id="addTransacaoBox"/>
-	</mx:ViewStack>	
+	<mx:VBox horizontalAlign="center" width="100%">
+		<mx:ViewStack id="mainViewStack" selectedIndex="0" width="100%">
+			<MyMoneyComps:DoLogin id="loginBox"/>
+			<MyMoneyComps:CadastrarUsuario id="cadastrarUsuarioBox"/>
+			<MyMoneyComps:Home id="homeBox"/>
+			<MyMoneyComps:CadastrarConta id="cadastrarContaBox"/>
+			<MyMoneyComps:AdicionarTransacao id="addTransacaoBox"/>
+		</mx:ViewStack>	
+	</mx:VBox>
 </mx:Application>

@@ -6,6 +6,8 @@ package util
 		
 		private var _senha:String;
 		
+		private var _accId:Number;
+		
 		private static var instance:AuthEntity = null;		
 		
 		public function AuthEntity()
@@ -19,6 +21,14 @@ package util
 			return instance;
 		}
 		
+		public function get accId():Number {
+			return _accId;
+		}
+		
+		public function set accId(accId:Number):void {
+			this._accId = accId;
+		}
+
 		public function get login():String {
 			return _login;
 		}
