@@ -668,4 +668,14 @@ public interface MyMoney {
 	Collection<Long> generateReport(String login, String begin, String end, long idAccount,
 			String typeOperation) throws MissingArgumentException, PermissionDeniedException, AccountNotFoundException, InvalidDateException;
 
+	/**
+	 * Metodo de acesso a uma colecao que contempla o identificador de todas as operacoes de uma certa conta.
+	 * @param login Login dojusuario.
+	 * @param accId Identificador da conta.
+	 * @return Uma colecao de numeros inteiros positivos.
+	 * @throws PermissionDeniedException Caso a conta nao pertenca ao dado usuario.
+	 * @throws AccountNotFoundException Caso a conta nao exista.
+	 */
+	Collection<Long> getAllOperations(String login, long accId) throws PermissionDeniedException, AccountNotFoundException;
+
 }

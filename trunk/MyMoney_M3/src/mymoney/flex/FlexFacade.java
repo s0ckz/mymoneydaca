@@ -3,10 +3,12 @@ package mymoney.flex;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedList;
 
 import mymoney.model.MyMoney;
 import mymoney.model.MyMoneyImpl;
 import mymoney.model.account.AccountManager;
+import mymoney.model.account.Operation;
 import mymoney.model.exceptions.AccountNotFoundException;
 import mymoney.model.exceptions.BusinessException;
 import mymoney.model.exceptions.CommitmentException;
@@ -306,13 +308,7 @@ public class FlexFacade {
 			double amount, String date) throws BusinessException,
 			PermissionDeniedException, AccountNotFoundException,
 			InvalidDateException {
-		try {
-			return myMoney.addOperation(login, accId, type, way, amount, date);	
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new BusinessException("");
-		}
-		
+		return myMoney.addOperation(login, accId, type, way, amount, date);	
 	}
 
 	/**
@@ -365,6 +361,21 @@ public class FlexFacade {
 	 */
 	public double getOperationAmount(long opId) {
 		return myMoney.getOperationAmount(opId);
+	}
+	
+	public Collection<OperationEntry> getAllOperations(String login, long accId) throws PermissionDeniedException, AccountNotFoundException {
+		Collection<OperationEntry> entries = new LinkedList<OperationEntry>();
+		Collection<Long> operationsIds = myMoney.getAllOperations(login, accId);
+		for (long id : operationsIds) {
+			OperationEntry entry = new OperationEntry();
+			entry.setAccId(accId);
+			entry.setAmount(getOperationAmount(id));
+			entry.setType(getOperationType(id));
+			entry.setWay(getOperationWay(id));
+			entry.setDate(getOperationDate(id));
+			entries.add(entry);
+		}
+		return entries;
 	}
 
 	/**

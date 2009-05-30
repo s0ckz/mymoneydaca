@@ -234,4 +234,14 @@ public class AccountManagerImpl implements AccountManager {
 		Account account = getAccount(login, accId);
 		return account.getLabel();
 	}
+	
+//	@SuppressWarnings("unchecked")
+//	public Collection<Operation> getAllOperations(String login, long accId) {
+//		Account account = getAccount(login, accId);
+//		Collection<SimpleExpression> expressions = 
+//			Arrays.asList(Restrictions.eq("account_fk", account)); 
+//		List<Operation> list = (List<Operation>) HibernateUtil.createQueryBasedOnExpressions(Operation.class, expressions);
+//		return list;
+//	}
+
 }

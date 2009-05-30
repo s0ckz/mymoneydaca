@@ -168,5 +168,5 @@ public interface AccountManager {
 	 * @throws AccountNotFoundException Se a conta nao estiver cadastrada no sistema.
 	 */
 	String getAccountLabel(String login, Long accId) throws PermissionDeniedException, AccountNotFoundException;
-	
+
 }

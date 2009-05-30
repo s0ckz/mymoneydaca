@@ -74,6 +74,11 @@ package remote
 			async.addResponder(new Responder(result, fault));
 		}
 		
+		public function getAllOperations(login:String, accId:Number, result:Function, fault:Function):void {
+			var async:AsyncToken = remoteObject.getAllOperations(login, accId);
+			async.addResponder(new Responder(result, fault));
+		}
+		
 		private function defaultFaultHandler(e:FaultEvent):void{
 			Alert.show(e.fault.toString(), e.fault.faultString);
 		}
