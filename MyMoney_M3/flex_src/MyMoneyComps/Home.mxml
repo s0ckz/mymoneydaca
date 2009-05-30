@@ -2,6 +2,7 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" creationComplete="init();">
 	<mx:Script>
 		<![CDATA[
+			import mx.collections.ArrayCollection;
 			import events.AdicionarTransacaoEvent;
 			import events.CadastrarContaEvent;
 			import mx.events.MenuEvent;
@@ -26,6 +27,9 @@
 			[Bindable]
 			private var accountsLabels:ArrayCollection;
 			
+			[Bindable]
+			private var ultimasOps:ArrayCollection;
+			
 			private function init():void {				
 				carregaAccountsIds();
 			}	
@@ -38,7 +42,9 @@
 			
 			private function accountsIdsHandler(e:ResultEvent):void {
 				Alert.show("ids carregados " + e.result.toString());
-				accountsIds = e.result as ArrayCollection;				
+				accountsIds = e.result as ArrayCollection;
+				atualizaAccId();		
+				atualizaUltimasOps();		
 				carregaAccountsLabels();
 			}
 			
@@ -61,6 +67,18 @@
 			private function atualizaAccId():void {
 				var index:int = accountsList.selectedIndex;
 				AuthEntity.getInstance().accId = accountsIds.getItemAt(index) as Number;
+				atualizaUltimasOps();
+			}
+			
+			private function atualizaUltimasOps():void {
+				ultimasOps = new ArrayCollection();
+				var accId:Number = AuthEntity.getInstance().accId;
+				var login:String = AuthEntity.getInstance().login;
+				RemoteFacade.getInstance().getAllOperations(login, accId, getOperationsCallBack, defaultFaultHandler);
+			}
+			
+			private function getOperationsCallBack(e:ResultEvent):void {
+				this.ultimasOps = e.result as ArrayCollection;
 			}
 			
 			private function getPeriodos(mesInicial:int, anoInicial:int, mesFinal:int, anoFinal:int):ArrayCollection {
@@ -152,21 +170,7 @@
 		<mx:String>Conta Padrão</mx:String>
 		<mx:String>Banco do Brasil</mx:String>
 	</mx:Array>
-	<mx:ArrayCollection id="ultimasOps">		
-		<mx:Object>
-			<mx:Descricao>Conta</mx:Descricao>
-			<mx:Tipo>Saida</mx:Tipo>
-			<mx:Data>Hoje</mx:Data>
-			<mx:Valor>50,00</mx:Valor>	
-		</mx:Object>		
-		<mx:Object>
-			<mx:Descricao>Salario</mx:Descricao>
-			<mx:Tipo>Entrada</mx:Tipo>
-			<mx:Data>Ontem</mx:Data>
-			<mx:Valor>550,00</mx:Valor>	
-		</mx:Object>		
-	</mx:ArrayCollection>
-	 <mx:XMLList id="menu">
+	<mx:XMLList id="menu">
         <menuitem label="Conta" data="Conta">
         	<menuitem label="{ADD_CONTA}" data="{ADD_CONTA"/>
         	<menuitem label="{REMOVE_CONTA}" data="{REMOVE_CONTA}"/>        	
@@ -202,10 +206,10 @@
 				<mx:VBox>
 					<mx:DataGrid dataProvider="{ultimasOps}" width="100%">
 				      <mx:columns>
-				         <mx:DataGridColumn dataField="Descricao" width="150"/>
-				         <mx:DataGridColumn dataField="Tipo" />
-				         <mx:DataGridColumn dataField="Data" />
-				         <mx:DataGridColumn dataField="Valor" />
+				         <mx:DataGridColumn dataField="way"/>
+				         <mx:DataGridColumn dataField="amount"/>
+				         <mx:DataGridColumn dataField="type"/>
+				         <mx:DataGridColumn dataField="date"/>
 				      </mx:columns>
 					</mx:DataGrid>		
 					<mx:VBox>

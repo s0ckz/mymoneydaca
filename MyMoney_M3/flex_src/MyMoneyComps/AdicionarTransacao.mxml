@@ -15,7 +15,7 @@
 			private function addTransacao():void {
 				var login:String = AuthEntity.getInstance().login;
 				var accId:Number = AuthEntity.getInstance().accId;
-				var valorTran:Number = valor.text as Number;
+				var valorTran:Number = parseFloat(valor.text);
 				RemoteFacade.getInstance().adicionarTransacao(login, accId, TipoOperacao.selectedValue.toString(), FormaPagamento.selectedValue.toString(), valorTran, data.text, addTransacaoCallBack, defaultFaultCallBack);
 			}
 			

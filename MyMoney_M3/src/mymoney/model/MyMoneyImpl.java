@@ -143,6 +143,10 @@ public class MyMoneyImpl implements MyMoney {
 		return accountManager.getOperationAmount(opId);
 	}
 
+	public Collection<Long> getAllOperations(String login, long accId) throws PermissionDeniedException, AccountNotFoundException {
+		return accountManager.getAllOperations(login, accId);
+	}
+
 	public long addOperationIntoDefaultAccount(String login, String type,
 			String way, double amount, String date) throws BusinessException,
 			PermissionDeniedException, AccountNotFoundException,
