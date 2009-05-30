@@ -306,7 +306,13 @@ public class FlexFacade {
 			double amount, String date) throws BusinessException,
 			PermissionDeniedException, AccountNotFoundException,
 			InvalidDateException {
-		return myMoney.addOperation(login, accId, type, way, amount, date);
+		try {
+			return myMoney.addOperation(login, accId, type, way, amount, date);	
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new BusinessException("");
+		}
+		
 	}
 
 	/**

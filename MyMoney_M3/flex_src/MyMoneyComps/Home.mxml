@@ -58,6 +58,11 @@
 				accountsLabels.addItem(e.result as String);
 			}
 			
+			private function atualizaAccId():void {
+				var index:int = accountsList.selectedIndex;
+				AuthEntity.getInstance().accId = accountsIds.getItemAt(index) as Number;
+			}
+			
 			private function getPeriodos(mesInicial:int, anoInicial:int, mesFinal:int, anoFinal:int):ArrayCollection {
 				var meses:Array = ["", "Jan", "Fev", "Mar", "Abril", "Maio"];
 				var anos:Array = ["07", "08", "09"];
@@ -182,7 +187,7 @@
 	 	<mx:VBox>
 		 	 <mx:Label text="MyMoney" fontSize="16" color="#CDEFC8" fontWeight="bold" letterSpacing="1" paddingTop="5"/>
 			<mx:Panel title="Contas">			
-				<mx:List id="accountsList" dataProvider="{accountsLabels}" width="100%" selectedIndex="0" activate="true"/>		
+				<mx:List id="accountsList" dataProvider="{accountsLabels}" width="100%" selectedIndex="0" change="{atualizaAccId();}"/>		
 			</mx:Panel>
 	 	</mx:VBox>
 	 	<mx:VBox>

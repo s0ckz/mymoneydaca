@@ -155,6 +155,7 @@ public class MyMoneyImpl implements MyMoney {
 			double amount, String date) throws BusinessException,
 			PermissionDeniedException, AccountNotFoundException,
 			InvalidDateException {
+		System.out.println("em MyMoneyImpl => adding operation with login = " + login + ", accId = " + accId + ", type = " + type + ", way = " + way + ", amount = " + amount + ", date = " + date);
 		return accountManager.addOperation(login, accId, type, way, amount,
 				DateUtils.createDate(date));
 	}

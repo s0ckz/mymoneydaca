@@ -15,9 +15,6 @@ import mymoney.model.exceptions.UnknownOperationException;
 import mymoney.model.util.ExceptionUtil;
 import mymoney.model.util.HibernateUtil;
 
-import org.hibernate.criterion.Projection;
-import org.hibernate.criterion.ProjectionList;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 
@@ -30,6 +27,7 @@ public class AccountManagerImpl implements AccountManager {
 
 	public long addOperation(String login, long accId, String type, String way,
 			double amount, Date date) throws BusinessException, PermissionDeniedException, AccountNotFoundException {
+		System.out.println("em AccountManagerImpl => adding operation with login = " + login + ", accId = " + accId + ", type = " + type + ", way = " + way + ", amount = " + amount + ", date = " + date);
 		if (amount < 0.0)
 			throw new BusinessException("negative amount");
 		else if (amount == 0.0)

@@ -17,7 +17,8 @@ import mymoney.model.exceptions.InvalidDateException;
  */
 public class DateUtils {
 
-	public static final String FORMATO_DATA_PADRAO = "dd/MM/yyyy HH:mm:ss";
+//	public static final String FORMATO_DATA_PADRAO = "dd/MM/yyyy HH:mm:ss";
+	public static final String FORMATO_DATA_PADRAO = "DD/MM/YYYY";
 
 	public static final DateFormat DATE_FORMATTER = new SimpleDateFormat(
 			FORMATO_DATA_PADRAO);
