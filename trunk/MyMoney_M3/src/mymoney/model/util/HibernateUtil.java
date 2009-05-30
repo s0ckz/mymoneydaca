@@ -11,6 +11,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.SimpleExpression;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.hibernate.tool.hbm2ddl.SchemaUpdate;
@@ -79,13 +82,18 @@ public class HibernateUtil {
 			Class<?> clazz, Collection<SimpleExpression> expressions) {
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
+		Criteria crit = createCriteria(session, clazz, expressions);
+		List<?> list = crit.list();
+		session.close();
+		return list;
+	}
+
+	private static Criteria createCriteria(Session session, Class<?> clazz, Collection<SimpleExpression> expressions) {
 		Criteria crit = session.createCriteria(clazz);
 		for (SimpleExpression se : expressions) {
 			crit.add(se);
 		}
-		List<?> list = crit.list();
-		session.close();
-		return list;
+		return crit;
 	}
 	
 	/**
