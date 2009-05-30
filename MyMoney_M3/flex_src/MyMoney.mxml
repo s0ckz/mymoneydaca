@@ -3,6 +3,7 @@
 	xmlns:MyMoneyComps="MyMoneyComps.*" creationComplete="init();">
 	<mx:Script>
 		<![CDATA[
+			import events.AdicionarTransacaoEvent;
 			import events.CadastrarContaEvent;
 			import mx.controls.Alert;
 			import events.CadastrarUsuarioEvent;
@@ -16,6 +17,7 @@
 				loginBox.addEventListener(DoLoginEvent.CADASTRO, cadastrarUsuarioHandler);
 				homeBox.addEventListener(DoLogoutEvent.LOGOUT, doLogoutHandler);
 				homeBox.addEventListener(CadastrarContaEvent.CADASTRAR, cadastrarContaHandler);
+				homeBox.addEventListener(AdicionarTransacaoEvent.ADICIONAR, adicionarTransacaoHandler);
 				cadastrarUsuarioBox.addEventListener(CadastrarUsuarioEvent.CANCELAR, cancelarCadastroUsuarioHandler);
 				cadastrarUsuarioBox.addEventListener(CadastrarUsuarioEvent.CADASTRADO, usuarioCadastradoHandler);
 				cadastrarContaBox.addEventListener(CadastrarContaEvent.CADASTRADA, contaCadastradaHandler);
@@ -38,6 +40,9 @@
 			}
 			private function cadastrarContaHandler(e:CadastrarContaEvent):void {
 				mainViewStack.selectedChild = cadastrarContaBox;
+			}
+			private function adicionarTransacaoHandler(e:AdicionarTransacaoEvent):void {
+				mainViewStack.selectedChild = addTransacaoBox;
 			}
 			
 			// Handlers of CadastrarUsuario screen
@@ -67,5 +72,6 @@
 		<MyMoneyComps:CadastrarUsuario id="cadastrarUsuarioBox"/>
 		<MyMoneyComps:Home id="homeBox"/>
 		<MyMoneyComps:CadastrarConta id="cadastrarContaBox"/>
+		<MyMoneyComps:AdicionarTransacao id="addTransacaoBox"/>
 	</mx:ViewStack>	
 </mx:Application>

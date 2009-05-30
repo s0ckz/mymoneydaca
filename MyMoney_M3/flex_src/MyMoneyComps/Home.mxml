@@ -2,6 +2,7 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" creationComplete="init();">
 	<mx:Script>
 		<![CDATA[
+			import events.AdicionarTransacaoEvent;
 			import events.CadastrarContaEvent;
 			import mx.events.MenuEvent;
 			import util.AuthEntity;
@@ -108,9 +109,21 @@
 			}
 			
 			private function removeConta():void {
+				var accountIndex:int = accountsList.selectedIndex;
+				var login:String = AuthEntity.getInstance().login;
+				RemoteFacade.getInstance().removeAccount(login, accountsIds.getItemAt(accountIndex) as Number, removerContaHandler, defaultFaultHandler); 
+			}
+			
+			private function removerContaHandler(e:ResultEvent):void {
+				carregaAccountsIds();
+			}
+			
+			private function defulatFaultHandler(e:FaultEvent):void {
+				Alert.show(e.toString());
 			}
 			
 			private function addTransacao():void {
+				dispatchEvent(new AdicionarTransacaoEvent(AdicionarTransacaoEvent.ADICIONAR));
 			}
 			
 			private function removeTransacao():void {
@@ -169,7 +182,7 @@
 	 	<mx:VBox>
 		 	 <mx:Label text="MyMoney" fontSize="16" color="#CDEFC8" fontWeight="bold" letterSpacing="1" paddingTop="5"/>
 			<mx:Panel title="Contas">			
-				<mx:List dataProvider="{accountsLabels}" width="100%" selectedIndex="0"/>		
+				<mx:List id="accountsList" dataProvider="{accountsLabels}" width="100%" selectedIndex="0" activate="true"/>		
 			</mx:Panel>
 	 	</mx:VBox>
 	 	<mx:VBox>
