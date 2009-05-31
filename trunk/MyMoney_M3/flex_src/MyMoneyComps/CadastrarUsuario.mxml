@@ -2,8 +2,8 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml">
 	<mx:Script>
 		<![CDATA[
+			import util.AlertManager;
 			import events.CadastrarUsuarioEvent;
-			import mx.controls.Alert;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			import remote.RemoteFacade;
@@ -14,8 +14,8 @@
 			}
 			
 			private function limparForm():void {
-				login.text = "";
-				senha.text = "";
+				loginCadastro.text = "";
+				senhaCadastro.text = "";
 				confirmarSenha.text = "";
 				nome.text = "";
 				sexoMasc.selected = true;
@@ -24,15 +24,15 @@
 			}
 			
 			private function validarSenha():Boolean {
-				return senha.text == confirmarSenha.text;
+				return senhaCadastro.text == confirmarSenha.text;
 			}
 			
 			private function cadastrar():void {
 				if (validarSenha()) {
-					RemoteFacade.getInstance().registerUser(login.text, senha.text, nome.text, sexo.selectedValue.toString(), email.text, callBackResult, callBackFault);
+					RemoteFacade.getInstance().registerUser(loginCadastro.text, senhaCadastro.text, nome.text, sexo.selectedValue.toString(), email.text, callBackResult, callBackFault);
 				} else {
-					senha.focusEnabled = true;
-					Alert.show("A senha não confere!");
+					senhaCadastro.focusEnabled = true;
+					AlertManager.showString("A senha não confere!");
 				}
 			}
 			
@@ -42,7 +42,7 @@
 			}
 			
 			private function callBackFault(e:FaultEvent):void {
-				Alert.show(e.toString());
+				AlertManager.showError(e);
 			}
 			
 		]]>
@@ -53,10 +53,10 @@
 				<mx:TextInput id="nome" width="100%"/>
 			</mx:FormItem>
 			<mx:FormItem label="Login:" width="100%">
-				<mx:TextInput id="login" width="100%"/>
+				<mx:TextInput id="loginCadastro" width="100%"/>
 			</mx:FormItem>
 			<mx:FormItem label="Senha:" width="100%">
-				<mx:TextInput id="senha" displayAsPassword="true" width="100%"/>
+				<mx:TextInput id="senhaCadastro" displayAsPassword="true" width="100%"/>
 			</mx:FormItem>
 			<mx:FormItem label="Confirmar senha:" width="100%">
 				<mx:TextInput id="confirmarSenha" displayAsPassword="true" width="100%"/>
@@ -71,8 +71,8 @@
 			</mx:FormItem>
 		</mx:Form>
 		<mx:HBox width="100%" horizontalAlign="center">
-			<mx:Button label="OK" click="cadastrar();"/>
-			<mx:Button label="Cancelar" click="cancelar();"/>
+			<mx:Button label="OK" id="okButton" click="cadastrar();"/>
+			<mx:Button label="Cancelar" id="cancelButton" click="cancelar();"/>
 		</mx:HBox>
 	</mx:Panel>
 </mx:VBox>

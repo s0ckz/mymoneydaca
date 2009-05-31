@@ -27,6 +27,10 @@ package remote
 			return instance;
 		}
 		
+		public function cleanAll():void {
+			var async:AsyncToken = remoteObject.cleanAll();
+		}
+		
 		public function teste(result: Function):void {
 			var async:AsyncToken = remoteObject.teste();
 			async.addResponder(new Responder(result, defaultFaultHandler));

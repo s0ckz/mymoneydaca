@@ -6,7 +6,6 @@
 			import util.AlertManager;
 			import events.AdicionarTransacaoEvent;
 			import events.CadastrarContaEvent;
-			import mx.controls.Alert;
 			import events.CadastrarUsuarioEvent;
 			import remote.RemoteFacade;
 			import events.DoLogoutEvent;
@@ -27,6 +26,13 @@
 				addTransacaoBox.addEventListener(AdicionarTransacaoEvent.CANCELADA, cancelarAddTransacaoHandler);
 				
 				AlertManager.init();
+				
+				// utilizado pelo Selenium
+				ExternalInterface.addCallback("cleanAll", cleanAll);
+			}
+			
+			public function cleanAll():void {
+				RemoteFacade.getInstance().cleanAll();
 			} 
 			
 			
@@ -55,14 +61,14 @@
 				mainViewStack.selectedChild=loginBox;
 			}
 			private function usuarioCadastradoHandler(e:CadastrarUsuarioEvent):void {				
-				Alert.show("Usuário cadastrado com sucesso!");
+				AlertManager.showString("Usuário cadastrado com sucesso!");
 				mainViewStack.selectedChild=loginBox;	
 			}			
 			
 			
 			// Handlers of CadastrarConta screen
 			private function contaCadastradaHandler(e:CadastrarContaEvent):void {
-				Alert.show("Conta cadastrada com sucesso!");
+				AlertManager.showString("Conta cadastrada com sucesso!");
 				homeBox.carregaAccountsIds();
 				mainViewStack.selectedChild = homeBox;
 			}
