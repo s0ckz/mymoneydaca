@@ -3,6 +3,8 @@
 	xmlns:MyMoneyComps="MyMoneyComps.*" creationComplete="init();" width="100%">
 	<mx:Script>
 		<![CDATA[
+			import events.MostrarCompromissosEvent;
+			import mx.controls.Alert;
 			import events.AdicionarCompromissoEvent;
 			import util.AlertManager;
 			import events.AdicionarTransacaoEvent;
@@ -21,7 +23,8 @@
 				homeBox.addEventListener(CadastrarContaEvent.CADASTRAR, cadastrarContaHandler);
 				homeBox.addEventListener(AdicionarTransacaoEvent.ADICIONAR, adicionarTransacaoHandler);
 				homeBox.addEventListener(AdicionarCompromissoEvent.ADICIONAR, adicionarCompromissoHandler);
-				homeBox.addEventListener(GerarRelatorioEvent.GERARRELATORIO,gerarRelatorioHandler); 
+				homeBox.addEventListener(GerarRelatorioEvent.GERARRELATORIO,gerarRelatorioHandler);
+				homeBox.addEventListener(MostrarCompromissosEvent.EXIBIR, mostrarCompromissosHandler); 
 				cadastrarUsuarioBox.addEventListener(CadastrarUsuarioEvent.CANCELAR, cancelarCadastroUsuarioHandler);
 				cadastrarUsuarioBox.addEventListener(CadastrarUsuarioEvent.CADASTRADO, usuarioCadastradoHandler);
 				cadastrarContaBox.addEventListener(CadastrarContaEvent.CADASTRADA, contaCadastradaHandler);
@@ -31,7 +34,8 @@
 				homeBox.addEventListener(GerarRelatorioEvent.GERARRELATORIO,gerarRelatorioHandler); 
 				gerarRelatorioBox.addEventListener(GerarRelatorioEvent.CANCELAR, cancelarGerarRelatorioHandler);
 				addCompromissoBox.addEventListener(AdicionarCompromissoEvent.CANCELADO, cancelarAddCompromissoHandler);
-				
+				addCompromissoBox.addEventListener(AdicionarCompromissoEvent.ADICIONADO, compromissoAdicionadoHandler);
+				mostrarCompromissosBox.addEventListener(MostrarCompromissosEvent.CANCELAR, cancelarMostrarCompromissosHandler);
 				AlertManager.init();
 				
 				// utilizado pelo Selenium
@@ -68,6 +72,10 @@
 			private function adicionarCompromissoHandler(e:AdicionarCompromissoEvent):void {
 				mainViewStack.selectedChild = addCompromissoBox;
 			}
+			private function mostrarCompromissosHandler(e:MostrarCompromissosEvent):void {
+				mainViewStack.selectedChild = mostrarCompromissosBox;
+				mostrarCompromissosBox.init();
+			}
 			
 			// Handlers of CadastrarUsuario screen
 			private function cancelarCadastroUsuarioHandler(e:CadastrarUsuarioEvent):void {
@@ -100,6 +108,7 @@
 			
 			// Handlers of GerarRelatorio screen
 			private function gerarRelatorioHandler(e:GerarRelatorioEvent):void{
+				AlertManager.showString("gerando relatorio");
 				mainViewStack.selectedChild = gerarRelatorioBox;
 			}
 			private function cancelarGerarRelatorioHandler(e:GerarRelatorioEvent):void{
@@ -110,6 +119,15 @@
 			// Handlers of AdicionarCompromisso screen
 			private function cancelarAddCompromissoHandler(e:AdicionarCompromissoEvent):void {
 				mainViewStack.selectedChild = homeBox;
+			}
+			private function compromissoAdicionadoHandler(e:AdicionarCompromissoEvent):void {
+				AlertManager.showString("Compromisso adicionado com sucesso!");
+				mainViewStack.selectedChild = homeBox;
+			}
+			
+			// Handlers of MostrarCompromissos screen
+			private function cancelarMostrarCompromissosHandler(e:MostrarCompromissosEvent):void {
+				mainViewStack.selectedChild = homeBox;	
 			}
 			
 		]]>
@@ -123,6 +141,7 @@
 			<MyMoneyComps:AdicionarTransacao id="addTransacaoBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%" />
 			<MyMoneyComps:AdicionarCompromisso id="addCompromissoBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%" />
 			<MyMoneyComps:GerarRelatorio id="gerarRelatorioBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%" />
+			<MyMoneyComps:MostrarCompromissos id="mostrarCompromissosBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%" />
 		</mx:ViewStack>	
 	</mx:VBox>
 </mx:Application>

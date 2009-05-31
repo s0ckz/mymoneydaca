@@ -5,6 +5,7 @@ package mymoney.model.commitment;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 import mymoney.model.exceptions.CommitmentException;
@@ -182,7 +183,17 @@ public class CommitmentManagerImpl implements CommitmentManager {
 		}
 	}
 
-	
-	
+	@SuppressWarnings("unchecked")
+	public Collection<Long> getAllCommitmentsIds(String login) {
+		Collection<SimpleExpression> expressions = Arrays.asList(Restrictions
+				.eq("login", login));
+		List<Commitment> list = (List<Commitment>) HibernateUtil
+			.createQueryBasedOnExpressions(Commitment.class, expressions);
+		Collection<Long> codes = new LinkedList<Long>();
+		for (Commitment c : list) {
+			codes.add(c.getCode());
+		}
+		return codes;
+	}
 	
 }

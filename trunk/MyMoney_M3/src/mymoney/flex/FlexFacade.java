@@ -6,8 +6,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 
-import sun.security.action.GetLongAction;
-
 import mymoney.model.MyMoney;
 import mymoney.model.MyMoneyImpl;
 import mymoney.model.account.AccountManager;
@@ -497,6 +495,22 @@ public class FlexFacade {
 			throws CommitmentException, MissingArgumentException {
 		return myMoney.addCommitment(login, label, date, amount, type,
 				frequency);
+	}
+	
+	public Collection<CommitmentEntry> getAllCommitments(String login) throws CommitmentException {
+		Collection<CommitmentEntry> commitments = new LinkedList<CommitmentEntry>();
+		Collection<Long> ids = myMoney.getAllCommitmentsIds(login);
+		for (long id : ids) {
+			CommitmentEntry entry = new CommitmentEntry();
+			entry.setId(id);
+			entry.setDate(getCommitmentDate(login, id));
+			entry.setFrequency(getCommitmentFrequency(login, id));
+			entry.setLabel(getCommitmentLabel(login, id));
+			entry.setType(getCommitmentType(login, id));
+			entry.setValor(getCommitmentAmount(login, id));
+			commitments.add(entry);
+		}
+		return commitments;
 	}
 
 	/**

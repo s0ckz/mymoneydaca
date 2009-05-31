@@ -3,6 +3,8 @@
  */
 package mymoney.model.commitment;
 
+import java.util.Collection;
+
 import mymoney.model.exceptions.CommitmentException;
 import mymoney.model.exceptions.MissingArgumentException;
 
@@ -133,5 +135,7 @@ public interface CommitmentManager {
 	 * @throws CommitmentException
 	 */
 	public void removeCommitment(String login);
+
+	Collection<Long> getAllCommitmentsIds(String login);
 
 }

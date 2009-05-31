@@ -275,6 +275,10 @@ public class MyMoneyImpl implements MyMoney {
 
 		return commitmentManager.numberOfCommitments(login);
 	}
+	
+	public Collection<Long> getAllCommitmentsIds(String login) {
+		return commitmentManager.getAllCommitmentsIds(login);
+	}
 
 	@Override
 	public void removeCommitment(String login, long id)
