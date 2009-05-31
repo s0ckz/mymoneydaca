@@ -210,7 +210,7 @@
 			 	 	<mx:MenuBar height="100%" width="100%" dataProvider="{menu}" labelField="@label" itemClick="itemClickHandler(event);"/>
 			 	 </mx:ApplicationControlBar>
 			 	 <mx:Spacer width="30"/>
-			 	 <mx:LinkButton label="Logout" click="logout();"/>			
+			 	 <mx:LinkButton label="Logout" id="logoutButtonHome" click="logout();"/>			
 	 		</mx:HBox>
 			<mx:Panel title="Movimentação Financeira" width="100%" height="100%">
 				<mx:VBox>

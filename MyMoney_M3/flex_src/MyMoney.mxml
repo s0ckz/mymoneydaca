@@ -37,7 +37,8 @@
 			
 			
 			// Handlers of DoLogin screen
-			private function doLoginHandler(e:DoLoginEvent):void {
+			private function doLoginHandler(e:DoLoginEvent):void {			
+				AlertManager.showString("Seja bem-vindo!");
 				mainViewStack.selectedChild = homeBox;
 			}
 			private function cadastrarUsuarioHandler(e:DoLoginEvent):void {
@@ -46,7 +47,8 @@
 
 
 			// Handlers of Home screen
-			private function doLogoutHandler(e:DoLogoutEvent):void {				
+			private function doLogoutHandler(e:DoLogoutEvent):void {			
+				AlertManager.showString("Até mais!");			
 				mainViewStack.selectedChild = loginBox;
 			}
 			private function cadastrarContaHandler(e:CadastrarContaEvent):void {
