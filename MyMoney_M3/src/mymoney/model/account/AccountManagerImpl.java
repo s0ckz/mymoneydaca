@@ -149,6 +149,11 @@ public class AccountManagerImpl implements AccountManager {
 	 * @return A conta padrao do usuario.
 	 */
 	public Account getDefaultAccount(String login) {
+		createDefaultAccount(login);
+		return getAccount(login, DEFAULT_ACCOUNT, DEFAULT_ACCOUNT, DEFAULT_ACCOUNT);
+	}
+	
+	public void createDefaultAccount(String login) {
 		Account account = getAccount(login, DEFAULT_ACCOUNT, DEFAULT_ACCOUNT, DEFAULT_ACCOUNT);
 		if (account == null) {
 			try {
@@ -156,9 +161,7 @@ public class AccountManagerImpl implements AccountManager {
 			} catch (MissingArgumentException e) {
 			} catch (DuplicatedAccountException e) {
 			}
-			return getAccount(login, DEFAULT_ACCOUNT, DEFAULT_ACCOUNT, DEFAULT_ACCOUNT);
 		}
-		return account;
 	}
 
 	/**
