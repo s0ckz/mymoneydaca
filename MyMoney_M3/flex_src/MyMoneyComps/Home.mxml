@@ -2,6 +2,7 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" creationComplete="init();">
 	<mx:Script>
 		<![CDATA[
+			import mx.controls.Alert;
 			import util.AlertManager;
 			import mx.collections.ArrayCollection;
 			import events.AdicionarTransacaoEvent;
@@ -30,9 +31,14 @@
 			[Bindable]
 			private var ultimasOps:ArrayCollection;
 			
-			private function init():void {				
-				carregaAccountsIds();
+			private function init():void {
+				Alert.show("construi objeto Home");				
+				atualiza();
 				criarInterfacesExternas();
+			}
+			
+			public function atualiza():void {
+				carregaAccountsIds();
 			}
 			
 			// utilizado pelo Selenium
@@ -45,7 +51,7 @@
 				return accountsLabels.toString();
 			}
 			
-			public function carregaAccountsIds():void {
+			private function carregaAccountsIds():void {
 				var login:String = AuthEntity.getInstance().login;
 				RemoteFacade.getInstance().getAllAccountsIds(login, accountsIdsHandler, defaultFaultHandler);
 				
@@ -53,6 +59,7 @@
 			
 			private function accountsIdsHandler(e:ResultEvent):void {
 				accountsIds = e.result as ArrayCollection;
+				Alert.show("ids carregados: " + accountsIds.toString());
 				atualizaAccId();		
 				carregaAccountsLabels();
 			}
@@ -63,22 +70,25 @@
 			
 			private function carregaAccountsLabels():void {
 				var login:String = AuthEntity.getInstance().login;
-				accountsLabels = new ArrayCollection();
-				for (var i:int = 0; i < accountsIds.length; i++) {
-					RemoteFacade.getInstance().getAccountLabel(login, accountsIds[i], accountLabelHandler, defaultFaultHandler);
-				}
+				RemoteFacade.getInstance().getAccountsLabels(login, accountsIds, accountsLabelsHandler, defaultFaultHandler);
 			}
 			
-			private function accountLabelHandler(e:ResultEvent):void {
-				accountsLabels.addItem(e.result as String);
+			private function accountsLabelsHandler(e:ResultEvent):void {
+				accountsLabels = e.result as ArrayCollection;
 			}
 			
 			private function atualizaAccId():void {
+				var indexAtual:int = -1;
+				if (accountsIds.contains(AuthEntity.getInstance().accId)) 
+				  indexAtual = accountsIds.getItemIndex(AuthEntity.getInstance().accId);
+				Alert.show("accId = " + AuthEntity.getInstance().accId.toString() + ", ids = "+ accountsIds.toString() + ", indexAtual = " + indexAtual);
 				if (accountsIds.length > 0) {
+					if (indexAtual != -1) accountsList.selectedIndex = indexAtual;
+					else accountsList.selectedIndex = 0;
 					var index:int = accountsList.selectedIndex;
 					AuthEntity.getInstance().accId = accountsIds.getItemAt(index) as Number;
-					atualizaUltimasOps();
 				}
+				atualizaUltimasOps();
 			}
 			
 			private function atualizaUltimasOps():void {
@@ -224,7 +234,7 @@
 			 	 <mx:LinkButton label="Logout" id="logoutButtonHome" click="logout();"/>			
 	 		</mx:HBox>
 			<mx:Panel title="Movimentação Financeira" width="100%" height="100%">
-				<mx:VBox>
+				<mx:VBox width="100%" height="100%">
 					<mx:DataGrid dataProvider="{ultimasOps}" width="100%" height="100%">
 				      <mx:columns>
 				         <mx:DataGridColumn dataField="way"/>

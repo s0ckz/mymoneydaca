@@ -39,6 +39,7 @@
 			// Handlers of DoLogin screen
 			private function doLoginHandler(e:DoLoginEvent):void {			
 				AlertManager.showString("Seja bem-vindo!");
+				homeBox.atualiza();
 				mainViewStack.selectedChild = homeBox;
 			}
 			private function cadastrarUsuarioHandler(e:DoLoginEvent):void {
@@ -71,7 +72,7 @@
 			// Handlers of CadastrarConta screen
 			private function contaCadastradaHandler(e:CadastrarContaEvent):void {
 				AlertManager.showString("Conta cadastrada com sucesso!");
-				homeBox.carregaAccountsIds();
+				homeBox.atualiza();
 				mainViewStack.selectedChild = homeBox;
 			}
 			private function cancelarCadastrarContaHandler(e:CadastrarContaEvent):void {
@@ -80,6 +81,7 @@
 			
 			// Handlers of AdicionarTransacao screen
 			private function transacaoAdicionadaHandler(e:AdicionarTransacaoEvent):void {
+				homeBox.atualiza();
 				mainViewStack.selectedChild = homeBox;
 			}
 			private function cancelarAddTransacaoHandler(e:AdicionarTransacaoEvent):void {
