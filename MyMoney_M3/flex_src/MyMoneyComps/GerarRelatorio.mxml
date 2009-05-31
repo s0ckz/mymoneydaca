@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="500" height="400">
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			
+			private function getMes(mesInicial:int, mesFinal:int):ArrayCollection {
+				var meses:Array = ["", "Jan", "Fev", "Mar", "Abril", "Maio", "Abril", "Junho" , "Julho" , "Agosto" , "Setembro"
+									"Outubro" , "Novembro" , "Dezembro"  ];
+				
+				var periodos:ArrayCollection = new ArrayCollection;
+				
+				while (mesInicial <= mesFinal) {
+					periodos.addItem(" " + meses[mesInicial] +" " );					
+					mesInicial ++	
+				}
+				
+				return periodos;
+			}	
+				
+				
+			private function getAno(anoInicial:int, anoFinal:int):ArrayCollection {
+				var anos:Array = ["","2001", "2002", "2003" , "2004", "2005", "2006", "2007" , "2008" , 
+				"2009" , "2010"];
+				
+				var periodos:ArrayCollection = new ArrayCollection;
+				
+				while (anoInicial <= anoFinal) {
+					periodos.addItem(" " + anos[anoInicial] + " " );					
+					anonicial ++	
+				}
+				
+				return periodos;
+			}	
+			private function gerarRelatorio():void{
+				
+			}
+			private function cancelar():void{
+				
+			}
+					
+		]]>
+	</mx:Script>
+	
+	
+	<mx:Form x="0" y="10" width="100%" height="100%">
+		<mx:FormItem label="Usuario: " width="100%">
+			<mx:Label text="nome" fontSize="16" color="#CDEFC8" fontWeight="bold" letterSpacing="1" paddingTop="5"/>
+		</mx:FormItem>
+		<mx:FormItem label="Conta : " >
+			<mx:ComboBox dataProvider="{getContas(1,9,5,9)}"/>
+		</mx:FormItem>
+		<mx:FormItem label="Intervalo: " >
+			<mx:HBox width="100%">
+				<mx:Label text="Inicio: " />
+				<mx:ComboBox dataProvider="{getMes(1,12)}"/>
+				<mx:ComboBox  dataProvider="{getAno((1,9)}"/>
+				<mx:Spacer width="10" />
+				<mx:Label text="Fim: " />
+				<mx:ComboBox dataProvider="{getMes(1,12)}"/>
+				<mx:ComboBox  dataProvider="{getAno((1,9)}"/>
+			</mx:HBox>
+			
+		</mx:FormItem>
+		<mx:HBox width="100%" horizontalAlign="center">
+				<mx:Label text="Movimentações" fontSize="16" color="#CDEFC8" fontWeight="bold" letterSpacing="1" paddingTop="5"/>
+			</mx:HBox>
+		<mx:VBox width="100%">
+			<mx:DataGrid  width="100%">
+				<mx:columns>
+				   <mx:DataGridColumn dataField="Date"/>
+				   <mx:DataGridColumn dataField="Type"/>
+				   <mx:DataGridColumn dataField="Value"/>
+				   <mx:DataGridColumn dataField="Description"/>
+				</mx:columns>
+			</mx:DataGrid>	
+			<mx:HBox width="100%" horizontalAlign="center">
+				<mx:Button label="Gerar" id="gerarButtonGerarRelatorio" click="gerarRelatorio();"/>
+				<mx:Button label="Cancelar" click="cancelar();"/>
+			</mx:HBox>		
+		</mx:VBox>
+	</mx:Form>
+	
+</mx:Panel>
