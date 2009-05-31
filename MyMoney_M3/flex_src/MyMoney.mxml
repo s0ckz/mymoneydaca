@@ -3,6 +3,7 @@
 	xmlns:MyMoneyComps="MyMoneyComps.*" creationComplete="init();" width="100%">
 	<mx:Script>
 		<![CDATA[
+			import util.AlertManager;
 			import events.AdicionarTransacaoEvent;
 			import events.CadastrarContaEvent;
 			import mx.controls.Alert;
@@ -24,6 +25,8 @@
 				cadastrarContaBox.addEventListener(CadastrarContaEvent.CANCELAR, cancelarCadastrarContaHandler);
 				addTransacaoBox.addEventListener(AdicionarTransacaoEvent.ADICIONADA, transacaoAdicionadaHandler);
 				addTransacaoBox.addEventListener(AdicionarTransacaoEvent.CANCELADA, cancelarAddTransacaoHandler);
+				
+				AlertManager.init();
 			} 
 			
 			
