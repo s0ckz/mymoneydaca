@@ -32,10 +32,18 @@
 			
 			private function init():void {				
 				carregaAccountsIds();
-				
-				// utilizado pelo Selenium
+				criarInterfacesExternas();
+			}
+			
+			// utilizado pelo Selenium
+			public function criarInterfacesExternas():void {
 				ExternalInterface.addCallback("addConta", addConta);
-			}	
+				ExternalInterface.addCallback("getNomeContas", getNomeContas);
+			}
+			
+			public function getNomeContas():String {
+				return accountsLabels.toString();
+			}
 			
 			public function carregaAccountsIds():void {
 				var login:String = AuthEntity.getInstance().login;
