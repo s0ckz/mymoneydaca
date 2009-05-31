@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 
+import sun.security.action.GetLongAction;
+
 import mymoney.model.MyMoney;
 import mymoney.model.MyMoneyImpl;
 import mymoney.model.account.AccountManager;
@@ -225,6 +227,7 @@ public class FlexFacade {
 	public long createAccount(String login, String label, String agency,
 			String account) throws MissingArgumentException,
 			DuplicatedAccountException {
+		System.out.println("criando conta login = " + login + ", label = " + label + ", agency = " + agency + ", account = " + account);
 		return myMoney.createAccount(login, label, agency, account);
 	}
 
@@ -236,6 +239,14 @@ public class FlexFacade {
 		return myMoney.getAllAccountsIds(login);
 	}
 
+	public Collection<String> getAccountsLabels(String login, Collection<Number> accountsIds) throws PermissionDeniedException, AccountNotFoundException {
+		Collection<String> labels = new LinkedList<String>();
+		for (Number accId : accountsIds) {
+			labels.add(getAccountLabel(login, accId.longValue()));
+		}
+		return labels;
+	}
+	
 	/**
 	 * Recupera o label de uma conta de um dado usuario.
 	 * @param login O login do usuario dono da conta.

@@ -1,5 +1,6 @@
 package remote
 {
+	import mx.collections.ArrayCollection;
 	import mx.controls.Alert;
 	import mx.rpc.AsyncToken;
 	import mx.rpc.Responder;
@@ -64,6 +65,11 @@ package remote
 		
 		public function getAllAccountsIds(login:String, result:Function, fault:Function):void {
 			var async:AsyncToken = remoteObject.getAllAccountsIds(login);
+			async.addResponder(new Responder(result, fault));
+		}
+		
+		public function getAccountsLabels(login:String, accIds:ArrayCollection, result:Function, fault:Function):void {
+			var async:AsyncToken = remoteObject.getAccountsLabels(login, accIds);
 			async.addResponder(new Responder(result, fault));
 		}
 		
