@@ -29,6 +29,8 @@
 			
 			private var accountsIds:ArrayCollection;
 			
+			private var timer:Timer = new Timer(300, 1);
+			
 			[Bindable]
 			private var accountsLabels:ArrayCollection;
 			
@@ -36,7 +38,8 @@
 			private var ultimasOps:ArrayCollection;
 			
 			private function init():void {
-				atualiza();
+				// utilizado para resolver bug do flex ao atualizar contas.
+				timer.addEventListener(TimerEvent.TIMER, atualizarIndex);
 				criarInterfacesExternas();
 			}
 			
@@ -95,17 +98,22 @@
 //			}
 			private function atualizaAccId():void {
 				if (accountsIds.length > 0) {
-					
 					if (AuthEntity.getInstance().isAccIdReseted()) {
 						accountsList.selectedIndex = 0;
 						AuthEntity.getInstance().accId = accountsIds.getItemAt(accountsList.selectedIndex) as Number;
 					} else if (accountsList.selectedIndex < 0) {
-						accountsList.selectedIndex = accountsIds.getItemIndex(AuthEntity.getInstance().accId);
-					} else {
-						AuthEntity.getInstance().accId = accountsIds.getItemAt(accountsList.selectedIndex) as Number;
+						timer.start();
 					}
-					
+					atualizaUltimasOps();
 				}
+			}
+			
+			private function atualizarIndex(e:TimerEvent):void {
+				accountsList.selectedIndex = accountsIds.getItemIndex(AuthEntity.getInstance().accId);
+			}
+			
+			private function novaAccId():void {
+				AuthEntity.getInstance().accId = accountsIds.getItemAt(accountsList.selectedIndex) as Number;
 				atualizaUltimasOps();
 			}
 			
@@ -189,8 +197,7 @@
 					var accountIndex:int = accountsList.selectedIndex;
 					var login:String = AuthEntity.getInstance().login;
 					var accToRemoveId:Number = accountsIds.getItemAt(accountIndex) as Number;
-					if (accToRemoveId == AuthEntity.getInstance().accId)
-						AuthEntity.getInstance().resetAccId();
+					AuthEntity.getInstance().resetAccId();
 					RemoteFacade.getInstance().removeAccount(login, accToRemoveId, removerContaHandler, defaultFaultHandler); 
 				}
 			}
@@ -258,7 +265,7 @@
 	 	<mx:VBox height="100%">
 		 	 <mx:Label text="MyMoney" fontSize="16" color="#CDEFC8" fontWeight="bold" letterSpacing="1" paddingTop="5"/>
 			<mx:Panel title="Contas" height="100%">			
-				<mx:List id="accountsList" dataProvider="{accountsLabels}" width="100%" height="100%" selectedIndex="0" change="{atualizaAccId();}"/>		
+				<mx:List id="accountsList" dataProvider="{accountsLabels}" width="100%" height="100%" selectedIndex="0" change="novaAccId();"/>		
 			</mx:Panel>
 	 	</mx:VBox>
 	 	<mx:VBox width="100%" height="100%">
