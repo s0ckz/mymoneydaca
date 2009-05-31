@@ -11,6 +11,7 @@
 			import events.DoLogoutEvent;
 			import events.DoLoginEvent;
 			import mx.rpc.events.ResultEvent;			
+			import events.GerarRelatorioEvent;
 			
 			private function init():void {
 				loginBox.addEventListener(DoLoginEvent.LOGADO, doLoginHandler);
@@ -24,6 +25,8 @@
 				cadastrarContaBox.addEventListener(CadastrarContaEvent.CANCELAR, cancelarCadastrarContaHandler);
 				addTransacaoBox.addEventListener(AdicionarTransacaoEvent.ADICIONADA, transacaoAdicionadaHandler);
 				addTransacaoBox.addEventListener(AdicionarTransacaoEvent.CANCELADA, cancelarAddTransacaoHandler);
+				gerarRelatorioBox.addEventListener(GerarRelatorioEvent.GERARRELATORIO,gerarRelatorioHandler); 
+				gerarRelatorioBox.addEventListener(GerarRelatorioEvent.CANCELAR, cancelarGerarRelatorioHandler);
 				
 				AlertManager.init();
 				
@@ -88,6 +91,14 @@
 				mainViewStack.selectedChild = homeBox;
 			}
 			
+			// Handlers of GerarRelatorio screen
+			private function gerarRelatorioHandler(e:GerarRelatorioEvent):void{
+				mainViewStack.selectedChild = gerarRelatorioBox;
+			}
+			private function cancelarGerarRelatorioHandler(e:GerarRelatorioEvent):void{
+				homeBox.atualiza();
+				mainViewStack.selectedChild = homeBox;
+			}
 			
 		]]>
 	</mx:Script>
@@ -98,6 +109,7 @@
 			<MyMoneyComps:Home id="homeBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%"/>
 			<MyMoneyComps:CadastrarConta id="cadastrarContaBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%" />
 			<MyMoneyComps:AdicionarTransacao id="addTransacaoBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%" />
+			<MyMoneyComps:GerarRelatorio id="gerarRelatorioBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%" />
 		</mx:ViewStack>	
 	</mx:VBox>
 </mx:Application>
