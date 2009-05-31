@@ -27,6 +27,7 @@ import mymoney.model.exceptions.UserAlreadyLoggedException;
 import mymoney.model.exceptions.UserNotLoggedException;
 import mymoney.model.exceptions.UserUnregisteredException;
 import mymoney.model.util.DateUtils;
+import mymoney.model.util.HibernateUtil;
 
 public class FlexFacade {
 	
@@ -34,6 +35,15 @@ public class FlexFacade {
 	
 	public FlexFacade() {
 		myMoney = new MyMoneyImpl();
+	}
+
+	// Utils - utilizado para testes do Selenium
+
+	/**
+	 * Limpa o banco de dados.
+	 */
+	public void cleanAll() {
+		HibernateUtil.cleanAll();
 	}
 
 	/**

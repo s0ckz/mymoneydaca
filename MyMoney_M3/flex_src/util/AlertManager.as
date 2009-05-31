@@ -1,5 +1,6 @@
 package util
 {
+	import flash.display.Sprite;
 	import flash.external.ExternalInterface;
 	
 	import mx.controls.Alert;
@@ -9,19 +10,28 @@ package util
 	public class AlertManager
 	{
 		
-		private static var lastErrorMessage:ErrorMessage = null;
+		private static var lastMessage:String = null;
 		
 		public static function init():void {
-			ExternalInterface.addCallback("getLastErrorMessage", getLastErrorMessage);
+			ExternalInterface.addCallback("getLastMessage", getLastMessage);
 		}
 		
-		public static function getLastErrorMessage():String {
-			return lastErrorMessage.rootCause.message;
+		public static function getLastMessage():String {
+			return lastMessage;
 		}
 		
 		public static function showError(e: FaultEvent):void {
-			lastErrorMessage = e.message as ErrorMessage;
-			Alert.show(e.toString());
+			lastMessage = (e.message as ErrorMessage).rootCause.message;
+			showAlert(lastMessage);
+		}
+		
+		public static function showString(text: String):void {
+			lastMessage = text;
+			showAlert(text);
+		}
+		
+		private static function showAlert(text:String):void {
+			Alert.show(text);
 		}
 		
 	}

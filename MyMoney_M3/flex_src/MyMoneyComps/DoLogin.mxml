@@ -47,7 +47,7 @@
 		</mx:Form>
 		<mx:HRule width="100%"/>
 		<mx:HBox id="loginHBox" width="100%" horizontalAlign="center">
-			<mx:LinkButton label="Cadastre-se" click="cadastrar();" enabled="true"/>
+			<mx:LinkButton label="Cadastre-se" click="cadastrar();" id="cadastrarButton" enabled="true"/>
 			<mx:Spacer width="100%"/>
 			<mx:Button label="Login" id="loginButton" click="signIn();" enabled="true"/>
 		</mx:HBox>	
