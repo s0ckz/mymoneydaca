@@ -12,6 +12,7 @@ package util
 		
 		public function AuthEntity()
 		{
+			resetAccId();
 		}
 		
 		public static function getInstance():AuthEntity {
@@ -19,6 +20,14 @@ package util
 				instance = new AuthEntity();
 			}
 			return instance;
+		}
+		
+		public function isAccIdReseted():Boolean {
+			return accId == -1;
+		}
+		
+		public function resetAccId():void {
+			accId = -1;
 		}
 		
 		public function get accId():Number {
