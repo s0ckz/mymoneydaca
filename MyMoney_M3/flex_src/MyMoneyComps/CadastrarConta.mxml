@@ -2,9 +2,9 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml">
 	<mx:Script>
 		<![CDATA[
+			import util.AlertManager;
 			import events.CadastrarContaEvent;
 			import util.AuthEntity;
-			import mx.controls.Alert;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			import remote.RemoteFacade;
@@ -15,14 +15,14 @@
 			}
 			
 			private function limparForm():void {
-				rotulo.text = "";
-				agencia.text = "";
-				conta.text = "";
+				rotuloCadastrarConta.text = "";
+				agenciaCadastrarConta.text = "";
+				contaCadastrarConta.text = "";
 			}
 			
 			private function cadastrar():void {
 				var login:String = AuthEntity.getInstance().login;
-				RemoteFacade.getInstance().createAccount(login, rotulo.text, agencia.text, conta.text, callBackResult, callBackFault);
+				RemoteFacade.getInstance().createAccount(login, rotuloCadastrarConta.text, agenciaCadastrarConta.text, contaCadastrarConta.text, callBackResult, callBackFault);
 			}
 			
 			private function callBackResult(e:ResultEvent):void {
@@ -31,7 +31,7 @@
 			}
 			
 			private function callBackFault(e:FaultEvent):void {
-				Alert.show(e.toString());
+				AlertManager.showError(e);
 			}
 			
 		]]>
@@ -39,17 +39,17 @@
 	<mx:Panel layout="vertical" width="350" height="200" title="Criar Nova Conta">
 		<mx:Form id="cadastrarForm" width="100%">
 			<mx:FormItem label="Label:" width="100%">
-				<mx:TextInput id="rotulo" width="100%"/>
+				<mx:TextInput id="rotuloCadastrarConta" width="100%"/>
 			</mx:FormItem>
 			<mx:FormItem label="Agência:" width="100%">
-				<mx:TextInput id="agencia" width="100%"/>
+				<mx:TextInput id="agenciaCadastrarConta" width="100%"/>
 			</mx:FormItem>
 			<mx:FormItem label="Conta:" width="100%">
-				<mx:TextInput id="conta" width="100%"/>
+				<mx:TextInput id="contaCadastrarConta" width="100%"/>
 			</mx:FormItem>
 		</mx:Form>
 		<mx:HBox width="100%" horizontalAlign="center">
-			<mx:Button label="OK" click="cadastrar();"/>
+			<mx:Button label="OK" id="okButtonCadastrarConta" click="cadastrar();"/>
 			<mx:Button label="Cancelar" click="cancelar();"/>
 		</mx:HBox>
 	</mx:Panel>
