@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="500" height="400">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="500" height="400" creationComplete="init();">
 	
 	<mx:Script>
 		<![CDATA[
+			import events.GerarRelatorioEvent;
 			import mx.collections.ArrayCollection;
+			import util.AuthEntity;
+			import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import remote.RemoteFacade;
+			import util.AlertManager;
+			
+			[Bindable]
+			private var accountsIds:ArrayCollection;
+			
+			private function init():void {			
+				carregaAccountsIds();
+			}
 			
 			private function getMes(mesInicial:int, mesFinal:int):ArrayCollection {
 				var meses:Array = ["", "Jan", "Fev", "Mar", "Abril", "Maio", "Abril", "Junho" , "Julho" , "Agosto" , "Setembro", "Outubro" , "Novembro" , "Dezembro"  ];
@@ -34,20 +47,33 @@
 				return periodos;
 			}	
 			
-			
-			private function getContas():ArrayCollection{
-				var contas:ArrayCollection = new ArrayCollection;
+			private function carregaAccountsIds():void {
+				var login:String = AuthEntity.getInstance().login;
+				RemoteFacade.getInstance().getAllAccountsIds(login, accountsIdsHandler, defaultFaultHandler) as ArrayCollection;
 				
-				
-				return contas;
 			}
+			
+			private function accountsIdsHandler(e:ResultEvent):void {
+				accountsIds = e.result as ArrayCollection;		
+			}
+			
+			private function defaultFaultHandler(e:FaultEvent):void {
+				AlertManager.showError(e);
+			}
+			
 			
 			private function gerarRelatorio():void{
 				
 			}
 			private function cancelar():void{
-				
+				dispatchEvent(new GerarRelatorioEvent(GerarRelatorioEvent.CANCELAR));
 			}
+			
+			private function getLogin():String{
+				var login:String = AuthEntity.getInstance().login;
+				return login;
+			}
+			
 					
 		]]>
 	</mx:Script>
@@ -55,10 +81,10 @@
 	
 	<mx:Form x="0" y="10" width="100%" height="100%">
 		<mx:FormItem label="Usuario: " width="100%">
-			<mx:Label text="nome" fontSize="16" color="#CDEFC8" fontWeight="bold" letterSpacing="1" paddingTop="5"/>
+			<mx:Label text="{getLogin()}" fontSize="16" color="#CDEFC8" fontWeight="bold" letterSpacing="1" paddingTop="5"/>
 		</mx:FormItem>
 		<mx:FormItem label="Conta : " >
-			<mx:ComboBox dataProvider="{getContas()}"/>
+			<mx:ComboBox dataProvider="{accountsIds}"/>
 		</mx:FormItem>
 		<mx:FormItem label="Intervalo: " >
 			<mx:HBox width="100%">
