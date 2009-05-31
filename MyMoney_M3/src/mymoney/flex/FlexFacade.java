@@ -3,12 +3,12 @@ package mymoney.flex;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedList;
 
 import mymoney.model.MyMoney;
 import mymoney.model.MyMoneyImpl;
 import mymoney.model.account.AccountManager;
-import mymoney.model.account.Operation;
 import mymoney.model.exceptions.AccountNotFoundException;
 import mymoney.model.exceptions.BusinessException;
 import mymoney.model.exceptions.CommitmentException;

@@ -41,10 +41,8 @@
 			}
 			
 			private function accountsIdsHandler(e:ResultEvent):void {
-				Alert.show("ids carregados " + e.result.toString());
 				accountsIds = e.result as ArrayCollection;
 				atualizaAccId();		
-				atualizaUltimasOps();		
 				carregaAccountsLabels();
 			}
 			
@@ -65,16 +63,20 @@
 			}
 			
 			private function atualizaAccId():void {
-				var index:int = accountsList.selectedIndex;
-				AuthEntity.getInstance().accId = accountsIds.getItemAt(index) as Number;
-				atualizaUltimasOps();
+				if (accountsIds.length > 0) {
+					var index:int = accountsList.selectedIndex;
+					AuthEntity.getInstance().accId = accountsIds.getItemAt(index) as Number;
+					atualizaUltimasOps();
+				}
 			}
 			
 			private function atualizaUltimasOps():void {
 				ultimasOps = new ArrayCollection();
-				var accId:Number = AuthEntity.getInstance().accId;
-				var login:String = AuthEntity.getInstance().login;
-				RemoteFacade.getInstance().getAllOperations(login, accId, getOperationsCallBack, defaultFaultHandler);
+				if (accountsIds.length > 0) {
+					var accId:Number = AuthEntity.getInstance().accId;
+					var login:String = AuthEntity.getInstance().login;
+					RemoteFacade.getInstance().getAllOperations(login, accId, getOperationsCallBack, defaultFaultHandler);
+				}
 			}
 			
 			private function getOperationsCallBack(e:ResultEvent):void {
@@ -96,7 +98,13 @@
 			}			
 			
 			private function logout():void {				
+				limparTudo();
 				RemoteFacade.getInstance().doLogout(AuthEntity.getInstance().login, AuthEntity.getInstance().senha, callBackLogout, callBackFault);
+			}
+			private function limparTudo():void {
+				accountsLabels = new ArrayCollection();
+				ultimasOps = new ArrayCollection();
+				accountsIds = new ArrayCollection();
 			}
 			
 			private function callBackLogout(e:ResultEvent):void {
@@ -132,9 +140,11 @@
 			}
 			
 			private function removeConta():void {
-				var accountIndex:int = accountsList.selectedIndex;
-				var login:String = AuthEntity.getInstance().login;
-				RemoteFacade.getInstance().removeAccount(login, accountsIds.getItemAt(accountIndex) as Number, removerContaHandler, defaultFaultHandler); 
+				if (accountsIds.length > 0) {
+					var accountIndex:int = accountsList.selectedIndex;
+					var login:String = AuthEntity.getInstance().login;
+					RemoteFacade.getInstance().removeAccount(login, accountsIds.getItemAt(accountIndex) as Number, removerContaHandler, defaultFaultHandler); 
+				}
 			}
 			
 			private function removerContaHandler(e:ResultEvent):void {
