@@ -24,12 +24,22 @@ public class LoginTest extends TestCase {
 	}
 
 	public void testInvalidLogin() throws Exception {
-//		flexUITester.type("danilo").at("login");
-//		flexUITester.type("danilo").at("senha");
 		flexUITester.click("loginButton");
 		flexUITester.wait(1);
-		assertEquals("", flexUITester.call("getLastErrorMessage"));
 		flexUITester.click("OK");
+		assertEquals("Invalid Argument", flexUITester.call("getLastErrorMessage"));
+		
+		flexUITester.type("wrongUser").at("login");
+		flexUITester.click("loginButton");
+		flexUITester.wait(1);
+		flexUITester.click("OK");
+		assertEquals("Invalid Argument", flexUITester.call("getLastErrorMessage"));
+		
+		flexUITester.type("wrongPassword").at("senha");
+		flexUITester.click("loginButton");
+		flexUITester.wait(4);
+		flexUITester.click("OK");
+		assertEquals("Login unregistered", flexUITester.call("getLastErrorMessage"));
 	}
 
 }
