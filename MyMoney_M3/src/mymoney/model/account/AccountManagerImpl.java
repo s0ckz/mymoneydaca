@@ -3,6 +3,7 @@ package mymoney.model.account;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -224,7 +225,7 @@ public class AccountManagerImpl implements AccountManager {
 		Collection<SimpleExpression> expressions = 
 			Arrays.asList(Restrictions.eq("login", login)); 
 		List<Account> list = (List<Account>) HibernateUtil.createQueryBasedOnExpressions(Account.class, expressions);
-		Collection<Long> accountsIds = new LinkedList<Long>();
+		Collection<Long> accountsIds = new HashSet<Long>();
 		for (Account a : list) {
 			accountsIds.add(a.getId());
 		}
