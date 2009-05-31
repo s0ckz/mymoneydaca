@@ -34,8 +34,6 @@
 			private var ultimasOps:ArrayCollection;
 			
 			private function init():void {
-	//			Alert.show("construi objeto Home");				
-				atualiza();
 				criarInterfacesExternas();
 			}
 			
@@ -63,7 +61,6 @@
 			private function accountsIdsHandler(e:ResultEvent):void {
 				accountsIds = e.result as ArrayCollection;
 		//		Alert.show("ids carregados: " + accountsIds.toString());
-				atualizaAccId();		
 				carregaAccountsLabels();
 			}
 			
@@ -78,6 +75,7 @@
 			
 			private function accountsLabelsHandler(e:ResultEvent):void {
 				accountsLabels = e.result as ArrayCollection;
+				atualizaAccId();
 			}
 			
 //			private function atualizaAccId():void {
@@ -95,10 +93,18 @@
 //			}
 			private function atualizaAccId():void {
 				if (accountsIds.length > 0) {
-					var index:int = accountsList.selectedIndex;
-					if (index >= 0)
-					  AuthEntity.getInstance().accId = accountsIds.getItemAt(index) as Number;
+					
+					if (AuthEntity.getInstance().isAccIdReseted()) {
+						accountsList.selectedIndex = 0;
+						AuthEntity.getInstance().accId = accountsIds.getItemAt(accountsList.selectedIndex) as Number;
+					} else if (accountsList.selectedIndex < 0) {
+						accountsList.selectedIndex = accountsIds.getItemIndex(AuthEntity.getInstance().accId);
+					} else {
+						AuthEntity.getInstance().accId = accountsIds.getItemAt(accountsList.selectedIndex) as Number;
+					}
+					
 				}
+				
 				atualizaUltimasOps();
 			}
 			
@@ -137,7 +143,7 @@
 				ultimasOps = new ArrayCollection();
 				accountsIds = new ArrayCollection();
 				AuthEntity.getInstance().login = "";
-				AuthEntity.getInstance().accId = 0;
+				AuthEntity.getInstance().resetAccId();
 			}
 			
 			private function callBackLogout(e:ResultEvent):void {
@@ -177,7 +183,10 @@
 				if (accountsIds.length > 0) {
 					var accountIndex:int = accountsList.selectedIndex;
 					var login:String = AuthEntity.getInstance().login;
-					RemoteFacade.getInstance().removeAccount(login, accountsIds.getItemAt(accountIndex) as Number, removerContaHandler, defaultFaultHandler); 
+					var accToRemoveId:Number = accountsIds.getItemAt(accountIndex) as Number;
+					if (accToRemoveId == AuthEntity.getInstance().accId)
+						AuthEntity.getInstance().resetAccId();
+					RemoteFacade.getInstance().removeAccount(login, accToRemoveId, removerContaHandler, defaultFaultHandler); 
 				}
 			}
 			
