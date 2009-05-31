@@ -108,7 +108,6 @@
 			
 			// Handlers of GerarRelatorio screen
 			private function gerarRelatorioHandler(e:GerarRelatorioEvent):void{
-				AlertManager.showString("gerando relatorio");
 				mainViewStack.selectedChild = gerarRelatorioBox;
 			}
 			private function cancelarGerarRelatorioHandler(e:GerarRelatorioEvent):void{

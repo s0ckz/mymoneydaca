@@ -86,7 +86,7 @@
 			}
 			
 			private function callBackFault(e:FaultEvent):void {
-				AlertManager.showError(e);
+				//AlertManager.showError(e);
 			}
 					
 		]]>
