@@ -101,15 +101,17 @@
 					if (AuthEntity.getInstance().isAccIdReseted()) {
 						accountsList.selectedIndex = 0;
 						AuthEntity.getInstance().accId = accountsIds.getItemAt(accountsList.selectedIndex) as Number;
+						atualizaUltimasOps();
 					} else if (accountsList.selectedIndex < 0) {
 						timer.start();
 					}
-					atualizaUltimasOps();
-				}
+				} else
+					ultimasOps = new ArrayCollection(); 
 			}
 			
 			private function atualizarIndex(e:TimerEvent):void {
 				accountsList.selectedIndex = accountsIds.getItemIndex(AuthEntity.getInstance().accId);
+				atualizaUltimasOps();
 			}
 			
 			private function novaAccId():void {
@@ -206,6 +208,10 @@
 				carregaAccountsIds();
 			}
 			
+			private function removerOperacaoHandler(e:ResultEvent):void {
+				atualizaUltimasOps();
+			}
+			
 			private function defulatFaultHandler(e:FaultEvent):void {
 				AlertManager.showError(e);
 			}
@@ -219,6 +225,14 @@
 			}
 			
 			private function removeTransacao():void {
+				if (ultimasOps.length > 0) {
+					var opIndex:int = transacoes.selectedIndex;
+					if (opIndex >= 0) {
+						var login:String = AuthEntity.getInstance().login;
+						var opToRemoveId:Number = ultimasOps.getItemAt(opIndex).id;
+						RemoteFacade.getInstance().removeOperation(login, opToRemoveId, removerOperacaoHandler, defaultFaultHandler);
+					} 
+				}
 			}
 			
 			private function agendarTransacao():void {
@@ -265,7 +279,7 @@
 	 	<mx:VBox height="100%">
 		 	 <mx:Label text="MyMoney" fontSize="16" color="#CDEFC8" fontWeight="bold" letterSpacing="1" paddingTop="5"/>
 			<mx:Panel title="Contas" height="100%">			
-				<mx:List id="accountsList" dataProvider="{accountsLabels}" width="100%" height="100%" selectedIndex="0" change="novaAccId();"/>		
+				<mx:List id="accountsList" dataProvider="{accountsLabels}" minWidth="160" width="100%" height="100%" selectedIndex="0" change="novaAccId();"/>		
 			</mx:Panel>
 	 	</mx:VBox>
 	 	<mx:VBox width="100%" height="100%">
@@ -278,7 +292,7 @@
 	 		</mx:HBox>
 			<mx:Panel title="Movimentação Financeira" width="100%" height="100%">
 				<mx:VBox width="100%" height="100%">
-					<mx:DataGrid dataProvider="{ultimasOps}" width="100%" height="100%">
+					<mx:DataGrid dataProvider="{ultimasOps}" id="transacoes" width="100%" height="100%">
 				      <mx:columns>
 				         <mx:DataGridColumn headerText="Valor" dataField="amount"/>
 				         <mx:DataGridColumn headerText="Data" dataField="date"/>

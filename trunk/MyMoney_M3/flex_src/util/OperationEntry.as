@@ -6,6 +6,7 @@ package util
 		var _way:String;
 		var _amount:Number;
 		var _date:String;
+		var _id:Number;
 		
 		public function OperationEntry()
 		{
@@ -39,6 +40,13 @@ package util
 		
 		public function set date(date:String():void {
 			this._date = date;
+		}
+		public function get id():Number {
+			return _id;
+		}
+		
+		public function set id(id:Number():void {
+			this._id = id;
 		}
 	}
 }
