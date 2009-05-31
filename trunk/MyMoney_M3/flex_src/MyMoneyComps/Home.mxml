@@ -2,12 +2,12 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" creationComplete="init();">
 	<mx:Script>
 		<![CDATA[
+			import util.AlertManager;
 			import mx.collections.ArrayCollection;
 			import events.AdicionarTransacaoEvent;
 			import events.CadastrarContaEvent;
 			import mx.events.MenuEvent;
 			import util.AuthEntity;
-			import mx.controls.Alert;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			import remote.RemoteFacade;
@@ -32,6 +32,9 @@
 			
 			private function init():void {				
 				carregaAccountsIds();
+				
+				// utilizado pelo Selenium
+				ExternalInterface.addCallback("addConta", addConta);
 			}	
 			
 			public function carregaAccountsIds():void {
@@ -47,7 +50,7 @@
 			}
 			
 			private function defaultFaultHandler(e:FaultEvent):void {
-				Alert.show(e.toString());
+				AlertManager.showError(e);
 			}
 			
 			private function carregaAccountsLabels():void {
@@ -112,7 +115,7 @@
 			}
 
 			private function callBackFault(e:FaultEvent):void {
-				Alert.show(e.toString());
+				AlertManager.showError(e);
 			}
 			
 			private function itemClickHandler(e:MenuEvent):void {
@@ -152,7 +155,7 @@
 			}
 			
 			private function defulatFaultHandler(e:FaultEvent):void {
-				Alert.show(e.toString());
+				AlertManager.showError(e);
 			}
 			
 			private function addTransacao():void {
@@ -182,7 +185,7 @@
 	</mx:Array>
 	<mx:XMLList id="menu">
         <menuitem label="Conta" data="Conta">
-        	<menuitem label="{ADD_CONTA}" data="{ADD_CONTA"/>
+        	<menuitem label="{ADD_CONTA}" data="{ADD_CONTA}"/>
         	<menuitem label="{REMOVE_CONTA}" data="{REMOVE_CONTA}"/>        	
         </menuitem>               
         <menuitem label="Transação" data="Transação">
