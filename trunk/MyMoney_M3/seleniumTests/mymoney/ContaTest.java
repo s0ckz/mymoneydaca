@@ -6,7 +6,7 @@ import com.thoughtworks.selenium.FlexUISelenium;
 import com.thoughtworks.selenium.Selenium;
 
 public class ContaTest extends TestCase {
-	private final static String URL = "http://localhost:8082/MyMoney/";
+	private final static String URL = "http://localhost:8080/MyMoney/";
 	private Selenium selenium;
 	private FlexUISelenium flexUITester;
 

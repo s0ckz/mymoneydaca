@@ -6,8 +6,7 @@
 			import mx.collections.ArrayCollection;
 			
 			private function getMes(mesInicial:int, mesFinal:int):ArrayCollection {
-				var meses:Array = ["", "Jan", "Fev", "Mar", "Abril", "Maio", "Abril", "Junho" , "Julho" , "Agosto" , "Setembro"
-									"Outubro" , "Novembro" , "Dezembro"  ];
+				var meses:Array = ["", "Jan", "Fev", "Mar", "Abril", "Maio", "Abril", "Junho" , "Julho" , "Agosto" , "Setembro", "Outubro" , "Novembro" , "Dezembro"  ];
 				
 				var periodos:ArrayCollection = new ArrayCollection;
 				
@@ -19,6 +18,7 @@
 				return periodos;
 			}	
 				
+			
 				
 			private function getAno(anoInicial:int, anoFinal:int):ArrayCollection {
 				var anos:Array = ["","2001", "2002", "2003" , "2004", "2005", "2006", "2007" , "2008" , 
@@ -28,11 +28,20 @@
 				
 				while (anoInicial <= anoFinal) {
 					periodos.addItem(" " + anos[anoInicial] + " " );					
-					anonicial ++	
+					anoInicial++	
 				}
 				
 				return periodos;
 			}	
+			
+			
+			private function getContas():ArrayCollection{
+				var contas:ArrayCollection = new ArrayCollection;
+				
+				
+				return contas;
+			}
+			
 			private function gerarRelatorio():void{
 				
 			}
@@ -49,17 +58,17 @@
 			<mx:Label text="nome" fontSize="16" color="#CDEFC8" fontWeight="bold" letterSpacing="1" paddingTop="5"/>
 		</mx:FormItem>
 		<mx:FormItem label="Conta : " >
-			<mx:ComboBox dataProvider="{getContas(1,9,5,9)}"/>
+			<mx:ComboBox dataProvider="{getContas()}"/>
 		</mx:FormItem>
 		<mx:FormItem label="Intervalo: " >
 			<mx:HBox width="100%">
-				<mx:Label text="Inicio: " />
+				<mx:Label text="Inicio: "/>
 				<mx:ComboBox dataProvider="{getMes(1,12)}"/>
-				<mx:ComboBox  dataProvider="{getAno((1,9)}"/>
+				<mx:ComboBox dataProvider="{getAno(1,9)}"/>
 				<mx:Spacer width="10" />
 				<mx:Label text="Fim: " />
 				<mx:ComboBox dataProvider="{getMes(1,12)}"/>
-				<mx:ComboBox  dataProvider="{getAno((1,9)}"/>
+				<mx:ComboBox dataProvider="{getAno(1,9)}"/>
 			</mx:HBox>
 			
 		</mx:FormItem>
