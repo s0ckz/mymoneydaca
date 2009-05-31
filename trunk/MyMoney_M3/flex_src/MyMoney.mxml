@@ -28,6 +28,7 @@
 				cadastrarContaBox.addEventListener(CadastrarContaEvent.CANCELAR, cancelarCadastrarContaHandler);
 				addTransacaoBox.addEventListener(AdicionarTransacaoEvent.ADICIONADA, transacaoAdicionadaHandler);
 				addTransacaoBox.addEventListener(AdicionarTransacaoEvent.CANCELADA, cancelarAddTransacaoHandler);
+				homeBox.addEventListener(GerarRelatorioEvent.GERARRELATORIO,gerarRelatorioHandler); 
 				gerarRelatorioBox.addEventListener(GerarRelatorioEvent.CANCELAR, cancelarGerarRelatorioHandler);
 				addCompromissoBox.addEventListener(AdicionarCompromissoEvent.CANCELADO, cancelarAddCompromissoHandler);
 				
