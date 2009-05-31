@@ -1,0 +1,10 @@
+bugs:
+- ja comecar clicado em alguma conta
+- atualizar tabela das operacoes qdo mudar add transacao
+- add conta default
+- por nomes das colunas em portugues
+- se voce logar e fechar o browser sem deslogar quando for tentar logar de novu bicho tah pipocando uma exception gigante
+
+features:
+- implementar remover transacao
+- implementar agendar transacao 

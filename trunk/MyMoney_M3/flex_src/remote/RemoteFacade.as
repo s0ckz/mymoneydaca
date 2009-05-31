@@ -89,6 +89,12 @@ package remote
 			async.addResponder(new Responder(result, fault));
 		}
 		
+		public function adicionarCompromisso(login:String, label:String, data:String, valor:Number, 
+				tipo:String, freq:String, result:Function, fault:Function):void {
+			var async:AsyncToken = remoteObject.adicionarCompromisso(login, label, data, valor, tipo, freq);
+			async.addResponder(new Responder(result, fault));
+		}
+		
 		private function defaultFaultHandler(e:FaultEvent):void{
 			Alert.show(e.fault.toString(), e.fault.faultString);
 		}

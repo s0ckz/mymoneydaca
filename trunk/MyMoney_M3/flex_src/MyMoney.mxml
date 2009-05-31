@@ -3,6 +3,7 @@
 	xmlns:MyMoneyComps="MyMoneyComps.*" creationComplete="init();" width="100%">
 	<mx:Script>
 		<![CDATA[
+			import events.AdicionarCompromissoEvent;
 			import util.AlertManager;
 			import events.AdicionarTransacaoEvent;
 			import events.CadastrarContaEvent;
@@ -19,6 +20,7 @@
 				homeBox.addEventListener(DoLogoutEvent.LOGOUT, doLogoutHandler);
 				homeBox.addEventListener(CadastrarContaEvent.CADASTRAR, cadastrarContaHandler);
 				homeBox.addEventListener(AdicionarTransacaoEvent.ADICIONAR, adicionarTransacaoHandler);
+				homeBox.addEventListener(AdicionarCompromissoEvent.ADICIONAR, adicionarCompromissoHandler);
 				cadastrarUsuarioBox.addEventListener(CadastrarUsuarioEvent.CANCELAR, cancelarCadastroUsuarioHandler);
 				cadastrarUsuarioBox.addEventListener(CadastrarUsuarioEvent.CADASTRADO, usuarioCadastradoHandler);
 				cadastrarContaBox.addEventListener(CadastrarContaEvent.CADASTRADA, contaCadastradaHandler);
@@ -27,6 +29,7 @@
 				addTransacaoBox.addEventListener(AdicionarTransacaoEvent.CANCELADA, cancelarAddTransacaoHandler);
 				gerarRelatorioBox.addEventListener(GerarRelatorioEvent.GERARRELATORIO,gerarRelatorioHandler); 
 				gerarRelatorioBox.addEventListener(GerarRelatorioEvent.CANCELAR, cancelarGerarRelatorioHandler);
+				addCompromissoBox.addEventListener(AdicionarCompromissoEvent.CANCELADO, cancelarAddCompromissoHandler);
 				
 				AlertManager.init();
 				
@@ -60,6 +63,9 @@
 			}
 			private function adicionarTransacaoHandler(e:AdicionarTransacaoEvent):void {
 				mainViewStack.selectedChild = addTransacaoBox;
+			}
+			private function adicionarCompromissoHandler(e:AdicionarCompromissoEvent):void {
+				mainViewStack.selectedChild = addCompromissoBox;
 			}
 			
 			// Handlers of CadastrarUsuario screen
@@ -100,6 +106,11 @@
 				mainViewStack.selectedChild = homeBox;
 			}
 			
+			// Handlers of AdicionarCompromisso screen
+			private function cancelarAddCompromissoHandler(e:AdicionarCompromissoEvent):void {
+				mainViewStack.selectedChild = homeBox;
+			}
+			
 		]]>
 	</mx:Script>
 	<mx:VBox horizontalAlign="center" verticalAlign="middle" width="100%" height="100%">
@@ -109,6 +120,7 @@
 			<MyMoneyComps:Home id="homeBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%"/>
 			<MyMoneyComps:CadastrarConta id="cadastrarContaBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%" />
 			<MyMoneyComps:AdicionarTransacao id="addTransacaoBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%" />
+			<MyMoneyComps:AdicionarCompromisso id="addCompromissoBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%" />
 			<MyMoneyComps:GerarRelatorio id="gerarRelatorioBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%" />
 		</mx:ViewStack>	
 	</mx:VBox>

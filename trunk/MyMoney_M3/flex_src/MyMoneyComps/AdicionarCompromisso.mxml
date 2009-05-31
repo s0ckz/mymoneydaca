@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%">
+	<mx:Script>
+		<![CDATA[
+			import util.AlertManager;
+			import events.AdicionarCompromissoEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			import remote.RemoteFacade;
+			import util.AuthEntity;
+			private function cancelar():void {
+				limparTudo();
+				dispatchEvent(new AdicionarCompromissoEvent(AdicionarCompromissoEvent.CANCELADO));
+			}
+			private function limparTudo():void {
+				descricao.text = "";
+				data.text = "";
+				valor.text = "";
+				debito.selected = true;
+				credito.selected = false;
+				umaVez.selected = true;
+				diaria.selected = false
+				semanal.selected = false;
+				mensal.selected = false;
+				anual.selected = false;
+			}
+			
+			private function addCompromisso():void {
+				var login:String = AuthEntity.getInstance().login;
+				var valorNum:Number = parseFloat(valor.text);
+				RemoteFacade.getInstance().adicionarCompromisso(login, descricao.text, data.text, valorNum, Tipo.selectedValue.toString(), 
+					Frequencia.selectedValue.toString(), addCompromissoCallBack, defaultFaultHandler);
+			}
+			 			
+			private function addCompromissoCallBack(e:ResultEvent):void {
+				dispatchEvent(new AdicionarCompromissoEvent(AdicionarCompromissoEvent.ADICIONADO));	
+			}
+			
+			private function defaultFaultHandler(e:FaultEvent):void {
+				AlertManager.showError(e);
+			}
+			
+		]]>
+	</mx:Script>
+	<mx:Panel width="100%" height="100%" title="Adicionar Compromisso">
+		<mx:Form width="100%" height="100%">
+			<mx:FormItem label="Descrição:" width="100%">
+				<mx:TextInput id="descricao" width="100%"/>
+			</mx:FormItem>
+			<mx:FormItem label="Valor:" width="100%">
+				<mx:TextInput id="valor" width="100%"/>
+			</mx:FormItem>
+			<mx:FormItem label="Data:">
+				<mx:DateField id="data"/>
+			</mx:FormItem>
+			<mx:FormItem label="Tipo:">
+				<mx:RadioButtonGroup id="Tipo"/>
+				<mx:RadioButton id="debito" label="Débito" groupName="Tipo" selected="true"/>
+				<mx:RadioButton id="credito" label="Crédito" groupName="Tipo"/>
+			</mx:FormItem>
+			<mx:FormItem label="Frequência:">
+				<mx:RadioButtonGroup id="Frequencia"/>
+				<mx:RadioButton id="umaVez" label="Uma vez apenas" groupName="Frequencia" selected="true"/>
+				<mx:RadioButton id="diaria" label="Diária" groupName="Frequencia"/>
+				<mx:RadioButton id="semanal" label="Semanal" groupName="Frequencia"/>
+				<mx:RadioButton id="mensal" label="Mensal" groupName="Frequencia"/>
+				<mx:RadioButton id="anual" label="Anual" groupName="Frequencia"/>
+			</mx:FormItem>
+
+		</mx:Form>
+	</mx:Panel>
+	<mx:HBox width="100%">
+		<mx:Button label="OK" id="okButton" click="addCompromisso();"/>
+		<mx:Button label="Cancelar" id="cancelarButton" click="cancelar();"/>
+	</mx:HBox>
+</mx:VBox>
