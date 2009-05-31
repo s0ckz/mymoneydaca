@@ -11,9 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
-import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.ProjectionList;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.SimpleExpression;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.hibernate.tool.hbm2ddl.SchemaUpdate;
@@ -80,9 +78,23 @@ public class HibernateUtil {
 	 */
 	public static List<?> createQueryBasedOnExpressions(
 			Class<?> clazz, Collection<SimpleExpression> expressions) {
+		return createQueryBasedOnExpressions(clazz, null, expressions);
+	}
+	
+	/**
+	 * Retorna os objetos que se encaixam no criterio requerido.
+	 * @param clazz Classe a ser utilizada.
+	 * @param projections Projecoes (group by, etc.)
+	 * @param expressions Expressoes que serao avaliadas.
+	 * @return Lista de objetos que casam com as expressoes enviadas.
+	 */
+	public static List<?> createQueryBasedOnExpressions(
+			Class<?> clazz, ProjectionList projections, Collection<SimpleExpression> expressions) {
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
 		Criteria crit = createCriteria(session, clazz, expressions);
+		if (projections != null)
+			crit.setProjection(projections);
 		List<?> list = crit.list();
 		session.close();
 		return list;
