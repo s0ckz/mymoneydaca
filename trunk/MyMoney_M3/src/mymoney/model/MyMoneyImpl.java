@@ -70,6 +70,7 @@ public class MyMoneyImpl implements MyMoney {
 			InvalidArgumentException, InvalidEmailException,
 			DuplicatedLoginException {
 		userManager.register(login, name, gender, mail);
+		accountManager.createDefaultAccount(login);
 		try {
 			authManager.register(login, password);
 		} catch (InvalidArgumentException e) {

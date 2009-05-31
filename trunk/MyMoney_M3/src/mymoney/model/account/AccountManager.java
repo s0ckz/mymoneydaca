@@ -168,5 +168,11 @@ public interface AccountManager {
 	 * @throws AccountNotFoundException Se a conta nao estiver cadastrada no sistema.
 	 */
 	String getAccountLabel(String login, Long accId) throws PermissionDeniedException, AccountNotFoundException;
+	
+	/**
+	 * Cria a conta padrão de um usuario.
+	 * @param login login do usuario.
+	 */
+	public void createDefaultAccount(String login);
 
 }
