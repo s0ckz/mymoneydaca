@@ -82,6 +82,22 @@
 	
 	<target name="testa" depends="test-US01,test-US02,test-US03,test-US04,test-US05,test-US06,test-US07,test-US08,test-US09,test-US10,test-US11">
 	</target>
+	
+	<target name="testaSelenium">
+		<parallel>
+			<java jar="${lib.dir}/selenium-server.jar" fork="true" />
+			
+			<sequential>
+				<sleep seconds="3"/>
+				<junit fork="true" showoutput="yes" printsummary="yes">
+					<classpath path="${webcontent.dir}/WEB-INF/classes" />
+					<classpath refid="classpathEasyAccept" />
+					<test name="mymoney.AllTests" />
+				</junit>
+			</sequential>
+			
+		</parallel>
+	</target>
 
 	<target name="test-US01" depends="jar,compilaTestsSource">
 		<java classname="easyaccept.EasyAccept" classpath="${classes.dir}"
