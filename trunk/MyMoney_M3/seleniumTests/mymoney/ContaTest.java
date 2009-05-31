@@ -31,6 +31,8 @@ public class ContaTest extends TestCase {
 		assertEquals("Seja bem-vindo!", flexUITester.call("getLastMessage"));
 		flexUITester.click("OK");
 		
+		assertEquals("", flexUITester.call("getNomeContas"));
+		
 		flexUITester.call("addConta");
 		
 		flexUITester.click("okButtonCadastrarConta");
@@ -55,6 +57,8 @@ public class ContaTest extends TestCase {
 		flexUITester.wait(3);
 		assertEquals("Conta cadastrada com sucesso!", flexUITester.call("getLastMessage"));
 		flexUITester.click("OK");
+		
+		assertEquals("teste", flexUITester.call("getNomeContas"));
 
 		flexUITester.click("logoutButtonHome");
 		flexUITester.wait(4);
