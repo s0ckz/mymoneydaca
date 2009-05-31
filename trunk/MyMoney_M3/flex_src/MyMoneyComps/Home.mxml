@@ -197,24 +197,24 @@
         </menuitem>        
         
     </mx:XMLList>
-	 <mx:HBox width="100%">
-	 	<mx:VBox>
+	 <mx:HBox width="100%" height="100%">
+	 	<mx:VBox height="100%">
 		 	 <mx:Label text="MyMoney" fontSize="16" color="#CDEFC8" fontWeight="bold" letterSpacing="1" paddingTop="5"/>
-			<mx:Panel title="Contas">			
-				<mx:List id="accountsList" dataProvider="{accountsLabels}" width="100%" selectedIndex="0" change="{atualizaAccId();}"/>		
+			<mx:Panel title="Contas" height="100%">			
+				<mx:List id="accountsList" dataProvider="{accountsLabels}" width="100%" height="100%" selectedIndex="0" change="{atualizaAccId();}"/>		
 			</mx:Panel>
 	 	</mx:VBox>
-	 	<mx:VBox>
+	 	<mx:VBox width="100%" height="100%">
 	 		<mx:HBox width="100%">
-			 	 <mx:ApplicationControlBar id="dockedBar" dock="true">
+			 	 <mx:ApplicationControlBar id="dockedBar" dock="true" height="100%" width="100%">
 			 	 	<mx:MenuBar height="100%" width="100%" dataProvider="{menu}" labelField="@label" itemClick="itemClickHandler(event);"/>
 			 	 </mx:ApplicationControlBar>
 			 	 <mx:Spacer width="30"/>
 			 	 <mx:LinkButton label="Logout" click="logout();"/>			
 	 		</mx:HBox>
-			<mx:Panel title="Movimentação Financeira">
+			<mx:Panel title="Movimentação Financeira" width="100%" height="100%">
 				<mx:VBox>
-					<mx:DataGrid dataProvider="{ultimasOps}" width="100%">
+					<mx:DataGrid dataProvider="{ultimasOps}" width="100%" height="100%">
 				      <mx:columns>
 				         <mx:DataGridColumn dataField="way"/>
 				         <mx:DataGridColumn dataField="amount"/>
@@ -222,7 +222,7 @@
 				         <mx:DataGridColumn dataField="date"/>
 				      </mx:columns>
 					</mx:DataGrid>		
-					<mx:VBox>
+					<mx:VBox width="100%">
 						<mx:Label text="Período:"/>
 						<mx:HBox width="100%">
 							<mx:Spacer width="70"/>										
