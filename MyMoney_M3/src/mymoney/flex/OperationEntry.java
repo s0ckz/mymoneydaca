@@ -1,6 +1,5 @@
 package mymoney.flex;
 
-import java.util.Date;
 
 public class OperationEntry {
 	
@@ -9,7 +8,14 @@ public class OperationEntry {
 	double amount;
 	String date;
 	long accId;
+	long id;
 	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	public String getWay() {
 		return way;
 	}

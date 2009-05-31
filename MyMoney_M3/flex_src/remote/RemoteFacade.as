@@ -78,6 +78,11 @@ package remote
 			async.addResponder(new Responder(result, fault));
 		}
 		
+		public function removeOperation(login:String, opId:Number, result:Function, fault:Function):void {
+			var async:AsyncToken = remoteObject.removeOperation(login,opId);
+			async.addResponder(new Responder(result, fault));
+		}
+		
 		public function adicionarTransacao(login:String, accId:Number, tipo:String, forma:String, 
 				valor:Number, data:String, result:Function, fault:Function):void {
 			var async:AsyncToken = remoteObject.addOperation(login,accId, tipo, forma, valor, data);

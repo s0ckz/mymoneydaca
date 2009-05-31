@@ -388,6 +388,7 @@ public class FlexFacade {
 		for (long id : operationsIds) {
 			OperationEntry entry = new OperationEntry();
 			entry.setAccId(accId);
+			entry.setId(id);
 			entry.setAmount(getOperationAmount(id));
 			entry.setType(getOperationType(id));
 			entry.setWay(getOperationWay(id));
