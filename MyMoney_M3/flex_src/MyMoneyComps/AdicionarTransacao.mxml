@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="400" height="300">
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml">
 	<mx:Script>
 		<![CDATA[
 			import mx.formatters.DateFormatter;
@@ -46,7 +46,7 @@
 			
 		]]>
 	</mx:Script>
-	<mx:Panel width="100%" height="100%" title="Adicionar Operação">
+	<mx:Panel width="500" height="320" title="Adicionar Operação">
 		<mx:Form width="100%" height="100%">
 			<mx:FormItem label="Valor:">
 				<mx:TextInput id="valor"/>

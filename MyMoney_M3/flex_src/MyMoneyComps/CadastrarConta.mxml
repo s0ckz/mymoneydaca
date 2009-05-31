@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="350" height="200" title="Criar Nova Conta" horizontalAlign="center" verticalAlign="top">
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml">
 	<mx:Script>
 		<![CDATA[
 			import events.CadastrarContaEvent;
@@ -36,19 +36,21 @@
 			
 		]]>
 	</mx:Script>
-	<mx:Form id="cadastrarForm" width="100%">
-		<mx:FormItem label="Label:" width="100%">
-			<mx:TextInput id="rotulo" width="100%"/>
-		</mx:FormItem>
-		<mx:FormItem label="Agência:" width="100%">
-			<mx:TextInput id="agencia" width="100%"/>
-		</mx:FormItem>
-		<mx:FormItem label="Conta:" width="100%">
-			<mx:TextInput id="conta" width="100%"/>
-		</mx:FormItem>
-	</mx:Form>
-	<mx:HBox width="100%" horizontalAlign="center">
-		<mx:Button label="OK" click="cadastrar();"/>
-		<mx:Button label="Cancelar" click="cancelar();"/>
-	</mx:HBox>
-</mx:Panel>
+	<mx:Panel layout="vertical" width="350" height="200" title="Criar Nova Conta">
+		<mx:Form id="cadastrarForm" width="100%">
+			<mx:FormItem label="Label:" width="100%">
+				<mx:TextInput id="rotulo" width="100%"/>
+			</mx:FormItem>
+			<mx:FormItem label="Agência:" width="100%">
+				<mx:TextInput id="agencia" width="100%"/>
+			</mx:FormItem>
+			<mx:FormItem label="Conta:" width="100%">
+				<mx:TextInput id="conta" width="100%"/>
+			</mx:FormItem>
+		</mx:Form>
+		<mx:HBox width="100%" horizontalAlign="center">
+			<mx:Button label="OK" click="cadastrar();"/>
+			<mx:Button label="Cancelar" click="cancelar();"/>
+		</mx:HBox>
+	</mx:Panel>
+</mx:VBox>

@@ -78,13 +78,13 @@
 			
 		]]>
 	</mx:Script>
-	<mx:VBox horizontalAlign="center" width="100%" height="100%">
-		<mx:ViewStack id="mainViewStack" selectedIndex="0" width="100%">
-			<MyMoneyComps:DoLogin id="loginBox"/>
-			<MyMoneyComps:CadastrarUsuario id="cadastrarUsuarioBox"/>
-			<MyMoneyComps:Home id="homeBox"/>
-			<MyMoneyComps:CadastrarConta id="cadastrarContaBox"/>
-			<MyMoneyComps:AdicionarTransacao id="addTransacaoBox"/>
+	<mx:VBox horizontalAlign="center" verticalAlign="middle" width="100%" height="100%">
+		<mx:ViewStack id="mainViewStack" selectedIndex="0" width="754" height="490">
+			<MyMoneyComps:DoLogin id="loginBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%"/>
+			<MyMoneyComps:CadastrarUsuario id="cadastrarUsuarioBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%"/>
+			<MyMoneyComps:Home id="homeBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%"/>
+			<MyMoneyComps:CadastrarConta id="cadastrarContaBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%" />
+			<MyMoneyComps:AdicionarTransacao id="addTransacaoBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%" />
 		</mx:ViewStack>	
 	</mx:VBox>
 </mx:Application>
