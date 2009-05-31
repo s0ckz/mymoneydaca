@@ -75,6 +75,18 @@ public class LoginTest extends TestCase {
 		flexUITester.wait(3);
 		flexUITester.click("OK");
 		assertEquals("Usuário cadastrado com sucesso!", flexUITester.call("getLastMessage"));
+
+		flexUITester.type("leandro").at("login");
+		flexUITester.type("leandro").at("senha");
+		flexUITester.click("loginButton");
+		flexUITester.wait(4);
+		assertEquals("Seja bem-vindo!", flexUITester.call("getLastMessage"));
+		flexUITester.click("OK");
+
+		flexUITester.click("logoutButtonHome");
+		flexUITester.wait(4);
+		assertEquals("Até mais!", flexUITester.call("getLastMessage"));
+		flexUITester.click("OK");
 	}
 
 }
