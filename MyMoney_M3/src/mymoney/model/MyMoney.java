@@ -677,4 +677,6 @@ public interface MyMoney {
 	 */
 	Collection<Long> getAllOperations(String login, long accId) throws PermissionDeniedException, AccountNotFoundException;
 
+	Collection<Long> getAllCommitmentsIds(String login);
+
 }

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" creationComplete="init();">
+	<mx:Script>
+		<![CDATA[
+			import util.CommitmentEntry;
+			import util.AlertManager;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			import remote.RemoteFacade;
+			import util.AuthEntity;
+			import mx.collections.ArrayCollection;
+			import events.MostrarCompromissosEvent;
+			
+			[Bindable]
+			private var compromissos:ArrayCollection;
+			
+			public function init():void {
+				carregaCompromissos();
+			}
+			
+			private function sair():void {
+				compromissos = new ArrayCollection();
+				dispatchEvent(new MostrarCompromissosEvent(MostrarCompromissosEvent.CANCELAR));
+			}
+			private function carregaCompromissos():void {
+				var login:String = AuthEntity.getInstance().login;
+				RemoteFacade.getInstance().getAllCompromissos(login, carregaCompromissosHandler, defaultFaultHandler);
+			}
+			
+			private function carregaCompromissosHandler(e:ResultEvent):void {
+				this.compromissos = e.result as ArrayCollection;
+			}
+			
+			private function defaultFaultHandler(e:FaultEvent):void {
+				AlertManager.showError(e);
+			}
+			
+			private function remover():void {
+				var index:int = gridCompromissos.selectedIndex;
+				if (index == -1) {
+					AlertManager.showString("Por favor, selecione um compromisso para ser removido.");
+				} else {
+					var id:Number = (compromissos.getItemAt(index) as CommitmentEntry).id;
+					RemoteFacade.getInstance().removeCommitment(AuthEntity.getInstance().login, id, removeCallBack, defaultFaultHandler); 
+				} 
+			}
+
+			private function removeCallBack(e:ResultEvent):void {
+				AlertManager.showString("Compromisso removido com sucesso!");
+				carregaCompromissos();
+			}
+		]]>
+	</mx:Script>
+	<mx:Panel width="100%" height="100%" title="Compromissos">
+		<mx:DataGrid id="gridCompromissos" width="100%" height="100%" dataProvider="{compromissos}">
+			<mx:columns>
+				<mx:DataGridColumn headerText="Descrição" dataField="label"/>
+				<mx:DataGridColumn headerText="Valor" dataField="valor"/>
+				<mx:DataGridColumn headerText="Data" dataField="date"/>
+				<mx:DataGridColumn headerText="Tipo" dataField="type"/>
+				<mx:DataGridColumn headerText="Frequência" dataField="frequency"/>
+			</mx:columns>
+		</mx:DataGrid>
+		<mx:HBox width="100%" horizontalAlign="center">
+			<mx:Button id="removerButton" label="Remover" click="remover();"/>
+			<mx:Button id="sairButton" label="Sair" click="sair();"/>
+		</mx:HBox>
+	</mx:Panel>
+	
+</mx:VBox>

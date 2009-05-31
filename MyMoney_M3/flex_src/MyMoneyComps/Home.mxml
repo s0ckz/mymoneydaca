@@ -2,6 +2,8 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" creationComplete="init();">
 	<mx:Script>
 		<![CDATA[
+			import events.MostrarCompromissosEvent;
+			import events.AdicionarCompromissoEvent;
 			import events.GerarRelatorioEvent;
 			import mx.controls.Alert;
 			import util.AlertManager;
@@ -23,6 +25,7 @@
 			private static const RELATORIO:String = "Gerar Relatório";			
 			private static const IMPORTAR:String = "Importar Extrato";
 			private static const EXPORTAR:String = "Exportar Extrato";
+			private static const MOSTRAR_COMPROMISSOS:String = "Mostrar Compromissos";
 			
 			private var accountsIds:ArrayCollection;
 			
@@ -33,6 +36,7 @@
 			private var ultimasOps:ArrayCollection;
 			
 			private function init():void {
+				atualiza();
 				criarInterfacesExternas();
 			}
 			
@@ -59,7 +63,6 @@
 			
 			private function accountsIdsHandler(e:ResultEvent):void {
 				accountsIds = e.result as ArrayCollection;
-		//		Alert.show("ids carregados: " + accountsIds.toString());
 				carregaAccountsLabels();
 			}
 			
@@ -164,12 +167,16 @@
 					removeTransacao();
 				} else if (e.label == AGENDAR_TRANSACAO) {
 					agendarTransacao();
+				} else if (e.label == MOSTRAR_COMPROMISSOS) {
+					mostrarCompromissos();
 				} else if (e.label == RELATORIO) {
 					gerarRelatorio();
 				}  else if (e.label == IMPORTAR) {
 					importar();
 				} else if (e.label == EXPORTAR) {
 					exportar();
+				} else {
+					Alert.show("not match, e.label = " + e.label);
 				}
 			}
 			
@@ -198,6 +205,10 @@
 			
 			private function addTransacao():void {
 				dispatchEvent(new AdicionarTransacaoEvent(AdicionarTransacaoEvent.ADICIONAR));
+			}
+			
+			private function mostrarCompromissos():void {
+				dispatchEvent(new MostrarCompromissosEvent(MostrarCompromissosEvent.EXIBIR));
 			}
 			
 			private function removeTransacao():void {
@@ -231,7 +242,10 @@
         <menuitem label="Transação" data="Transação">
         	<menuitem label="{ADD_TRANSACAO}" data="{ADD_TRANSACAO}"/>
         	<menuitem label="{REMOVE_TRANSACAO}" data="{REMOVE_TRANSACAO}"/>
+        </menuitem>                                   
+        <menuitem label="Compromisso" data="Compromisso">
         	<menuitem label="{AGENDAR_TRANSACAO}" data="{AGENDAR_TRANSACAO}"/>
+        	<menuitem label="{MOSTRAR_COMPROMISSOS}" data="{MOSTRAR_COMPROMISSOS}"/>
         </menuitem>                                   
         <menuitem label="Extratos" data="Extratos">
         	<menuitem label="{RELATORIO}" data="{RELATORIO}"/>
@@ -259,10 +273,10 @@
 				<mx:VBox width="100%" height="100%">
 					<mx:DataGrid dataProvider="{ultimasOps}" width="100%" height="100%">
 				      <mx:columns>
-				         <mx:DataGridColumn dataField="way"/>
-				         <mx:DataGridColumn dataField="amount"/>
-				         <mx:DataGridColumn dataField="type"/>
-				         <mx:DataGridColumn dataField="date"/>
+				         <mx:DataGridColumn headerText="Valor" dataField="amount"/>
+				         <mx:DataGridColumn headerText="Data" dataField="date"/>
+				         <mx:DataGridColumn headerText="Forma de Pagamento" dataField="way"/>
+				         <mx:DataGridColumn headerText="Tipo" dataField="type"/>
 				      </mx:columns>
 					</mx:DataGrid>		
 					<mx:VBox width="100%">
