@@ -31,7 +31,10 @@
 				return periodos;
 			}	
 				
-			
+			private function tipoOperacao():Array{
+				var operacoes:Array = ["credit" , "debit"  ];
+				return operacoes;
+			}
 				
 			private function getAno(anoInicial:int, anoFinal:int):ArrayCollection {
 				var anos:Array = ["","2001", "2002", "2003" , "2004", "2005", "2006", "2007" , "2008" , 
@@ -63,6 +66,9 @@
 			
 			
 			private function gerarRelatorio():void{
+				var login:String = AuthEntity.getInstance().login;
+				RemoteFacade.getInstance().generateReport(login,dataInicio.text + " 00:00:00",dataFim.text + " 23:59:59",idAcc.selectedItem.toString(),TipoOperacao.selectedValue.toString(),callBackResult,callBackFault);
+
 				
 			}
 			private function cancelar():void{
@@ -74,6 +80,14 @@
 				return login;
 			}
 			
+			private function callBackResult(e:ResultEvent):void {
+				dispatchEvent(new GerarRelatorioEvent(GerarRelatorioEvent.RELATORIOGERADO));
+				
+			}
+			
+			private function callBackFault(e:FaultEvent):void {
+				AlertManager.showError(e);
+			}
 					
 		]]>
 	</mx:Script>
@@ -83,21 +97,28 @@
 		<mx:FormItem label="Usuario: " width="100%">
 			<mx:Label text="{getLogin()}" fontSize="16" color="#CDEFC8" fontWeight="bold" letterSpacing="1" paddingTop="5"/>
 		</mx:FormItem>
-		<mx:FormItem label="Conta : " >
-			<mx:ComboBox dataProvider="{accountsIds}"/>
+			
+		<mx:FormItem label="Conta: ">
+				<mx:ComboBox id="idAcc" dataProvider="{accountsIds}"/>	
+		</mx:FormItem> 	
+			
+				
+		<mx:FormItem label="Tipo da Operação:" width="100%" borderStyle="solid">
+			<mx:RadioButtonGroup id="TipoOperacao"/>
+			<mx:RadioButton id="credito" label="CRÉDITO" groupName="TipoOperacao" selected="true"/>
+			<mx:RadioButton id="debito" label="DÉBITO" groupName="TipoOperacao"/>
 		</mx:FormItem>
-		<mx:FormItem label="Intervalo: " >
-			<mx:HBox width="100%">
-				<mx:Label text="Inicio: "/>
-				<mx:ComboBox dataProvider="{getMes(1,12)}"/>
-				<mx:ComboBox dataProvider="{getAno(1,9)}"/>
-				<mx:Spacer width="10" />
-				<mx:Label text="Fim: " />
-				<mx:ComboBox dataProvider="{getMes(1,12)}"/>
-				<mx:ComboBox dataProvider="{getAno(1,9)}"/>
-			</mx:HBox>
+				
+		<mx:FormItem label="Data Inicial: " >
+			<mx:DateField id="dataInicio" formatString="DD/MM/YYYY"/>
 			
 		</mx:FormItem>
+		
+		<mx:FormItem label="Data Final: " >
+			<mx:DateField id="dataFim" formatString="DD/MM/YYYY"/>
+		</mx:FormItem>
+		
+		
 		<mx:HBox width="100%" horizontalAlign="center">
 				<mx:Label text="Movimentações" fontSize="16" color="#CDEFC8" fontWeight="bold" letterSpacing="1" paddingTop="5"/>
 			</mx:HBox>

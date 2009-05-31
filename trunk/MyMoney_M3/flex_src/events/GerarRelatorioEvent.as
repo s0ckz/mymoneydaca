@@ -8,6 +8,7 @@ package events
 	{
 		
 		public static const GERARRELATORIO:String = "gerarRelatorio";
+		public static const RELATORIOGERADO:String = "relatorioGerado";	
 		public static const CANCELAR:String = "gerarRelatorioCancelar"; 
 		
 		public function GerarRelatorioEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false)
