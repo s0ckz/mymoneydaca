@@ -2,6 +2,7 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" creationComplete="init();">
 	<mx:Script>
 		<![CDATA[
+			import events.AdicionarCompromissoEvent;
 			import events.GerarRelatorioEvent;
 			import mx.controls.Alert;
 			import util.AlertManager;
@@ -129,16 +130,18 @@
 			}			
 			
 			private function logout():void {				
-				limparTudo();
 				RemoteFacade.getInstance().doLogout(AuthEntity.getInstance().login, AuthEntity.getInstance().senha, callBackLogout, callBackFault);
 			}
 			private function limparTudo():void {
 				accountsLabels = new ArrayCollection();
 				ultimasOps = new ArrayCollection();
 				accountsIds = new ArrayCollection();
+				AuthEntity.getInstance().login = "";
+				AuthEntity.getInstance().accId = 0;
 			}
 			
 			private function callBackLogout(e:ResultEvent):void {
+				limparTudo();
 				dispatchEvent(new DoLogoutEvent(DoLogoutEvent.LOGOUT));
 			}
 
@@ -194,6 +197,7 @@
 			}
 			
 			private function agendarTransacao():void {
+				dispatchEvent(new AdicionarCompromissoEvent(AdicionarCompromissoEvent.ADICIONAR));
 			}
 			
 			private function gerarRelatorio():void {
