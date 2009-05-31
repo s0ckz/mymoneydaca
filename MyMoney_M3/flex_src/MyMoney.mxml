@@ -21,13 +21,13 @@
 				homeBox.addEventListener(CadastrarContaEvent.CADASTRAR, cadastrarContaHandler);
 				homeBox.addEventListener(AdicionarTransacaoEvent.ADICIONAR, adicionarTransacaoHandler);
 				homeBox.addEventListener(AdicionarCompromissoEvent.ADICIONAR, adicionarCompromissoHandler);
+				homeBox.addEventListener(GerarRelatorioEvent.GERARRELATORIO,gerarRelatorioHandler); 
 				cadastrarUsuarioBox.addEventListener(CadastrarUsuarioEvent.CANCELAR, cancelarCadastroUsuarioHandler);
 				cadastrarUsuarioBox.addEventListener(CadastrarUsuarioEvent.CADASTRADO, usuarioCadastradoHandler);
 				cadastrarContaBox.addEventListener(CadastrarContaEvent.CADASTRADA, contaCadastradaHandler);
 				cadastrarContaBox.addEventListener(CadastrarContaEvent.CANCELAR, cancelarCadastrarContaHandler);
 				addTransacaoBox.addEventListener(AdicionarTransacaoEvent.ADICIONADA, transacaoAdicionadaHandler);
 				addTransacaoBox.addEventListener(AdicionarTransacaoEvent.CANCELADA, cancelarAddTransacaoHandler);
-				gerarRelatorioBox.addEventListener(GerarRelatorioEvent.GERARRELATORIO,gerarRelatorioHandler); 
 				gerarRelatorioBox.addEventListener(GerarRelatorioEvent.CANCELAR, cancelarGerarRelatorioHandler);
 				addCompromissoBox.addEventListener(AdicionarCompromissoEvent.CANCELADO, cancelarAddCompromissoHandler);
 				
