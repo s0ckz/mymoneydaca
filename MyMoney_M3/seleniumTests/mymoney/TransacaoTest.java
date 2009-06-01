@@ -17,13 +17,13 @@ public class TransacaoTest extends MyMoneyTestCase {
 		
 		flexUITester.click("okButtonAdicionarTransacao");
 		flexUITester.wait(3);
-		assertEquals("Digite o valor da transação!", flexUITester.call("getLastMessage"));
+		assertEquals("Digite o valor da transacao!", flexUITester.call("getLastMessage"));
 		flexUITester.click("OK");
 		
 		flexUITester.type("abcd").at("valorAdicionarTransacao");
 		flexUITester.click("okButtonAdicionarTransacao");
 		flexUITester.wait(3);
-		assertEquals("Digite o valor da transação!", flexUITester.call("getLastMessage"));
+		assertEquals("Digite o valor da transacao!", flexUITester.call("getLastMessage"));
 		flexUITester.click("OK");
 		
 		flexUITester.type("300").at("valorAdicionarTransacao");
@@ -38,7 +38,7 @@ public class TransacaoTest extends MyMoneyTestCase {
 		flexUITester.click("okButtonAdicionarTransacao");
 		flexUITester.wait(3);
 		
-		assertEquals("300 - 10/12/2008 - CHEQUE - DÉBITO", flexUITester.call("getTransacoes"));
+		assertEquals("300 - 10/12/2008 - CHEQUE - DEBITO", flexUITester.call("getTransacoes"));
 		
 		flexUITester.call("addTransacao");
 		flexUITester.wait(1);
@@ -49,11 +49,11 @@ public class TransacaoTest extends MyMoneyTestCase {
 		flexUITester.click("okButtonAdicionarTransacao");
 		flexUITester.wait(3);
 		
-		assertEquals("300 - 10/12/2008 - CHEQUE - DÉBITO,100 - 10/12/2007 - CARTÃO DE CRÉDITO - CRÉDITO", flexUITester.call("getTransacoes"));
+		assertEquals("300 - 10/12/2008 - CHEQUE - DEBITO,100 - 10/12/2007 - CARTAO DE CREDITO - CREDITO", flexUITester.call("getTransacoes"));
 		
 		flexUITester.click("logoutButtonHome");
 		flexUITester.wait(4);
-		assertEquals("Até mais!", flexUITester.call("getLastMessage"));
+		assertEquals("Ateh mais!", flexUITester.call("getLastMessage"));
 		flexUITester.click("OK");
 	}
 
@@ -65,12 +65,12 @@ public class TransacaoTest extends MyMoneyTestCase {
 		assertEquals("Seja bem-vindo!", flexUITester.call("getLastMessage"));
 		flexUITester.click("OK");
 
-		assertEquals("300 - 10/12/2008 - CHEQUE - DÉBITO,100 - 10/12/2007 - CARTÃO DE CRÉDITO - CRÉDITO", flexUITester.call("getTransacoes"));
+		assertEquals("300 - 10/12/2008 - CHEQUE - DEBITO,100 - 10/12/2007 - CARTAO DE CREDITO - CREDITO", flexUITester.call("getTransacoes"));
 		
 		flexUITester.call("selecionaTransacao", "1");
 		flexUITester.call("removeTransacao");
 		flexUITester.wait(3);
-		assertEquals("300 - 10/12/2008 - CHEQUE - DÉBITO", flexUITester.call("getTransacoes"));
+		assertEquals("300 - 10/12/2008 - CHEQUE - DEBITO", flexUITester.call("getTransacoes"));
 		
 		flexUITester.call("selecionaTransacao", "0");
 		flexUITester.call("removeTransacao");
@@ -79,7 +79,7 @@ public class TransacaoTest extends MyMoneyTestCase {
 
 		flexUITester.click("logoutButtonHome");
 		flexUITester.wait(4);
-		assertEquals("Até mais!", flexUITester.call("getLastMessage"));
+		assertEquals("Ateh mais!", flexUITester.call("getLastMessage"));
 		flexUITester.click("OK");
 	}
 

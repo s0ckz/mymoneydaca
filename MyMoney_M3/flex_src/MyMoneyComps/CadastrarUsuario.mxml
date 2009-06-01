@@ -32,7 +32,7 @@
 					CadastrarUsuarioController.getInstance().registerUser(loginCadastro.text, senhaCadastro.text, nome.text, sexo.selectedValue.toString(), email.text, callBackResult, callBackFault);
 				} else {
 					senhaCadastro.focusEnabled = true;
-					AlertManager.showString("A senha não confere!");
+					AlertManager.showString("A senha nao confere!");
 				}
 			}
 			

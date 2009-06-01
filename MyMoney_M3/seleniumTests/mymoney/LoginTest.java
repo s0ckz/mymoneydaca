@@ -40,7 +40,7 @@ public class LoginTest extends MyMoneyTestCase {
 		flexUITester.click("okButton");
 		flexUITester.wait(1);
 		flexUITester.click("OK");
-		assertEquals("A senha não confere!", flexUITester.call("getLastMessage"));
+		assertEquals("A senha nao confere!", flexUITester.call("getLastMessage"));
 
 		flexUITester.type("leandro").at("confirmarSenha");
 		flexUITester.click("okButton");
@@ -52,7 +52,7 @@ public class LoginTest extends MyMoneyTestCase {
 		flexUITester.click("okButton");
 		flexUITester.wait(3);
 		flexUITester.click("OK");
-		assertEquals("Usuário cadastrado com sucesso!", flexUITester.call("getLastMessage"));
+		assertEquals("Usuario cadastrado com sucesso!", flexUITester.call("getLastMessage"));
 
 		flexUITester.type("leandro").at("login");
 		flexUITester.type("leandro").at("senha");
@@ -63,7 +63,7 @@ public class LoginTest extends MyMoneyTestCase {
 
 		flexUITester.click("logoutButtonHome");
 		flexUITester.wait(4);
-		assertEquals("Até mais!", flexUITester.call("getLastMessage"));
+		assertEquals("Ateh mais!", flexUITester.call("getLastMessage"));
 		flexUITester.click("OK");
 	}
 

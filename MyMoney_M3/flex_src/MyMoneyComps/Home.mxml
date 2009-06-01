@@ -24,8 +24,8 @@
 			private static const REMOVE_TRANSACAO:String = "Remover Transação";			
 			private static const AGENDAR_TRANSACAO:String = "Agendar Transação";
 			private static const RELATORIO:String = "Gerar Relatório";			
-			private static const IMPORTAR:String = "Importar Extrato";
-			private static const EXPORTAR:String = "Exportar Extrato";
+//			private static const IMPORTAR:String = "Importar Extrato";
+//			private static const EXPORTAR:String = "Exportar Extrato";
 			private static const MOSTRAR_COMPROMISSOS:String = "Mostrar Compromissos";
 			
 			private var accountsIds:ArrayCollection;
@@ -211,10 +211,10 @@
 					mostrarCompromissos();
 				} else if (e.label == RELATORIO) {
 					gerarRelatorio();
-				}  else if (e.label == IMPORTAR) {
-					importar();
-				} else if (e.label == EXPORTAR) {
-					exportar();
+//				}  else if (e.label == IMPORTAR) {
+//					importar();
+//				} else if (e.label == EXPORTAR) {
+//					exportar();
 				} else {
 					Alert.show("not match, e.label = " + e.label);
 				}
@@ -301,8 +301,8 @@
         </menuitem>                                   
         <menuitem label="Extratos" data="Extratos">
         	<menuitem label="{RELATORIO}" data="{RELATORIO}"/>
-        	<menuitem label="{IMPORTAR}" data="{IMPORTAR}"/>
-        	<menuitem label="{EXPORTAR}" data="{EXPORTAR}"/>
+<!--        	<menuitem label="{IMPORTAR}" data="{IMPORTAR}"/>
+        	<menuitem label="{EXPORTAR}" data="{EXPORTAR}"/> -->
         </menuitem>        
         
     </mx:XMLList>
