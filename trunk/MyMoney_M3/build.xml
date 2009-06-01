@@ -42,8 +42,11 @@
 	</target>
 
 	<target name="compila" depends="init">
-		<javac debug="true" srcdir="${src.dir}" destdir="${classes.dir}"
-			classpathref="classpath" />
+		<javac debug="true" destdir="${classes.dir}" classpathref="classpath">
+    		<src path="${src.dir}"/>
+    		<src path="acceptanceTests"/>
+    		<src path="seleniumTests"/>
+		</javac>
 	</target>
 	
 	<target name="compilaTestsSource">
@@ -64,7 +67,7 @@
 		</javadoc>
 	</target>
     
-    <target name="jar" depends="jarH2" >
+    <target name="jar" depends="jarMySQL" >
 	</target>   
 
 	<target name="jarH2" depends="init,compila,configH2,jarCommon" >
@@ -83,14 +86,14 @@
 	<target name="testa" depends="test-US01,test-US02,test-US03,test-US04,test-US05,test-US06,test-US07,test-US08,test-US09,test-US10,test-US11">
 	</target>
 	
-	<target name="testaSelenium">
+	<target name="testaSelenium" depends="jar">
 		<parallel>
 			<java jar="${lib.dir}/selenium-server.jar" fork="true" />
 			
 			<sequential>
 				<sleep seconds="3"/>
 				<junit fork="true" showoutput="yes" printsummary="yes">
-					<classpath path="${webcontent.dir}/WEB-INF/classes" />
+					<classpath path="${classes.dir}" />
 					<classpath refid="classpathEasyAccept" />
 					<test name="mymoney.AllTests" />
 				</junit>
