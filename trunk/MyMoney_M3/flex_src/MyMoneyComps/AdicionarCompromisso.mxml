@@ -2,11 +2,12 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="300" height="100%">
 	<mx:Script>
 		<![CDATA[
+			import controllers.AdicionarCompromissoController;
 			import util.AlertManager;
 			import events.AdicionarCompromissoEvent;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
-			import remote.RemoteFacade;
+//			import remote.RemoteFacade;
 			import util.AuthEntity;
 			private function cancelar():void {
 				limparTudo();
@@ -28,7 +29,7 @@
 			private function addCompromisso():void {
 				var login:String = AuthEntity.getInstance().login;
 				var valorNum:Number = parseFloat(valorAdicionarCompromisso.text);
-				RemoteFacade.getInstance().adicionarCompromisso(login, descricaoAdicionarCompromisso.text, 
+				AdicionarCompromissoController.getInstance().adicionarCompromisso(login, descricaoAdicionarCompromisso.text, 
 					dataAdicionarCompromisso.text, valorNum, Tipo.selectedValue.toString(), 
 					Frequencia.selectedValue.toString(), addCompromissoCallBack, defaultFaultHandler);
 			}
