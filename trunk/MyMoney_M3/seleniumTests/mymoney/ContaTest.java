@@ -42,7 +42,7 @@ public class ContaTest extends MyMoneyTestCase {
 
 		flexUITester.click("logoutButtonHome");
 		flexUITester.wait(4);
-		assertEquals("Até mais!", flexUITester.call("getLastMessage"));
+		assertEquals("Ateh mais!", flexUITester.call("getLastMessage"));
 		flexUITester.click("OK");
 	}
 
@@ -63,7 +63,7 @@ public class ContaTest extends MyMoneyTestCase {
 
 		flexUITester.click("logoutButtonHome");
 		flexUITester.wait(4);
-		assertEquals("Até mais!", flexUITester.call("getLastMessage"));
+		assertEquals("Ateh mais!", flexUITester.call("getLastMessage"));
 		flexUITester.click("OK");
 	}
 

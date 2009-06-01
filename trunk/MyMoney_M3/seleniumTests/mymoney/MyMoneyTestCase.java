@@ -8,7 +8,7 @@ import junit.framework.TestCase;
 
 public class MyMoneyTestCase extends TestCase {
 	
-	private final static String URL = "http://localhost:8080/MyMoney/";
+	private final static String URL = "http://localhost:8082/MyMoney/";
 	protected Selenium selenium;
 	protected FlexUISelenium flexUITester;
 

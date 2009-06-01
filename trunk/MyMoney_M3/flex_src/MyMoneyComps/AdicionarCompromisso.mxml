@@ -57,13 +57,13 @@
 			</mx:FormItem>
 			<mx:FormItem label="Tipo:">
 				<mx:RadioButtonGroup id="Tipo"/>
-				<mx:RadioButton id="debitoAdicionarCompromisso" label="Débito" groupName="Tipo" selected="true"/>
-				<mx:RadioButton id="creditoAdicionarCompromisso" label="Crédito" groupName="Tipo"/>
+				<mx:RadioButton id="debitoAdicionarCompromisso" label="Debito" groupName="Tipo" selected="true"/>
+				<mx:RadioButton id="creditoAdicionarCompromisso" label="Credito" groupName="Tipo"/>
 			</mx:FormItem>
 			<mx:FormItem label="Frequência:">
 				<mx:RadioButtonGroup id="Frequencia"/>
 				<mx:RadioButton id="umaVezAdicionarCompromisso" label="Uma vez apenas" groupName="Frequencia" selected="true"/>
-				<mx:RadioButton id="diariaAdicionarCompromisso" label="Diária" groupName="Frequencia"/>
+				<mx:RadioButton id="diariaAdicionarCompromisso" label="Diaria" groupName="Frequencia"/>
 				<mx:RadioButton id="semanalAdicionarCompromisso" label="Semanal" groupName="Frequencia"/>
 				<mx:RadioButton id="mensalAdicionarCompromisso" label="Mensal" groupName="Frequencia"/>
 				<mx:RadioButton id="anualAdicionarCompromisso" label="Anual" groupName="Frequencia"/>

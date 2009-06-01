@@ -17,7 +17,7 @@
 				var accId:Number = AuthEntity.getInstance().accId;
 				var valorTran:Number = parseFloat(valorAdicionarTransacao.text);
 				if (valorTran != valorTran) // forma de checar se eh NaN :)
-					AlertManager.showString("Digite o valor da transação!");
+					AlertManager.showString("Digite o valor da transacao!");
 				else
 					AdicionarTransacaoController.getInstance().adicionarTransacao(login, accId, TipoOperacao.selectedValue.toString(), FormaPagamento.selectedValue.toString(), valorTran, dataAdicionarTransacao.text, addTransacaoCallBack, defaultFaultCallBack);
 			}
@@ -59,14 +59,14 @@
 			</mx:FormItem>
 			<mx:FormItem label="Tipo da Operação:" width="100%" borderStyle="solid">
 				<mx:RadioButtonGroup id="TipoOperacao"/>
-				<mx:RadioButton id="creditoAdicionarTransacao" label="CRÉDITO" groupName="TipoOperacao" selected="true"/>
-				<mx:RadioButton id="debitoAdicionarTransacao" label="DÉBITO" groupName="TipoOperacao"/>
+				<mx:RadioButton id="creditoAdicionarTransacao" label="CREDITO" groupName="TipoOperacao" selected="true"/>
+				<mx:RadioButton id="debitoAdicionarTransacao" label="DEBITO" groupName="TipoOperacao"/>
 			</mx:FormItem>
 			<mx:FormItem label="Forma de Pagamento:" borderStyle="solid" width="100%">
 				<mx:RadioButtonGroup id="FormaPagamento"/>
 				<mx:RadioButton id="dinheiroAdicionarTransacao" label="DINHEIRO" groupName="FormaPagamento" selected="true"/>
 				<mx:RadioButton id="chequeAdicionarTransacao" label="CHEQUE" groupName="FormaPagamento"/>
-				<mx:RadioButton id="cartaoAdicionarTransacao" label="CARTÃO DE CRÉDITO" groupName="FormaPagamento"/>
+				<mx:RadioButton id="cartaoAdicionarTransacao" label="CARTAO DE CREDITO" groupName="FormaPagamento"/>
 			</mx:FormItem>
 		</mx:Form>
 		<mx:HBox width="100%" horizontalAlign="center">

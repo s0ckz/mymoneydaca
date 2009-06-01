@@ -45,7 +45,7 @@ public class CompromissosTest extends MyMoneyTestCase {
 		
 		flexUITester.call("mostrarCompromissos");
 		flexUITester.wait(1);
-		assertEquals("teste - 300 - 01/01/2001 - Débito - Uma vez apenas", flexUITester.call("getCompromissos"));
+		assertEquals("teste - 300 - 01/01/2001 - Debito - Uma vez apenas", flexUITester.call("getCompromissos"));
 		flexUITester.wait(1);
 		flexUITester.click("sairButtonMostrarCompromissos");
 		flexUITester.wait(1);
@@ -64,14 +64,14 @@ public class CompromissosTest extends MyMoneyTestCase {
 
 		flexUITester.call("mostrarCompromissos");
 		flexUITester.wait(1);
-		assertEquals("teste - 300 - 01/01/2001 - Débito - Uma vez apenas,teste - 300 - 01/01/2001 - Crédito - Semanal", flexUITester.call("getCompromissos"));
+		assertEquals("teste - 300 - 01/01/2001 - Debito - Uma vez apenas,teste - 300 - 01/01/2001 - Credito - Semanal", flexUITester.call("getCompromissos"));
 		flexUITester.wait(1);
 		flexUITester.click("sairButtonMostrarCompromissos");
 		flexUITester.wait(1);
 		
 		flexUITester.click("logoutButtonHome");
 		flexUITester.wait(4);
-		assertEquals("Até mais!", flexUITester.call("getLastMessage"));
+		assertEquals("Ateh mais!", flexUITester.call("getLastMessage"));
 		flexUITester.click("OK");
 	}
 
@@ -85,7 +85,7 @@ public class CompromissosTest extends MyMoneyTestCase {
 
 		flexUITester.call("mostrarCompromissos");
 		flexUITester.wait(1);
-		assertEquals("teste - 300 - 01/01/2001 - Débito - Uma vez apenas,teste - 300 - 01/01/2001 - Crédito - Semanal", flexUITester.call("getCompromissos"));
+		assertEquals("teste - 300 - 01/01/2001 - Debito - Uma vez apenas,teste - 300 - 01/01/2001 - Credito - Semanal", flexUITester.call("getCompromissos"));
 		
 		flexUITester.call("selecionaCompromisso", "1");
 		flexUITester.call("removeCompromisso");
@@ -93,7 +93,7 @@ public class CompromissosTest extends MyMoneyTestCase {
 		assertEquals("Compromisso removido com sucesso!", flexUITester.call("getLastMessage"));
 		flexUITester.click("OK");
 
-		assertEquals("teste - 300 - 01/01/2001 - Débito - Uma vez apenas", flexUITester.call("getCompromissos"));
+		assertEquals("teste - 300 - 01/01/2001 - Debito - Uma vez apenas", flexUITester.call("getCompromissos"));
 		flexUITester.wait(1);
 		
 		flexUITester.call("selecionaCompromisso", "0");
@@ -107,7 +107,7 @@ public class CompromissosTest extends MyMoneyTestCase {
 
 		flexUITester.click("logoutButtonHome");
 		flexUITester.wait(4);
-		assertEquals("Até mais!", flexUITester.call("getLastMessage"));
+		assertEquals("Ateh mais!", flexUITester.call("getLastMessage"));
 		flexUITester.click("OK");
 	}
 

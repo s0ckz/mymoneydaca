@@ -43,6 +43,7 @@
 				
 				// utilizado pelo Selenium
 				ExternalInterface.addCallback("cleanAll", cleanAll);
+				mostrarCompromissosBox.initSelenium();
 			}
 			
 			public function cleanAll():void {
@@ -63,7 +64,7 @@
 
 			// Handlers of Home screen
 			private function doLogoutHandler(e:DoLogoutEvent):void {			
-				AlertManager.showString("Até mais!");			
+				AlertManager.showString("Ateh mais!");			
 				mainViewStack.selectedChild = loginBox;
 			}
 			private function cadastrarContaHandler(e:CadastrarContaEvent):void {
@@ -85,7 +86,7 @@
 				mainViewStack.selectedChild=loginBox;
 			}
 			private function usuarioCadastradoHandler(e:CadastrarUsuarioEvent):void {				
-				AlertManager.showString("Usuário cadastrado com sucesso!");
+				AlertManager.showString("Usuario cadastrado com sucesso!");
 				mainViewStack.selectedChild=loginBox;	
 			}			
 			
