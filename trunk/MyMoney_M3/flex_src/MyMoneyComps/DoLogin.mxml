@@ -2,15 +2,15 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="300" height="300">
 	<mx:Script>
 		<![CDATA[
+			import controllers.DoLoginController;
 			import util.AlertManager;
 			import util.AuthEntity;
 			import events.DoLoginEvent;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
-			import remote.RemoteFacade;
 			
 			private function signIn():void {
-				RemoteFacade.getInstance().doLogin(login.text, senha.text, callBackResult, callBackFault);
+				DoLoginController.getInstance().doLogin(login.text, senha.text, callBackResult, callBackFault);
 			}
 			
 			private function callBackResult(e:ResultEvent):void {

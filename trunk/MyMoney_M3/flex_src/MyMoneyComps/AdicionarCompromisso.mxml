@@ -7,7 +7,6 @@
 			import events.AdicionarCompromissoEvent;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
-//			import remote.RemoteFacade;
 			import util.AuthEntity;
 			private function cancelar():void {
 				limparTudo();

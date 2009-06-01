@@ -2,12 +2,12 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml">
 	<mx:Script>
 		<![CDATA[
+			import controllers.CadastrarContaController;
 			import util.AlertManager;
 			import events.CadastrarContaEvent;
 			import util.AuthEntity;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
-			import remote.RemoteFacade;
 			
 			private function cancelar():void {
 				limparForm();
@@ -22,7 +22,7 @@
 			
 			private function cadastrar():void {
 				var login:String = AuthEntity.getInstance().login;
-				RemoteFacade.getInstance().createAccount(login, rotuloCadastrarConta.text, agenciaCadastrarConta.text, contaCadastrarConta.text, callBackResult, callBackFault);
+				CadastrarContaController.getInstance().createAccount(login, rotuloCadastrarConta.text, agenciaCadastrarConta.text, contaCadastrarConta.text, callBackResult, callBackFault);
 			}
 			
 			private function callBackResult(e:ResultEvent):void {

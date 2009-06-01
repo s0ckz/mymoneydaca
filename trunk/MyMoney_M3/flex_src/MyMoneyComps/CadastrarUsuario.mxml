@@ -2,11 +2,11 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml">
 	<mx:Script>
 		<![CDATA[
+			import controllers.CadastrarUsuarioController;
 			import util.AlertManager;
 			import events.CadastrarUsuarioEvent;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
-			import remote.RemoteFacade;
 			
 			private function cancelar():void {
 				limparForm();
@@ -29,7 +29,7 @@
 			
 			private function cadastrar():void {
 				if (validarSenha()) {
-					RemoteFacade.getInstance().registerUser(loginCadastro.text, senhaCadastro.text, nome.text, sexo.selectedValue.toString(), email.text, callBackResult, callBackFault);
+					CadastrarUsuarioController.getInstance().registerUser(loginCadastro.text, senhaCadastro.text, nome.text, sexo.selectedValue.toString(), email.text, callBackResult, callBackFault);
 				} else {
 					senhaCadastro.focusEnabled = true;
 					AlertManager.showString("A senha não confere!");
