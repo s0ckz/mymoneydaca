@@ -26,7 +26,7 @@ agency=echo "5678"
 type=echo "credit"
 way=echo "cash"
 amount=echo "10.0"
-date=echo "10/11/2005 23:00:00"
+date=echo "10/11/2005"
 
 # Registering user
 register ${login} ${password} ${name} ${gender} ${email}

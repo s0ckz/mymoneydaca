@@ -13,8 +13,8 @@ expect true isLogged login=${usuario}
 
 # cria uma nova conta
 accId=createAccount login=${usuario} label="personal" agency="1111" account="2222-2"
-addOperation login=${usuario} accId=${accId} type="credit" way="cash" amount=300.0 date="20/01/2000 12:12:12"
-addOperation login=${usuario} accId=${accId} type="debit" way="cash" amount=2000.0 date="20/01/2000 12:00:12"
+addOperation login=${usuario} accId=${accId} type="credit" way="cash" amount=300.0 date="20/01/2000"
+addOperation login=${usuario} accId=${accId} type="debit" way="cash" amount=2000.0 date="20/01/2000"
 
 fileSep=echo "/"
 csvFile=echo ..${fileSep}files${fileSep}extrato.csv

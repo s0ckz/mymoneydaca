@@ -24,7 +24,7 @@ submitBankOperationsTXT login=${usuario} fileContent=${extratoTxt}
 expect "credit" getOperationType oppId=1
 expect "cash" getOperationWay oppId=1
 expectWithin 0.001 1000.0 getOperationAmount oppId=1
-expect "20/01/1988 12:12:12" getOperationDate oppId=1
+expect "20/01/1988" getOperationDate oppId=1
 
 expect 1 getNumberOfOperations login=${usuario}
 

@@ -1,2 +1,2 @@
-1	credit	cash	300.0	20/01/2000
-1	debit	cash	2000.0	20/01/2000
+2	credit	cash	300.0	20/01/2000
+2	debit	cash	2000.0	20/01/2000
