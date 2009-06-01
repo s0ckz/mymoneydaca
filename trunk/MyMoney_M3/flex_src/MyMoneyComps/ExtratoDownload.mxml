@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Form xmlns:mx="http://www.adobe.com/2006/mxml" width="500" height="400">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" width="500" height="400">
 
 <mx:Script>
 	<![CDATA[
@@ -49,29 +49,42 @@
 			}
 			
 			
-			private function gerarExtrato(){
+			private function gerarExtrato():void{
 				var login:String = AuthEntity.getInstance().login;
 				var tipo:String = Formato.selectedValue.toString();
 				var accId:Number = accountsIds.getItemAt(idAcc.selectedIndex) as Number;
-				if(tipo == "csv"){
-					RemoteFacade.getInstance().exportBankOperationsCSV(login,addID,nomeArquivo.text);
-				}else if(tipo == "txt"){
-					RemoteFacade.getInstance().exportBankOperationsTXT(login,addID,nomeArquivo.text);
-				}
+//				if(tipo == "csv"){
+//					RemoteFacade.getInstance().exportBankOperationsCSV(login,accId,nomeArquivo.text,callBackResult,callBackFault);
+//				}else if(tipo == "txt"){
+					RemoteFacade.getInstance().exportBankOperationsTXT(login,accId,nomeArquivo.text,callBackResult,callBackFault);
+//				}
 				
 			}
 			
-			private function getOperationsCallBack(e:ResultEvent):void {
-				this.ultimasOps = e.result as ArrayCollection;
-				var i:Number = 0;
-				var fileContent:String = ""; 
-				while(i<ultimasOps.length){
-					fileContent.concat(ultimasOps.getItemAt(i) + "/");
-					i++
-				}
-				RemoteFacade.getInstance().getAllOperations(login, accId, getOperationsCallBack, defaultFaultHandler);
+			private function callBackResult(e:ResultEvent):void {
+				dispatchEvent(new GerarExtratoEvent(GerarExtratoEvent.EVENTOGERADO));
+				
 			}
 			
+			private function callBackFault(e:FaultEvent):void {
+				AlertManager.showError(e);
+			}
+			
+//			private function getOperationsCallBack(e:ResultEvent):void {
+//				this.ultimasOps = e.result as ArrayCollection;
+//				var i:Number = 0;
+//				var fileContent:String = ""; 
+//				while(i<ultimasOps.length){
+//					fileContent.concat(ultimasOps.getItemAt(i) + "/");
+//					i++
+//				}
+//				RemoteFacade.getInstance().getAllOperations(login, accId, getOperationsCallBack, defaultFaultHandler);
+//			}
+			
+			private function getLogin():String{
+				var login:String = AuthEntity.getInstance().login;
+				return login;
+			}
 			private function cancelar():void{
 				dispatchEvent(new GerarExtratoEvent(GerarExtratoEvent.CANCELAR));
 			}
@@ -80,7 +93,7 @@
 	]]>
 </mx:Script>
 
-
+	<mx:Form x="0" y="10" width="100%" height="100%">
 		<mx:FormItem label="Usuario: " width="100%">
 			<mx:Label text="{getLogin()}" fontSize="16" color="#CDEFC8" fontWeight="bold" letterSpacing="1" paddingTop="5"/>
 		</mx:FormItem>
@@ -101,5 +114,6 @@
 		<mx:HBox width="100%" horizontalAlign="center">
 				<mx:Button label="Gerar" id="gerarButtonGerarRelatorio" click="gerarExtrato();"/>
 				<mx:Button label="Voltar" click="cancelar();"/>
-		</mx:HBox>	
-</mx:Form>
+		</mx:HBox>
+	</mx:Form>	
+</mx:Panel>
