@@ -2,11 +2,11 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" creationComplete="init();">
 	<mx:Script>
 		<![CDATA[
+			import controllers.MostrarCompromissosController;
 			import util.CommitmentEntry;
 			import util.AlertManager;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
-			import remote.RemoteFacade;
 			import util.AuthEntity;
 			import mx.collections.ArrayCollection;
 			import events.MostrarCompromissosEvent;
@@ -46,7 +46,7 @@
 			}
 			private function carregaCompromissos():void {
 				var login:String = AuthEntity.getInstance().login;
-				RemoteFacade.getInstance().getAllCompromissos(login, carregaCompromissosHandler, defaultFaultHandler);
+				MostrarCompromissosController.getInstance().getAllCompromissos(login, carregaCompromissosHandler, defaultFaultHandler);
 			}
 			
 			private function carregaCompromissosHandler(e:ResultEvent):void {
@@ -63,7 +63,7 @@
 					AlertManager.showString("Por favor, selecione um compromisso para ser removido.");
 				} else {
 					var id:Number = compromissos.getItemAt(index).id;
-					RemoteFacade.getInstance().removeCommitment(AuthEntity.getInstance().login, id, removeCallBack, defaultFaultHandler); 
+					MostrarCompromissosController.getInstance().removeCommitment(AuthEntity.getInstance().login, id, removeCallBack, defaultFaultHandler); 
 				} 
 			}
 

@@ -2,6 +2,7 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" creationComplete="init();">
 	<mx:Script>
 		<![CDATA[
+			import controllers.HomeController;
 			import events.GerarExtratoEvent;
 			import events.MostrarCompromissosEvent;
 			import events.AdicionarCompromissoEvent;
@@ -15,7 +16,6 @@
 			import util.AuthEntity;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
-			import remote.RemoteFacade;
 			import events.DoLogoutEvent;
 			
 			private static const ADD_CONTA:String = "Adicionar Conta";
@@ -90,7 +90,7 @@
 			
 			private function carregaAccountsIds():void {
 				var login:String = AuthEntity.getInstance().login;
-				RemoteFacade.getInstance().getAllAccountsIds(login, accountsIdsHandler, defaultFaultHandler);
+				HomeController.getInstance().getAllAccountsIds(login, accountsIdsHandler, defaultFaultHandler);
 				
 			}
 			
@@ -105,7 +105,7 @@
 			
 			private function carregaAccountsLabels():void {
 				var login:String = AuthEntity.getInstance().login;
-				RemoteFacade.getInstance().getAccountsLabels(login, accountsIds, accountsLabelsHandler, defaultFaultHandler);
+				HomeController.getInstance().getAccountsLabels(login, accountsIds, accountsLabelsHandler, defaultFaultHandler);
 			}
 			
 			private function accountsLabelsHandler(e:ResultEvent):void {
@@ -154,7 +154,7 @@
 				if (accountsIds.length > 0) {
 					var accId:Number = AuthEntity.getInstance().accId;
 					var login:String = AuthEntity.getInstance().login;
-					RemoteFacade.getInstance().getAllOperations(login, accId, getOperationsCallBack, defaultFaultHandler);
+					HomeController.getInstance().getAllOperations(login, accId, getOperationsCallBack, defaultFaultHandler);
 				}
 			}
 			
@@ -177,7 +177,7 @@
 			}			
 			
 			private function logout():void {				
-				RemoteFacade.getInstance().doLogout(AuthEntity.getInstance().login, AuthEntity.getInstance().senha, callBackLogout, callBackFault);
+				HomeController.getInstance().doLogout(AuthEntity.getInstance().login, AuthEntity.getInstance().senha, callBackLogout, callBackFault);
 			}
 			private function limparTudo():void {
 				accountsLabels = new ArrayCollection();
@@ -230,7 +230,7 @@
 					var login:String = AuthEntity.getInstance().login;
 					var accToRemoveId:Number = accountsIds.getItemAt(accountIndex) as Number;
 					AuthEntity.getInstance().resetAccId();
-					RemoteFacade.getInstance().removeAccount(login, accToRemoveId, removerContaHandler, defaultFaultHandler); 
+					HomeController.getInstance().removeAccount(login, accToRemoveId, removerContaHandler, defaultFaultHandler); 
 				}
 			}
 			
@@ -260,7 +260,7 @@
 					if (opIndex >= 0) {
 						var login:String = AuthEntity.getInstance().login;
 						var opToRemoveId:Number = ultimasOps.getItemAt(opIndex).id;
-						RemoteFacade.getInstance().removeOperation(login, opToRemoveId, removerOperacaoHandler, defaultFaultHandler);
+						HomeController.getInstance().removeOperation(login, opToRemoveId, removerOperacaoHandler, defaultFaultHandler);
 					} 
 				}
 			}

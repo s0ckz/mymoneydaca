@@ -38,7 +38,7 @@
 				addCompromissoBox.addEventListener(AdicionarCompromissoEvent.ADICIONADO, compromissoAdicionadoHandler);
 				mostrarCompromissosBox.addEventListener(MostrarCompromissosEvent.CANCELAR, cancelarMostrarCompromissosHandler);
 				homeBox.addEventListener(GerarExtratoEvent.GERAREVENTO,exportarExtratoHandler); 
-				extratoDownloadBox.addEventListener(GerarExtratoEvent.CANCELAR, cancelarExportarExtratoHandler);
+//				extratoDownloadBox.addEventListener(GerarExtratoEvent.CANCELAR, cancelarExportarExtratoHandler);
 				AlertManager.init();
 				
 				// utilizado pelo Selenium
@@ -135,8 +135,8 @@
 			}
 			// Handlers of GerarExtrato screen
 			private function exportarExtratoHandler(e:GerarExtratoEvent):void{
-				extratoDownloadBox.init();
-				mainViewStack.selectedChild = extratoDownloadBox;
+//				extratoDownloadBox.init();
+//				mainViewStack.selectedChild = extratoDownloadBox;
 			}
 			private function cancelarExportarExtratoHandler(e:GerarExtratoEvent):void{
 				homeBox.atualiza();
@@ -157,7 +157,7 @@
 			<MyMoneyComps:AdicionarCompromisso id="addCompromissoBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%" />
 			<MyMoneyComps:GerarRelatorio id="gerarRelatorioBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%" />
 			<MyMoneyComps:MostrarCompromissos id="mostrarCompromissosBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%" />
-			<MyMoneyComps:ExtratoDownload id="extratoDownloadBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%" />
+			<!--<MyMoneyComps:ExtratoDownload id="extratoDownloadBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%" />-->
 		</mx:ViewStack>	
 	</mx:VBox>
 </mx:Application>

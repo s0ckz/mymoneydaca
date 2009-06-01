@@ -3,6 +3,7 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import controllers.GerarRelatorioController;
 			import mx.controls.DataGrid;
 			import events.GerarRelatorioEvent;
 			import mx.collections.ArrayCollection;
@@ -28,7 +29,7 @@
 			
 			private function carregaAccountsIds():void {
 				var login:String = AuthEntity.getInstance().login;
-				RemoteFacade.getInstance().getAllAccountsIds(login, accountsIdsHandler, defaultFaultHandler) as ArrayCollection;
+				GerarRelatorioController.getInstance().getAllAccountsIds(login, accountsIdsHandler, defaultFaultHandler) as ArrayCollection;
 				
 			}
 			
@@ -43,7 +44,7 @@
 			
 			private function carregaAccountsLabels():void {
 				var login:String = AuthEntity.getInstance().login;
-				RemoteFacade.getInstance().getAccountsLabels(login, accountsIds, accountsLabelsHandler, defaultFaultHandler);
+				GerarRelatorioController.getInstance().getAccountsLabels(login, accountsIds, accountsLabelsHandler, defaultFaultHandler);
 			}
 			
 			private function accountsLabelsHandler(e:ResultEvent):void {
@@ -54,7 +55,7 @@
 			private function gerarRelatorio():void{
 				var login:String = AuthEntity.getInstance().login;
 				var accId:Number = accountsIds.getItemAt(idAcc.selectedIndex) as Number;
-				RemoteFacade.getInstance().generateReport(login,dataInicio.text + " 00:00:00",dataFim.text + " 23:59:59",accId,TipoOperacao.selectedValue.toString(),callBackResult,callBackFault);
+				GerarRelatorioController.getInstance().generateReport(login,dataInicio.text + " 00:00:00",dataFim.text + " 23:59:59",accId,TipoOperacao.selectedValue.toString(),callBackResult,callBackFault);
 
 				
 			}

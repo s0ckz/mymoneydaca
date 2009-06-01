@@ -2,13 +2,13 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml">
 	<mx:Script>
 		<![CDATA[
+			import controllers.AdicionarTransacaoController;
 			import util.AlertManager;
 			import mx.formatters.DateFormatter;
 			import events.AdicionarTransacaoEvent;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			import util.AuthEntity;
-			import remote.RemoteFacade;
 			
 			private var _accId:Number;
 			
@@ -19,7 +19,7 @@
 				if (valorTran != valorTran) // forma de checar se eh NaN :)
 					AlertManager.showString("Digite o valor da transação!");
 				else
-					RemoteFacade.getInstance().adicionarTransacao(login, accId, TipoOperacao.selectedValue.toString(), FormaPagamento.selectedValue.toString(), valorTran, dataAdicionarTransacao.text, addTransacaoCallBack, defaultFaultCallBack);
+					AdicionarTransacaoController.getInstance().adicionarTransacao(login, accId, TipoOperacao.selectedValue.toString(), FormaPagamento.selectedValue.toString(), valorTran, dataAdicionarTransacao.text, addTransacaoCallBack, defaultFaultCallBack);
 			}
 			
 			private function limparForm():void {
