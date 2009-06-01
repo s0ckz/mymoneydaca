@@ -62,7 +62,7 @@
 				if (index == -1) {
 					AlertManager.showString("Por favor, selecione um compromisso para ser removido.");
 				} else {
-					var id:Number = (compromissos.getItemAt(index) as CommitmentEntry).id;
+					var id:Number = compromissos.getItemAt(index).id;
 					RemoteFacade.getInstance().removeCommitment(AuthEntity.getInstance().login, id, removeCallBack, defaultFaultHandler); 
 				} 
 			}
