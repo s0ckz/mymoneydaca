@@ -18,6 +18,7 @@ public class CompromissosTest extends MyMoneyTestCase {
 		flexUITester.wait(1);
 		
 		flexUITester.call("addCompromisso");
+		flexUITester.wait(1);
 		
 		flexUITester.click("okButtonAdicionarCompromisso");
 		flexUITester.wait(3);
@@ -49,36 +50,61 @@ public class CompromissosTest extends MyMoneyTestCase {
 		flexUITester.click("sairButtonMostrarCompromissos");
 		flexUITester.wait(1);
 		
+		flexUITester.call("addCompromisso");
+		flexUITester.wait(1);
+		flexUITester.type("300").at("valorAdicionarCompromisso");
+		flexUITester.type("teste").at("descricaoAdicionarCompromisso");
+		flexUITester.type("01/01/2001").at("dataAdicionarCompromisso");
+		flexUITester.click("semanalAdicionarCompromisso");
+		flexUITester.click("creditoAdicionarCompromisso");
+		flexUITester.click("okButtonAdicionarCompromisso");
+		flexUITester.wait(3);
+		assertEquals("Compromisso adicionado com sucesso!", flexUITester.call("getLastMessage"));
+		flexUITester.click("OK");
+
+		flexUITester.call("mostrarCompromissos");
+		flexUITester.wait(1);
+		assertEquals("teste - 300 - 01/01/2001 - Débito - Uma vez apenas,teste - 300 - 01/01/2001 - Crédito - Semanal", flexUITester.call("getCompromissos"));
+		flexUITester.wait(1);
+		flexUITester.click("sairButtonMostrarCompromissos");
+		flexUITester.wait(1);
+		
 		flexUITester.click("logoutButtonHome");
 		flexUITester.wait(4);
 		assertEquals("Até mais!", flexUITester.call("getLastMessage"));
 		flexUITester.click("OK");
 	}
 
-//	public void testRemoveOperation() throws Exception {
-//		flexUITester.type("leandro").at("login");
-//		flexUITester.type("leandro").at("senha");
-//		flexUITester.click("loginButton");
-//		flexUITester.wait(4);
-//		assertEquals("Seja bem-vindo!", flexUITester.call("getLastMessage"));
-//		flexUITester.click("OK");
-//
-//		assertEquals("300 - 10/12/2008 - CHEQUE - DÉBITO,100 - 10/12/2007 - CARTÃO DE CRÉDITO - CRÉDITO", flexUITester.call("getTransacoes"));
-//		
-//		flexUITester.call("selecionaTransacao", "1");
-//		flexUITester.call("removeTransacao");
-//		flexUITester.wait(3);
-//		assertEquals("300 - 10/12/2008 - CHEQUE - DÉBITO", flexUITester.call("getTransacoes"));
-//		
-//		flexUITester.call("selecionaTransacao", "0");
-//		flexUITester.call("removeTransacao");
-//		flexUITester.wait(3);
-//		assertEquals("", flexUITester.call("getTransacoes"));
-//
-//		flexUITester.click("logoutButtonHome");
-//		flexUITester.wait(4);
-//		assertEquals("Até mais!", flexUITester.call("getLastMessage"));
-//		flexUITester.click("OK");
-//	}
+	public void testRemoveOperation() throws Exception {
+		flexUITester.type("leandro").at("login");
+		flexUITester.type("leandro").at("senha");
+		flexUITester.click("loginButton");
+		flexUITester.wait(4);
+		assertEquals("Seja bem-vindo!", flexUITester.call("getLastMessage"));
+		flexUITester.click("OK");
+
+		flexUITester.call("mostrarCompromissos");
+		flexUITester.wait(1);
+		assertEquals("teste - 300 - 01/01/2001 - Débito - Uma vez apenas,teste - 300 - 01/01/2001 - Crédito - Semanal", flexUITester.call("getCompromissos"));
+		
+		flexUITester.call("selecionaCompromisso", "1");
+		flexUITester.call("removeCompromisso");
+		flexUITester.wait(3);
+
+		assertEquals("teste - 300 - 01/01/2001 - Débito - Uma vez apenas", flexUITester.call("getCompromissos"));
+		flexUITester.wait(1);
+		
+		flexUITester.call("selecionaCompromisso", "0");
+		flexUITester.call("removeCompromisso");
+		flexUITester.wait(3);
+
+		assertEquals("", flexUITester.call("getCompromissos"));
+		flexUITester.wait(1);
+
+		flexUITester.click("logoutButtonHome");
+		flexUITester.wait(4);
+		assertEquals("Até mais!", flexUITester.call("getLastMessage"));
+		flexUITester.click("OK");
+	}
 
 }
