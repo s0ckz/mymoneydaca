@@ -3,13 +3,13 @@ package mymoney;
 public class LoginTest extends MyMoneyTestCase {
 	public void testInvalidLogin() throws Exception {
 		flexUITester.click("loginButton");
-		flexUITester.wait(1);
+		flexUITester.wait(3);
 		flexUITester.click("OK");
 		assertEquals("Invalid Argument", flexUITester.call("getLastMessage"));
 		
 		flexUITester.type("wrongUser").at("login");
 		flexUITester.click("loginButton");
-		flexUITester.wait(1);
+		flexUITester.wait(3);
 		flexUITester.click("OK");
 		assertEquals("Invalid Argument", flexUITester.call("getLastMessage"));
 		

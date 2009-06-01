@@ -13,6 +13,7 @@ public class ContaTest extends MyMoneyTestCase {
 		assertEquals("default", flexUITester.call("getNomeContas"));
 		
 		flexUITester.call("addConta");
+		flexUITester.wait(1);
 		
 		flexUITester.click("okButtonCadastrarConta");
 		flexUITester.wait(3);

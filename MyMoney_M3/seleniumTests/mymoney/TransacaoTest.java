@@ -13,6 +13,7 @@ public class TransacaoTest extends MyMoneyTestCase {
 		assertEquals("", flexUITester.call("getTransacoes"));
 		
 		flexUITester.call("addTransacao");
+		flexUITester.wait(1);
 		
 		flexUITester.click("okButtonAdicionarTransacao");
 		flexUITester.wait(3);
@@ -40,6 +41,7 @@ public class TransacaoTest extends MyMoneyTestCase {
 		assertEquals("300 - 10/12/2008 - CHEQUE - DÉBITO", flexUITester.call("getTransacoes"));
 		
 		flexUITester.call("addTransacao");
+		flexUITester.wait(1);
 		flexUITester.type("100").at("valorAdicionarTransacao");
 		flexUITester.click("crebitoAdicionarTransacao");
 		flexUITester.click("cartaoAdicionarTransacao");
