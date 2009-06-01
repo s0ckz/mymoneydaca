@@ -275,8 +275,6 @@
         </menuitem>                                   
         <menuitem label="Extratos" data="Extratos">
         	<menuitem label="{RELATORIO}" data="{RELATORIO}"/>
-        	<menuitem label="{IMPORTAR}" data="{IMPORTAR}"/>
-        	<menuitem label="{EXPORTAR}" data="{EXPORTAR}"/>
         </menuitem>        
         
     </mx:XMLList>
