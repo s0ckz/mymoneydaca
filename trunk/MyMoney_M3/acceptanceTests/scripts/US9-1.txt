@@ -26,7 +26,7 @@ submitBankOperationsCSV login=${usuario} fileContent=${extratoCsv}
 expect "debit" getOperationType oppId=1
 expect "cash" getOperationWay oppId=1
 expectWithin 0.001 200.0 getOperationAmount oppId=1
-expect "20/01/2001 12:12:12" getOperationDate oppId=1
+expect "20/01/2001" getOperationDate oppId=1
 
 expect 1 getNumberOfOperations login=${usuario}
 

@@ -21,7 +21,7 @@ email=echo "renato@renato.com"
 type=echo "credit"
 way=echo "cash"
 amount=echo "10.0"
-date=echo "10/11/2008 23:00:00"
+date=echo "10/11/2008"
 
 # Registering user
 register ${login} ${password} ${name} ${gender} ${email}
