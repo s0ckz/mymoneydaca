@@ -3,6 +3,7 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import mx.controls.DataGrid;
 			import events.GerarRelatorioEvent;
 			import mx.collections.ArrayCollection;
 			import util.AuthEntity;
@@ -16,6 +17,9 @@
 			
 			[Bindable]
 			private var accountsLabels:ArrayCollection;
+			
+			[Bindable]
+			private var ultimasOps:ArrayCollection;
 			
 			public function init():void {			
 				carregaAccountsIds();
@@ -50,7 +54,7 @@
 			private function gerarRelatorio():void{
 				var login:String = AuthEntity.getInstance().login;
 				var accId:Number = accountsIds.getItemAt(idAcc.selectedIndex) as Number;
-//				RemoteFacade.getInstance().generateReport(login,dataInicio.text + " 00:00:00",dataFim.text + " 23:59:59",accId,TipoOperacao.selectedValue.toString(),callBackResult,callBackFault);
+				RemoteFacade.getInstance().generateReport(login,dataInicio.text + " 00:00:00",dataFim.text + " 23:59:59",accId,TipoOperacao.selectedValue.toString(),callBackResult,callBackFault);
 
 				
 			}
@@ -106,17 +110,17 @@
 				<mx:Label text="Movimentações" fontSize="16" color="#CDEFC8" fontWeight="bold" letterSpacing="1" paddingTop="5"/>
 			</mx:HBox>
 		<mx:VBox width="100%">
-			<mx:DataGrid  width="100%">
+			<mx:DataGrid  dataProvider="{ultimasOps}" id="dataGrid" width="100%">
 				<mx:columns>
-				   <mx:DataGridColumn dataField="Date"/>
-				   <mx:DataGridColumn dataField="Type"/>
-				   <mx:DataGridColumn dataField="Value"/>
-				   <mx:DataGridColumn dataField="Description"/>
+				   <mx:DataGridColumn headerText="Valor" dataField="amount"/>
+				   <mx:DataGridColumn headerText="Data" dataField="date"/>
+				   <mx:DataGridColumn headerText="Forma" dataField="way"/>
+				   <mx:DataGridColumn headerText="Tipo"  dataField="type"/>
 				</mx:columns>
 			</mx:DataGrid>	
 			<mx:HBox width="100%" horizontalAlign="center">
 				<mx:Button label="Gerar" id="gerarButtonGerarRelatorio" click="gerarRelatorio();"/>
-				<mx:Button label="Cancelar" click="cancelar();"/>
+				<mx:Button label="Voltar" click="cancelar();"/>
 			</mx:HBox>		
 		</mx:VBox>
 	</mx:Form>
