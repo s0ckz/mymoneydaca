@@ -2,6 +2,7 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" creationComplete="init();">
 	<mx:Script>
 		<![CDATA[
+			import events.GerarExtratoEvent;
 			import events.MostrarCompromissosEvent;
 			import events.AdicionarCompromissoEvent;
 			import events.GerarRelatorioEvent;
@@ -60,6 +61,8 @@
 				ExternalInterface.addCallback("removeConta", removeConta);
 				ExternalInterface.addCallback("getNomeContas", getNomeContas);
 				ExternalInterface.addCallback("gerarRelatorio", gerarRelatorio);
+				ExternalInterface.addCallback("gerarEvento",exportar);
+			
 			}
 			
 			public function selecionaConta(index:Number):void {
@@ -274,10 +277,15 @@
 			}
 			
 			private function exportar():void {
+				dispatchEvent(new GerarExtratoEvent(GerarExtratoEvent.GERAREVENTO));
 			}
 
 		]]>
 	</mx:Script>
+	<mx:Array id="contas">
+		<mx:String>Conta Padrão</mx:String>
+		<mx:String>Banco do Brasil</mx:String>
+	</mx:Array>
 	<mx:XMLList id="menu">
         <menuitem label="Conta" data="Conta">
         	<menuitem label="{ADD_CONTA}" data="{ADD_CONTA}"/>
@@ -299,7 +307,7 @@
         
     </mx:XMLList>
 	 <mx:HBox width="100%" height="100%">
-	 	<mx:VBox height="100%" width="200">
+	 	<mx:VBox height="100%">
 		 	 <mx:Label text="MyMoney" fontSize="16" color="#CDEFC8" fontWeight="bold" letterSpacing="1" paddingTop="5"/>
 			<mx:Panel title="Contas" height="100%">			
 				<mx:List id="accountsList" dataProvider="{accountsLabels}" minWidth="160" width="100%" height="100%" selectedIndex="0" change="novaAccId();"/>		
@@ -323,6 +331,16 @@
 				         <mx:DataGridColumn headerText="Tipo" dataField="type"/>
 				      </mx:columns>
 					</mx:DataGrid>		
+					<mx:VBox width="100%">
+						<mx:Label text="Período:"/>
+						<mx:HBox width="100%">
+							<mx:Spacer width="70"/>										
+							<mx:HBox width="100%">
+								<mx:ComboBox dataProvider="{getPeriodos(1,9,5,9)}"/>
+								<mx:Button label="Novo Extrato"/>
+							</mx:HBox>
+						</mx:HBox>	
+					</mx:VBox>
 				</mx:VBox>
 			</mx:Panel>		
 	 	</mx:VBox>	 	 
