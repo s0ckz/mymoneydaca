@@ -12,10 +12,32 @@
 			import events.MostrarCompromissosEvent;
 			
 			[Bindable]
-			private var compromissos:ArrayCollection;
+			private var compromissos:ArrayCollection = null;
 			
 			public function init():void {
 				carregaCompromissos();
+			}
+			
+			public function initSelenium():void {
+				// utilizado pelo Selenium
+				ExternalInterface.addCallback("getCompromissos", getCompromissos);
+				ExternalInterface.addCallback("selecionaCompromisso", selecionaCompromisso);
+				ExternalInterface.addCallback("removeCompromisso", remover);
+			}
+			
+			public function selecionaCompromisso(index:Number):void {
+				gridCompromissos.selectedIndex = index;
+			}
+			
+			public function getCompromissos():String {
+				if (compromissos == null)
+					return "";
+				var retorno:ArrayCollection = new ArrayCollection();
+				for (var i:int = 0; i < compromissos.length;i++) {
+					var item:Object = compromissos.getItemAt(i); 
+					retorno.addItem(item.label + " - " + item.valor + " - " + item.date + " - " + item.type + " - " + item.frequency);  
+				}
+				return retorno.toString();
 			}
 			
 			private function sair():void {
@@ -62,8 +84,8 @@
 			</mx:columns>
 		</mx:DataGrid>
 		<mx:HBox width="100%" horizontalAlign="center">
-			<mx:Button id="removerButton" label="Remover" click="remover();"/>
-			<mx:Button id="sairButton" label="Sair" click="sair();"/>
+			<mx:Button id="removerButtonMostrarCompromissos" label="Remover" click="remover();"/>
+			<mx:Button id="sairButtonMostrarCompromissos" label="Sair" click="sair();"/>
 		</mx:HBox>
 	</mx:Panel>
 	

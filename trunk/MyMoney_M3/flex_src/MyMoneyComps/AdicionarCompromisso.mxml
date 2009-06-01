@@ -13,22 +13,23 @@
 				dispatchEvent(new AdicionarCompromissoEvent(AdicionarCompromissoEvent.CANCELADO));
 			}
 			private function limparTudo():void {
-				descricao.text = "";
-				data.text = "";
-				valor.text = "";
-				debito.selected = true;
-				credito.selected = false;
-				umaVez.selected = true;
-				diaria.selected = false
-				semanal.selected = false;
-				mensal.selected = false;
-				anual.selected = false;
+				descricaoAdicionarCompromisso.text = "";
+				dataAdicionarCompromisso.text = "";
+				valorAdicionarCompromisso.text = "";
+				debitoAdicionarCompromisso.selected = true;
+				creditoAdicionarCompromisso.selected = false;
+				umaVezAdicionarCompromisso.selected = true;
+				diariaAdicionarCompromisso.selected = false
+				semanalAdicionarCompromisso.selected = false;
+				mensalAdicionarCompromisso.selected = false;
+				anualAdicionarCompromisso.selected = false;
 			}
 			
 			private function addCompromisso():void {
 				var login:String = AuthEntity.getInstance().login;
-				var valorNum:Number = parseFloat(valor.text);
-				RemoteFacade.getInstance().adicionarCompromisso(login, descricao.text, data.text, valorNum, Tipo.selectedValue.toString(), 
+				var valorNum:Number = parseFloat(valorAdicionarCompromisso.text);
+				RemoteFacade.getInstance().adicionarCompromisso(login, descricaoAdicionarCompromisso.text, 
+					dataAdicionarCompromisso.text, valorNum, Tipo.selectedValue.toString(), 
 					Frequencia.selectedValue.toString(), addCompromissoCallBack, defaultFaultHandler);
 			}
 			 			
@@ -46,32 +47,32 @@
 	<mx:Panel width="100%" height="100%" title="Adicionar Compromisso">
 		<mx:Form width="100%" height="100%">
 			<mx:FormItem label="Descrição:" width="100%">
-				<mx:TextInput id="descricao" width="100%"/>
+				<mx:TextInput id="descricaoAdicionarCompromisso" width="100%"/>
 			</mx:FormItem>
 			<mx:FormItem label="Valor:" width="100%">
-				<mx:TextInput id="valor" width="100%"/>
+				<mx:TextInput id="valorAdicionarCompromisso" width="100%"/>
 			</mx:FormItem>
 			<mx:FormItem label="Data:">
-				<mx:DateField id="data"/>
+				<mx:DateField id="dataAdicionarCompromisso"/>
 			</mx:FormItem>
 			<mx:FormItem label="Tipo:">
 				<mx:RadioButtonGroup id="Tipo"/>
-				<mx:RadioButton id="debito" label="Débito" groupName="Tipo" selected="true"/>
-				<mx:RadioButton id="credito" label="Crédito" groupName="Tipo"/>
+				<mx:RadioButton id="debitoAdicionarCompromisso" label="Débito" groupName="Tipo" selected="true"/>
+				<mx:RadioButton id="creditoAdicionarCompromisso" label="Crédito" groupName="Tipo"/>
 			</mx:FormItem>
 			<mx:FormItem label="Frequência:">
 				<mx:RadioButtonGroup id="Frequencia"/>
-				<mx:RadioButton id="umaVez" label="Uma vez apenas" groupName="Frequencia" selected="true"/>
-				<mx:RadioButton id="diaria" label="Diária" groupName="Frequencia"/>
-				<mx:RadioButton id="semanal" label="Semanal" groupName="Frequencia"/>
-				<mx:RadioButton id="mensal" label="Mensal" groupName="Frequencia"/>
-				<mx:RadioButton id="anual" label="Anual" groupName="Frequencia"/>
+				<mx:RadioButton id="umaVezAdicionarCompromisso" label="Uma vez apenas" groupName="Frequencia" selected="true"/>
+				<mx:RadioButton id="diariaAdicionarCompromisso" label="Diária" groupName="Frequencia"/>
+				<mx:RadioButton id="semanalAdicionarCompromisso" label="Semanal" groupName="Frequencia"/>
+				<mx:RadioButton id="mensalAdicionarCompromisso" label="Mensal" groupName="Frequencia"/>
+				<mx:RadioButton id="anualAdicionarCompromisso" label="Anual" groupName="Frequencia"/>
 			</mx:FormItem>
 
 		</mx:Form>
 	</mx:Panel>
 	<mx:HBox width="100%" horizontalAlign="center">
-		<mx:Button label="OK" id="okButton" click="addCompromisso();"/>
-		<mx:Button label="Cancelar" id="cancelarButton" click="cancelar();"/>
+		<mx:Button label="OK" id="okButtonAdicionarCompromisso" click="addCompromisso();"/>
+		<mx:Button label="Cancelar" id="cancelarButtonAdicionarCompromisso" click="cancelar();"/>
 	</mx:HBox>
 </mx:VBox>

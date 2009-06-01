@@ -51,6 +51,8 @@
 			public function criarInterfacesExternas():void {
 				ExternalInterface.addCallback("addConta", addConta);
 				ExternalInterface.addCallback("addTransacao", addTransacao);
+				ExternalInterface.addCallback("addCompromisso", agendarTransacao);
+				ExternalInterface.addCallback("mostrarCompromissos", mostrarCompromissos);
 				ExternalInterface.addCallback("getTransacoes", getTransacoes);
 				ExternalInterface.addCallback("selecionaTransacao", selecionaTransacao);
 				ExternalInterface.addCallback("removeTransacao", removeTransacao);
