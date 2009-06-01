@@ -11,44 +11,16 @@
 			import remote.RemoteFacade;
 			import util.AlertManager;
 			
-			[Bindable]
+			
 			private var accountsIds:ArrayCollection;
 			
-			private function init():void {			
+			[Bindable]
+			private var accountsLabels:ArrayCollection;
+			
+			public function init():void {			
 				carregaAccountsIds();
 			}
 			
-			private function getMes(mesInicial:int, mesFinal:int):ArrayCollection {
-				var meses:Array = ["", "Jan", "Fev", "Mar", "Abril", "Maio", "Abril", "Junho" , "Julho" , "Agosto" , "Setembro", "Outubro" , "Novembro" , "Dezembro"  ];
-				
-				var periodos:ArrayCollection = new ArrayCollection;
-				
-				while (mesInicial <= mesFinal) {
-					periodos.addItem(" " + meses[mesInicial] +" " );					
-					mesInicial ++	
-				}
-				
-				return periodos;
-			}	
-				
-			private function tipoOperacao():Array{
-				var operacoes:Array = ["credit" , "debit"  ];
-				return operacoes;
-			}
-				
-			private function getAno(anoInicial:int, anoFinal:int):ArrayCollection {
-				var anos:Array = ["","2001", "2002", "2003" , "2004", "2005", "2006", "2007" , "2008" , 
-				"2009" , "2010"];
-				
-				var periodos:ArrayCollection = new ArrayCollection;
-				
-				while (anoInicial <= anoFinal) {
-					periodos.addItem(" " + anos[anoInicial] + " " );					
-					anoInicial++	
-				}
-				
-				return periodos;
-			}	
 			
 			private function carregaAccountsIds():void {
 				var login:String = AuthEntity.getInstance().login;
@@ -57,17 +29,28 @@
 			}
 			
 			private function accountsIdsHandler(e:ResultEvent):void {
-				accountsIds = e.result as ArrayCollection;		
+				accountsIds = e.result as ArrayCollection;
+				carregaAccountsLabels();
 			}
 			
 			private function defaultFaultHandler(e:FaultEvent):void {
 				AlertManager.showError(e);
 			}
 			
+			private function carregaAccountsLabels():void {
+				var login:String = AuthEntity.getInstance().login;
+				RemoteFacade.getInstance().getAccountsLabels(login, accountsIds, accountsLabelsHandler, defaultFaultHandler);
+			}
+			
+			private function accountsLabelsHandler(e:ResultEvent):void {
+				accountsLabels = e.result as ArrayCollection;
+			
+			}
 			
 			private function gerarRelatorio():void{
 				var login:String = AuthEntity.getInstance().login;
-				RemoteFacade.getInstance().generateReport(login,dataInicio.text + " 00:00:00",dataFim.text + " 23:59:59",idAcc.selectedItem.toString(),TipoOperacao.selectedValue.toString(),callBackResult,callBackFault);
+				var accId:Number = accountsIds.getItemAt(idAcc.selectedIndex) as Number;
+				RemoteFacade.getInstance().generateReport(login,dataInicio.text + " 00:00:00",dataFim.text + " 23:59:59",accId,TipoOperacao.selectedValue.toString(),callBackResult,callBackFault);
 
 				
 			}
@@ -86,7 +69,7 @@
 			}
 			
 			private function callBackFault(e:FaultEvent):void {
-				//AlertManager.showError(e);
+				AlertManager.showError(e);
 			}
 					
 		]]>
@@ -99,7 +82,7 @@
 		</mx:FormItem>
 			
 		<mx:FormItem label="Conta: ">
-				<mx:ComboBox id="idAcc" dataProvider="{accountsIds}"/>	
+				<mx:ComboBox id="idAcc" dataProvider="{accountsLabels}" />	
 		</mx:FormItem> 	
 			
 				
