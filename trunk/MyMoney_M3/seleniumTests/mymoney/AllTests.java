@@ -12,6 +12,8 @@ public class AllTests {
 		
 		suite.addTestSuite(ContaTest.class);
 		
+		suite.addTestSuite(TransacaoTest.class);
+		
 		return suite;
 	}
 

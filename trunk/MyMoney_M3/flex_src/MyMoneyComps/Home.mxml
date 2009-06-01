@@ -50,6 +50,10 @@
 			// utilizado pelo Selenium
 			public function criarInterfacesExternas():void {
 				ExternalInterface.addCallback("addConta", addConta);
+				ExternalInterface.addCallback("addTransacao", addTransacao);
+				ExternalInterface.addCallback("getTransacoes", getTransacoes);
+				ExternalInterface.addCallback("selecionaTransacao", selecionaTransacao);
+				ExternalInterface.addCallback("removeTransacao", removeTransacao);
 				ExternalInterface.addCallback("selecionaConta", selecionaConta);
 				ExternalInterface.addCallback("removeConta", removeConta);
 				ExternalInterface.addCallback("getNomeContas", getNomeContas);
@@ -60,8 +64,23 @@
 				accountsList.selectedIndex = index;
 			}
 			
+			public function selecionaTransacao(index:Number):void {
+				transacoes.selectedIndex = index;
+			}
+			
 			public function getNomeContas():String {
 				return accountsLabels.toString();
+			}
+			
+			public function getTransacoes():String {
+				if (ultimasOps == null)
+					return "";
+				var retorno:ArrayCollection = new ArrayCollection();
+				for (var i:int = 0; i < ultimasOps.length;i++) {
+					var item:Object = ultimasOps.getItemAt(i); 
+					retorno.addItem(item.amount + " - " + item.date + " - " + item.way + " - " + item.type);  
+				}
+				return retorno.toString();
 			}
 			
 			private function carregaAccountsIds():void {
