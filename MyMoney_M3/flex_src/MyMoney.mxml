@@ -108,6 +108,7 @@
 			
 			// Handlers of GerarRelatorio screen
 			private function gerarRelatorioHandler(e:GerarRelatorioEvent):void{
+				gerarRelatorioBox.init();
 				mainViewStack.selectedChild = gerarRelatorioBox;
 			}
 			private function cancelarGerarRelatorioHandler(e:GerarRelatorioEvent):void{
@@ -117,6 +118,7 @@
 			
 			// Handlers of AdicionarCompromisso screen
 			private function cancelarAddCompromissoHandler(e:AdicionarCompromissoEvent):void {
+				
 				mainViewStack.selectedChild = homeBox;
 			}
 			private function compromissoAdicionadoHandler(e:AdicionarCompromissoEvent):void {
