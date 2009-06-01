@@ -2,9 +2,9 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml">
 	<mx:Script>
 		<![CDATA[
+			import util.AlertManager;
 			import mx.formatters.DateFormatter;
 			import events.AdicionarTransacaoEvent;
-			import mx.controls.Alert;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			import util.AuthEntity;
@@ -15,18 +15,21 @@
 			private function addTransacao():void {
 				var login:String = AuthEntity.getInstance().login;
 				var accId:Number = AuthEntity.getInstance().accId;
-				var valorTran:Number = parseFloat(valor.text);
-				RemoteFacade.getInstance().adicionarTransacao(login, accId, TipoOperacao.selectedValue.toString(), FormaPagamento.selectedValue.toString(), valorTran, data.text, addTransacaoCallBack, defaultFaultCallBack);
+				var valorTran:Number = parseFloat(valorAdicionarTransacao.text);
+				if (valorTran != valorTran) // forma de checar se eh NaN :)
+					AlertManager.showString("Digite o valor da transação!");
+				else
+					RemoteFacade.getInstance().adicionarTransacao(login, accId, TipoOperacao.selectedValue.toString(), FormaPagamento.selectedValue.toString(), valorTran, dataAdicionarTransacao.text, addTransacaoCallBack, defaultFaultCallBack);
 			}
 			
 			private function limparForm():void {
-				data.text = "";
-				valor.text = "";
-				credito.selected = true;
-				debito.selected = false;
-				dinheiro.selected = true;
-				cheque.selected = false;
-				cartao.selected = false;
+				dataAdicionarTransacao.text = "";
+				valorAdicionarTransacao.text = "";
+				creditoAdicionarTransacao.selected = true;
+				debitoAdicionarTransacao.selected = false;
+				dinheiroAdicionarTransacao.selected = true;
+				chequeAdicionarTransacao.selected = false;
+				cartaoAdicionarTransacao.selected = false;
 			}
 
 			
@@ -36,7 +39,7 @@
 			}
 			
 			private function defaultFaultCallBack(e:FaultEvent):void {
-				Alert.show(e.toString());
+				AlertManager.showError(e);
 			}
 			
 			private function cancelarAddTransacao():void {
@@ -49,25 +52,25 @@
 	<mx:Panel width="500" height="320" title="Adicionar Operação">
 		<mx:Form width="100%" height="100%">
 			<mx:FormItem label="Valor:">
-				<mx:TextInput id="valor"/>
+				<mx:TextInput id="valorAdicionarTransacao"/>
 			</mx:FormItem>
 			<mx:FormItem label="Data:">				
-				<mx:DateField id="data" formatString="DD/MM/YYYY"/>
+				<mx:DateField id="dataAdicionarTransacao" formatString="DD/MM/YYYY"/>
 			</mx:FormItem>
 			<mx:FormItem label="Tipo da Operação:" width="100%" borderStyle="solid">
 				<mx:RadioButtonGroup id="TipoOperacao"/>
-				<mx:RadioButton id="credito" label="CRÉDITO" groupName="TipoOperacao" selected="true"/>
-				<mx:RadioButton id="debito" label="DÉBITO" groupName="TipoOperacao"/>
+				<mx:RadioButton id="creditoAdicionarTransacao" label="CRÉDITO" groupName="TipoOperacao" selected="true"/>
+				<mx:RadioButton id="debitoAdicionarTransacao" label="DÉBITO" groupName="TipoOperacao"/>
 			</mx:FormItem>
 			<mx:FormItem label="Forma de Pagamento:" borderStyle="solid" width="100%">
 				<mx:RadioButtonGroup id="FormaPagamento"/>
-				<mx:RadioButton id="dinheiro" label="DINHEIRO" groupName="FormaPagamento" selected="true"/>
-				<mx:RadioButton id="cheque" label="CHEQUE" groupName="FormaPagamento"/>
-				<mx:RadioButton id="cartao" label="CARTÃO DE CRÉDITO" groupName="FormaPagamento"/>
+				<mx:RadioButton id="dinheiroAdicionarTransacao" label="DINHEIRO" groupName="FormaPagamento" selected="true"/>
+				<mx:RadioButton id="chequeAdicionarTransacao" label="CHEQUE" groupName="FormaPagamento"/>
+				<mx:RadioButton id="cartaoAdicionarTransacao" label="CARTÃO DE CRÉDITO" groupName="FormaPagamento"/>
 			</mx:FormItem>
 		</mx:Form>
 		<mx:HBox width="100%" horizontalAlign="center">
-			<mx:Button label="OK" click="addTransacao();"/>
+			<mx:Button label="OK" click="addTransacao();" id="okButtonAdicionarTransacao" />
 			<mx:Button label="Cancelar" click="cancelarAddTransacao();"/>
 		</mx:HBox>
 		<mx:Spacer height="10"/>
