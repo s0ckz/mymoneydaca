@@ -90,6 +90,8 @@ public class CompromissosTest extends MyMoneyTestCase {
 		flexUITester.call("selecionaCompromisso", "1");
 		flexUITester.call("removeCompromisso");
 		flexUITester.wait(3);
+		assertEquals("Compromisso removido com sucesso!", flexUITester.call("getLastMessage"));
+		flexUITester.click("OK");
 
 		assertEquals("teste - 300 - 01/01/2001 - Débito - Uma vez apenas", flexUITester.call("getCompromissos"));
 		flexUITester.wait(1);
@@ -97,6 +99,8 @@ public class CompromissosTest extends MyMoneyTestCase {
 		flexUITester.call("selecionaCompromisso", "0");
 		flexUITester.call("removeCompromisso");
 		flexUITester.wait(3);
+		assertEquals("Compromisso removido com sucesso!", flexUITester.call("getLastMessage"));
+		flexUITester.click("OK");
 
 		assertEquals("", flexUITester.call("getCompromissos"));
 		flexUITester.wait(1);
