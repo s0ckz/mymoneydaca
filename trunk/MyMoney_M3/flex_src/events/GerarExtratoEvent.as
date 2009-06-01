@@ -1,6 +1,8 @@
 package events
 {
-	public class GerarExtratoEvent
+	import flash.events.Event;
+	
+	public class GerarExtratoEvent extends Event
 	{
 		
 		public static const GERAREVENTO:String = "gerarEvento";

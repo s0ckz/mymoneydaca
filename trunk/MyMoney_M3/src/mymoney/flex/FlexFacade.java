@@ -398,6 +398,8 @@ public class FlexFacade {
 		return entries;
 	}
 
+	
+	
 	/**
 	 * Metodo de acesso ao numero total de operacoes que o usuario tem, ou seja,
 	 * eh o somatorio de operacoes de todas as contas.
