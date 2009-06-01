@@ -50,7 +50,7 @@
 			private function gerarRelatorio():void{
 				var login:String = AuthEntity.getInstance().login;
 				var accId:Number = accountsIds.getItemAt(idAcc.selectedIndex) as Number;
-				RemoteFacade.getInstance().generateReport(login,dataInicio.text + " 00:00:00",dataFim.text + " 23:59:59",accId,TipoOperacao.selectedValue.toString(),callBackResult,callBackFault);
+//				RemoteFacade.getInstance().generateReport(login,dataInicio.text + " 00:00:00",dataFim.text + " 23:59:59",accId,TipoOperacao.selectedValue.toString(),callBackResult,callBackFault);
 
 				
 			}
