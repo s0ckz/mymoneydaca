@@ -3,6 +3,7 @@
 
 <mx:Script>
 	<![CDATA[
+		import events.GerarExtratoEvent;
 			import mx.controls.DataGrid;
 			import events.GerarRelatorioEvent;
 			import mx.collections.ArrayCollection;
@@ -57,7 +58,7 @@
 				}else if(tipo == "txt"){
 					RemoteFacade.getInstance().exportBankOperationsTXT(login,addID,nomeArquivo.text);
 				}
-				RemoteFacade.getInstance().
+				
 			}
 			
 			private function getOperationsCallBack(e:ResultEvent):void {
@@ -72,7 +73,7 @@
 			}
 			
 			private function cancelar():void{
-				dispatchEvent(new GerarRelatorioEvent(GerarRelatorioEvent.CANCELAR));
+				dispatchEvent(new GerarExtratoEvent(GerarExtratoEvent.CANCELAR));
 			}
 			
 			
