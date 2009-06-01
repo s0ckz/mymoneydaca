@@ -94,6 +94,12 @@ package remote
 			async.addResponder(new Responder(result, fault));
 		}
 		
+		public function adicionarCompromisso(login:String, descricao:String, data:String, valor:Number, 
+				tipo:String, freq:String, result:Function, fault:Function):void {
+			var async:AsyncToken = remoteObject.addCommitment(login, descricao, data, valor, tipo, freq);
+			async.addResponder(new Responder(result, fault));
+		}
+		
 		public function getAllCompromissos(login:String, result:Function, fault:Function):void {
 			var async:AsyncToken = remoteObject.getAllCommitments(login);
 			async.addResponder(new Responder(result, fault));
@@ -112,14 +118,14 @@ package remote
 			Alert.show(e.fault.toString(), e.fault.faultString);
 		}
 		
-		private function exportBankOperationsTXT(login:String,accId:Number,pathToFile:String,result:Function, fault:Function):void
+		public function exportBankOperationsTXT(login:String,accId:Number,pathToFile:String,result:Function, fault:Function):void
 		
 		{
 			var async : AsyncToken = remoteObject.exportBankOperationsTXT(login, accId,pathToFile)
 			async.addResponder(new Responder(result, fault));
 		}
 
-		private function exportBankOperationsCSV(login:String,accId:Number,pathToFile:String,result:Function, fault:Function):void
+		public function exportBankOperationsCSV(login:String,accId:Number,pathToFile:String,result:Function, fault:Function):void
 		
 		{
 			var async : AsyncToken = remoteObject.exportBankOperationsCSV(login, accId,pathToFile)
