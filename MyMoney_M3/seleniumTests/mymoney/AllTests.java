@@ -12,7 +12,7 @@ public class AllTests {
 		
 		suite.addTestSuite(ContaTest.class);
 		
-		suite.addTestSuite(TransacaoTest.class);
+		suite.addTestSuite(CompromissosTest.class);
 		
 		return suite;
 	}
