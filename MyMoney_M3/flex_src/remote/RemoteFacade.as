@@ -94,12 +94,6 @@ package remote
 			async.addResponder(new Responder(result, fault));
 		}
 		
-		public function adicionarCompromisso(login:String, descricao:String, data:String, valor:Number, 
-				tipo:String, freq:String, result:Function, fault:Function):void {
-			var async:AsyncToken = remoteObject.addCommitment(login, descricao, data, valor, tipo, freq);
-			async.addResponder(new Responder(result, fault));
-		}
-		
 		public function getAllCompromissos(login:String, result:Function, fault:Function):void {
 			var async:AsyncToken = remoteObject.getAllCommitments(login);
 			async.addResponder(new Responder(result, fault));
