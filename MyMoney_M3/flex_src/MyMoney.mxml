@@ -3,6 +3,7 @@
 	xmlns:MyMoneyComps="MyMoneyComps.*" creationComplete="init();" width="100%">
 	<mx:Script>
 		<![CDATA[
+			import events.GerarExtratoEvent;
 			import events.MostrarCompromissosEvent;
 			import mx.controls.Alert;
 			import events.AdicionarCompromissoEvent;
@@ -36,6 +37,8 @@
 				addCompromissoBox.addEventListener(AdicionarCompromissoEvent.CANCELADO, cancelarAddCompromissoHandler);
 				addCompromissoBox.addEventListener(AdicionarCompromissoEvent.ADICIONADO, compromissoAdicionadoHandler);
 				mostrarCompromissosBox.addEventListener(MostrarCompromissosEvent.CANCELAR, cancelarMostrarCompromissosHandler);
+				homeBox.addEventListener(GerarExtratoEvent.GERAREVENTO,exportarExtratoHandler); 
+				extratoDownloadBox.addEventListener(GerarExtratoEvent.CANCELAR, cancelarExportarExtratoHandler);
 				AlertManager.init();
 				
 				// utilizado pelo Selenium
@@ -130,6 +133,17 @@
 			private function cancelarMostrarCompromissosHandler(e:MostrarCompromissosEvent):void {
 				mainViewStack.selectedChild = homeBox;	
 			}
+			// Handlers of GerarExtrato screen
+			private function exportarExtratoHandler(e:GerarExtratoEvent):void{
+				extratoDownloadBox.init();
+				mainViewStack.selectedChild = extratoDownloadBox;
+			}
+			private function cancelarExportarExtratoHandler(e:GerarExtratoEvent):void{
+				homeBox.atualiza();
+				mainViewStack.selectedChild = homeBox;
+			}
+			
+			
 			
 		]]>
 	</mx:Script>
@@ -143,6 +157,7 @@
 			<MyMoneyComps:AdicionarCompromisso id="addCompromissoBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%" />
 			<MyMoneyComps:GerarRelatorio id="gerarRelatorioBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%" />
 			<MyMoneyComps:MostrarCompromissos id="mostrarCompromissosBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%" />
+			<MyMoneyComps:ExtratoDownload id="extratoDownloadBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%" />
 		</mx:ViewStack>	
 	</mx:VBox>
 </mx:Application>

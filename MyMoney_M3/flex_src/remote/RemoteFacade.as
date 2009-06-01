@@ -118,6 +118,19 @@ package remote
 			Alert.show(e.fault.toString(), e.fault.faultString);
 		}
 		
+		private function exportBankOperationsTXT(login:String,accId:Number,pathToFile:String,result:Function, fault:Function):void
+		
+		{
+			var async : AsyncToken = remoteObject.exportBankOperationsTXT(login, accId,pathToFile)
+			async.addResponder(new Responder(result, fault));
+		}
+
+		private function exportBankOperationsCSV(login:String,accId:Number,pathToFile:String,result:Function, fault:Function):void
+		
+		{
+			var async : AsyncToken = remoteObject.exportBankOperationsCSV(login, accId,pathToFile)
+			async.addResponder(new Responder(result, fault));
+		}
 
 	}
 }

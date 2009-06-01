@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<mx:Form xmlns:mx="http://www.adobe.com/2006/mxml" width="500" height="400">
+
 <mx:Script>
 	<![CDATA[
 			import mx.controls.DataGrid;
@@ -42,19 +44,31 @@
 			
 			private function accountsLabelsHandler(e:ResultEvent):void {
 				accountsLabels = e.result as ArrayCollection;
-			
+				
 			}
 			
 			
 			private function gerarExtrato(){
 				var login:String = AuthEntity.getInstance().login;
+				var tipo:String = Formato.selectedValue.toString();
 				var accId:Number = accountsIds.getItemAt(idAcc.selectedIndex) as Number;
-				RemoteFacade.getInstance().getAllOperations(login, accId, getOperationsCallBack, defaultFaultHandler);
+				if(tipo == "csv"){
+					RemoteFacade.getInstance().exportBankOperationsCSV(login,addID,nomeArquivo.text);
+				}else if(tipo == "txt"){
+					RemoteFacade.getInstance().exportBankOperationsTXT(login,addID,nomeArquivo.text);
+				}
+				RemoteFacade.getInstance().
 			}
 			
 			private function getOperationsCallBack(e:ResultEvent):void {
 				this.ultimasOps = e.result as ArrayCollection;
-				
+				var i:Number = 0;
+				var fileContent:String = ""; 
+				while(i<ultimasOps.length){
+					fileContent.concat(ultimasOps.getItemAt(i) + "/");
+					i++
+				}
+				RemoteFacade.getInstance().getAllOperations(login, accId, getOperationsCallBack, defaultFaultHandler);
 			}
 			
 			private function cancelar():void{
@@ -66,8 +80,7 @@
 </mx:Script>
 
 
-<mx:Form xmlns:mx="http://www.adobe.com/2006/mxml" width="500" height="400">
-	<mx:FormItem label="Usuario: " width="100%">
+		<mx:FormItem label="Usuario: " width="100%">
 			<mx:Label text="{getLogin()}" fontSize="16" color="#CDEFC8" fontWeight="bold" letterSpacing="1" paddingTop="5"/>
 		</mx:FormItem>
 		
@@ -75,10 +88,15 @@
 				<mx:ComboBox id="idAcc" dataProvider="{accountsLabels}" />	
 		</mx:FormItem> 	
 		<mx:FormItem label="Formato :" width="100%" borderStyle="solid">
-			<mx:RadioButtonGroup id="TipoOperacao"/>
-			<mx:RadioButton id="csv" label=".CSV" groupName="TipoOperacao" selected="true"/>
-			<mx:RadioButton id="txt" label=".TXT" groupName="TipoOperacao"/>
+			<mx:RadioButtonGroup id="Formato"/>
+			<mx:RadioButton id="csv" label=".CSV" groupName="Formato" selected="true"/>
+			<mx:RadioButton id="txt" label=".TXT" groupName="Formato"/>
 		</mx:FormItem>
+		
+		<mx:FormItem label="Nome do Arquivo: ">
+				<mx:TextInput id="nomeArquivo" width="100%"/>	
+		</mx:FormItem>
+		
 		<mx:HBox width="100%" horizontalAlign="center">
 				<mx:Button label="Gerar" id="gerarButtonGerarRelatorio" click="gerarExtrato();"/>
 				<mx:Button label="Voltar" click="cancelar();"/>
