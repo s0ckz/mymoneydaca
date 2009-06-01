@@ -1,27 +1,6 @@
 package mymoney;
-import junit.framework.TestCase;
 
-import com.thoughtworks.selenium.DefaultSelenium;
-import com.thoughtworks.selenium.FlexUISelenium;
-import com.thoughtworks.selenium.Selenium;
-
-public class ContaTest extends TestCase {
-	private final static String URL = "http://localhost:8080/MyMoney/";
-	private Selenium selenium;
-	private FlexUISelenium flexUITester;
-
-	public void setUp() throws Exception {
-		selenium = new DefaultSelenium("localhost", 4444, "*firefox", URL);
-		selenium.start();
-		selenium.open(URL);
-		flexUITester = new FlexUISelenium(selenium, "MyMoneyId");
-		flexUITester.waitUntilLoaded();
-		Thread.sleep(1000); // para garantir que realmente foi carregado.
-	}
-
-	public void tearDown() throws Exception {
-		 selenium.stop();
-	}
+public class ContaTest extends MyMoneyTestCase {
 
 	public void testCreateAccount() throws Exception {
 		flexUITester.type("leandro").at("login");
@@ -31,7 +10,7 @@ public class ContaTest extends TestCase {
 		assertEquals("Seja bem-vindo!", flexUITester.call("getLastMessage"));
 		flexUITester.click("OK");
 		
-		assertEquals("", flexUITester.call("getNomeContas"));
+		assertEquals("default", flexUITester.call("getNomeContas"));
 		
 		flexUITester.call("addConta");
 		
@@ -58,7 +37,28 @@ public class ContaTest extends TestCase {
 		assertEquals("Conta cadastrada com sucesso!", flexUITester.call("getLastMessage"));
 		flexUITester.click("OK");
 		
-		assertEquals("teste", flexUITester.call("getNomeContas"));
+		assertEquals("default,teste", flexUITester.call("getNomeContas"));
+
+		flexUITester.click("logoutButtonHome");
+		flexUITester.wait(4);
+		assertEquals("Até mais!", flexUITester.call("getLastMessage"));
+		flexUITester.click("OK");
+	}
+
+	public void testRemoveAccount() throws Exception {
+		flexUITester.type("leandro").at("login");
+		flexUITester.type("leandro").at("senha");
+		flexUITester.click("loginButton");
+		flexUITester.wait(4);
+		assertEquals("Seja bem-vindo!", flexUITester.call("getLastMessage"));
+		flexUITester.click("OK");
+
+		assertEquals("default,teste", flexUITester.call("getNomeContas"));
+		
+		flexUITester.call("selecionaConta", "1"); // indice comecando de zero.
+		flexUITester.call("removeConta");
+		flexUITester.wait(3);
+		assertEquals("default", flexUITester.call("getNomeContas"));
 
 		flexUITester.click("logoutButtonHome");
 		flexUITester.wait(4);

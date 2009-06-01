@@ -50,8 +50,14 @@
 			// utilizado pelo Selenium
 			public function criarInterfacesExternas():void {
 				ExternalInterface.addCallback("addConta", addConta);
+				ExternalInterface.addCallback("selecionaConta", selecionaConta);
+				ExternalInterface.addCallback("removeConta", removeConta);
 				ExternalInterface.addCallback("getNomeContas", getNomeContas);
 				ExternalInterface.addCallback("gerarRelatorio", gerarRelatorio);
+			}
+			
+			public function selecionaConta(index:Number):void {
+				accountsList.selectedIndex = index;
 			}
 			
 			public function getNomeContas():String {
