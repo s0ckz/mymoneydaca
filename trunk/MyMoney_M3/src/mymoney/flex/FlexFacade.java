@@ -788,12 +788,25 @@ public class FlexFacade {
 	 * @throws AccountNotFoundException
 	 * @throws PermissionDeniedException
 	 */
-	public Collection<Long> generateReport(String login, String begin,
+	public	Collection<OperationEntry> generateReport(String login, String begin,
 			String end, long idAccount, String typeOperation)
 			throws MissingArgumentException, PermissionDeniedException,
 			AccountNotFoundException, InvalidDateException {
-		return myMoney.generateReport(login, begin, end, idAccount,
-				typeOperation);
+		Collection<OperationEntry> entries = new LinkedList<OperationEntry>();
+		Collection<Long> operationsIds = myMoney.generateReport(login, begin, end, idAccount,
+				typeOperation);;
+		for (long id : operationsIds) {
+			OperationEntry entry = new OperationEntry();
+			entry.setAccId(idAccount);
+			entry.setId(id);
+			entry.setAmount(getOperationAmount(id));
+			entry.setType(getOperationType(id));
+			entry.setWay(getOperationWay(id));
+			entry.setDate(getOperationDate(id));
+			entries.add(entry);
+		}
+		return entries;
+		 
 	}
 
 	// US-11

@@ -109,7 +109,7 @@ package remote
 			var async:AsyncToken = remoteObject.removeCommitment(login, id);
 			async.addResponder(new Responder(result, fault));
 		}
-		public function generateReport(login:String, begin:String , end:String , idAccount:String , tipoOperacao:String , 
+		public function generateReport(login:String, begin:String , end:String , idAccount:Number , tipoOperacao:String , 
 										result:Function, fault:Function):void{
 			var async:AsyncToken = remoteObject.generateReport(login,begin,end,idAccount,tipoOperacao);
 			async.addResponder(new Responder(result, fault));
