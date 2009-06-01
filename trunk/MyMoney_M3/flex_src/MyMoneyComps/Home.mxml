@@ -114,19 +114,6 @@
 				atualizaAccId();
 			}
 			
-//			private function atualizaAccId():void {
-//				var indexAtual:int = -1;
-//				if (accountsIds.contains(AuthEntity.getInstance().accId)) 
-//				  indexAtual = accountsIds.getItemIndex(AuthEntity.getInstance().accId);
-//				Alert.show("accId = " + AuthEntity.getInstance().accId.toString() + ", ids = "+ accountsIds.toString() + ", indexAtual = " + indexAtual);
-//				if (accountsIds.length > 0) {
-//					if (indexAtual != -1) accountsList.selectedIndex = indexAtual;
-//					else accountsList.selectedIndex = 0;
-//					var index:int = accountsList.selectedIndex;
-//					AuthEntity.getInstance().accId = accountsIds.getItemAt(index) as Number;
-//				}
-//				atualizaUltimasOps();
-//			}
 			private function atualizaAccId():void {
 				if (accountsIds.length > 0) {
 					if (AuthEntity.getInstance().isAccIdReseted()) {
@@ -162,20 +149,6 @@
 			private function getOperationsCallBack(e:ResultEvent):void {
 				this.ultimasOps = e.result as ArrayCollection;
 			}
-			
-			private function getPeriodos(mesInicial:int, anoInicial:int, mesFinal:int, anoFinal:int):ArrayCollection {
-				var meses:Array = ["", "Jan", "Fev", "Mar", "Abril", "Maio"];
-				var anos:Array = ["07", "08", "09"];
-				var periodos:ArrayCollection = new ArrayCollection;
-				
-				while (mesInicial <= mesFinal && anoInicial <= anoFinal) {
-					periodos.addItem(meses[mesInicial] + "/" + anoInicial);					
-					mesInicial += 1 % 12;
-					if (mesInicial == 0) anoInicial++;	
-				}
-				
-				return periodos;
-			}			
 			
 			private function logout():void {				
 				HomeController.getInstance().doLogout(AuthEntity.getInstance().login, AuthEntity.getInstance().senha, callBackLogout, callBackFault);
@@ -332,16 +305,6 @@
 				         <mx:DataGridColumn headerText="Tipo" dataField="type"/>
 				      </mx:columns>
 					</mx:DataGrid>		
-					<mx:VBox width="100%">
-						<mx:Label text="Período:"/>
-						<mx:HBox width="100%">
-							<mx:Spacer width="70"/>										
-							<mx:HBox width="100%">
-								<mx:ComboBox dataProvider="{getPeriodos(1,9,5,9)}"/>
-								<mx:Button label="Novo Extrato"/>
-							</mx:HBox>
-						</mx:HBox>	
-					</mx:VBox>
 				</mx:VBox>
 			</mx:Panel>		
 	 	</mx:VBox>	 	 
