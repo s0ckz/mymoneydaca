@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Script>
+	<![CDATA[
+			import mx.controls.DataGrid;
+			import events.GerarRelatorioEvent;
+			import mx.collections.ArrayCollection;
+			import util.AuthEntity;
+			import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import remote.RemoteFacade;
+			import util.AlertManager;
+			
+			
+			private var accountsIds:ArrayCollection;
+			[Bindable]
+			private var accountsLabels:ArrayCollection;
+			[Bindable]
+			private var ultimasOps:ArrayCollection;
+			
+			public function init():void {			
+				carregaAccountsIds();
+			}
+			private function carregaAccountsIds():void {
+				var login:String = AuthEntity.getInstance().login;
+				RemoteFacade.getInstance().getAllAccountsIds(login, accountsIdsHandler, defaultFaultHandler) as ArrayCollection;
+				
+			}
+			
+			private function accountsIdsHandler(e:ResultEvent):void {
+				accountsIds = e.result as ArrayCollection;
+				carregaAccountsLabels();
+			}
+			
+			private function defaultFaultHandler(e:FaultEvent):void {
+				AlertManager.showError(e);
+			}
+			
+			private function carregaAccountsLabels():void {
+				var login:String = AuthEntity.getInstance().login;
+				RemoteFacade.getInstance().getAccountsLabels(login, accountsIds, accountsLabelsHandler, defaultFaultHandler);
+			}
+			
+			private function accountsLabelsHandler(e:ResultEvent):void {
+				accountsLabels = e.result as ArrayCollection;
+			
+			}
+			
+			
+			private function gerarExtrato(){
+				var login:String = AuthEntity.getInstance().login;
+				var accId:Number = accountsIds.getItemAt(idAcc.selectedIndex) as Number;
+				RemoteFacade.getInstance().getAllOperations(login, accId, getOperationsCallBack, defaultFaultHandler);
+			}
+			
+			private function getOperationsCallBack(e:ResultEvent):void {
+				this.ultimasOps = e.result as ArrayCollection;
+				
+			}
+			
+			private function cancelar():void{
+				dispatchEvent(new GerarRelatorioEvent(GerarRelatorioEvent.CANCELAR));
+			}
+			
+			
+	]]>
+</mx:Script>
+
+
+<mx:Form xmlns:mx="http://www.adobe.com/2006/mxml" width="500" height="400">
+	<mx:FormItem label="Usuario: " width="100%">
+			<mx:Label text="{getLogin()}" fontSize="16" color="#CDEFC8" fontWeight="bold" letterSpacing="1" paddingTop="5"/>
+		</mx:FormItem>
+		
+		<mx:FormItem label="Conta: ">
+				<mx:ComboBox id="idAcc" dataProvider="{accountsLabels}" />	
+		</mx:FormItem> 	
+		<mx:FormItem label="Formato :" width="100%" borderStyle="solid">
+			<mx:RadioButtonGroup id="TipoOperacao"/>
+			<mx:RadioButton id="csv" label=".CSV" groupName="TipoOperacao" selected="true"/>
+			<mx:RadioButton id="txt" label=".TXT" groupName="TipoOperacao"/>
+		</mx:FormItem>
+		<mx:HBox width="100%" horizontalAlign="center">
+				<mx:Button label="Gerar" id="gerarButtonGerarRelatorio" click="gerarExtrato();"/>
+				<mx:Button label="Voltar" click="cancelar();"/>
+		</mx:HBox>	
+</mx:Form>
