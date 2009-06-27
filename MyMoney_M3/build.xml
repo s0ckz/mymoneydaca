@@ -18,7 +18,8 @@
     <target name="limpa">
         <delete dir="${classes.dir}"/>
 		<delete dir="${build.dir}" />		
-		<delete dir="${jar.dir}" />		
+		<delete dir="${jar.dir}" />
+		<delete dir="${temp.dir}" />		
     </target>
 
 	<target name="init" depends="limpa">
@@ -67,7 +68,7 @@
 		</javadoc>
 	</target>
     
-    <target name="jar" depends="jarMySQL" >
+    <target name="jar" depends="jarH2" >
 	</target>   
 
 	<target name="jarH2" depends="init,compila,configH2,jarCommon" >
@@ -259,5 +260,32 @@
 		<delete dir="${tomcat}/webapps/MyMoney"/>
 		<copy file="${build.dir}/MyMoney.war" tofile="${tomcat}\webapps\MyMoney.war"/>
 	</target>
+	
+	<target name="ws" depends="jar">
+		
+		<mkdir dir="${temp.dir}"/>
+		<copy todir="${temp.dir}">
+			<fileset dir="${classes.dir}"/>
+		</copy>
+		
+		<mkdir dir="${temp.dir}/lib"/>
+		<copy todir="${temp.dir}/lib">
+			<fileset dir="${webcontent.dir}/WEB-INF/lib"/>
+		</copy>
+		
+		<mkdir dir="${temp.dir}/META-INF"/>
+		<copy file="${ws.cfg.dir}/services.xml" todir="${temp.dir}/META-INF"/>
+			
+		<mkdir dir="${ws.dir}"/>
+		<jar destfile="${ws.dir}/MyMoney.aar">
+			<fileset dir="${temp.dir}"/>			
+		</jar>
+		
+		<copy file="${ws.dir}/MyMoney.aar" todir="${axis.dir}"/>
+		
+		<delete dir="${temp.dir}" />		
+	</target>
+	
+	<target name="all" depends="war,ws"/>
 	
 </project>
