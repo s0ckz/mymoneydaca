@@ -23,6 +23,7 @@ package util
 		public static function showError(e: FaultEvent):void {
 			lastMessage = (e.message as ErrorMessage).rootCause.message;
 			showAlert(lastMessage);
+			//showAlert(e.toString());			
 		}
 		
 		public static function showString(text: String):void {
