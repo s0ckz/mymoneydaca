@@ -409,7 +409,7 @@ public class WebServicesFacade {
 		return myMoney.getOperationAmount(opId);
 	}
 	
-	public Collection<OperationEntry> getAllOperations(String login, long accId) throws PermissionDeniedException, AccountNotFoundException {
+	public OperationEntry[] getAllOperations(String login, long accId) throws PermissionDeniedException, AccountNotFoundException {
 		Collection<OperationEntry> entries = new LinkedList<OperationEntry>();
 		Collection<Long> operationsIds = myMoney.getAllOperations(login, accId);
 		for (long id : operationsIds) {
@@ -422,7 +422,7 @@ public class WebServicesFacade {
 			entry.setDate(getOperationDate(id));
 			entries.add(entry);
 		}
-		return entries;
+		return entries.toArray(new OperationEntry[0]);
 	}
 
 	
@@ -521,7 +521,7 @@ public class WebServicesFacade {
 				frequency);
 	}
 	
-	public Collection<CommitmentEntry> getAllCommitments(String login) throws CommitmentException {
+	public CommitmentEntry[] getAllCommitments(String login) throws CommitmentException {
 		Collection<CommitmentEntry> commitments = new LinkedList<CommitmentEntry>();
 		Collection<Long> ids = myMoney.getAllCommitmentsIds(login);
 		for (long id : ids) {
@@ -534,7 +534,7 @@ public class WebServicesFacade {
 			entry.setValor(getCommitmentAmount(login, id));
 			commitments.add(entry);
 		}
-		return commitments;
+		return commitments.toArray(new CommitmentEntry[0]);
 	}
 
 	/**
@@ -810,7 +810,7 @@ public class WebServicesFacade {
 	 * @throws AccountNotFoundException
 	 * @throws PermissionDeniedException
 	 */
-	public	Collection<OperationEntry> generateReport(String login, String begin,
+	public	OperationEntry[] generateReport(String login, String begin,
 			String end, long idAccount, String typeOperation)
 			throws MissingArgumentException, PermissionDeniedException,
 			AccountNotFoundException, InvalidDateException {
@@ -827,7 +827,7 @@ public class WebServicesFacade {
 			entry.setDate(getOperationDate(id));
 			entries.add(entry);
 		}
-		return entries;
+		return entries.toArray(new OperationEntry[0]);
 		 
 	}
 
