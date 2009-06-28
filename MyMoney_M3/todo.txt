@@ -1,11 +1,11 @@
 bugs:
-- ja comecar clicado em alguma conta
-- atualizar tabela das operacoes qdo mudar add transacao
+- ja comecar clicado em alguma conta => ok
+- atualizar tabela das operacoes qdo mudar add transacao => ok
 - add conta default => ok
 - por nomes das colunas em portugues
-- se voce logar e fechar o browser sem deslogar quando for tentar logar de novu bicho tah pipocando uma exception gigante => eh o user already logged in, agora soh aparece isso.
+- se voce logar e fechar o browser sem deslogar quando for tentar logar de novu bicho tah pipocando uma exception gigante => ok
 
 features:
-- implementar remover transacao
-- implementar agendar transacao 
+- implementar remover transacao => ok
+- implementar agendar transacao => ok
 - fazer timeout
