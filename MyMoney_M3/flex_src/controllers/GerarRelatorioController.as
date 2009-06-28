@@ -3,19 +3,20 @@ package controllers
 	import mx.collections.ArrayCollection;
 	import mx.rpc.AsyncToken;
 	import mx.rpc.Responder;
-	import mx.rpc.remoting.mxml.RemoteObject;
+	import mx.rpc.soap.mxml.WebService;
+	
+	import remote.MyMoneyWebService;
 
 	public class GerarRelatorioController
 	{
 		private static var instance:GerarRelatorioController = null;
 		
-		private var remoteObject:RemoteObject = null;
+		private var remoteObject:WebService = null;
 		
 
 		public function GerarRelatorioController()
 		{
-			this.remoteObject = new RemoteObject("remoteFacade");
-			this.remoteObject.showBusyCursor = false;
+			this.remoteObject = MyMoneyWebService.getInstance();
 		}
 		
 		public static function getInstance():GerarRelatorioController {

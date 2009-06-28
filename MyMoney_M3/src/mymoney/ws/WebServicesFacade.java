@@ -1,8 +1,5 @@
 package mymoney.ws;
 
-import java.util.Collection;
-import java.util.LinkedList;
-
 import mymoney.model.MyMoney;
 import mymoney.model.MyMoneyImpl;
 import mymoney.model.exceptions.AccountNotFoundException;
@@ -14,6 +11,8 @@ import mymoney.model.exceptions.MissingArgumentException;
 import mymoney.model.exceptions.PasswordMismatchException;
 import mymoney.model.exceptions.PermissionDeniedException;
 import mymoney.model.exceptions.UserAlreadyLoggedException;
+import mymoney.model.exceptions.UserNotLoggedException;
+import edu.emory.mathcs.backport.java.util.Arrays;
 
 public class WebServicesFacade {
 
@@ -48,11 +47,12 @@ public class WebServicesFacade {
 		return myMoney.getAllAccountsIds(login).toArray(new Long[0]);
 	}
 
-	public String[] getAccountsLabels(String login, Number[] accountsIds) throws PermissionDeniedException, AccountNotFoundException {
+	public String[] getAccountsLabels(String login, long[] accountsIds) throws PermissionDeniedException, AccountNotFoundException {
+		System.out.println(Arrays.toString(accountsIds));
 		String[] labels = new String[accountsIds.length];
 		int i = 0;
-		for (Number accId : accountsIds) {
-			labels[i++] = getAccountLabel(login, accId.longValue());
+		for (long accId : accountsIds) {
+			labels[i++] = getAccountLabel(login, accId);
 		}
 		return labels;
 	}
@@ -66,6 +66,31 @@ public class WebServicesFacade {
 	 */
 	public String getAccountLabel(String login, Long accId) throws PermissionDeniedException, AccountNotFoundException {
 		return myMoney.getAccountLabel(login, accId);
+	}
+
+	/**
+	 * Executa logout no sistema. Apos executar este metodo, qualquer operacao
+	 * que o usuario deseje realizar serah invalida ate que ele volte a fazer
+	 * login no sistema.
+	 * 
+	 * @param login
+	 *            O login do usuario.
+	 * @param password
+	 *            A senha do usuario.
+	 * @throws InvalidArgumentException
+	 *             Se login e/ou senha forem invalidos.
+	 * @throws LoginUnregisteredException
+	 *             Se o login nao tiver sido cadastrado no sistema.
+	 * @throws PasswordMismatchException
+	 *             Se a senha nao conferir com a cadastrada no sistema.
+	 * @throws UserNotLoggedException
+	 *             Se o usuario nao estiver logado no sistema.
+	 */
+	public String doLogoff(String login, String password)
+			throws InvalidArgumentException, LoginUnregisteredException,
+			PasswordMismatchException, UserNotLoggedException {
+		myMoney.doLogout(login, password);
+		return null;
 	}
 
 }

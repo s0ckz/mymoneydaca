@@ -1,24 +1,22 @@
 package remote
 {
-	import mx.collections.ArrayCollection;
 	import mx.controls.Alert;
 	import mx.rpc.AsyncToken;
 	import mx.rpc.Responder;
 	import mx.rpc.events.FaultEvent;
-	import mx.rpc.remoting.mxml.RemoteObject;
+	import mx.rpc.soap.mxml.WebService;
 	
 	public class RemoteFacade
 	{
 		private static var instance:RemoteFacade = null;
 		
-		private var remoteObject:RemoteObject = null;
+		private var remoteObject:WebService = null;
 		
 		// infelizmente construtores nao podem ser privados.
 		// tem como forcar a usar o outro, mas achei o codigo porco, entao
 		// deixa assim.
 		public function RemoteFacade() {
-			this.remoteObject = new RemoteObject("remoteFacade");
-			this.remoteObject.showBusyCursor = false;
+			this.remoteObject = MyMoneyWebService.getInstance();
 		}
 		
 		public static function getInstance():RemoteFacade {

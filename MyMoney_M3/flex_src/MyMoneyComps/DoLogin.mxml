@@ -10,8 +10,7 @@
 			import mx.rpc.events.ResultEvent;
 			
 			private function signIn():void {
-				wsMyMoney.doLogin.send();
-				//DoLoginController.getInstance().doLogin(login.text, senha.text, callBackResult, callBackFault);
+				DoLoginController.getInstance().doLogin(login.text, senha.text, callBackResult, callBackFault);
 			}
 			
 			private function callBackResult(evt:ResultEvent):void {
@@ -37,20 +36,6 @@
 			
 		]]>
 	</mx:Script>
-	
-	<mx:WebService id="wsMyMoney" 
-		wsdl="http://localhost:8080/axis2/services/MyMoneyService?wsdl"
-		showBusyCursor="true">		
-		<mx:operation name="doLogin"
-			resultFormat="object"
-			result="callBackResult(event);"
-			fault="callBackFault(event);">
-			<mx:request>
-				<login>{login.text}</login>
-				<password>{senha.text}</password>
-			</mx:request>			
-		</mx:operation>
-	</mx:WebService>
 	
 	<mx:Panel title="Efetuar Login" borderColor="0x000000" borderStyle="solid" borderThickness="2" >
 		<mx:Form paddingLeft="20" paddingRight="20" paddingTop="20" width="100%">
