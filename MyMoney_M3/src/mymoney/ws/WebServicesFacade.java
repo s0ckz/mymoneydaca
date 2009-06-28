@@ -12,7 +12,7 @@ import mymoney.model.exceptions.PasswordMismatchException;
 import mymoney.model.exceptions.PermissionDeniedException;
 import mymoney.model.exceptions.UserAlreadyLoggedException;
 import mymoney.model.exceptions.UserNotLoggedException;
-import edu.emory.mathcs.backport.java.util.Arrays;
+import mymoney.model.util.HibernateUtil;
 
 public class WebServicesFacade {
 
@@ -22,17 +22,83 @@ public class WebServicesFacade {
 		myMoney = new MyMoneyImpl();
 	}
 
+	// Utils - utilizado para testes do Selenium
+
+	/**
+	 * Limpa o banco de dados.
+	 */
+	public String cleanAll() {
+		HibernateUtil.cleanAll();
+		return null;
+	}
+
+	/**
+	 * Executa login no sistema. Essa operacao permite que o usuario possa usar
+	 * todas as funcionalidades do MyMoney, por exemplo: cadastrar uma conta,
+	 * adicionar uma operacao financeira, etc.
+	 * 
+	 * @param login
+	 *            O login do usuario.
+	 * @param password
+	 *            A senha do usuario.
+	 * @throws PasswordMismatchException
+	 *             Se a senha nao conferir com a cadastrada no sistema.
+	 * @throws InvalidArgumentException
+	 *             Se login e/ou senha forem invalidos.
+	 * @throws LoginUnregisteredException
+	 *             Se o login nao tiver sido cadastrado no sistema.
+	 * @throws UserAlreadyLoggedException
+	 *             Se o usuario ja estiver logado no sistema.
+	 */
 	public String doLogin(String login, String password)
 			throws PasswordMismatchException, InvalidArgumentException,
 			LoginUnregisteredException, UserAlreadyLoggedException {
 		myMoney.doLogin(login, password);
 		return null;
 	}
-
+	
+	/**
+	 * Retorna <code>true</code> se o usuario estiver logado no sistema, caso
+	 * contrario, retorna <code>false</code>.
+	 * 
+	 * @param login
+	 *            O login do usuario.
+	 * @return Se o usuario estiver logado.
+	 * @throws LoginUnregisteredException
+	 *             Se o login nao tiver sido cadastrado no sistema
+	 */
 	public boolean isLogged(String login) throws LoginUnregisteredException {
 		return myMoney.isLogged(login);
 	}
 	
+	/**
+	 * Realiza cadastro de um novo usuario no sistema. <br>
+	 * Para que o cadastro seja efetuado com sucesso, o parametro login deve ser
+	 * uma cadeia de caracteres de tamanho maior ou igual a 4 contendo apenas
+	 * caracteres que podem ser alfa numericos, underline, hifen ou ponto.
+	 * 
+	 * O e-mail deve ser vazio ou respeitar o seguinte padrao:
+	 * $usuario@$dominio.$extensao, em que $usuario, $dominio devem ser uma
+	 * cadeira de caracteres qualquer de tamanho maior ou igual a 1 e $extensao
+	 * deve ser uma cadeia de letras minusculas.
+	 * 
+	 * @param login
+	 *            O login do usuario.
+	 * @param name
+	 *            O nome do usuario.
+	 * @param gender
+	 *            O sexo do usuario.
+	 * @param eMail
+	 *            O e-mail do usuario.
+	 * @throws MissingArgumentException
+	 *             Se login e/ou nome forem nulos ou vazios.
+	 * @throws InvalidArgumentException
+	 *             Se login for invalido.
+	 * @throws InvalidEmailException
+	 *             Se o e-mail for invalido.
+	 * @throws DuplicatedLoginException
+	 *             Se ja houver um login identico cadastrado.
+	 */
 	public String registerUser(String login, String password, String name,
 			String gender, String mail) throws MissingArgumentException, InvalidArgumentException, InvalidEmailException, DuplicatedLoginException {
 		myMoney.registerUser(login, password, name, gender, mail);
