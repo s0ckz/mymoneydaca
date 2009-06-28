@@ -3,7 +3,6 @@
 	<mx:Script>
 		<![CDATA[
 			import util.WebServicesTypes;
-			import mx.utils.ObjectUtil;
 			
 			import controllers.HomeController;
 			import events.GerarExtratoEvent;
