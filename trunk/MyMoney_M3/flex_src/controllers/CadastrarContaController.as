@@ -2,19 +2,20 @@ package controllers
 {
 	import mx.rpc.AsyncToken;
 	import mx.rpc.Responder;
-	import mx.rpc.remoting.mxml.RemoteObject;
+	import mx.rpc.soap.mxml.WebService;
+	
+	import remote.MyMoneyWebService;
 
 	public class CadastrarContaController
 	{
 		private static var instance:CadastrarContaController = null;
 		
-		private var remoteObject:RemoteObject = null;
+		private var remoteObject:WebService = null;
 		
 
 		public function CadastrarContaController()
 		{
-			this.remoteObject = new RemoteObject("remoteFacade");
-			this.remoteObject.showBusyCursor = false;
+			this.remoteObject = MyMoneyWebService.getInstance();
 		}
 		
 		public static function getInstance():CadastrarContaController {

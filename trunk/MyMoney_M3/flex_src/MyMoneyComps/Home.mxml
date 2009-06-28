@@ -2,6 +2,8 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" creationComplete="init();">
 	<mx:Script>
 		<![CDATA[
+			import util.WebServicesTypes;
+			import mx.utils.ObjectUtil;
 			
 			import controllers.HomeController;
 			import events.GerarExtratoEvent;
@@ -96,7 +98,7 @@
 			}
 			
 			private function accountsIdsHandler(e:ResultEvent):void {
-				accountsIds = e.result as ArrayCollection;
+				accountsIds = WebServicesTypes.getArrayCollection(e.result);
 				carregaAccountsLabels();
 			}
 			
@@ -110,7 +112,7 @@
 			}
 			
 			private function accountsLabelsHandler(e:ResultEvent):void {
-				accountsLabels = e.result as ArrayCollection;
+				accountsLabels = WebServicesTypes.getArrayCollection(e.result);
 				atualizaAccId();
 			}
 			

@@ -3,6 +3,7 @@
 	xmlns:MyMoneyComps="MyMoneyComps.*" creationComplete="init();" width="100%">
 	<mx:Script>
 		<![CDATA[
+			import remote.MyMoneyWebService;
 			import events.GerarExtratoEvent;
 			import events.MostrarCompromissosEvent;
 			import mx.controls.Alert;
@@ -18,6 +19,10 @@
 			import events.GerarRelatorioEvent;
 			
 			private function init():void {
+				// para iniciar o webservice do MyMoney, de forma
+				// que o WSDL seja carregado.
+				MyMoneyWebService.getInstance();
+				
 				loginBox.addEventListener(DoLoginEvent.LOGADO, doLoginHandler);
 				loginBox.addEventListener(DoLoginEvent.CADASTRO, cadastrarUsuarioHandler);
 				homeBox.addEventListener(DoLogoutEvent.LOGOUT, doLogoutHandler);
