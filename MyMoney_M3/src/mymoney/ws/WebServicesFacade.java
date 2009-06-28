@@ -48,7 +48,6 @@ public class WebServicesFacade {
 	}
 
 	public String[] getAccountsLabels(String login, long[] accountsIds) throws PermissionDeniedException, AccountNotFoundException {
-		System.out.println(Arrays.toString(accountsIds));
 		String[] labels = new String[accountsIds.length];
 		int i = 0;
 		for (long accId : accountsIds) {
