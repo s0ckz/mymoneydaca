@@ -148,7 +148,7 @@
 			}
 			
 			private function getOperationsCallBack(e:ResultEvent):void {
-				this.ultimasOps = e.result as ArrayCollection;
+				this.ultimasOps = WebServicesTypes.getArrayCollection(e.result);
 			}
 			
 			private function logout():void {				
