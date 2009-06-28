@@ -44,14 +44,15 @@ public class WebServicesFacade {
 	 * Retorna uma colecao com todas as contas de um dado usuario.
 	 * @param login O login do usuario.
 	 */
-	public Collection<Long> getAllAccountsIds(String login) {
-		return myMoney.getAllAccountsIds(login);
+	public Long[] getAllAccountsIds(String login) {
+		return myMoney.getAllAccountsIds(login).toArray(new Long[0]);
 	}
 
-	public Collection<String> getAccountsLabels(String login, Collection<Number> accountsIds) throws PermissionDeniedException, AccountNotFoundException {
-		Collection<String> labels = new LinkedList<String>();
+	public String[] getAccountsLabels(String login, Number[] accountsIds) throws PermissionDeniedException, AccountNotFoundException {
+		String[] labels = new String[accountsIds.length];
+		int i = 0;
 		for (Number accId : accountsIds) {
-			labels.add(getAccountLabel(login, accId.longValue()));
+			labels[i++] = getAccountLabel(login, accId.longValue());
 		}
 		return labels;
 	}
