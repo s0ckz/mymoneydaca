@@ -1,11 +1,11 @@
 package util
 {
-	import flash.display.Sprite;
 	import flash.external.ExternalInterface;
 	
 	import mx.controls.Alert;
 	import mx.messaging.messages.ErrorMessage;
 	import mx.rpc.events.FaultEvent;
+	import mx.utils.ObjectUtil;
 	
 	public class AlertManager
 	{
@@ -21,9 +21,7 @@ package util
 		}
 		
 		public static function showError(e: FaultEvent):void {
-			lastMessage = (e.message as ErrorMessage).rootCause.message;
-			showAlert(lastMessage);
-			//showAlert(e.toString());			
+			showString(e.fault.faultString);
 		}
 		
 		public static function showString(text: String):void {
