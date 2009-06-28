@@ -2,6 +2,7 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" creationComplete="init();">
 	<mx:Script>
 		<![CDATA[
+			import util.WebServicesTypes;
 			import controllers.MostrarCompromissosController;
 			import util.CommitmentEntry;
 			import util.AlertManager;
@@ -50,7 +51,7 @@
 			}
 			
 			private function carregaCompromissosHandler(e:ResultEvent):void {
-				this.compromissos = e.result as ArrayCollection;
+				this.compromissos = WebServicesTypes.getArrayCollection(e.result);
 			}
 			
 			private function defaultFaultHandler(e:FaultEvent):void {

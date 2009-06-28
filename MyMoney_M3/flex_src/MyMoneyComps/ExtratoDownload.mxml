@@ -3,6 +3,7 @@
 
 <mx:Script>
 	<![CDATA[
+		import util.WebServicesTypes;
 		import events.GerarExtratoEvent;
 			import mx.controls.DataGrid;
 			import events.GerarRelatorioEvent;
@@ -25,12 +26,12 @@
 			}
 			private function carregaAccountsIds():void {
 				var login:String = AuthEntity.getInstance().login;
-				RemoteFacade.getInstance().getAllAccountsIds(login, accountsIdsHandler, defaultFaultHandler) as ArrayCollection;
+				RemoteFacade.getInstance().getAllAccountsIds(login, accountsIdsHandler, defaultFaultHandler);
 				
 			}
 			
 			private function accountsIdsHandler(e:ResultEvent):void {
-				accountsIds = e.result as ArrayCollection;
+				accountsIds = WebServicesTypes.getArrayCollection(e.result);
 				carregaAccountsLabels();
 			}
 			
@@ -44,7 +45,7 @@
 			}
 			
 			private function accountsLabelsHandler(e:ResultEvent):void {
-				accountsLabels = e.result as ArrayCollection;
+				accountsLabels = WebServicesTypes.getArrayCollection(e.result);
 				
 			}
 			
