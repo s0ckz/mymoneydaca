@@ -9,7 +9,9 @@ package util
 		}
 		
 		public static function getArrayCollection(o: Object):ArrayCollection {
-			if (o is ArrayCollection)
+			if (o == null)
+				return new ArrayCollection();
+			else if (o is ArrayCollection)
 				return (o as ArrayCollection);
 			else {
 				var collection:ArrayCollection = new ArrayCollection();
