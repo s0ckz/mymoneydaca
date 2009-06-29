@@ -94,7 +94,7 @@ public class FlashSelenium implements IFlashSelenium {
 	}
 	
 	private boolean isFunction(String prefix) {
-		return selenium.getEval("typeof(" + prefix + "['" + FUNCTION_TO_BE_TESTED + "'])").equals("function");
+		return !selenium.getEval("typeof(" + prefix + "['" + FUNCTION_TO_BE_TESTED + "'])").equals("undefined");
 	}
 
 	public String call(String functionName, String ... args) {
