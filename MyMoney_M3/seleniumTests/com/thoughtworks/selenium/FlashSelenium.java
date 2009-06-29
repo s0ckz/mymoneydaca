@@ -1,7 +1,5 @@
 package com.thoughtworks.selenium;
 
-import com.thoughtworks.selenium.Selenium;
-
 import java.util.Arrays;
 
 /*
@@ -12,6 +10,7 @@ import java.util.Arrays;
  * against the Flash component.  
  **/
 public class FlashSelenium implements IFlashSelenium {
+	private static final String FUNCTION_TO_BE_TESTED = "PercentLoaded";
 	private Selenium selenium;
 	private String flashJSStringPrefix = null;
 	private final String flashObjectId;
@@ -60,18 +59,42 @@ public class FlashSelenium implements IFlashSelenium {
 					createJSPrefix_window_document(flashObjectId),
 					createJSPrefix_document(flashObjectId)
 			};
-			int i = 0;
-			while (flashJSStringPrefix == null && i < prefixes.length) {
+			
+			for (int i = 0; i < prefixes.length; i++) {
 				if (selenium.getEval(prefixes[i] + " == null").equals("false")) {
-					flashJSStringPrefix = prefixes[i] + ".";
+					flashJSStringPrefix = prefixes[i];
+					break;
 				}
-				i++;
 			}
+			
 			if (flashJSStringPrefix == null) {
 				throw new RuntimeException("Impossible to access the flash component. " +
 						"Tried the following prefixes: " + Arrays.toString(prefixes));
+			} else {
+				if (!isFunction(flashJSStringPrefix)) {
+					String prefix = null;
+					boolean functionCaught = false;
+					int childNodesLength = Integer.parseInt(selenium.getEval(flashJSStringPrefix + ".childNodes.length"));
+					for (int i = 0; i < childNodesLength; i++) {
+						prefix = flashJSStringPrefix + ".childNodes[" + i + "]";
+						if (isFunction(prefix)) {
+							flashJSStringPrefix = prefix;
+							functionCaught = true;
+							break;
+						}
+					}
+					if (!functionCaught) {
+						throw new RuntimeException("The flash component was found, but no functions could " +
+								"be acessed. Maybe the Selenium Flex API (SeleniumFlexAPI.swc) isn't present?");
+					}
+				}
+				flashJSStringPrefix += ".";
 			}
 		}
+	}
+	
+	private boolean isFunction(String prefix) {
+		return selenium.getEval("typeof(" + prefix + "['" + FUNCTION_TO_BE_TESTED + "'])").equals("function");
 	}
 
 	public String call(String functionName, String ... args) {
