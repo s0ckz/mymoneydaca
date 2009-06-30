@@ -21,7 +21,6 @@ public class FiltroExcecoesWebService implements Filter {
 	public void doFilter(ServletRequest req, ServletResponse resp,
 			FilterChain chain) throws IOException, ServletException {
 		if (resp instanceof HttpServletResponse) {
-			System.out.println("vou mudar o status!");
 			chain.doFilter(req, new FiltroExcecoesWrapper(
 					(HttpServletResponse) resp));
 		} else
