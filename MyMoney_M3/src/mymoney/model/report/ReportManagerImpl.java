@@ -27,10 +27,10 @@ import com.sun.org.omg.CORBA.OpDescriptionSeqHelper;
 
 /**
  * 
- * Classe que implementa um Relatório
+ * Classe que implementa um Relatï¿½rio
  * 
  * @author Danilo Resende
- * @author Leandro José
+ * @author Leandro Josï¿½
  * @author Rodrigo Bruno
  */
 public class ReportManagerImpl implements ReportManager {
