@@ -71,6 +71,7 @@
 			
 			private function callBackResult(e:ResultEvent):void {
 				dispatchEvent(new GerarRelatorioEvent(GerarRelatorioEvent.RELATORIOGERADO));
+				this.ultimasOps = WebServicesTypes.getArrayCollection(e.result);
 				
 			}
 			
@@ -94,8 +95,8 @@
 				
 		<mx:FormItem label="Tipo da Operação:" width="100%" borderStyle="solid">
 			<mx:RadioButtonGroup id="TipoOperacao"/>
-			<mx:RadioButton id="credito" label="CRÉDITO" groupName="TipoOperacao" selected="true"/>
-			<mx:RadioButton id="debito" label="DÉBITO" groupName="TipoOperacao"/>
+			<mx:RadioButton id="credito" label="CREDITO" groupName="TipoOperacao" selected="true"/>
+			<mx:RadioButton id="debito" label="DEBITO" groupName="TipoOperacao"/>
 		</mx:FormItem>
 				
 		<mx:FormItem label="Data Inicial: " >
